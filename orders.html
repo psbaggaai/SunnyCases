@@ -12,6 +12,7 @@
       .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
       .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
       .banner-title { align-items: center; display: flex; gap: 12px; }
+      .home-title-link { color: inherit; text-decoration: none; }
       h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
       .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
       .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
@@ -60,7 +61,9 @@
           <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
             <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
           </button>
-          <h1>Bagga Case Tracker Dashboard</h1>
+          <a class="home-title-link" href="index.html" aria-label="Go to dashboard home">
+            <h1>Bagga Case Tracker Dashboard</h1>
+          </a>
         </div>
         <a class="back-link" href="index.html">Back to Dashboard</a>
       </div>
