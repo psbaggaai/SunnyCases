@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automation Event Log</title>
+    <style>
+      :root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); --good: #337b45; --bad: #a9473f; --warn: #9b6a12; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
+      body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(105deg, rgba(47,79,128,0.1), transparent 26%, rgba(217,165,58,0.09) 58%, transparent 76%), repeating-linear-gradient(118deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 34px); pointer-events: none; z-index: -1; }
+      .top-banner { background: linear-gradient(112deg, #101b2e 0%, #18365b 47%, #3d5868 100%); box-shadow: 0 16px 34px rgba(13,25,43,0.24), inset 0 -1px 0 rgba(255,255,255,0.12); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); }
+      .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
+      .top-banner-inner { align-items: center; display: flex; gap: 16px; justify-content: space-between; min-height: 36px; }
+      .banner-title { align-items: center; display: flex; gap: 12px; }
+      .home-title-link, .back-link { color: inherit; text-decoration: none; }
+      h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      h3 { font-size: 1rem; line-height: 1.35; margin: 10px 0 0; }
+      p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; white-space: pre-line; }
+      .top-banner-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+      .back-link { font-size: 0.9rem; font-weight: 800; }
+      .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
+      .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
+      .menu-lines { display: grid; gap: 4px; width: 18px; }
+      .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
+      .menu-backdrop { background: rgba(13,25,43,0.42); inset: 0; position: fixed; z-index: 30; }
+      .site-menu { background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(229,237,249,0.98)); border-right: 1px solid rgba(89,123,171,0.24); box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
+      .site-menu.open { transform: translateX(0); }
+      .menu-backdrop[hidden], .site-menu[hidden] { display: none; }
+      .site-menu-head { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; padding-bottom: 16px; }
+      .site-menu-title { font-size: 1rem; font-weight: 850; }
+      .site-menu-subtitle { color: var(--muted); font-size: 0.82rem; font-weight: 700; margin-top: 4px; }
+      .menu-close { background: #eef4ff; border-color: var(--border); color: var(--navy); }
+      .menu-links { display: grid; gap: 8px; padding-top: 18px; }
+      .menu-link, .logout-button { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
+      .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
+      .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
+      .logout-button { background: #fff4f2; border-color: rgba(216,108,99,0.22); color: #a9473f; cursor: pointer; width: 100%; }
+      main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .page-head, .stat-card, .event-row { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
+      .page-head { border-radius: 24px; padding: 24px; }
+      .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+      .stats-grid { display: grid; gap: 14px; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
+      .stat-card { border-radius: 18px; min-height: 116px; padding: 18px; }
+      .stat-value { font-size: clamp(1.45rem, 2.5vw, 2rem); font-weight: 900; line-height: 1.1; margin-top: 8px; overflow-wrap: anywhere; }
+      .stat-note, .muted { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+      .event-list { display: grid; gap: 14px; margin-top: 20px; }
+      .event-row { border-radius: 18px; display: grid; gap: 16px; grid-template-columns: minmax(240px, 1.3fr) minmax(170px, 0.75fr) minmax(210px, 0.95fr) minmax(130px, 0.5fr); padding: 16px; }
+      .event-row.error { border-color: rgba(169,71,63,0.3); }
+      .event-row.warning { border-color: rgba(155,106,18,0.32); }
+      .status-badge { border-radius: 999px; display: inline-flex; font-size: 0.78rem; font-weight: 900; padding: 6px 10px; text-transform: uppercase; }
+      .status-badge.success { background: #eef9f1; color: var(--good); }
+      .status-badge.error { background: #fff4f2; color: var(--bad); }
+      .status-badge.warning { background: #fff8e6; color: var(--warn); }
+      .value { font-weight: 800; line-height: 1.4; overflow-wrap: anywhere; }
+      .row-actions { align-content: start; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
+      .button-link { background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
+      .button-link.secondary { background: #eef9f1; color: var(--good); }
+      .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; padding: 24px; text-align: center; }
+      .magnetic-item { --mag-x: 0px; --mag-y: 0px; --tilt-x: 0deg; --tilt-y: 0deg; --lift: 0px; position: relative; transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--lift)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); transform-style: preserve-3d; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease; will-change: transform; }
+      .magnetic-item::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(125deg, rgba(255,255,255,0.55), transparent 34%, rgba(104,178,224,0.14) 54%, transparent 76%); opacity: 0; pointer-events: none; transition: opacity 180ms ease; }
+      .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
+      .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
+      @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
+      @media (max-width: 980px) { .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .event-row { grid-template-columns: 1fr; } }
+      @media (max-width: 620px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="top-banner">
+      <div class="top-banner-inner">
+        <div class="banner-title">
+          <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
+            <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <a class="home-title-link" href="index.html" aria-label="Go to dashboard home">
+            <h1>Bagga Case Tracker Dashboard</h1>
+          </a>
+        </div>
+        <div class="top-banner-actions">
+          <div class="last-updated-chip" data-last-updated>Last updated: Jun 7, 2026, 3:59 PM PDT</div>
+          <a class="back-link" href="index.html">Back to Dashboard</a>
+        </div>
+      </div>
+    </header>
+    <div class="menu-backdrop" data-menu-close hidden></div>
+    <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
+      <div class="site-menu-head">
+        <div>
+          <div class="site-menu-title">Bagga Case Tracker</div>
+          <div class="site-menu-subtitle">Dashboard navigation</div>
+        </div>
+        <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close><span aria-hidden="true">X</span></button>
+      </div>
+      <div class="menu-links">
+        <a class="menu-link" href="cases.html">Cases</a>
+        <a class="menu-link" href="orders.html">Orders</a>
+        <a class="menu-link" href="documents.html">Documents</a>
+        <a class="menu-link active" href="event-log.html">Event Log</a>
+        <a class="menu-link" href="settings.html">Settings</a>
+      </div>
+      <div class="menu-footer">
+        <button class="logout-button" type="button" data-logout>Logout</button>
+      </div>
+    </nav>
+    <main>
+      <section class="page-head">
+        <div class="label">Automation</div>
+        <h2>Event Log</h2>
+        <p>Recorded outcomes from the case tracker refresh job, including successful runs and errors that prevented completion.</p>
+      </section>
+      <section class="stats-grid" aria-label="Automation summary">
+        <article class="stat-card">
+          <div class="label">Latest Run</div>
+          <div class="stat-value">Success</div>
+          <div class="stat-note">Jun 7, 2026, 3:59 PM PDT</div>
+        </article>
+        <article class="stat-card">
+          <div class="label">Successful</div>
+          <div class="stat-value">1</div>
+          <div class="stat-note">Recorded refreshes</div>
+        </article>
+        <article class="stat-card">
+          <div class="label">Errors</div>
+          <div class="stat-value">0</div>
+          <div class="stat-note">Runs needing attention</div>
+        </article>
+        <article class="stat-card">
+          <div class="label">Last Source</div>
+          <div class="stat-value">GitHub Actions</div>
+          <div class="stat-note">1 total event</div>
+        </article>
+      </section>
+      <section class="event-list">
+        <article class="event-row success">
+          <div>
+            <div class="status-badge success">Success</div>
+            <h3>Bagga Case Tracker Refresh</h3>
+            <p>Refreshed 5 live case(s), preserved 3 existing case(s), and updated tracker timestamps.
+5 refreshed - 3 preserved</p>
+          </div>
+          <div>
+            <div class="label">Started</div>
+            <div class="value">Jun 7, 2026, 3:58 PM PDT</div>
+            <div class="muted">Duration: 1m 59s</div>
+          </div>
+          <div>
+            <div class="label">Runner</div>
+            <div class="value">GitHub Actions - workflow_dispatch - AWS self-hosted runner</div>
+            <div class="muted">Run 27107402457</div>
+          </div>
+          <div class="row-actions"><a class="button-link" href="https://github.com/psbaggaai/BaggaCaseTracker/actions/runs/27107402457" target="_blank" rel="noreferrer">Workflow</a><a class="button-link secondary" href="https://baggacasetracker.pages.dev" target="_blank" rel="noreferrer">Live Site</a></div>
+        </article>
+      </section>
+    </main>
+    <script>
+      const siteLastUpdatedAt = "2026-06-07T22:59:59.227Z";
+      const menu = document.getElementById("siteMenu");
+      const menuBackdrop = document.querySelector(".menu-backdrop");
+      const menuToggle = document.querySelector("[data-menu-toggle]");
+      const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
+      const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
+
+      function setMenuOpen(isOpen) {
+        if (!menu || !menuBackdrop || !menuToggle) return;
+        if (!isOpen && menu.hidden) return;
+        menu.hidden = false;
+        menuBackdrop.hidden = false;
+        requestAnimationFrame(() => {
+          menu.classList.toggle("open", isOpen);
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menu.setAttribute("aria-hidden", String(!isOpen));
+        });
+        if (!isOpen) {
+          window.setTimeout(() => {
+            menu.hidden = true;
+            menuBackdrop.hidden = true;
+          }, 180);
+        }
+      }
+
+      menuToggle?.addEventListener("click", () => setMenuOpen(true));
+      menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
+      logoutButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          localStorage.removeItem("baggaCaseTrackerSession");
+          window.location.href = "index.html";
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+
+      const magneticSelector = ".page-head, .stat-card, .event-row, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .last-updated-chip";
+      const magneticItems = new WeakSet();
+      const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
+
+      function initMagneticUi(root = document) {
+        root.querySelectorAll(magneticSelector).forEach((element) => {
+          element.classList.add("magnetic-item");
+          if (reduceMagneticMotion || magneticItems.has(element)) return;
+          magneticItems.add(element);
+          element.addEventListener("pointermove", (event) => {
+            const rect = element.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+            const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+            const isCompact = element.matches(".menu-button, .menu-close, .menu-link, .logout-button, .button-link, .last-updated-chip");
+            const move = isCompact ? 4 : 7;
+            const tilt = isCompact ? 1.2 : 2.6;
+            element.classList.add("is-magnetic");
+            element.style.setProperty("--mag-x", `${(x * move).toFixed(2)}px`);
+            element.style.setProperty("--mag-y", `${(y * move).toFixed(2)}px`);
+            element.style.setProperty("--tilt-x", `${(-y * tilt).toFixed(2)}deg`);
+            element.style.setProperty("--tilt-y", `${(x * tilt).toFixed(2)}deg`);
+          });
+          element.addEventListener("pointerleave", () => {
+            element.classList.remove("is-magnetic");
+            element.style.setProperty("--mag-x", "0px");
+            element.style.setProperty("--mag-y", "0px");
+            element.style.setProperty("--tilt-x", "0deg");
+            element.style.setProperty("--tilt-y", "0deg");
+          });
+        });
+      }
+
+      initMagneticUi();
+    </script>
+  </body>
+</html>

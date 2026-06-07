@@ -11,6 +11,7 @@ const CASES_PATH = path.join(REPO_DIR, "cases.html");
 const DOCUMENTS_PATH = path.join(REPO_DIR, "documents.html");
 const ORDERS_PATH = path.join(REPO_DIR, "orders.html");
 const SETTINGS_PATH = path.join(REPO_DIR, "settings.html");
+const EVENT_LOG_PATH = path.join(REPO_DIR, "event-log.html");
 const COURT_URL = "https://mphc.gov.in/case-status";
 const KHARGONE_COURT_URL = "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/";
 const ECOURTS_CNR_HISTORY_URL = "https://services.ecourts.gov.in/ecourtindia_v6/?p=cnr_status/viewCNRHistory/";
@@ -909,7 +910,8 @@ function updateOrdersPage(cases, isoTimestamp, label) {
 }
 
 function updateStaticTimestampPages(isoTimestamp, label) {
-  for (const filePath of [SETTINGS_PATH]) {
+  for (const filePath of [SETTINGS_PATH, EVENT_LOG_PATH]) {
+    if (!fs.existsSync(filePath)) continue;
     const html = fs.readFileSync(filePath, "utf8");
     fs.writeFileSync(filePath, replaceLastUpdated(html, isoTimestamp, label));
   }
