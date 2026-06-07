@@ -48,6 +48,7 @@ run(
       "index.html",
       "documents.html",
       "orders.html",
+      "settings.html",
       "package.json",
       "package-lock.json",
       ".gitignore",

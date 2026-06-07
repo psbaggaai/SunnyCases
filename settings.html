@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <style>
+      :root {
+        --bg: #eef4fb;
+        --ink: #1f2b3d;
+        --muted: #63748d;
+        --navy: #172d4d;
+        --border: rgba(105, 131, 173, 0.2);
+        --surface: #fff;
+        --shadow: 0 18px 46px rgba(29, 53, 87, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7fbff 0%, #eaf1f8 100%); }
+      .top-banner { background: var(--navy); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); box-shadow: 0 10px 26px rgba(15, 31, 53, 0.18); }
+      .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
+      .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
+      .banner-title { align-items: center; display: flex; gap: 12px; }
+      h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
+      .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
+      .menu-lines { display: grid; gap: 4px; width: 18px; }
+      .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
+      .menu-backdrop { background: rgba(13,25,43,0.42); inset: 0; position: fixed; z-index: 30; }
+      .site-menu { background: white; box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
+      .site-menu.open { transform: translateX(0); }
+      .menu-backdrop[hidden], .site-menu[hidden] { display: none; }
+      .site-menu-head { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; padding-bottom: 16px; }
+      .site-menu-title { font-size: 1rem; font-weight: 850; }
+      .site-menu-subtitle { color: var(--muted); font-size: 0.82rem; font-weight: 700; margin-top: 4px; }
+      .menu-close { background: #eef4ff; border-color: var(--border); color: var(--navy); }
+      .menu-links { display: grid; gap: 8px; padding-top: 18px; }
+      .menu-link, .logout-button { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
+      .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
+      .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
+      .logout-button { background: #fff4f2; border-color: rgba(216,108,99,0.22); color: #a9473f; cursor: pointer; width: 100%; }
+      main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .page-head, .settings-panel { background: rgba(255,255,255,0.92); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); padding: 24px; }
+      .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      h3 { font-size: 1.15rem; margin: 0; }
+      p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
+      .settings-grid { display: grid; gap: 18px; grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1.2fr); margin-top: 20px; }
+      .profile-summary { display: grid; gap: 14px; margin-top: 18px; }
+      .summary-row { border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .summary-row:last-child { border-bottom: 0; padding-bottom: 0; }
+      .summary-value { font-weight: 850; margin-top: 4px; }
+      .form-stack { display: grid; gap: 16px; margin-top: 18px; }
+      .form-row { display: grid; gap: 8px; }
+      label { color: var(--muted); font-size: 0.82rem; font-weight: 850; letter-spacing: 0.05em; text-transform: uppercase; }
+      input { border: 1px solid rgba(105, 131, 173, 0.34); border-radius: 12px; color: var(--ink); font: inherit; font-weight: 700; min-height: 44px; padding: 10px 12px; width: 100%; }
+      input:focus { border-color: #5b8dee; box-shadow: 0 0 0 4px rgba(91, 141, 238, 0.14); outline: 0; }
+      .button-row { display: flex; flex-wrap: wrap; gap: 10px; }
+      .primary-button, .secondary-button { border: 0; border-radius: 999px; cursor: pointer; font: inherit; font-weight: 850; min-height: 42px; padding: 10px 16px; }
+      .primary-button { background: #315fae; color: white; }
+      .secondary-button { background: #eef4ff; color: #315fae; }
+      .message { border-radius: 14px; color: var(--muted); font-weight: 800; margin-top: 14px; min-height: 20px; padding: 0; }
+      .message.active { background: #eef9f1; color: #337b45; padding: 12px 14px; }
+      .message.error { background: #fff4f2; color: #a9473f; padding: 12px 14px; }
+      @media (max-width: 860px) { .settings-grid { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+    </style>
+  </head>
+  <body>
+    <header class="top-banner">
+      <div class="top-banner-inner">
+        <div class="banner-title">
+          <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
+            <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <h1>Bagga Case Tracker Dashboard</h1>
+        </div>
+        <a class="back-link" href="index.html">Back to Dashboard</a>
+      </div>
+    </header>
+    <div class="menu-backdrop" data-menu-close hidden></div>
+    <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
+      <div class="site-menu-head">
+        <div>
+          <div class="site-menu-title">Bagga Case Tracker</div>
+          <div class="site-menu-subtitle">Dashboard navigation</div>
+        </div>
+        <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close><span aria-hidden="true">X</span></button>
+      </div>
+      <div class="menu-links">
+        <a class="menu-link" href="index.html">Cases</a>
+        <a class="menu-link" href="orders.html">Orders</a>
+        <a class="menu-link" href="documents.html">Documents</a>
+        <a class="menu-link active" href="settings.html">Settings</a>
+      </div>
+      <div class="menu-footer">
+        <button class="logout-button" type="button" data-logout>Logout</button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="page-head">
+        <div class="label">Account Settings</div>
+        <h2>Profile</h2>
+        <p>Create a local profile for this browser, update the username, and change the saved password.</p>
+      </section>
+
+      <section class="settings-grid">
+        <article class="settings-panel">
+          <div class="label">Current Profile</div>
+          <h3 id="profileHeading">No profile created</h3>
+          <div class="profile-summary">
+            <div class="summary-row">
+              <div class="label">Name</div>
+              <div class="summary-value" id="summaryName">-</div>
+            </div>
+            <div class="summary-row">
+              <div class="label">Username</div>
+              <div class="summary-value" id="summaryUsername">-</div>
+            </div>
+            <div class="summary-row">
+              <div class="label">Email</div>
+              <div class="summary-value" id="summaryEmail">-</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="settings-panel">
+          <div class="label">Create Profile</div>
+          <h3>Profile details</h3>
+          <form class="form-stack" id="profileForm">
+            <div class="form-row">
+              <label for="displayName">Name</label>
+              <input id="displayName" autocomplete="name" required />
+            </div>
+            <div class="form-row">
+              <label for="username">Username</label>
+              <input id="username" autocomplete="username" required />
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input id="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="form-row">
+              <label for="password">Password</label>
+              <input id="password" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+            <div class="form-row">
+              <label for="confirmPassword">Confirm Password</label>
+              <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+            <div class="button-row">
+              <button class="primary-button" type="submit">Save Profile</button>
+              <button class="secondary-button" type="button" id="clearProfileButton">Clear Profile</button>
+            </div>
+          </form>
+          <div class="message" id="profileMessage" role="status"></div>
+        </article>
+
+        <article class="settings-panel">
+          <div class="label">Username</div>
+          <h3>Change username</h3>
+          <form class="form-stack" id="usernameForm">
+            <div class="form-row">
+              <label for="newUsername">New Username</label>
+              <input id="newUsername" autocomplete="username" required />
+            </div>
+            <button class="primary-button" type="submit">Update Username</button>
+          </form>
+          <div class="message" id="usernameMessage" role="status"></div>
+        </article>
+
+        <article class="settings-panel">
+          <div class="label">Password</div>
+          <h3>Change password</h3>
+          <form class="form-stack" id="passwordForm">
+            <div class="form-row">
+              <label for="currentPassword">Current Password</label>
+              <input id="currentPassword" type="password" autocomplete="current-password" required />
+            </div>
+            <div class="form-row">
+              <label for="newPassword">New Password</label>
+              <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+            <div class="form-row">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input id="confirmNewPassword" type="password" autocomplete="new-password" minlength="8" required />
+            </div>
+            <button class="primary-button" type="submit">Update Password</button>
+          </form>
+          <div class="message" id="passwordMessage" role="status"></div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const profileKey = "baggaCaseTrackerProfile";
+      const sessionKey = "baggaCaseTrackerSession";
+      const menu = document.getElementById("siteMenu");
+      const menuBackdrop = document.querySelector(".menu-backdrop");
+      const menuToggle = document.querySelector("[data-menu-toggle]");
+      const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
+      const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
+      const profileForm = document.getElementById("profileForm");
+      const usernameForm = document.getElementById("usernameForm");
+      const passwordForm = document.getElementById("passwordForm");
+      const clearProfileButton = document.getElementById("clearProfileButton");
+      const profileMessage = document.getElementById("profileMessage");
+      const usernameMessage = document.getElementById("usernameMessage");
+      const passwordMessage = document.getElementById("passwordMessage");
+
+      function setMenuOpen(isOpen) {
+        if (!menu || !menuBackdrop || !menuToggle) return;
+        if (!isOpen && menu.hidden) return;
+        menu.hidden = false;
+        menuBackdrop.hidden = false;
+        requestAnimationFrame(() => {
+          menu.classList.toggle("open", isOpen);
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menu.setAttribute("aria-hidden", String(!isOpen));
+        });
+        if (!isOpen) {
+          window.setTimeout(() => {
+            menu.hidden = true;
+            menuBackdrop.hidden = true;
+          }, 180);
+        }
+      }
+
+      function setMessage(element, message, isError = false) {
+        element.textContent = message;
+        element.classList.toggle("active", Boolean(message) && !isError);
+        element.classList.toggle("error", Boolean(message) && isError);
+      }
+
+      function getProfile() {
+        try {
+          return JSON.parse(localStorage.getItem(profileKey) || "null");
+        } catch {
+          return null;
+        }
+      }
+
+      async function hashPassword(password) {
+        const data = new TextEncoder().encode(password);
+        const digest = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function renderProfile() {
+        const profile = getProfile();
+        document.getElementById("profileHeading").textContent = profile ? profile.displayName : "No profile created";
+        document.getElementById("summaryName").textContent = profile?.displayName || "-";
+        document.getElementById("summaryUsername").textContent = profile?.username || "-";
+        document.getElementById("summaryEmail").textContent = profile?.email || "-";
+        document.getElementById("displayName").value = profile?.displayName || "";
+        document.getElementById("username").value = profile?.username || "";
+        document.getElementById("email").value = profile?.email || "";
+        document.getElementById("newUsername").value = profile?.username || "";
+      }
+
+      menuToggle?.addEventListener("click", () => setMenuOpen(true));
+      menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
+      logoutButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          localStorage.removeItem(sessionKey);
+          window.location.href = "index.html";
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+
+      profileForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        if (password !== confirmPassword) {
+          setMessage(profileMessage, "Passwords do not match.", true);
+          return;
+        }
+
+        const profile = {
+          displayName: document.getElementById("displayName").value.trim(),
+          username: document.getElementById("username").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          passwordHash: await hashPassword(password),
+          updatedAt: new Date().toISOString(),
+        };
+        localStorage.setItem(profileKey, JSON.stringify(profile));
+        localStorage.setItem(sessionKey, JSON.stringify({ username: profile.username, savedAt: profile.updatedAt }));
+        profileForm.reset();
+        renderProfile();
+        setMessage(profileMessage, "Profile saved for this browser.");
+      });
+
+      usernameForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const profile = getProfile();
+        if (!profile) {
+          setMessage(usernameMessage, "Create a profile first.", true);
+          return;
+        }
+
+        profile.username = document.getElementById("newUsername").value.trim();
+        profile.updatedAt = new Date().toISOString();
+        localStorage.setItem(profileKey, JSON.stringify(profile));
+        renderProfile();
+        setMessage(usernameMessage, "Username updated.");
+      });
+
+      passwordForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const profile = getProfile();
+        if (!profile) {
+          setMessage(passwordMessage, "Create a profile first.", true);
+          return;
+        }
+
+        const currentHash = await hashPassword(document.getElementById("currentPassword").value);
+        const nextPassword = document.getElementById("newPassword").value;
+        const confirmNextPassword = document.getElementById("confirmNewPassword").value;
+        if (currentHash !== profile.passwordHash) {
+          setMessage(passwordMessage, "Current password does not match.", true);
+          return;
+        }
+        if (nextPassword !== confirmNextPassword) {
+          setMessage(passwordMessage, "New passwords do not match.", true);
+          return;
+        }
+
+        profile.passwordHash = await hashPassword(nextPassword);
+        profile.updatedAt = new Date().toISOString();
+        localStorage.setItem(profileKey, JSON.stringify(profile));
+        passwordForm.reset();
+        setMessage(passwordMessage, "Password updated.");
+      });
+
+      clearProfileButton.addEventListener("click", () => {
+        localStorage.removeItem(profileKey);
+        localStorage.removeItem(sessionKey);
+        profileForm.reset();
+        usernameForm.reset();
+        passwordForm.reset();
+        renderProfile();
+        setMessage(profileMessage, "Profile cleared from this browser.");
+      });
+
+      renderProfile();
+    </script>
+  </body>
+</html>

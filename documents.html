@@ -11,8 +11,25 @@
       .top-banner { background: var(--navy); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); box-shadow: 0 10px 26px rgba(15, 31, 53, 0.18); }
       .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
       .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
+      .banner-title { align-items: center; display: flex; gap: 12px; }
       h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
       .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
+      .menu-lines { display: grid; gap: 4px; width: 18px; }
+      .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
+      .menu-backdrop { background: rgba(13,25,43,0.42); inset: 0; position: fixed; z-index: 30; }
+      .site-menu { background: white; box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
+      .site-menu.open { transform: translateX(0); }
+      .menu-backdrop[hidden], .site-menu[hidden] { display: none; }
+      .site-menu-head { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; padding-bottom: 16px; }
+      .site-menu-title { font-size: 1rem; font-weight: 850; }
+      .site-menu-subtitle { color: var(--muted); font-size: 0.82rem; font-weight: 700; margin-top: 4px; }
+      .menu-close { background: #eef4ff; border-color: var(--border); color: var(--navy); }
+      .menu-links { display: grid; gap: 8px; padding-top: 18px; }
+      .menu-link, .logout-button { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
+      .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
+      .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
+      .logout-button { background: #fff4f2; border-color: rgba(216,108,99,0.22); color: #a9473f; cursor: pointer; width: 100%; }
       main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
       .page-head { background: rgba(255,255,255,0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); padding: 24px; }
       .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -32,10 +49,34 @@
   <body>
     <header class="top-banner">
       <div class="top-banner-inner">
-        <h1>Bagga Case Tracker Dashboard</h1>
+        <div class="banner-title">
+          <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
+            <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <h1>Bagga Case Tracker Dashboard</h1>
+        </div>
         <a class="back-link" href="index.html">Back to Dashboard</a>
       </div>
     </header>
+    <div class="menu-backdrop" data-menu-close hidden></div>
+    <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
+      <div class="site-menu-head">
+        <div>
+          <div class="site-menu-title">Bagga Case Tracker</div>
+          <div class="site-menu-subtitle">Dashboard navigation</div>
+        </div>
+        <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close><span aria-hidden="true">X</span></button>
+      </div>
+      <div class="menu-links">
+        <a class="menu-link" href="index.html">Cases</a>
+        <a class="menu-link" href="orders.html">Orders</a>
+        <a class="menu-link active" href="documents.html">Documents</a>
+        <a class="menu-link" href="settings.html">Settings</a>
+      </div>
+      <div class="menu-footer">
+        <button class="logout-button" type="button" data-logout>Logout</button>
+      </div>
+    </nav>
     <main>
       <section class="page-head">
         <div class="label">Case Library</div>
@@ -129,5 +170,42 @@
         </article>
       </section>
     </main>
+    <script>
+      const menu = document.getElementById("siteMenu");
+      const menuBackdrop = document.querySelector(".menu-backdrop");
+      const menuToggle = document.querySelector("[data-menu-toggle]");
+      const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
+      const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
+
+      function setMenuOpen(isOpen) {
+        if (!menu || !menuBackdrop || !menuToggle) return;
+        if (!isOpen && menu.hidden) return;
+        menu.hidden = false;
+        menuBackdrop.hidden = false;
+        requestAnimationFrame(() => {
+          menu.classList.toggle("open", isOpen);
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menu.setAttribute("aria-hidden", String(!isOpen));
+        });
+        if (!isOpen) {
+          window.setTimeout(() => {
+            menu.hidden = true;
+            menuBackdrop.hidden = true;
+          }, 180);
+        }
+      }
+
+      menuToggle?.addEventListener("click", () => setMenuOpen(true));
+      menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
+      logoutButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          localStorage.removeItem("baggaCaseTrackerSession");
+          window.location.href = "index.html";
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+    </script>
   </body>
 </html>
