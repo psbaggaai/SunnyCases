@@ -611,6 +611,14 @@
         display: none;
       }
 
+      body:not([data-page="case-detail"]) .overview,
+      body:not([data-page="case-detail"]) .timeline-grid,
+      body:not([data-page="case-detail"]) .order-grid,
+      body:not([data-page="case-detail"]) .party-grid,
+      body:not([data-page="case-detail"]) .footer-note {
+        display: none !important;
+      }
+
       .overview {
         margin-top: 24px;
       }
