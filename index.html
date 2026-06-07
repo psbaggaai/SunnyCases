@@ -118,6 +118,39 @@
         backdrop-filter: blur(10px);
       }
 
+      .language-switcher {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(10px);
+      }
+
+      .language-switcher label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        opacity: 0.9;
+      }
+
+      .language-switcher select {
+        appearance: none;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(13, 31, 56, 0.22);
+        color: white;
+        border-radius: 999px;
+        padding: 8px 28px 8px 12px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .language-switcher select:focus {
+        outline: 2px solid rgba(137, 199, 255, 0.7);
+        outline-offset: 2px;
+      }
+
       .dot {
         width: 10px;
         height: 10px;
@@ -574,13 +607,20 @@
           <div class="brand">
             <div class="brand-mark" aria-hidden="true"></div>
             <div>
-              <div class="eyebrow">Bagga Legal Analytics</div>
-              <h1>Case Status Dashboard</h1>
+              <div class="eyebrow" id="heroEyebrow">Bagga Legal Analytics</div>
+              <h1 id="heroTitle">Case Status Dashboard</h1>
             </div>
           </div>
           <div class="hero-meta">
-            <div class="pill"><span class="dot"></span> Court snapshot captured on June 6, 2026</div>
+            <div class="pill" id="snapshotPill"><span class="dot"></span> Court snapshot captured on June 6, 2026</div>
             <div class="pill" id="heroBench">Bench: Indore</div>
+            <div class="language-switcher">
+              <label for="languageSelect" id="languageLabel">Language</label>
+              <select id="languageSelect" aria-label="Language selector">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+              </select>
+            </div>
           </div>
         </div>
       </header>
@@ -588,9 +628,9 @@
       <main class="frame">
         <section class="panel case-selector">
           <div class="section">
-            <div class="section-label">Case Selector</div>
-            <h2>Click a case tile to load its legal dashboard</h2>
-            <p class="subcopy">
+            <div class="section-label" id="selectorLabel">Case Selector</div>
+            <h2 id="selectorHeading">Click a case tile to load its legal dashboard</h2>
+            <p class="subcopy" id="selectorSubcopy">
               Live snapshot from the High Court of Madhya Pradesh case status portal, structured into a tracker-style
               dashboard.
             </p>
@@ -601,7 +641,7 @@
         <section class="panel overview" id="dashboardPanel">
           <div class="overview-head">
             <div class="overview-title">
-              <div class="section-label">Case Overview</div>
+              <div class="section-label" id="overviewLabel">Case Overview</div>
               <h2 id="caseHeadline"></h2>
               <p id="caseSummary"></p>
             </div>
@@ -612,12 +652,12 @@
 
           <div class="insight-grid">
             <article class="detail-card">
-              <h3>Quick facts</h3>
+              <h3 id="quickFactsHeading">Quick facts</h3>
               <ul class="detail-list" id="quickFacts"></ul>
             </article>
 
             <article class="detail-card">
-              <h3>Next steps</h3>
+              <h3 id="nextStepsHeading">Next steps</h3>
               <ul class="bullet-list" id="nextSteps"></ul>
             </article>
           </div>
@@ -627,8 +667,8 @@
           <article class="timeline-card">
             <div class="row-between">
               <div>
-                <div class="section-label">Listing History</div>
-                <h3>Recent hearings and listing actions</h3>
+                <div class="section-label" id="listingLabel">Listing History</div>
+                <h3 id="listingHeading">Recent hearings and listing actions</h3>
               </div>
               <span class="badge clear" id="listingCountBadge"></span>
             </div>
@@ -636,8 +676,8 @@
           </article>
 
           <article class="timeline-card">
-            <div class="section-label">Orders</div>
-            <h3>Important order notes</h3>
+            <div class="section-label" id="ordersLabel">Orders</div>
+            <h3 id="ordersHeading">Important order notes</h3>
             <ul class="order-list" id="orderHighlights"></ul>
           </article>
         </section>
@@ -646,8 +686,8 @@
           <article class="data-table-card">
             <div class="row-between">
               <div>
-                <div class="section-label">Pending IAs</div>
-                <h3>Applications that still need disposal</h3>
+                <div class="section-label" id="pendingIasLabel">Pending IAs</div>
+                <h3 id="pendingIasHeading">Applications that still need disposal</h3>
               </div>
               <span class="badge pending" id="pendingIaBadge"></span>
             </div>
@@ -655,10 +695,10 @@
               <table>
                 <thead>
                   <tr>
-                    <th>IA</th>
-                    <th>Particular</th>
-                    <th>Filed by</th>
-                    <th>Filed on</th>
+                    <th id="tableIa">IA</th>
+                    <th id="tableParticular">Particular</th>
+                    <th id="tableFiledBy">Filed by</th>
+                    <th id="tableFiledOn">Filed on</th>
                   </tr>
                 </thead>
                 <tbody id="pendingIaTable"></tbody>
@@ -669,8 +709,8 @@
           <article class="data-table-card">
             <div class="row-between">
               <div>
-                <div class="section-label">Orders Archive</div>
-                <h3>Downloadable orders from the record</h3>
+                <div class="section-label" id="ordersArchiveLabel">Orders Archive</div>
+                <h3 id="ordersArchiveHeading">Downloadable orders from the record</h3>
               </div>
               <span class="badge clear" id="ordersCountBadge"></span>
             </div>
@@ -680,14 +720,14 @@
 
         <section class="order-grid">
           <article class="data-table-card">
-            <div class="section-label">Documents</div>
-            <h3>Filings on record</h3>
+            <div class="section-label" id="documentsLabel">Documents</div>
+            <h3 id="documentsHeading">Filings on record</h3>
             <ul class="doc-list" id="documentsList"></ul>
           </article>
 
           <article class="notice-card">
-            <div class="section-label">Service</div>
-            <h3>Notices and earlier court linkage</h3>
+            <div class="section-label" id="serviceLabel">Service</div>
+            <h3 id="serviceHeading">Notices and earlier court linkage</h3>
             <ul class="simple-list" id="serviceInfo"></ul>
           </article>
         </section>
@@ -696,8 +736,8 @@
           <article class="party-card">
             <div class="party-header">
               <div>
-                <div class="section-label">Petitioners</div>
-                <h3>Petitioner side</h3>
+                <div class="section-label" id="petitionersLabel">Petitioners</div>
+                <h3 id="petitionersHeading">Petitioner side</h3>
               </div>
               <span class="badge live" id="petitionerCount"></span>
             </div>
@@ -707,8 +747,8 @@
           <article class="party-card">
             <div class="party-header">
               <div>
-                <div class="section-label">Respondents</div>
-                <h3>Respondent side</h3>
+                <div class="section-label" id="respondentsLabel">Respondents</div>
+                <h3 id="respondentsHeading">Respondent side</h3>
               </div>
               <span class="badge pending" id="respondentCount"></span>
             </div>
@@ -716,7 +756,7 @@
           </article>
         </section>
 
-        <p class="footer-note">
+        <p class="footer-note" id="footerNote">
           This dashboard is a structured snapshot of the public case-status record at
           <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a>.
           Court data can change without notice, so it should be refreshed before relying on it for filing or hearing
@@ -1060,6 +1100,174 @@
         },
       ];
 
+      const translations = {
+        en: {
+          pageTitle: "Bagga Case Status Dashboard",
+          heroEyebrow: "Bagga Legal Analytics",
+          heroTitle: "Case Status Dashboard",
+          snapshotPill: "Court snapshot captured on June 6, 2026",
+          languageLabel: "Language",
+          selectorLabel: "Case Selector",
+          selectorHeading: "Click a case tile to load its legal dashboard",
+          selectorSubcopy:
+            "Live snapshot from the High Court of Madhya Pradesh case status portal, structured into a tracker-style dashboard.",
+          overviewLabel: "Case Overview",
+          openCourtRecord: "Open court record",
+          quickFactsHeading: "Quick facts",
+          nextStepsHeading: "Next steps",
+          listingLabel: "Listing History",
+          listingHeading: "Recent hearings and listing actions",
+          ordersLabel: "Orders",
+          ordersHeading: "Important order notes",
+          pendingIasLabel: "Pending IAs",
+          pendingIasHeading: "Applications that still need disposal",
+          tableIa: "IA",
+          tableParticular: "Particular",
+          tableFiledBy: "Filed by",
+          tableFiledOn: "Filed on",
+          ordersArchiveLabel: "Orders Archive",
+          ordersArchiveHeading: "Downloadable orders from the record",
+          documentsLabel: "Documents",
+          documentsHeading: "Filings on record",
+          serviceLabel: "Service",
+          serviceHeading: "Notices and earlier court linkage",
+          petitionersLabel: "Petitioners",
+          petitionersHeading: "Petitioner side",
+          respondentsLabel: "Respondents",
+          respondentsHeading: "Respondent side",
+          footerNote:
+            'This dashboard is a structured snapshot of the public case-status record at <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a>. Court data can change without notice, so it should be refreshed before relying on it for filing or hearing decisions.',
+          benchPrefix: "Bench",
+          liveSnapshot: "Live snapshot",
+          nextDate: "Next Date",
+          openCaseDetails: "Open case details",
+          pendingCount: "pending",
+          orderLinks: "order links",
+          timelineEntries: "timeline entries",
+          highCourtOrderPdf: "High Court order PDF",
+          download: "Download",
+          names: "names",
+          advocates: "Advocates",
+          advocatesOnRecord: "Advocates on record",
+          caseSummary:
+            "{type} at {bench} bench. Filed on {filedOn}, last listed on {lastListedOn}, and still marked {status} at {stage} stage.",
+        },
+        hi: {
+          pageTitle: "बग्गा केस स्टेटस डैशबोर्ड",
+          heroEyebrow: "बग्गा लीगल एनालिटिक्स",
+          heroTitle: "केस स्टेटस डैशबोर्ड",
+          snapshotPill: "न्यायालय स्नैपशॉट 6 जून 2026 को लिया गया",
+          languageLabel: "भाषा",
+          selectorLabel: "केस चयन",
+          selectorHeading: "किसी केस डैशलेट पर क्लिक करके उसका डैशबोर्ड खोलें",
+          selectorSubcopy:
+            "मध्य प्रदेश उच्च न्यायालय के केस स्टेटस पोर्टल से लिया गया लाइव स्नैपशॉट, जिसे ट्रैकर-स्टाइल डैशबोर्ड में व्यवस्थित किया गया है।",
+          overviewLabel: "केस अवलोकन",
+          openCourtRecord: "कोर्ट रिकॉर्ड खोलें",
+          quickFactsHeading: "मुख्य तथ्य",
+          nextStepsHeading: "अगले कदम",
+          listingLabel: "लिस्टिंग इतिहास",
+          listingHeading: "हाल की सुनवाई और लिस्टिंग कार्रवाई",
+          ordersLabel: "आदेश",
+          ordersHeading: "महत्वपूर्ण आदेश नोट्स",
+          pendingIasLabel: "लंबित आईए",
+          pendingIasHeading: "वे आवेदन जिनका निपटारा अभी बाकी है",
+          tableIa: "आईए",
+          tableParticular: "विवरण",
+          tableFiledBy: "दाखिलकर्ता",
+          tableFiledOn: "दाखिल दिनांक",
+          ordersArchiveLabel: "आदेश संग्रह",
+          ordersArchiveHeading: "रिकॉर्ड से डाउनलोड किए जा सकने वाले आदेश",
+          documentsLabel: "दस्तावेज़",
+          documentsHeading: "रिकॉर्ड पर दाखिलियाँ",
+          serviceLabel: "सेवा",
+          serviceHeading: "नोटिस और पूर्व न्यायालय लिंक",
+          petitionersLabel: "याचिकाकर्ता",
+          petitionersHeading: "याचिकाकर्ता पक्ष",
+          respondentsLabel: "प्रतिवादी",
+          respondentsHeading: "प्रतिवादी पक्ष",
+          footerNote:
+            'यह डैशबोर्ड <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a> पर उपलब्ध सार्वजनिक केस-स्टेटस रिकॉर्ड का संरचित स्नैपशॉट है। न्यायालय का डेटा बिना सूचना के बदल सकता है, इसलिए फाइलिंग या सुनवाई संबंधी निर्णय लेने से पहले इसे फिर से जांचना चाहिए।',
+          benchPrefix: "पीठ",
+          liveSnapshot: "लाइव स्नैपशॉट",
+          nextDate: "अगली तिथि",
+          openCaseDetails: "केस विवरण खोलें",
+          pendingCount: "लंबित",
+          orderLinks: "आदेश लिंक",
+          timelineEntries: "टाइमलाइन प्रविष्टियाँ",
+          highCourtOrderPdf: "हाई कोर्ट आदेश पीडीएफ",
+          download: "डाउनलोड",
+          names: "नाम",
+          advocates: "अधिवक्ता",
+          advocatesOnRecord: "रिकॉर्ड पर अधिवक्ता",
+          caseSummary:
+            "{type} {bench} पीठ में लंबित है। यह {filedOn} को दाखिल हुआ, {lastListedOn} को अंतिम बार सूचीबद्ध हुआ, और अभी भी {stage} चरण में {status} दिख रहा है।",
+        },
+      };
+
+      const phraseMapHi = {
+        "Writ Petition": "रिट याचिका",
+        "Misc. Criminal Case": "विविध आपराधिक प्रकरण",
+        "Pending": "लंबित",
+        "Motion Hearing": "मोशन हियरिंग",
+        "SB Proposal Pool": "एसबी प्रपोज़ल पूल",
+        "No next date visible": "अगली तिथि दिखाई नहीं दे रही",
+        "Last listed": "अंतिम सूचीकरण",
+        "Pending IAs": "लंबित आईए",
+        "Orders online": "ऑनलाइन आदेश",
+        "Latest filing": "ताज़ा दाखिला",
+        "Most recent hearing date on the public case page": "सार्वजनिक केस पेज पर सबसे हाल की सुनवाई तिथि",
+        "Applications still marked pending": "जो आवेदन अभी भी लंबित चिह्नित हैं",
+        "Downloadable judgement/order entries": "डाउनलोड किए जा सकने वाले आदेश प्रविष्टियाँ",
+        "Reply and vakalatnama were filed by Rajwardhan Gawde": "राजवर्धन गावड़े द्वारा जवाब और वकालतनामा दाखिल किए गए",
+        "One downloadable order is currently listed": "फिलहाल एक डाउनलोड किया जा सकने वाला आदेश सूचीबद्ध है",
+        "Only the stay application remains pending": "केवल स्थगन आवेदन लंबित है",
+        "Vakalatnama filed by Kavanpreet Singh Dawar": "कवनप्रीत सिंह डावर द्वारा वकालतनामा दाखिल किया गया",
+        "Before": "समक्ष",
+        "Stage": "चरण",
+        "Status": "स्थिति",
+        "District shown in record": "रिकॉर्ड में दर्शाया जिला",
+        "Category": "श्रेणी",
+        "Earlier court reference": "पूर्व न्यायालय संदर्भ",
+        "Open case details": "केस विवरण खोलें",
+        "High Court order PDF": "हाई कोर्ट आदेश पीडीएफ",
+        "Stay application": "स्थगन आवेदन",
+      };
+
+      const uiElements = {
+        heroEyebrow: document.getElementById("heroEyebrow"),
+        heroTitle: document.getElementById("heroTitle"),
+        snapshotPill: document.getElementById("snapshotPill"),
+        languageLabel: document.getElementById("languageLabel"),
+        selectorLabel: document.getElementById("selectorLabel"),
+        selectorHeading: document.getElementById("selectorHeading"),
+        selectorSubcopy: document.getElementById("selectorSubcopy"),
+        overviewLabel: document.getElementById("overviewLabel"),
+        quickFactsHeading: document.getElementById("quickFactsHeading"),
+        nextStepsHeading: document.getElementById("nextStepsHeading"),
+        listingLabel: document.getElementById("listingLabel"),
+        listingHeading: document.getElementById("listingHeading"),
+        ordersLabel: document.getElementById("ordersLabel"),
+        ordersHeading: document.getElementById("ordersHeading"),
+        pendingIasLabel: document.getElementById("pendingIasLabel"),
+        pendingIasHeading: document.getElementById("pendingIasHeading"),
+        tableIa: document.getElementById("tableIa"),
+        tableParticular: document.getElementById("tableParticular"),
+        tableFiledBy: document.getElementById("tableFiledBy"),
+        tableFiledOn: document.getElementById("tableFiledOn"),
+        ordersArchiveLabel: document.getElementById("ordersArchiveLabel"),
+        ordersArchiveHeading: document.getElementById("ordersArchiveHeading"),
+        documentsLabel: document.getElementById("documentsLabel"),
+        documentsHeading: document.getElementById("documentsHeading"),
+        serviceLabel: document.getElementById("serviceLabel"),
+        serviceHeading: document.getElementById("serviceHeading"),
+        petitionersLabel: document.getElementById("petitionersLabel"),
+        petitionersHeading: document.getElementById("petitionersHeading"),
+        respondentsLabel: document.getElementById("respondentsLabel"),
+        respondentsHeading: document.getElementById("respondentsHeading"),
+        footerNote: document.getElementById("footerNote"),
+      };
+
       const caseGrid = document.getElementById("caseGrid");
       const heroBench = document.getElementById("heroBench");
       const caseHeadline = document.getElementById("caseHeadline");
@@ -1081,6 +1289,31 @@
       const listingCountBadge = document.getElementById("listingCountBadge");
       const pendingIaBadge = document.getElementById("pendingIaBadge");
       const ordersCountBadge = document.getElementById("ordersCountBadge");
+      const languageSelect = document.getElementById("languageSelect");
+      let currentLanguage = "en";
+
+      function t(key) {
+        return translations[currentLanguage][key] || translations.en[key] || key;
+      }
+
+      function localizeText(text) {
+        if (currentLanguage !== "hi") return text;
+        return phraseMapHi[text] || text;
+      }
+
+      function updateStaticUi() {
+        document.title = t("pageTitle");
+        document.documentElement.lang = currentLanguage === "hi" ? "hi" : "en";
+        Object.entries(uiElements).forEach(([key, el]) => {
+          if (!el) return;
+          if (key === "footerNote") {
+            el.innerHTML = t(key);
+          } else {
+            el.textContent = t(key);
+          }
+        });
+        sourceLink.textContent = t("openCourtRecord");
+      }
 
       function renderCaseCards(activeId) {
         caseGrid.innerHTML = cases
@@ -1088,25 +1321,25 @@
             (item) => `
               <button class="case-card ${item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
                 <div class="case-card-header">
-                  <span class="badge live">Live snapshot</span>
-                  <span class="badge ${item.statusTone}">${item.status}</span>
+                  <span class="badge live">${t("liveSnapshot")}</span>
+                  <span class="badge ${item.statusTone}">${localizeText(item.status)}</span>
                 </div>
                 <div>
                   <div class="case-title">${item.code}</div>
-                  <div class="case-kicker">${item.type} · ${item.bench}</div>
+                  <div class="case-kicker">${localizeText(item.type)} · ${item.bench}</div>
                 </div>
                 <div class="dashlet-meta">
                   <div class="dashlet-stat">
-                    <div class="dashlet-label">Next Date</div>
-                    <div class="dashlet-value">${item.nextVisibleDate || "—"}</div>
+                    <div class="dashlet-label">${t("nextDate")}</div>
+                    <div class="dashlet-value">${localizeText(item.nextVisibleDate || "—")}</div>
                   </div>
                   <div class="dashlet-stat">
-                    <div class="dashlet-label">Pending IAs</div>
+                    <div class="dashlet-label">${t("pendingIasLabel")}</div>
                     <div class="dashlet-value">${item.pendingIAs.length}</div>
                   </div>
                 </div>
                 <div class="dashlet-action">
-                  <span>Open case details</span>
+                  <span>${t("openCaseDetails")}</span>
                   <span>→</span>
                 </div>
               </button>
@@ -1122,10 +1355,17 @@
       function renderDashboard(caseId) {
         const item = cases.find((entry) => entry.id === caseId) || cases[0];
 
+        updateStaticUi();
         renderCaseCards(item.id);
-        heroBench.textContent = `Bench: ${item.bench}`;
+        heroBench.textContent = `${t("benchPrefix")}: ${item.bench}`;
         caseHeadline.textContent = `${item.code} · ${item.title}`;
-        caseSummary.textContent = `${item.type} at ${item.bench} bench. Filed on ${item.filedOn}, last listed on ${item.lastListedOn}, and still marked ${item.status.toLowerCase()} at ${item.stage.toLowerCase()} stage.`;
+        caseSummary.textContent = t("caseSummary")
+          .replace("{type}", localizeText(item.type))
+          .replace("{bench}", item.bench)
+          .replace("{filedOn}", item.filedOn)
+          .replace("{lastListedOn}", item.lastListedOn)
+          .replace("{status}", localizeText(item.status).toLowerCase())
+          .replace("{stage}", localizeText(item.stage).toLowerCase());
         sourceLink.href = item.sourceUrl;
 
         metricsGrid.innerHTML = item.metrics
@@ -1133,10 +1373,10 @@
             (metric) => `
               <article class="metric-card" style="--accent:${metric.accent}">
                 <div class="metric-top">
-                  <div class="detail-label">${metric.label}</div>
+                  <div class="detail-label">${localizeText(metric.label)}</div>
                 </div>
                 <div class="metric-value">${metric.value}</div>
-                <div class="metric-foot">${metric.note}</div>
+                <div class="metric-foot">${localizeText(metric.note)}</div>
               </article>
             `
           )
@@ -1146,25 +1386,25 @@
           .map(
             ([label, value]) => `
               <li>
-                <div class="detail-label">${label}</div>
-                <div class="detail-value">${value}</div>
+                <div class="detail-label">${localizeText(label)}</div>
+                <div class="detail-value">${localizeText(value)}</div>
               </li>
             `
           )
           .join("");
 
-        nextSteps.innerHTML = item.nextSteps.map((step) => `<li>${step}</li>`).join("");
-        listingCountBadge.textContent = `${item.listingTimeline.length} timeline entries`;
+        nextSteps.innerHTML = item.nextSteps.map((step) => `<li>${localizeText(step)}</li>`).join("");
+        listingCountBadge.textContent = `${item.listingTimeline.length} ${t("timelineEntries")}`;
         listingTimeline.innerHTML = item.listingTimeline
           .map(
             (entry) => `
               <li>
                 <div class="hearing-top">
                   <div class="timeline-date">${entry.date}</div>
-                  <div class="muted">${entry.coram}</div>
+                  <div class="muted">${localizeText(entry.coram)}</div>
                 </div>
-                <div class="timeline-purpose">${entry.purpose}</div>
-                <div class="timeline-note">${entry.note}</div>
+                <div class="timeline-purpose">${localizeText(entry.purpose)}</div>
+                <div class="timeline-note">${localizeText(entry.note)}</div>
               </li>
             `
           )
@@ -1175,19 +1415,19 @@
             (entry) => `
               <li>
                 <div class="order-date">${entry.date}</div>
-                <div class="order-summary">${entry.summary}</div>
+                <div class="order-summary">${localizeText(entry.summary)}</div>
               </li>
             `
           )
           .join("");
 
-        pendingIaBadge.textContent = `${item.pendingIAs.length} pending`;
+        pendingIaBadge.textContent = `${item.pendingIAs.length} ${t("pendingCount")}`;
         pendingIaTable.innerHTML = item.pendingIAs
           .map(
             ([ia, particular, filedBy, filedOn]) => `
               <tr>
                 <td>${ia}</td>
-                <td>${particular}</td>
+                <td>${localizeText(particular)}</td>
                 <td>${filedBy}</td>
                 <td>${filedOn}</td>
               </tr>
@@ -1195,16 +1435,16 @@
           )
           .join("");
 
-        ordersCountBadge.textContent = `${item.ordersArchive.length} order links`;
+        ordersCountBadge.textContent = `${item.ordersArchive.length} ${t("orderLinks")}`;
         ordersArchive.innerHTML = item.ordersArchive
           .map(
             ([date, link]) => `
               <li class="row-between">
                 <div>
                   <div class="timeline-date">${date}</div>
-                  <div class="muted">High Court order PDF</div>
+                  <div class="muted">${t("highCourtOrderPdf")}</div>
                 </div>
-                <a class="btn-link" href="${link}" target="_blank" rel="noreferrer">Download</a>
+                <a class="btn-link" href="${link}" target="_blank" rel="noreferrer">${t("download")}</a>
               </li>
             `
           )
@@ -1216,7 +1456,7 @@
               <li class="doc-row">
                 <div>
                   <div class="timeline-date">${docNo}</div>
-                  <div class="muted">${type}</div>
+                  <div class="muted">${localizeText(type)}</div>
                 </div>
                 <div style="text-align:right">
                   <div>${filedBy}</div>
@@ -1227,9 +1467,9 @@
           )
           .join("");
 
-        serviceInfo.innerHTML = item.serviceInfo.map((entry) => `<li>${entry}</li>`).join("");
+        serviceInfo.innerHTML = item.serviceInfo.map((entry) => `<li>${localizeText(entry)}</li>`).join("");
 
-        petitionerCount.textContent = `${item.petitioners.length} names`;
+        petitionerCount.textContent = `${item.petitioners.length} ${t("names")}`;
         petitionersList.innerHTML =
           item.petitioners
             .map(
@@ -1242,12 +1482,12 @@
             .join("") +
           `
             <li>
-              <div class="detail-label">Advocates</div>
+              <div class="detail-label">${t("advocates")}</div>
               <div class="detail-value">${item.petitionerAdvocates.join(", ")}</div>
             </li>
           `;
 
-        respondentCount.textContent = `${item.respondents.length} names`;
+        respondentCount.textContent = `${item.respondents.length} ${t("names")}`;
         respondentsList.innerHTML =
           item.respondents
             .map(
@@ -1260,11 +1500,16 @@
             .join("") +
           `
             <li>
-              <div class="detail-label">Advocates on record</div>
+              <div class="detail-label">${t("advocatesOnRecord")}</div>
               <div class="detail-value">${item.respondentAdvocates.join(", ")}</div>
             </li>
           `;
       }
+
+      languageSelect.addEventListener("change", (event) => {
+        currentLanguage = event.target.value;
+        renderDashboard(document.querySelector(".case-card.active")?.dataset.caseId || cases[0].id);
+      });
 
       renderDashboard(cases[0].id);
     </script>
