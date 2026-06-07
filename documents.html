@@ -47,6 +47,16 @@
       .value { font-weight: 750; line-height: 1.4; }
       .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
       .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; margin-top: 20px; padding: 24px; text-align: center; }
+      body { background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
+      body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(105deg, rgba(47,79,128,0.1), transparent 26%, rgba(217,165,58,0.09) 58%, transparent 76%), repeating-linear-gradient(118deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 34px); pointer-events: none; z-index: -1; }
+      .top-banner { background: linear-gradient(112deg, #101b2e 0%, #18365b 47%, #3d5868 100%); box-shadow: 0 16px 34px rgba(13,25,43,0.24), inset 0 -1px 0 rgba(255,255,255,0.12); }
+      .site-menu { background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(229,237,249,0.98)); border-right: 1px solid rgba(89,123,171,0.24); }
+      .page-head, .row { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border-color: rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
+      .magnetic-item { --mag-x: 0px; --mag-y: 0px; --tilt-x: 0deg; --tilt-y: 0deg; --lift: 0px; position: relative; transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--lift)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); transform-style: preserve-3d; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease; will-change: transform; }
+      .magnetic-item::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(125deg, rgba(255,255,255,0.55), transparent 34%, rgba(104,178,224,0.14) 54%, transparent 76%); opacity: 0; pointer-events: none; transition: opacity 180ms ease; }
+      .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
+      .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
+      @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
       @media (max-width: 860px) { .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
     </style>
   </head>
@@ -228,6 +238,41 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") setMenuOpen(false);
       });
+
+      const magneticSelector = ".page-head, .row, .back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link";
+      const magneticItems = new WeakSet();
+      const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
+
+      function initMagneticUi(root = document) {
+        root.querySelectorAll(magneticSelector).forEach((element) => {
+          element.classList.add("magnetic-item");
+          if (reduceMagneticMotion || magneticItems.has(element)) return;
+          magneticItems.add(element);
+          element.addEventListener("pointermove", (event) => {
+            const rect = element.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+            const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+            const isCompact = element.matches(".back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link");
+            const move = isCompact ? 4 : 7;
+            const tilt = isCompact ? 1.2 : 2.6;
+            element.classList.add("is-magnetic");
+            element.style.setProperty("--mag-x", `${(x * move).toFixed(2)}px`);
+            element.style.setProperty("--mag-y", `${(y * move).toFixed(2)}px`);
+            element.style.setProperty("--tilt-x", `${(-y * tilt).toFixed(2)}deg`);
+            element.style.setProperty("--tilt-y", `${(x * tilt).toFixed(2)}deg`);
+          });
+          element.addEventListener("pointerleave", () => {
+            element.classList.remove("is-magnetic");
+            element.style.setProperty("--mag-x", "0px");
+            element.style.setProperty("--mag-y", "0px");
+            element.style.setProperty("--tilt-x", "0deg");
+            element.style.setProperty("--tilt-y", "0deg");
+          });
+        });
+      }
+
+      initMagneticUi();
     </script>
   </body>
 </html>
