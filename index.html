@@ -285,6 +285,20 @@
         margin-top: 2px;
       }
 
+      .case-summary-line {
+        color: var(--ink);
+        font-size: 0.9rem;
+        line-height: 1.35;
+        margin-top: 10px;
+      }
+
+      .case-petitioner-line {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
       .dashlet-meta {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -353,6 +367,23 @@
       .overview-title p {
         color: var(--muted);
         margin-top: 8px;
+      }
+
+      .case-brief {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .case-brief p {
+        background: #f5f8fe;
+        border: 1px solid #e5ebf7;
+        border-radius: 14px;
+        color: #31435d;
+        font-size: 0.96rem;
+        line-height: 1.45;
+        margin: 0;
+        padding: 10px 12px;
       }
 
       .metrics-grid {
@@ -784,6 +815,7 @@
             <div class="overview-title">
               <div class="section-label" id="overviewLabel">Case Overview</div>
               <h2 id="caseHeadline"></h2>
+              <div class="case-brief" id="caseBrief"></div>
               <p id="caseSummary"></p>
             </div>
             <a class="btn-link" id="sourceLink" href="#" target="_blank" rel="noreferrer">Open court record</a>
@@ -927,6 +959,12 @@
                 "cnr": "MPHC020162452024",
                 "sourceUrl": "https://mphc.gov.in/case-status",
                 "partiesSummary": "4 petitioner(s), 3 respondent(s), 10 pending IA(s)",
+                "dashletSummary": "FIR jurisdiction/protection matter in MP High Court.",
+                "petitionerLine": "Petitioner: Prabhjit Singh Bagga and family.",
+                "summaryLines": [
+                        "This is an MP High Court writ petition by Prabhjit Singh Bagga and family about FIR/case jurisdiction and interim protection tied to the Khargone criminal record.",
+                        "The public record shows interim-protection and stay-related applications; this tracker does not show a final merits outcome."
+                ],
                 "category": "(1) CRIMINAL LAW & PROCEDURE-12100 >> Code of Criminal Procedure, 1973-12102 >>",
                 "district": "LEH LADAKH",
                 "statutory": "FOR ADMISSION and\nIA NO. 4065/2024 - [APPLICATION FOR IGNORING DEFECT] and\nIA NO. 4128/2024 - [APPLICATION FOR IGNORING THE DEFECTS] and IA No.9739/2024-VACATING INTERIM STAY GRANTED VIDE ORDER DATED 06/06/2024 IN I.A. 4828/2024 and IA No.864/2025-DOCUMENT TAKEN ON RECORD and IA No.2249/2025-STAY APPLICATION and IA No.3086/2025-DOCUMENT TAKEN ON RECORD and IA No.3716/2025-STAY APPLICATION and IA No.3717/2025-AMENDMENT IN RECORD and IA No.6826/2025-APPLICATION FOR CLARIFICATION OF THE ORDER and IA No.7317/2025-URGENT HEARING APPLN.",
@@ -1318,6 +1356,12 @@
                 "cnr": "MPHC020030112025",
                 "sourceUrl": "https://mphc.gov.in/case-status",
                 "partiesSummary": "1 petitioner(s), 1 respondent(s), 1 pending IA(s)",
+                "dashletSummary": "Criminal case transfer/jurisdiction in MP High Court under CrPC 407.",
+                "petitionerLine": "Petitioner: Prabhjit Singh Bagga.",
+                "summaryLines": [
+                        "This is the MP High Court criminal transfer/jurisdiction case filed by Prabhjit Singh Bagga against Kartar Kaur Chhabra.",
+                        "Legal context: CrPC Section 407 lets the High Court transfer criminal cases or appeals when justice, convenience, fair trial, or difficult legal questions require it."
+                ],
                 "category": "(1) CRIMINAL LAW & PROCEDURE-12100 >> Code of Criminal Procedure, 1973-12102 >> 03-SECTION 407",
                 "district": "LEH LADAKH",
                 "statutory": "FOR ADMISSION and IA No.1031/2025-STAY APPLICATION",
@@ -1483,6 +1527,12 @@
           cnr: "MP10050048062024",
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar kaur against Prabhjitsingh Bagga",
+          dashletSummary: "HMA Section 9 restitution of conjugal rights case.",
+          petitionerLine: "Petitioner: Kartar kaur.",
+          summaryLines: [
+            "This is Kartar kaur's Section 9 Hindu Marriage Act case against Prabhjitsingh Bagga in Civil Court Khargone.",
+            "Legal context: Section 9 lets an aggrieved spouse seek restitution of conjugal rights when the other spouse withdraws from their society without reasonable excuse.",
+          ],
           category: "Hindu Marriage Act, 1955",
           district: "Mandleshwar / Khargone",
           statutory:
@@ -1664,6 +1714,12 @@
           cnr: "MP10050042942024",
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar Kor against Prabhjitshing",
+          dashletSummary: "BNSS Section 144 maintenance proceeding.",
+          petitionerLine: "Petitioner: Kartar Kor.",
+          summaryLines: [
+            "This is Kartar Kor's BNSS Section 144 maintenance proceeding against Prabhjitshing in Civil Court Khargone.",
+            "Legal context: BNSS Section 144 covers maintenance for wives, children, and parents where a person with sufficient means neglects or refuses to maintain them.",
+          ],
           category: "Bharatiya Nagarik Suraksha Sanhita, 2023",
           district: "Mandleshwar / Khargone",
           statutory:
@@ -1844,6 +1900,12 @@
           cnr: "MP10050024632024",
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar Kor against four Bagga-side respondents",
+          dashletSummary: "Domestic Violence Act Section 23 interim-order proceeding.",
+          petitionerLine: "Petitioner: Kartar Kor.",
+          summaryLines: [
+            "This is Kartar Kor's Domestic Violence Act Section 23 matter against Prabhjit Singh and others in Civil Court Khargone.",
+            "Legal context: Section 23 empowers a Magistrate to grant interim or ex parte orders where the application shows domestic violence or likely domestic violence.",
+          ],
           category: "Protection of Women from Domestic Violence Act, 2005",
           district: "Mandleshwar / Khargone",
           statutory:
@@ -2175,6 +2237,7 @@
 
       const caseGrid = document.getElementById("caseGrid");
       const caseHeadline = document.getElementById("caseHeadline");
+      const caseBrief = document.getElementById("caseBrief");
       const caseSummary = document.getElementById("caseSummary");
       const sourceLink = document.getElementById("sourceLink");
       const metricsGrid = document.getElementById("metricsGrid");
@@ -2240,6 +2303,8 @@
                 <div>
                   <div class="case-title">${item.code}</div>
                   <div class="case-kicker">${localizeText(item.type)} · ${item.bench}</div>
+                  <div class="case-summary-line">${localizeText(item.dashletSummary || item.stage)}</div>
+                  <div class="case-petitioner-line">${localizeText(item.petitionerLine || "")}</div>
                 </div>
                 <div class="dashlet-meta">
                   <div class="dashlet-stat">
@@ -2271,6 +2336,9 @@
         updateStaticUi();
         renderCaseCards(item.id);
         caseHeadline.textContent = `${item.code} · ${item.title}`;
+        caseBrief.innerHTML = (item.summaryLines || [])
+          .map((line) => `<p>${localizeText(line)}</p>`)
+          .join("");
         caseSummary.textContent = t("caseSummary")
           .replace("{type}", localizeText(item.type))
           .replace("{bench}", item.bench)
