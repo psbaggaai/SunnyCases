@@ -505,6 +505,11 @@
         color: #365ca6;
       }
 
+      .badge.completed {
+        background: rgba(103, 178, 109, 0.16);
+        color: #32773f;
+      }
+
       .case-title {
         font-size: 1rem;
         font-weight: 700;
@@ -521,6 +526,10 @@
         font-size: 0.9rem;
         line-height: 1.35;
         margin-top: 10px;
+      }
+
+      .dashlet-summary-mobile {
+        display: none;
       }
 
       .case-petitioner-line {
@@ -556,6 +565,18 @@
         font-size: 0.96rem;
         font-weight: 700;
         line-height: 1.3;
+      }
+
+      .dashlet-value.completed {
+        color: #32773f;
+      }
+
+      .dashlet-subvalue {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 750;
+        line-height: 1.25;
+        margin-top: 5px;
       }
 
       .dashlet-action {
@@ -1137,6 +1158,11 @@
           color: #94670c;
         }
 
+        .case-card .badge.completed {
+          background: rgba(103, 178, 109, 0.18);
+          color: #2f773f;
+        }
+
         .case-title {
           color: var(--ink);
           font-size: 0.98rem;
@@ -1167,6 +1193,14 @@
           -webkit-line-clamp: 2;
         }
 
+        .dashlet-summary-desktop {
+          display: none;
+        }
+
+        .dashlet-summary-mobile {
+          display: inline;
+        }
+
         .case-petitioner-line {
           display: none;
         }
@@ -1193,6 +1227,16 @@
           font-size: 0.78rem;
           line-height: 1.15;
           margin-top: 2px;
+        }
+
+        .case-card .dashlet-value.completed {
+          color: #2f773f;
+        }
+
+        .case-card .dashlet-subvalue {
+          font-size: 0.62rem;
+          line-height: 1.2;
+          margin-top: 4px;
         }
 
         .case-card-header,
@@ -2153,6 +2197,7 @@
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar kaur against Prabhjitsingh Bagga",
           dashletSummary: "HMA Section 9 restitution of conjugal rights case.",
+          mobileDashletSummary: "Section 9 | Restitution",
           petitionerLine: "Petitioner: Kartar kaur.",
           summaryLines: [
             "This is Kartar kaur's Section 9 Hindu Marriage Act case against Prabhjitsingh Bagga in Civil Court Khargone.",
@@ -2341,6 +2386,7 @@
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar Kor against Prabhjitshing",
           dashletSummary: "BNSS Section 144 maintenance proceeding.",
+          mobileDashletSummary: "Section 144 | Maintenance",
           petitionerLine: "Petitioner: Kartar Kor.",
           summaryLines: [
             "This is Kartar Kor's BNSS Section 144 maintenance proceeding against Prabhjitshing in Civil Court Khargone.",
@@ -2528,6 +2574,7 @@
           sourceUrl: "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/",
           partiesSummary: "Kartar Kor against four Bagga-side respondents",
           dashletSummary: "Domestic Violence Act Section 23 interim-order proceeding.",
+          mobileDashletSummary: "Section 23 | Domestic Violence",
           petitionerLine: "Petitioner: Kartar Kor.",
           summaryLines: [
             "This is Kartar Kor's Domestic Violence Act Section 23 matter against Prabhjit Singh and others in Civil Court Khargone.",
@@ -3062,6 +3109,8 @@
           benchPrefix: "Bench",
           courtLocation: "Court location",
           nextDate: "Next Date",
+          lastListed: "Last listed on",
+          completed: "Completed",
           openCaseDetails: "Open case details",
           pendingCount: "pending",
           orderLinks: "order links",
@@ -3111,6 +3160,8 @@
           benchPrefix: "पीठ",
           courtLocation: "न्यायालय स्थान",
           nextDate: "अगली तिथि",
+          lastListed: "आखिरी लिस्टिंग",
+          completed: "पूरा",
           openCaseDetails: "केस विवरण खोलें",
           pendingCount: "लंबित",
           orderLinks: "आदेश लिंक",
@@ -3155,6 +3206,10 @@
         "MP High Court": "मध्य प्रदेश उच्च न्यायालय",
         "Civil Court Khargone": "सिविल न्यायालय खरगोन",
         "Last updated:": "डेटा अपडेट:",
+        "Section 9 | Restitution": "धारा 9 | पुनर्स्थापन",
+        "Section 144 | Maintenance": "धारा 144 | मेंटेनेंस",
+        "Section 23 | Domestic Violence": "धारा 23 | घरेलू हिंसा",
+        "Completed": "पूरा",
       };
 
       const uiElements = {
@@ -3392,6 +3447,22 @@
         return /pending/i.test(item.status);
       }
 
+      function isCompletedCase(item) {
+        return /disposed|completed/i.test(`${item.status || ""} ${item.nextVisibleDate || ""}`);
+      }
+
+      function getCaseStatusTone(item) {
+        return isCompletedCase(item) ? "completed" : item.statusTone;
+      }
+
+      function getCaseStatusLabel(item) {
+        return isCompletedCase(item) ? t("completed") : localizeText(item.status);
+      }
+
+      function getDashletDateValue(item) {
+        return isCompletedCase(item) ? t("completed") : localizeText(item.nextVisibleDate || "—");
+      }
+
       function getFilteredCases() {
         if (currentCaseFilter === "pending") return cases.filter(isPendingCase);
         if (currentCaseFilter === "closed") return cases.filter((item) => !isPendingCase(item));
@@ -3452,18 +3523,22 @@
               <button class="case-card ${isCaseDetailPage && item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
                 <div class="case-card-header">
                   <span class="badge live">${localizeText(item.courtLocation || item.bench)}</span>
-                  <span class="badge ${item.statusTone}">${localizeText(item.status)}</span>
+                  <span class="badge ${getCaseStatusTone(item)}">${getCaseStatusLabel(item)}</span>
                 </div>
                 <div>
                   <div class="case-title">${item.code}</div>
                   <div class="case-kicker">${localizeText(item.type)} · ${localizeText(item.courtLocation || item.bench)}</div>
-                  <div class="case-summary-line">${localizeText(item.dashletSummary || item.stage)}</div>
+                  <div class="case-summary-line">
+                    <span class="dashlet-summary-desktop">${localizeText(item.dashletSummary || item.stage)}</span>
+                    <span class="dashlet-summary-mobile">${localizeText(item.mobileDashletSummary || item.dashletSummary || item.stage)}</span>
+                  </div>
                   <div class="case-petitioner-line">${localizeText(item.petitionerLine || "")}</div>
                 </div>
                 <div class="dashlet-meta">
                   <div class="dashlet-stat">
                     <div class="dashlet-label">${t("nextDate")}</div>
-                    <div class="dashlet-value">${localizeText(item.nextVisibleDate || "—")}</div>
+                    <div class="dashlet-value ${isCompletedCase(item) ? "completed" : ""}">${getDashletDateValue(item)}</div>
+                    <div class="dashlet-subvalue">${t("lastListed")}: ${localizeText(item.lastListedOn || "—")}</div>
                   </div>
                 </div>
                 <div class="dashlet-action">
