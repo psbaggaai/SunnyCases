@@ -252,6 +252,20 @@
         backdrop-filter: blur(10px);
       }
 
+      .welcome-chip {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.94);
+        display: inline-flex;
+        font-size: 0.9rem;
+        font-weight: 800;
+        min-height: 38px;
+        padding: 8px 14px;
+        white-space: nowrap;
+      }
+
       .language-switcher {
         display: inline-flex;
         align-items: center;
@@ -1056,6 +1070,11 @@
           align-items: stretch;
         }
 
+        .welcome-chip {
+          justify-content: center;
+          width: 100%;
+        }
+
         .language-switcher {
           width: 100%;
           justify-content: space-between;
@@ -1158,6 +1177,7 @@
             </a>
           </div>
           <div class="banner-actions">
+            <div class="welcome-chip" id="welcomeChip" aria-live="polite">Welcome, Guest</div>
             <div class="language-switcher">
               <label id="languageLabel">Language</label>
               <div class="language-buttons" role="group" aria-label="Language selector">
@@ -2507,6 +2527,8 @@
           pageTitle: "Bagga Case Tracker Dashboard",
           heroTitle: "Bagga Case Tracker Dashboard",
           languageLabel: "Language",
+          welcomePrefix: "Welcome,",
+          guestName: "Guest",
           selectorLabel: "Case Selector",
           overviewLabel: "Case Overview",
           openCourtRecord: "Open court record",
@@ -2553,6 +2575,8 @@
           pageTitle: "बग्गा केस ट्रैकर डैशबोर्ड",
           heroTitle: "बग्गा केस ट्रैकर डैशबोर्ड",
           languageLabel: "भाषा",
+          welcomePrefix: "स्वागत है,",
+          guestName: "अतिथि",
           selectorLabel: "केस चयन",
           overviewLabel: "केस अवलोकन",
           openCourtRecord: "कोर्ट रिकॉर्ड खोलें",
@@ -2738,6 +2762,7 @@
         ".notice-card",
         ".party-card",
         ".btn-link",
+        ".welcome-chip",
         ".language-button",
         ".menu-button",
         ".menu-close",
@@ -2791,6 +2816,22 @@
         return phraseMapHi[text] || text;
       }
 
+      function getStoredProfile() {
+        try {
+          return JSON.parse(localStorage.getItem("baggaCaseTrackerProfile") || "null");
+        } catch {
+          return null;
+        }
+      }
+
+      function renderWelcome() {
+        const welcomeChip = document.getElementById("welcomeChip");
+        if (!welcomeChip) return;
+        const profile = getStoredProfile();
+        const name = (profile?.displayName || profile?.username || t("guestName")).trim();
+        welcomeChip.textContent = `${t("welcomePrefix")} ${name || t("guestName")}`;
+      }
+
       function updateStaticUi() {
         document.title = t("pageTitle");
         document.documentElement.lang = currentLanguage === "hi" ? "hi" : "en";
@@ -2808,6 +2849,7 @@
           button.classList.toggle("active", isActive);
           button.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
+        renderWelcome();
       }
 
       function isPendingCase(item) {
