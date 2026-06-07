@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Documents</title>
+    <style>
+      :root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7fbff 0%, #eaf1f8 100%); }
+      .top-banner { background: var(--navy); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); box-shadow: 0 10px 26px rgba(15, 31, 53, 0.18); }
+      .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
+      .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
+      h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
+      .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .page-head { background: rgba(255,255,255,0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); padding: 24px; }
+      .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
+      .library { display: grid; gap: 14px; margin-top: 20px; }
+      .row { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 10px 26px rgba(29, 53, 87, 0.08); display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(160px, 0.8fr) minmax(220px, 1.1fr) minmax(150px, 0.8fr); padding: 16px; }
+      .row.orders { grid-template-columns: minmax(180px, 1fr) minmax(120px, 0.6fr) minmax(260px, 1.5fr) minmax(110px, 0.5fr); }
+      .case-code { font-weight: 850; }
+      .muted { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+      .value { font-weight: 750; line-height: 1.4; }
+      .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
+      .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; margin-top: 20px; padding: 24px; text-align: center; }
+      @media (max-width: 860px) { .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+    </style>
+  </head>
+  <body>
+    <header class="top-banner">
+      <div class="top-banner-inner">
+        <h1>Bagga Case Tracker Dashboard</h1>
+        <a class="back-link" href="index.html">Back to Dashboard</a>
+      </div>
+    </header>
+    <main>
+      <section class="page-head">
+        <div class="label">Case Library</div>
+        <h2>All Documents</h2>
+        <p>14 filing and document records collected across 5 tracked cases.</p>
+      </section>
+      <section class="library">
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">6772-2024</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">SHREYANSH JAIN</div></div>
+          <div><div class="label">Filed On</div><div class="value">15-05-2024 12:20:09</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">3914-2024</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">RAJAT LOHIA</div></div>
+          <div><div class="label">Filed On</div><div class="value">12-07-2024 14:10:36</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">12644-2024</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
+          <div><div class="label">Filed On</div><div class="value">13-09-2024 12:38:30</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">13917-2024</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">RETURN</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
+          <div><div class="label">Filed On</div><div class="value">04-10-2024 15:09:18</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">5118-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
+          <div><div class="label">Filed On</div><div class="value">04-04-2025 10:56:07</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">9294-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
+          <div><div class="label">Filed On</div><div class="value">27-06-2025 14:52:06</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">9295-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
+          <div><div class="label">Filed On</div><div class="value">27-06-2025 14:52:35</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">5024-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
+          <div><div class="label">Filed On</div><div class="value">31-07-2025 15:07:24</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">5984-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">TARANDEEP SINGH AJMANI</div></div>
+          <div><div class="label">Filed On</div><div class="value">04-09-2025 14:57:42</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">2769-2026</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">RAJWARDHAN GAWDE</div></div>
+          <div><div class="label">Filed On</div><div class="value">08-04-2026 14:25:11</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Document</div><div class="value">6604-2026</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">RAJWARDHAN GAWDE</div></div>
+          <div><div class="label">Filed On</div><div class="value">08-04-2026 14:26:23</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
+          <div><div class="label">Document</div><div class="value">815-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
+          <div><div class="label">Filed On</div><div class="value">27-01-2025 10:58:09</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
+          <div><div class="label">Document</div><div class="value">286-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">PROCESS APPLICATION</div><div class="muted">AMAN ARORA</div></div>
+          <div><div class="label">Filed On</div><div class="value">13-02-2025 18:03:13</div></div>
+        </article>
+        <article class="row">
+          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
+          <div><div class="label">Document</div><div class="value">1891-2025</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">KAVANPREET SINGH DAWAR</div></div>
+          <div><div class="label">Filed On</div><div class="value">24-03-2025 18:15:58</div></div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

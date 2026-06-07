@@ -46,6 +46,8 @@ run(
     [
       "add",
       "index.html",
+      "documents.html",
+      "orders.html",
       "package.json",
       "package-lock.json",
       ".gitignore",

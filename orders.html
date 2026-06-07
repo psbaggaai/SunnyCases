@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders and Judgments</title>
+    <style>
+      :root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7fbff 0%, #eaf1f8 100%); }
+      .top-banner { background: var(--navy); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); box-shadow: 0 10px 26px rgba(15, 31, 53, 0.18); }
+      .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
+      .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
+      h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
+      .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .page-head { background: rgba(255,255,255,0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); padding: 24px; }
+      .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
+      .library { display: grid; gap: 14px; margin-top: 20px; }
+      .row { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 10px 26px rgba(29, 53, 87, 0.08); display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(160px, 0.8fr) minmax(220px, 1.1fr) minmax(150px, 0.8fr); padding: 16px; }
+      .row.orders { grid-template-columns: minmax(180px, 1fr) minmax(120px, 0.6fr) minmax(260px, 1.5fr) minmax(110px, 0.5fr); }
+      .case-code { font-weight: 850; }
+      .muted { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+      .value { font-weight: 750; line-height: 1.4; }
+      .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
+      .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; margin-top: 20px; padding: 24px; text-align: center; }
+      @media (max-width: 860px) { .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+    </style>
+  </head>
+  <body>
+    <header class="top-banner">
+      <div class="top-banner-inner">
+        <h1>Bagga Case Tracker Dashboard</h1>
+        <a class="back-link" href="index.html">Back to Dashboard</a>
+      </div>
+    </header>
+    <main>
+      <section class="page-head">
+        <div class="label">Case Library</div>
+        <h2>Orders and Judgments</h2>
+        <p>9 downloadable court order or judgment records collected across 5 tracked cases.</p>
+      </section>
+      <section class="library">
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">01 08 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">WP-13441-2024 (PRABHJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH BAGGA AND OTHERS Vs THE STATE OF MADHYA PRADESH AND OTHERS ) Shri Mudit Maheshwari - Advocate for the petitioner. Advocate for the respondent/State.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IllISnJYVkpGQXlOdDVFVnFjTjJPMXc9PSIsInZhbHVlIjoieC9sWXNpV3NKVjVOb3Awc3JWQlZHQT09IiwibWFjIjoiZmMzNjM1ZDFkMDI1MGFmNTZjMGRiMjA5YmI2ZmEzZmM5N2IyNmYxNDAwZDk2MDEyNGFkNGJhNWEyOWI3NDY3OCIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">01 07 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">WP-13441-2024 (PRABHJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH BAGGA AND OTHERS Vs THE STATE OF MADHYA PRADESH AND OTHERS ) None for the petitioner. for respondents/State.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IkgyTU4zUmlKbnh4NzliLzJnWUF3a3c9PSIsInZhbHVlIjoiWkR3dDhkREdCeHE3M0hNTnhpaFhBdz09IiwibWFjIjoiZTkwYjFlYzRiMzMzMGY1MWJkOGU0MmI5Y2U4M2Q3OTNmNzUxNzZmMTk5ZTYyNjU0YWRhY2FjMTIxMDQ4ZTNkZiIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">29 04 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">WP-13441-2024 (PRABHJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH BAGGA AND OTHERS Vs THE STATE OF MADHYA PRADESH AND OTHERS ) Shri R. S.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IkJUSFNtdHoxTm9FSU1QQVoyeThlZEE9PSIsInZhbHVlIjoiMjRCbFd6Y082Tm0wVlhnMHBQMklWdz09IiwibWFjIjoiNjQ4YjRiNTFhYmUwMjQ4OGJmNzIyNWQ2Y2Q2MjNhZjgyYWRiODZkZGU1NWIzYmU1OWYwYjIzNWQ4YTE5Y2M4OSIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">12 03 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Downloadable court order or judgment from the public case record.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IjdGM05XU0pUZFpYdkIrMkVLdDM3WVE9PSIsInZhbHVlIjoiNmlXOHZheUlFOUdsYy9ETnJtelUxUT09IiwibWFjIjoiNDU2M2U2ZGNmODNkNDc3NTk5NTdkMzg1MWMzYTE0MTc4NjVmMDY3ZjUzNjVjNDllYmM0ZTc3YzZhZjMxMDZhYyIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">28 02 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Downloadable court order or judgment from the public case record.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IjZXblI5enRXNW9IZ3BkQ2Y2RkNGTmc9PSIsInZhbHVlIjoiK1dzc1kzbEY0Y1JiNlFkQTB2cUFnZz09IiwibWFjIjoiNzJlZjBlNTI5NzI3MWM4MjhhOTlkOWRjOWJlMjZlNzQ2ZTIwMjA2NzdkNDkxM2EzNDQ2NTU0M2JkZDI4YmZlZCIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">12 09 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Downloadable court order or judgment from the public case record.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6ImJLRVRPRjdlSERHaEE2b2xpQVdqRFE9PSIsInZhbHVlIjoiUWNXRE1rTzZBTjlpaFZuemRuQ211QT09IiwibWFjIjoiMDVmZGYyZjVmYzFkMWI2ZDYwNTA2OGUwZDA0ODE0NDE2NTgwOGQyOGFjZDhjNzMzNjY1ODUxZjYyNGY3NDllYiIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">06 06 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Downloadable court order or judgment from the public case record.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6ImJTMjd4TUhGWlFpZUhTYmM1RFVyNHc9PSIsInZhbHVlIjoiaWgybm9DUS8xc0dZeDJTWThGUnNqZz09IiwibWFjIjoiMDZhYzgzODNjYTA3YTA4OTBlOTE1MTM0NjYyYjNlNWMyMTYxOGZhOTJhOGNhNzg3MWFhMDc1YTk2MDA1ZDNmNSIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
+          <div><div class="label">Date</div><div class="value">22 05 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Downloadable court order or judgment from the public case record.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6ImdVSHVpOGdmTkU4eUU1WGNVODR3SFE9PSIsInZhbHVlIjoiZG5TRXdrZk5saGpuT0RjLy8vc3FPdz09IiwibWFjIjoiZmViZDAxMjNkZjAzYzYzNTMxMjBlYWUxNjMwODI3MWY0YjNjZTMzZTJkYjU4ZDhmYzExZGM2MmMxYTdiZjQ1MyIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
+          <div><div class="label">Date</div><div class="value">10 02 2025</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">MCRC-3868-2025 (PRABHJIT SINGH BAGGA S/O JAGJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH BAGGA Vs KARTAR KAUR CHHABRA ) Shri Ravindra Singh Chhabra, learned senior counsel with Shri Aman Arora, learned counsel for the petitioners. Let notices be issued to the respondent(s) on payment of P.F.</div></div>
+          <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IkhwK2tEaXBrNXoycmJHZWJMeFBnZ2c9PSIsInZhbHVlIjoicjkrRlFwVmlZOTAwd05INFQvdW9lUT09IiwibWFjIjoiZGY1NDdlYjYzZThlYzhlMWQxNDk0OTgyNzI1N2I0ZDNhMzMyNTczYmMyODM4NzA0ZDlmMmFmNzk2ZjFmMmRkNiIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

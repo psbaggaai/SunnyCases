@@ -186,6 +186,68 @@
         backdrop-filter: blur(14px);
       }
 
+      .highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .highlight-card {
+        min-height: 94px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 14px 34px rgba(29, 53, 87, 0.09);
+        color: var(--ink);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 16px;
+        text-align: left;
+        text-decoration: none;
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .highlight-card:hover,
+      .highlight-card.active {
+        border-color: #7ea7f4;
+        box-shadow: 0 18px 34px rgba(76, 112, 180, 0.16);
+        transform: translateY(-2px);
+      }
+
+      .highlight-label {
+        color: var(--muted);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .highlight-value {
+        font-size: 2rem;
+        font-weight: 850;
+        line-height: 1;
+        margin-top: 12px;
+      }
+
+      .highlight-note {
+        color: var(--muted);
+        font-size: 0.83rem;
+        font-weight: 700;
+        margin-top: 8px;
+      }
+
+      .case-empty {
+        border: 1px dashed #bed0ea;
+        border-radius: var(--radius-lg);
+        color: var(--muted);
+        font-weight: 700;
+        padding: 22px;
+        text-align: center;
+      }
+
       .section {
         padding: 28px;
       }
@@ -597,6 +659,10 @@
       }
 
       @media (max-width: 1100px) {
+        .highlight-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
         .insight-grid,
         .timeline-grid,
         .order-grid,
@@ -623,6 +689,10 @@
       }
 
       @media (max-width: 720px) {
+        .highlight-grid {
+          grid-template-columns: 1fr;
+        }
+
         .top-banner {
           padding: 8px 14px;
         }
@@ -803,6 +873,34 @@
       </header>
 
       <main class="frame">
+        <section class="highlight-grid" aria-label="Case tracker highlights">
+          <button class="highlight-card active" type="button" data-filter="all">
+            <span class="highlight-label">Total Cases</span>
+            <span class="highlight-value" id="totalCasesCount">0</span>
+            <span class="highlight-note">Show every tracked case</span>
+          </button>
+          <button class="highlight-card" type="button" data-filter="pending">
+            <span class="highlight-label">Pending Cases</span>
+            <span class="highlight-value" id="pendingCasesCount">0</span>
+            <span class="highlight-note">Cases still marked pending</span>
+          </button>
+          <button class="highlight-card" type="button" data-filter="closed">
+            <span class="highlight-label">Closed Cases</span>
+            <span class="highlight-value" id="closedCasesCount">0</span>
+            <span class="highlight-note">Disposed or closed matters</span>
+          </button>
+          <a class="highlight-card" href="documents.html">
+            <span class="highlight-label">Documents</span>
+            <span class="highlight-value" id="documentsCount">0</span>
+            <span class="highlight-note">Open document library</span>
+          </a>
+          <a class="highlight-card" href="orders.html">
+            <span class="highlight-label">Orders</span>
+            <span class="highlight-value" id="ordersCount">0</span>
+            <span class="highlight-note">Open orders and judgments</span>
+          </a>
+        </section>
+
         <section class="panel case-selector">
           <div class="section">
             <div class="section-label" id="selectorLabel">Case Selector</div>
@@ -2256,8 +2354,16 @@
       const listingCountBadge = document.getElementById("listingCountBadge");
       const pendingIaBadge = document.getElementById("pendingIaBadge");
       const ordersCountBadge = document.getElementById("ordersCountBadge");
+      const highlightCards = Array.from(document.querySelectorAll(".highlight-card[data-filter]"));
+      const totalCasesCount = document.getElementById("totalCasesCount");
+      const pendingCasesCount = document.getElementById("pendingCasesCount");
+      const closedCasesCount = document.getElementById("closedCasesCount");
+      const documentsCount = document.getElementById("documentsCount");
+      const ordersCount = document.getElementById("ordersCount");
+      const detailSections = Array.from(document.querySelectorAll(".overview, .timeline-grid, .order-grid, .party-grid"));
       const languageButtons = Array.from(document.querySelectorAll(".language-button"));
       let currentLanguage = "en";
+      let currentCaseFilter = "all";
 
       function pluralize(count, singular, plural = `${singular}s`) {
         return `${count} ${count === 1 ? singular : plural}`;
@@ -2291,8 +2397,43 @@
         });
       }
 
+      function isPendingCase(item) {
+        return /pending/i.test(item.status);
+      }
+
+      function getFilteredCases() {
+        if (currentCaseFilter === "pending") return cases.filter(isPendingCase);
+        if (currentCaseFilter === "closed") return cases.filter((item) => !isPendingCase(item));
+        return cases;
+      }
+
+      function updateHighlightCounts() {
+        totalCasesCount.textContent = cases.length;
+        pendingCasesCount.textContent = cases.filter(isPendingCase).length;
+        closedCasesCount.textContent = cases.filter((item) => !isPendingCase(item)).length;
+        documentsCount.textContent = cases.reduce((sum, item) => sum + item.documents.length, 0);
+        ordersCount.textContent = cases.reduce((sum, item) => sum + item.ordersArchive.length, 0);
+        highlightCards.forEach((card) => {
+          card.classList.toggle("active", card.dataset.filter === currentCaseFilter);
+        });
+      }
+
+      function setDetailVisibility(isVisible) {
+        detailSections.forEach((section) => {
+          section.hidden = !isVisible;
+        });
+      }
+
       function renderCaseCards(activeId) {
-        caseGrid.innerHTML = cases
+        const visibleCases = getFilteredCases();
+        if (visibleCases.length === 0) {
+          caseGrid.innerHTML = `<div class="case-empty">No ${currentCaseFilter} cases are currently tracked.</div>`;
+          updateHighlightCounts();
+          setDetailVisibility(false);
+          return;
+        }
+
+        caseGrid.innerHTML = visibleCases
           .map(
             (item) => `
               <button class="case-card ${item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
@@ -2325,6 +2466,7 @@
           )
           .join("");
 
+        updateHighlightCounts();
         caseGrid.querySelectorAll(".case-card").forEach((card) => {
           card.addEventListener("click", () => renderDashboard(card.dataset.caseId));
         });
@@ -2333,6 +2475,7 @@
       function renderDashboard(caseId) {
         const item = cases.find((entry) => entry.id === caseId) || cases[0];
 
+        setDetailVisibility(true);
         updateStaticUi();
         renderCaseCards(item.id);
         caseHeadline.textContent = `${item.code} · ${item.title}`;
@@ -2503,6 +2646,18 @@
         button.addEventListener("click", () => {
           currentLanguage = button.dataset.lang;
           renderDashboard(document.querySelector(".case-card.active")?.dataset.caseId || cases[0].id);
+        });
+      });
+
+      highlightCards.forEach((card) => {
+        card.addEventListener("click", () => {
+          currentCaseFilter = card.dataset.filter;
+          const visibleCases = getFilteredCases();
+          if (visibleCases.length > 0) {
+            renderDashboard(visibleCases[0].id);
+          } else {
+            renderCaseCards(cases[0].id);
+          }
         });
       });
 
