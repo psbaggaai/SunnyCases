@@ -26,6 +26,10 @@
       .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
       .top-banner-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
       .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
+      .settings-language-block { align-items: center; border-bottom: 1px solid var(--border); display: flex; gap: 18px; justify-content: space-between; margin-bottom: 18px; padding-bottom: 18px; }
+      .settings-language-buttons { align-items: center; background: rgba(238,244,255,0.9); border: 1px solid var(--border); border-radius: 999px; display: inline-flex; gap: 6px; padding: 5px; }
+      .language-button { background: transparent; border: 0; border-radius: 999px; color: var(--muted); cursor: pointer; font: inherit; font-size: 0.92rem; font-weight: 850; min-height: 36px; min-width: 96px; padding: 8px 16px; }
+      .language-button.active { background: white; box-shadow: 0 8px 20px rgba(29,53,87,0.12); color: var(--navy); }
       .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
       .menu-lines { display: grid; gap: 4px; width: 18px; }
       .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
@@ -76,7 +80,7 @@
       .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
       .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
       @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
-      @media (max-width: 860px) { .settings-grid { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } }
+      @media (max-width: 860px) { .settings-grid { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .settings-language-block { align-items: stretch; flex-direction: column; } .settings-language-buttons { width: 100%; } .language-button { flex: 1 1 0; min-width: 0; } }
     </style>
   </head>
   <body>
@@ -118,93 +122,103 @@
 
     <main>
       <section class="page-head">
-        <div class="label">Account Settings</div>
-        <h2>Profile</h2>
-        <p>Create a local profile for this browser, update the username, and change the saved password.</p>
+        <div class="settings-language-block">
+          <div>
+            <div class="label" data-i18n="languageLabel">Language</div>
+            <p data-i18n="languageHelp">Choose the dashboard language for this browser.</p>
+          </div>
+          <div class="settings-language-buttons" role="group" aria-label="Language selector">
+            <button type="button" class="language-button active" data-lang="en" aria-pressed="true">English</button>
+            <button type="button" class="language-button" data-lang="hi" aria-pressed="false">हिंदी</button>
+          </div>
+        </div>
+        <div class="label" data-i18n="accountSettings">Account Settings</div>
+        <h2 data-i18n="profileTitle">Profile</h2>
+        <p data-i18n="profileIntro">Create a local profile for this browser, update the username, and change the saved password.</p>
       </section>
 
       <section class="settings-grid">
         <article class="settings-panel">
-          <div class="label">Current Profile</div>
+          <div class="label" data-i18n="currentProfile">Current Profile</div>
           <h3 id="profileHeading">No profile created</h3>
           <div class="profile-summary">
             <div class="summary-row">
-              <div class="label">Name</div>
+              <div class="label" data-i18n="nameLabel">Name</div>
               <div class="summary-value" id="summaryName">-</div>
             </div>
             <div class="summary-row">
-              <div class="label">Username</div>
+              <div class="label" data-i18n="usernameLabel">Username</div>
               <div class="summary-value" id="summaryUsername">-</div>
             </div>
             <div class="summary-row">
-              <div class="label">Email</div>
+              <div class="label" data-i18n="emailLabel">Email</div>
               <div class="summary-value" id="summaryEmail">-</div>
             </div>
           </div>
         </article>
 
         <article class="settings-panel">
-          <div class="label">Create Profile</div>
-          <h3>Profile details</h3>
+          <div class="label" data-i18n="createProfile">Create Profile</div>
+          <h3 data-i18n="profileDetails">Profile details</h3>
           <form class="form-stack" id="profileForm">
             <div class="form-row">
-              <label for="displayName">Name</label>
+              <label for="displayName" data-i18n="nameLabel">Name</label>
               <input id="displayName" autocomplete="name" required />
             </div>
             <div class="form-row">
-              <label for="username">Username</label>
+              <label for="username" data-i18n="usernameLabel">Username</label>
               <input id="username" autocomplete="username" required />
             </div>
             <div class="form-row">
-              <label for="email">Email</label>
+              <label for="email" data-i18n="emailLabel">Email</label>
               <input id="email" type="email" autocomplete="email" required />
             </div>
             <div class="form-row">
-              <label for="password">Password</label>
+              <label for="password" data-i18n="passwordLabel">Password</label>
               <input id="password" type="password" autocomplete="new-password" minlength="8" required />
             </div>
             <div class="form-row">
-              <label for="confirmPassword">Confirm Password</label>
+              <label for="confirmPassword" data-i18n="confirmPasswordLabel">Confirm Password</label>
               <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required />
             </div>
             <div class="button-row">
-              <button class="primary-button" type="submit">Save Profile</button>
-              <button class="secondary-button" type="button" id="clearProfileButton">Clear Profile</button>
+              <button class="primary-button" type="submit" data-i18n="saveProfile">Save Profile</button>
+              <button class="secondary-button" type="button" id="clearProfileButton" data-i18n="clearProfile">Clear Profile</button>
             </div>
           </form>
           <div class="message" id="profileMessage" role="status"></div>
         </article>
 
         <article class="settings-panel">
-          <div class="label">Username</div>
-          <h3>Change username</h3>
+          <div class="label" data-i18n="usernameLabel">Username</div>
+          <h3 data-i18n="changeUsername">Change username</h3>
           <form class="form-stack" id="usernameForm">
             <div class="form-row">
-              <label for="newUsername">New Username</label>
+              <label for="newUsername" data-i18n="newUsername">New Username</label>
               <input id="newUsername" autocomplete="username" required />
             </div>
-            <button class="primary-button" type="submit">Update Username</button>
+            <button class="primary-button" type="submit" data-i18n="updateUsername">Update Username</button>
           </form>
           <div class="message" id="usernameMessage" role="status"></div>
         </article>
 
         <article class="settings-panel">
-          <div class="label">Password</div>
-          <h3>Change password</h3>
+          <div class="label" data-i18n="passwordLabel">Password</div>
+          <h3 data-i18n="changePassword">Change password</h3>
           <form class="form-stack" id="passwordForm">
             <div class="form-row">
-              <label for="currentPassword">Current Password</label>
+              <label for="currentPassword" data-i18n="currentPassword">Current Password</label>
               <input id="currentPassword" type="password" autocomplete="current-password" required />
             </div>
             <div class="form-row">
-              <label for="newPassword">New Password</label>
+              <label for="newPassword" data-i18n="newPassword">New Password</label>
               <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required />
             </div>
             <div class="form-row">
-              <label for="confirmNewPassword">Confirm New Password</label>
+              <label for="confirmNewPassword" data-i18n="confirmNewPassword">Confirm New Password</label>
               <input id="confirmNewPassword" type="password" autocomplete="new-password" minlength="8" required />
             </div>
-            <button class="primary-button" type="submit">Update Password</button>
+            <button class="primary-button" type="submit" data-i18n="updatePassword">Update Password</button>
           </form>
           <div class="message" id="passwordMessage" role="status"></div>
         </article>
@@ -214,6 +228,7 @@
     <script>
       const profileKey = "baggaCaseTrackerProfile";
       const sessionKey = "baggaCaseTrackerSession";
+      const languageKey = "baggaCaseTrackerLanguage";
       const menu = document.getElementById("siteMenu");
       const menuBackdrop = document.querySelector(".menu-backdrop");
       const menuToggle = document.querySelector("[data-menu-toggle]");
@@ -226,6 +241,67 @@
       const profileMessage = document.getElementById("profileMessage");
       const usernameMessage = document.getElementById("usernameMessage");
       const passwordMessage = document.getElementById("passwordMessage");
+      const languageButtons = Array.from(document.querySelectorAll(".language-button"));
+      let currentLanguage = localStorage.getItem(languageKey) === "hi" ? "hi" : "en";
+
+      const translations = {
+        en: {
+          accountSettings: "Account Settings",
+          changePassword: "Change password",
+          changeUsername: "Change username",
+          clearProfile: "Clear Profile",
+          confirmNewPassword: "Confirm New Password",
+          confirmPasswordLabel: "Confirm Password",
+          createProfile: "Create Profile",
+          currentPassword: "Current Password",
+          currentProfile: "Current Profile",
+          emailLabel: "Email",
+          languageHelp: "Choose the dashboard language for this browser.",
+          languageLabel: "Language",
+          nameLabel: "Name",
+          newPassword: "New Password",
+          newUsername: "New Username",
+          noProfile: "No profile created",
+          passwordLabel: "Password",
+          profileDetails: "Profile details",
+          profileIntro: "Create a local profile for this browser, update the username, and change the saved password.",
+          profileTitle: "Profile",
+          saveProfile: "Save Profile",
+          updatePassword: "Update Password",
+          updateUsername: "Update Username",
+          usernameLabel: "Username",
+        },
+        hi: {
+          accountSettings: "खाता सेटिंग",
+          changePassword: "पासवर्ड बदलें",
+          changeUsername: "यूज़रनेम बदलें",
+          clearProfile: "प्रोफाइल हटाएं",
+          confirmNewPassword: "नया पासवर्ड फिर लिखें",
+          confirmPasswordLabel: "पासवर्ड फिर लिखें",
+          createProfile: "प्रोफाइल बनाएं",
+          currentPassword: "अभी का पासवर्ड",
+          currentProfile: "अभी की प्रोफाइल",
+          emailLabel: "ईमेल",
+          languageHelp: "इस ब्राउज़र के लिए डैशबोर्ड की भाषा चुनें.",
+          languageLabel: "भाषा",
+          nameLabel: "नाम",
+          newPassword: "नया पासवर्ड",
+          newUsername: "नया यूज़रनेम",
+          noProfile: "प्रोफाइल अभी नहीं बनी",
+          passwordLabel: "पासवर्ड",
+          profileDetails: "प्रोफाइल जानकारी",
+          profileIntro: "इस ब्राउज़र के लिए लोकल प्रोफाइल बनाएं, यूज़रनेम अपडेट करें, और सेव पासवर्ड बदलें.",
+          profileTitle: "प्रोफाइल",
+          saveProfile: "प्रोफाइल सेव करें",
+          updatePassword: "पासवर्ड अपडेट करें",
+          updateUsername: "यूज़रनेम अपडेट करें",
+          usernameLabel: "यूज़रनेम",
+        },
+      };
+
+      function t(key) {
+        return translations[currentLanguage][key] || translations.en[key] || key;
+      }
 
       function setMenuOpen(isOpen) {
         if (!menu || !menuBackdrop || !menuToggle) return;
@@ -267,7 +343,7 @@
 
       function renderProfile() {
         const profile = getProfile();
-        document.getElementById("profileHeading").textContent = profile ? profile.displayName : "No profile created";
+        document.getElementById("profileHeading").textContent = profile ? profile.displayName : t("noProfile");
         document.getElementById("summaryName").textContent = profile?.displayName || "-";
         document.getElementById("summaryUsername").textContent = profile?.username || "-";
         document.getElementById("summaryEmail").textContent = profile?.email || "-";
@@ -275,6 +351,19 @@
         document.getElementById("username").value = profile?.username || "";
         document.getElementById("email").value = profile?.email || "";
         document.getElementById("newUsername").value = profile?.username || "";
+      }
+
+      function updateLanguageUi() {
+        document.documentElement.lang = currentLanguage === "hi" ? "hi" : "en";
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          element.textContent = t(element.dataset.i18n);
+        });
+        languageButtons.forEach((button) => {
+          const isActive = button.dataset.lang === currentLanguage;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+        renderProfile();
       }
 
       menuToggle?.addEventListener("click", () => setMenuOpen(true));
@@ -289,7 +378,15 @@
         if (event.key === "Escape") setMenuOpen(false);
       });
 
-      const magneticSelector = ".page-head, .settings-panel, .primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip";
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentLanguage = button.dataset.lang === "hi" ? "hi" : "en";
+          localStorage.setItem(languageKey, currentLanguage);
+          updateLanguageUi();
+        });
+      });
+
+      const magneticSelector = ".page-head, .settings-panel, .primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip, .language-button";
       const magneticItems = new WeakSet();
       const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
 
@@ -303,7 +400,7 @@
             if (!rect.width || !rect.height) return;
             const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
             const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            const isCompact = element.matches(".primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip");
+            const isCompact = element.matches(".primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip, .language-button");
             const move = isCompact ? 4 : 7;
             const tilt = isCompact ? 1.2 : 2.6;
             element.classList.add("is-magnetic");
@@ -399,7 +496,7 @@
         setMessage(profileMessage, "Profile cleared from this browser.");
       });
 
-      renderProfile();
+      updateLanguageUi();
     </script>
   </body>
 </html>

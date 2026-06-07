@@ -1361,13 +1361,6 @@
           <div class="banner-actions">
             <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 7, 2026, 1:39 AM PDT</div>
             <div class="welcome-chip" id="welcomeChip" aria-live="polite">Welcome, Guest</div>
-            <div class="language-switcher">
-              <label id="languageLabel">Language</label>
-              <div class="language-buttons" role="group" aria-label="Language selector">
-                <button type="button" class="language-button active" id="langEnButton" data-lang="en">English</button>
-                <button type="button" class="language-button" id="langHiButton" data-lang="hi">हिंदी</button>
-              </div>
-            </div>
           </div>
         </div>
       </header>
@@ -3216,7 +3209,7 @@
       const ordersCount = document.getElementById("ordersCount");
       const detailSections = Array.from(document.querySelectorAll(".overview, .timeline-grid, .order-grid, .party-grid"));
       const languageButtons = Array.from(document.querySelectorAll(".language-button"));
-      let currentLanguage = "en";
+      let currentLanguage = localStorage.getItem("baggaCaseTrackerLanguage") === "hi" ? "hi" : "en";
       let currentCaseFilter = "all";
       const menu = document.getElementById("siteMenu");
       const menuBackdrop = document.querySelector(".menu-backdrop");
