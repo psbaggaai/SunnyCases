@@ -1,5 +1,6 @@
 .DS_Store
 .wrangler/
 .env.local
+logs/
 node_modules/
 tmp/
