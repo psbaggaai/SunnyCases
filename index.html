@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bagga Case Status Dashboard</title>
+    <style>
+      :root {
+        --bg: #eef4fb;
+        --bg-accent: radial-gradient(circle at top left, rgba(62, 110, 189, 0.22), transparent 28%),
+          radial-gradient(circle at top right, rgba(34, 74, 142, 0.18), transparent 24%),
+          linear-gradient(180deg, #f7fbff 0%, #eaf1f8 100%);
+        --surface: rgba(255, 255, 255, 0.9);
+        --surface-strong: #ffffff;
+        --ink: #1f2b3d;
+        --muted: #63748d;
+        --navy: #172d4d;
+        --navy-soft: #27456f;
+        --blue: #5b8dee;
+        --green: #72b255;
+        --amber: #d9a53a;
+        --red: #d86c63;
+        --border: rgba(105, 131, 173, 0.18);
+        --shadow: 0 24px 60px rgba(29, 53, 87, 0.12);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 16px;
+        --max: 1440px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--bg-accent);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #142742 0%, #1e3a63 58%, #274a78 100%);
+        color: white;
+        padding: 28px clamp(20px, 4vw, 40px);
+        box-shadow: 0 18px 38px rgba(15, 31, 53, 0.24);
+      }
+
+      .hero-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(140deg, #89c7ff, #5e92e0);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      }
+
+      .eyebrow,
+      .section-label {
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        opacity: 0.74;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.25rem, 4vw, 3.35rem);
+        line-height: 1.04;
+        margin-top: 2px;
+      }
+
+      .hero-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #89d36b;
+        box-shadow: 0 0 0 5px rgba(137, 211, 107, 0.15);
+      }
+
+      .frame {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 34px clamp(20px, 4vw, 40px) 64px;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .section {
+        padding: 28px;
+      }
+
+      .case-selector h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        max-width: 760px;
+      }
+
+      .subcopy {
+        color: var(--muted);
+        margin-top: 10px;
+        font-size: 1.04rem;
+      }
+
+      .case-grid,
+      .metrics-grid,
+      .insight-grid,
+      .timeline-grid,
+      .order-grid,
+      .party-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .case-grid {
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        margin-top: 22px;
+      }
+
+      .case-card {
+        padding: 22px;
+        border-radius: var(--radius-lg);
+        border: 1px solid #d9e2f1;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.94));
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        cursor: pointer;
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      }
+
+      .case-card:hover,
+      .case-card.active {
+        transform: translateY(-3px);
+        border-color: #7ea7f4;
+        box-shadow: 0 18px 34px rgba(76, 112, 180, 0.18);
+      }
+
+      .case-card-header,
+      .metric-top,
+      .detail-row,
+      .row-between,
+      .hearing-top,
+      .doc-row,
+      .party-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      .badge.live {
+        background: rgba(126, 179, 91, 0.16);
+        color: #538238;
+      }
+
+      .badge.pending {
+        background: rgba(217, 165, 58, 0.16);
+        color: #94670c;
+      }
+
+      .badge.clear {
+        background: rgba(91, 141, 238, 0.12);
+        color: #365ca6;
+      }
+
+      .case-number {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .case-title {
+        font-size: 1.12rem;
+        font-weight: 700;
+      }
+
+      .btn-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 10px 16px;
+        background: #eef4ff;
+        color: #3b67b9;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .overview {
+        margin-top: 24px;
+      }
+
+      .overview-head {
+        padding: 28px 28px 18px;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .overview-title h2 {
+        font-size: clamp(1.9rem, 3vw, 2.7rem);
+      }
+
+      .overview-title p {
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        padding: 0 28px 28px;
+      }
+
+      .metric-card,
+      .detail-card,
+      .timeline-card,
+      .order-card,
+      .party-card,
+      .data-table-card,
+      .notice-card {
+        background: var(--surface-strong);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+      }
+
+      .metric-card {
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .metric-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 5px;
+        background: var(--accent, #5b8dee);
+      }
+
+      .metric-value {
+        font-size: 2.35rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-top: 18px;
+      }
+
+      .metric-foot {
+        color: var(--muted);
+        margin-top: 10px;
+        font-size: 0.97rem;
+      }
+
+      .insight-grid {
+        grid-template-columns: 1.1fr 1fr;
+        padding: 0 28px 28px;
+      }
+
+      .detail-card,
+      .timeline-card,
+      .order-card,
+      .party-card,
+      .data-table-card,
+      .notice-card {
+        padding: 22px;
+      }
+
+      .detail-card h3,
+      .timeline-card h3,
+      .order-card h3,
+      .party-card h3,
+      .data-table-card h3,
+      .notice-card h3 {
+        font-size: 1.14rem;
+      }
+
+      .detail-list,
+      .bullet-list,
+      .timeline-list,
+      .order-list,
+      .doc-list,
+      .party-list,
+      .simple-list {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 0;
+      }
+
+      .detail-list li,
+      .doc-list li,
+      .party-list li,
+      .simple-list li {
+        padding: 13px 0;
+        border-bottom: 1px solid #edf1f7;
+      }
+
+      .detail-list li:last-child,
+      .doc-list li:last-child,
+      .party-list li:last-child,
+      .simple-list li:last-child,
+      .timeline-list li:last-child,
+      .order-list li:last-child {
+        border-bottom: 0;
+      }
+
+      .detail-label {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.83rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .detail-value {
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      .bullet-list li {
+        margin-top: 14px;
+        padding-left: 18px;
+        position: relative;
+        color: #314155;
+        line-height: 1.55;
+      }
+
+      .bullet-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.62em;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #7da5f4, #426bc7);
+      }
+
+      .timeline-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        margin-top: 24px;
+      }
+
+      .timeline-list li,
+      .order-list li {
+        padding: 16px 0;
+        border-bottom: 1px solid #edf1f7;
+      }
+
+      .timeline-date,
+      .order-date {
+        font-weight: 800;
+      }
+
+      .timeline-purpose,
+      .order-summary,
+      .muted {
+        color: var(--muted);
+      }
+
+      .timeline-note,
+      .order-summary {
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+
+      .order-grid,
+      .party-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 24px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 13px 0;
+        vertical-align: top;
+        border-bottom: 1px solid #edf1f7;
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .status-pill.pending {
+        background: rgba(217, 165, 58, 0.16);
+        color: #8d650d;
+      }
+
+      .status-pill.disposed {
+        background: rgba(100, 158, 96, 0.12);
+        color: #48704a;
+      }
+
+      .footer-note {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 1100px) {
+        .insight-grid,
+        .timeline-grid,
+        .order-grid,
+        .party-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .hero {
+          padding-top: 24px;
+          padding-bottom: 24px;
+        }
+
+        .section,
+        .overview-head,
+        .metrics-grid,
+        .insight-grid {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+
+        .metrics-grid,
+        .insight-grid {
+          padding-bottom: 18px;
+        }
+
+        .case-number,
+        .metric-value {
+          font-size: 1.9rem;
+        }
+
+        .case-selector h2,
+        .overview-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .hero-meta {
+          width: 100%;
+        }
+
+        .pill {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-inner">
+          <div class="brand">
+            <div class="brand-mark" aria-hidden="true"></div>
+            <div>
+              <div class="eyebrow">Bagga Legal Analytics</div>
+              <h1>Case Status Dashboard</h1>
+            </div>
+          </div>
+          <div class="hero-meta">
+            <div class="pill"><span class="dot"></span> Court snapshot captured on June 6, 2026</div>
+            <div class="pill" id="heroBench">Bench: Indore</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="frame">
+        <section class="panel case-selector">
+          <div class="section">
+            <div class="section-label">Case Selector</div>
+            <h2>Click a case tile to load its legal dashboard</h2>
+            <p class="subcopy">
+              Live snapshot from the High Court of Madhya Pradesh case status portal, structured into a tracker-style
+              dashboard.
+            </p>
+            <div class="case-grid" id="caseGrid"></div>
+          </div>
+        </section>
+
+        <section class="panel overview" id="dashboardPanel">
+          <div class="overview-head">
+            <div class="overview-title">
+              <div class="section-label">Case Overview</div>
+              <h2 id="caseHeadline"></h2>
+              <p id="caseSummary"></p>
+            </div>
+            <a class="btn-link" id="sourceLink" href="#" target="_blank" rel="noreferrer">Open court record</a>
+          </div>
+
+          <div class="metrics-grid" id="metricsGrid"></div>
+
+          <div class="insight-grid">
+            <article class="detail-card">
+              <h3>Quick facts</h3>
+              <ul class="detail-list" id="quickFacts"></ul>
+            </article>
+
+            <article class="detail-card">
+              <h3>Next steps</h3>
+              <ul class="bullet-list" id="nextSteps"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="timeline-grid">
+          <article class="timeline-card">
+            <div class="row-between">
+              <div>
+                <div class="section-label">Listing History</div>
+                <h3>Recent hearings and listing actions</h3>
+              </div>
+              <span class="badge clear" id="listingCountBadge"></span>
+            </div>
+            <ul class="timeline-list" id="listingTimeline"></ul>
+          </article>
+
+          <article class="timeline-card">
+            <div class="section-label">Orders</div>
+            <h3>Important order notes</h3>
+            <ul class="order-list" id="orderHighlights"></ul>
+          </article>
+        </section>
+
+        <section class="order-grid">
+          <article class="data-table-card">
+            <div class="row-between">
+              <div>
+                <div class="section-label">Pending IAs</div>
+                <h3>Applications that still need disposal</h3>
+              </div>
+              <span class="badge pending" id="pendingIaBadge"></span>
+            </div>
+            <div style="overflow:auto; margin-top: 18px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>IA</th>
+                    <th>Particular</th>
+                    <th>Filed by</th>
+                    <th>Filed on</th>
+                  </tr>
+                </thead>
+                <tbody id="pendingIaTable"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="data-table-card">
+            <div class="row-between">
+              <div>
+                <div class="section-label">Orders Archive</div>
+                <h3>Downloadable orders from the record</h3>
+              </div>
+              <span class="badge clear" id="ordersCountBadge"></span>
+            </div>
+            <ul class="simple-list" id="ordersArchive"></ul>
+          </article>
+        </section>
+
+        <section class="order-grid">
+          <article class="data-table-card">
+            <div class="section-label">Documents</div>
+            <h3>Filings on record</h3>
+            <ul class="doc-list" id="documentsList"></ul>
+          </article>
+
+          <article class="notice-card">
+            <div class="section-label">Service</div>
+            <h3>Notices and earlier court linkage</h3>
+            <ul class="simple-list" id="serviceInfo"></ul>
+          </article>
+        </section>
+
+        <section class="party-grid">
+          <article class="party-card">
+            <div class="party-header">
+              <div>
+                <div class="section-label">Petitioners</div>
+                <h3>Petitioner side</h3>
+              </div>
+              <span class="badge live" id="petitionerCount"></span>
+            </div>
+            <ul class="party-list" id="petitionersList"></ul>
+          </article>
+
+          <article class="party-card">
+            <div class="party-header">
+              <div>
+                <div class="section-label">Respondents</div>
+                <h3>Respondent side</h3>
+              </div>
+              <span class="badge pending" id="respondentCount"></span>
+            </div>
+            <ul class="party-list" id="respondentsList"></ul>
+          </article>
+        </section>
+
+        <p class="footer-note">
+          This dashboard is a structured snapshot of the public case-status record at
+          <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a>.
+          Court data can change without notice, so it should be refreshed before relying on it for filing or hearing
+          decisions.
+        </p>
+      </main>
+    </div>
+
+    <script>
+      const cases = [
+        {
+          id: "wp-13441-2024",
+          code: "WP/13441/2024",
+          type: "Writ Petition",
+          title: "Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others",
+          bench: "Indore",
+          status: "Pending",
+          statusTone: "pending",
+          stage: "Motion Hearing",
+          stageDetail: "63 - Not Reached COVID-19",
+          filedOn: "15 May 2024",
+          lastListedOn: "30 Apr 2026",
+          lastOrderLabel: "Not Reached - Ord dt: 28/04/2026",
+          before: "SB Proposal Pool",
+          da: "WP - DA 11",
+          cnr: "MPHC020162452024",
+          sourceUrl: "https://mphc.gov.in/case-status",
+          partiesSummary: "4 petitioners, 3 respondents, and an intervenor-linked order trail",
+          category: "Criminal Law & Procedure > Code of Criminal Procedure, 1973",
+          district: "Leh Ladakh",
+          statutory:
+            "For admission, with multiple pending IAs including defect, stay, amendment, clarification, urgent hearing, and vacating-interim-stay applications.",
+          quickFacts: [
+            ["Before", "SB Proposal Pool"],
+            ["Stage", "Motion Hearing"],
+            ["Status", "Pending"],
+            ["CNR", "MPHC020162452024"],
+            ["District shown in record", "Leh Ladakh"],
+            ["Category", "Criminal Law & Procedure > Code of Criminal Procedure, 1973"],
+            ["Earlier court reference", "Khargone (West Nimar) / Case No. ---491-2024 / Decision date 10-05-2024"],
+          ],
+          metrics: [
+            {
+              label: "Last listed",
+              value: "30 Apr 2026",
+              note: "Most recent hearing date on the public case page",
+              accent: "#d86c63",
+            },
+            {
+              label: "Pending IAs",
+              value: "10",
+              note: "Applications still marked pending",
+              accent: "#c89a37",
+            },
+            {
+              label: "Orders online",
+              value: "8",
+              note: "Downloadable judgement/order entries",
+              accent: "#73b35c",
+            },
+            {
+              label: "Latest filing",
+              value: "08 Apr 2026",
+              note: "Reply and vakalatnama were filed by Rajwardhan Gawde",
+              accent: "#5b8dee",
+            },
+          ],
+          nextSteps: [
+            "No future hearing date is visible on the public record as of June 6, 2026, so the immediate procedural next step is a relisting for admission or motion hearing.",
+            "The case is still shown at motion-hearing stage before the SB Proposal Pool, which usually means it remains in the listing pipeline rather than finally heard.",
+            "Ten IAs remain pending, including two defect-related applications, three stay-related applications, amendment-related applications, clarification, urgent hearing, and the application to vacate the interim protection granted on June 6, 2024.",
+            "The latest substantive court order available online is dated August 1, 2025, where the State got six weeks to file reply and interim relief was continued till the next hearing.",
+          ],
+          listingTimeline: [
+            {
+              date: "30 Apr 2026",
+              coram: "SB Proposal Pool",
+              purpose: "After notice (for admission) - civil cases",
+              note: "Not reached.",
+            },
+            {
+              date: "28 Apr 2026",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "After notice (for admission) - civil cases",
+              note: "Not reached.",
+            },
+            {
+              date: "01 Aug 2025",
+              coram: "Hon'ble Shri Justice Pranay Verma",
+              purpose: "After notice (for admission) - civil cases",
+              note: "State granted six weeks to file reply. List after six weeks. Interim relief to continue till next date.",
+            },
+            {
+              date: "01 Jul 2025",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "Fixed date (court order)",
+              note: "List after four weeks.",
+            },
+            {
+              date: "29 Apr 2025",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "Mention memo allowed",
+              note: "Listed on July 1, 2025.",
+            },
+            {
+              date: "28 Feb 2025",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "After notice (for admission) - civil cases",
+              note: "List on March 17, 2025 and file reply.",
+            },
+            {
+              date: "12 Sep 2024",
+              coram: "Hon'ble Shri Justice Gurpal Singh Ahluwalia",
+              purpose: "Orders / urgent hearing application",
+              note: "Intervention allowed, amendment allowed, documents taken on record, investigation clarified to continue without coercive action, list after two weeks.",
+            },
+            {
+              date: "06 Jun 2024",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "Vacation application and urgent relief",
+              note: "Stay application allowed. No coercive action against petitioners till next date.",
+            },
+            {
+              date: "22 May 2024",
+              coram: "Hon'ble Shri Justice Subodh Abhyankar",
+              purpose: "Fresh for admission / mention memo",
+              note: "Government got three days for instructions. Petitioners' presence not necessary at the police station till next date.",
+            },
+          ],
+          orderHighlights: [
+            {
+              date: "01 Aug 2025",
+              summary:
+                "State was granted six weeks to file reply. The Court directed listing after six weeks and continued interim relief till the next hearing.",
+            },
+            {
+              date: "12 Sep 2024",
+              summary:
+                "Intervention by Kartar Kaur Chhabra was allowed, amendment and additional documents were permitted, and the Court clarified that investigation may continue but no coercive action should be taken against the petitioners.",
+            },
+            {
+              date: "06 Jun 2024",
+              summary:
+                "The stay application was allowed and the Court directed that no coercive action be taken against the petitioners till the next date of hearing.",
+            },
+            {
+              date: "22 May 2024",
+              summary:
+                "Initial protection order: petitioners were not required to appear at the concerned police station till the next hearing.",
+            },
+          ],
+          pendingIAs: [
+            ["4065/2024", "Application for ignoring defect", "Shreyansh Jain", "15 May 2024"],
+            ["4128/2024", "Application for ignoring the defects", "Shreyansh Jain", "16 May 2024"],
+            ["9739/2024", "Vacating interim stay granted vide order dated 06/06/2024 in I.A. 4828/2024", "Jigerjeet Singh Chhabra", "04 Oct 2024"],
+            ["864/2025", "Document taken on record", "Rajat Lohia", "28 Jan 2025"],
+            ["2249/2025", "Stay application", "Aman Arora", "11 Mar 2025"],
+            ["3086/2025", "Document taken on record", "Jigerjeet Singh Chhabra", "07 Apr 2025"],
+            ["3716/2025", "Stay application", "Aman Arora", "28 Apr 2025"],
+            ["3717/2025", "Amendment in record", "Aman Arora", "28 Apr 2025"],
+            ["6826/2025", "Application for clarification of the order", "Jigerjeet Singh Chhabra", "17 Jul 2025"],
+            ["7317/2025", "Urgent hearing application", "Jigerjeet Singh Chhabra", "31 Jul 2025"],
+          ],
+          ordersArchive: [
+            ["01 Aug 2025", "https://mphc.gov.in/order/download/eyJpdiI6IkxaMUdoVnAxVGI3VlRxYTJJTWtvV1E9PSIsInZhbHVlIjoiVFFCSURqdkZ3YzZMRVRtUEVQZzBzQT09IiwibWFjIjoiYmE1NjM2ODQ4MmU4NDU2MWM4MmY3YzFhNjc1MjM2ZjY2MTc4MjRhNTZjOWQzYzViNTM0ZmU2N2RhZmY3NjEyNyIsInRhZyI6IiJ9"],
+            ["01 Jul 2025", "https://mphc.gov.in/order/download/eyJpdiI6IlROM0o0MlpmdkcxUndiTDdwc3MxT3c9PSIsInZhbHVlIjoidzRQczVJTFRoNXZreS8vYmQvTUtPdz09IiwibWFjIjoiYjZlYmQxMjMyNjRjOTY3NjM5NmRkMjM5NzYwYjgyNjIwZTg5ZWRiNjJlZmJjMTlhZDBiOWJiYTI1NWU2MDYzNiIsInRhZyI6IiJ9"],
+            ["29 Apr 2025", "https://mphc.gov.in/order/download/eyJpdiI6IkUvcWdpT0d0eGh6Yi9weUMxR096OFE9PSIsInZhbHVlIjoiN2ZYZmhXQkFUMzc4S2FvcnFRdllUQT09IiwibWFjIjoiZmNhODIyNzI2ZTA4OTYzMzBmZjM1ZTkxY2JhNTJhYThjMWMxN2QwY2Y4NGM0NGI2MjBjNDhjNjIyYzRlMTljOCIsInRhZyI6IiJ9"],
+            ["12 Mar 2025", "https://mphc.gov.in/order/download/eyJpdiI6IkJRTkY1SmE2WEduczl3ZFZsb016NVE9PSIsInZhbHVlIjoib0p3dlRadWZNbUt3aHVubHVJOE92UT09IiwibWFjIjoiNTk2NzY0NjgwYTVlNDRiZTczNDUzYzI2MWNiZmQ3ZWQxZTMyYTczOWFjNTgyYjRlYTkxYzAwZDFlZjZkNGNiMSIsInRhZyI6IiJ9"],
+            ["28 Feb 2025", "https://mphc.gov.in/order/download/eyJpdiI6ImpDUUFTV3dlZWQ1bnR0MmpEUDNxeVE9PSIsInZhbHVlIjoiNkl5MHhOS2UxWnFGdGdzaCt3ZWFsZz09IiwibWFjIjoiZmI3YjBmZWQzZTAwNzBkMDViMGQ1M2I3MTYwNTgyMTQyMjIwYWMxNDE5MjExZTFkMGUyYjYwYjY5MDY5ZGYxMCIsInRhZyI6IiJ9"],
+            ["12 Sep 2024", "https://mphc.gov.in/order/download/eyJpdiI6InBmbm9sWmJ3elpWaW9rYmlyYTBSdEE9PSIsInZhbHVlIjoiQStiSHJyK1JuMHhMZmxzaU13ckMzQT09IiwibWFjIjoiNjEzOGEwZmZlMDk5ZDY2ZDM3Y2VlOTk1ZjhjYmU4MjRhMGY2YTdmMWE5ZmNmOTQ4NGNhNWJlOGRjNDJhNTMyZiIsInRhZyI6IiJ9"],
+            ["06 Jun 2024", "https://mphc.gov.in/order/download/eyJpdiI6Ik9BbGtVc3VDa3lKUWl5aUF1SEZPRFE9PSIsInZhbHVlIjoiRERhQXRIb3RmRFRwcnZCNlk5R1dqQT09IiwibWFjIjoiOGY5NWIyOGE1Y2Y2OTczZWJmZTUzZThmYThkZTFlZmRiYTlkNWNmMjgyZGM4ZGQxNTgxMzE4MzNhZjBiZDkyNCIsInRhZyI6IiJ9"],
+            ["22 May 2024", "https://mphc.gov.in/order/download/eyJpdiI6IllIWHJDbmsyOVZLRkYvVE96bmFiRGc9PSIsInZhbHVlIjoiMCtLWFcvZWl1WjYrVURYUUFsWk1SZz09IiwibWFjIjoiY2ZjNTAzOGIxYjVmM2YxZTQ5M2I3M2ZhMmE0ZGVmYTYxOTVlZWY0ZGNkMDZkMjlkYWEyNmQ5M2IyZGE3NjYwMCIsInRhZyI6IiJ9"],
+          ],
+          documents: [
+            ["6604-2026", "Reply", "Rajwardhan Gawde", "08 Apr 2026 14:26"],
+            ["2769-2026", "Vakalatnama", "Rajwardhan Gawde", "08 Apr 2026 14:25"],
+            ["5984-2025", "Vakalatnama", "Tarandeep Singh Ajmani", "04 Sep 2025 14:57"],
+            ["5024-2025", "Vakalatnama", "Jigerjeet Singh Chhabra", "31 Jul 2025 15:07"],
+            ["9295-2025", "Reply", "Jigerjeet Singh Chhabra", "27 Jun 2025 14:52"],
+            ["9294-2025", "Reply", "Jigerjeet Singh Chhabra", "27 Jun 2025 14:52"],
+            ["5118-2025", "Other", "Aman Arora", "04 Apr 2025 10:56"],
+            ["13917-2024", "Return", "Jigerjeet Singh Chhabra", "04 Oct 2024 15:09"],
+            ["12644-2024", "Other", "Aman Arora", "13 Sep 2024 12:38"],
+            ["3914-2024", "Vakalatnama", "Rajat Lohia", "12 Jul 2024 14:10"],
+            ["6772-2024", "Other", "Shreyansh Jain", "15 May 2024 12:20"],
+          ],
+          serviceInfo: [
+            "No notices are currently shown as issued on the public record.",
+            "Connected cases tab shows this matter as the main case only; no separate connected matters are listed.",
+            "Earlier court tab links the matter to Khargone (West Nimar), Case No. ---491-2024, with decision date 10-05-2024.",
+            "Police station and judge name are blank in the earlier-court record extract.",
+          ],
+          petitioners: [
+            "Prabhjit Singh Bagga through power-of-attorney holder Jagjit Singh Bagga",
+            "Jagjit Singh Bagga",
+            "Hardeep Kaur Bagga",
+            "Rashmeet Kaur Bagga through power-of-attorney holder Jagjit Singh Bagga",
+          ],
+          petitionerAdvocates: ["Shreyansh Jain", "Aman Arora", "Praneesha Nayyar"],
+          respondents: [
+            "The State of Madhya Pradesh through Station House Officer, Police Station Kotwali, Khargone",
+            "Station House Officer, PS Khargone",
+            "Kartar Kaur Chhabra",
+          ],
+          respondentAdvocates: [
+            "Rajwardhan Gawde",
+            "Advocate General",
+            "Tarandeep Singh Ajmani",
+            "Deeptanshu Shukla",
+            "Anuj Jain",
+            "Kavanpreet Singh Dawar",
+            "Rohan Vyas",
+            "Rishabh Jain",
+            "Rajat Lohia",
+            "Jigerjeet Singh Chhabra",
+            "Mastan Singh Chhabra",
+            "Chetan Jain",
+          ],
+        },
+      ];
+
+      const caseGrid = document.getElementById("caseGrid");
+      const heroBench = document.getElementById("heroBench");
+      const caseHeadline = document.getElementById("caseHeadline");
+      const caseSummary = document.getElementById("caseSummary");
+      const sourceLink = document.getElementById("sourceLink");
+      const metricsGrid = document.getElementById("metricsGrid");
+      const quickFacts = document.getElementById("quickFacts");
+      const nextSteps = document.getElementById("nextSteps");
+      const listingTimeline = document.getElementById("listingTimeline");
+      const orderHighlights = document.getElementById("orderHighlights");
+      const pendingIaTable = document.getElementById("pendingIaTable");
+      const ordersArchive = document.getElementById("ordersArchive");
+      const documentsList = document.getElementById("documentsList");
+      const serviceInfo = document.getElementById("serviceInfo");
+      const petitionersList = document.getElementById("petitionersList");
+      const respondentsList = document.getElementById("respondentsList");
+      const petitionerCount = document.getElementById("petitionerCount");
+      const respondentCount = document.getElementById("respondentCount");
+      const listingCountBadge = document.getElementById("listingCountBadge");
+      const pendingIaBadge = document.getElementById("pendingIaBadge");
+      const ordersCountBadge = document.getElementById("ordersCountBadge");
+
+      function renderCaseCards(activeId) {
+        caseGrid.innerHTML = cases
+          .map(
+            (item) => `
+              <button class="case-card ${item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
+                <div class="case-card-header">
+                  <span class="badge live">Live snapshot</span>
+                  <span class="muted">${item.bench}</span>
+                </div>
+                <div>
+                  <div class="case-title">${item.code}</div>
+                  <div class="subcopy">${item.type}</div>
+                </div>
+                <div class="row-between">
+                  <div>
+                    <div class="case-number">${item.pendingIAs.length}</div>
+                    <div class="muted">Pending IAs</div>
+                  </div>
+                  <span class="badge ${item.statusTone}">${item.status}</span>
+                </div>
+              </button>
+            `
+          )
+          .join("");
+
+        caseGrid.querySelectorAll(".case-card").forEach((card) => {
+          card.addEventListener("click", () => renderDashboard(card.dataset.caseId));
+        });
+      }
+
+      function renderDashboard(caseId) {
+        const item = cases.find((entry) => entry.id === caseId) || cases[0];
+
+        renderCaseCards(item.id);
+        heroBench.textContent = `Bench: ${item.bench}`;
+        caseHeadline.textContent = `${item.code} · ${item.title}`;
+        caseSummary.textContent = `${item.type} at ${item.bench} bench. Filed on ${item.filedOn}, last listed on ${item.lastListedOn}, and still marked ${item.status.toLowerCase()} at ${item.stage.toLowerCase()} stage.`;
+        sourceLink.href = item.sourceUrl;
+
+        metricsGrid.innerHTML = item.metrics
+          .map(
+            (metric) => `
+              <article class="metric-card" style="--accent:${metric.accent}">
+                <div class="metric-top">
+                  <div class="detail-label">${metric.label}</div>
+                </div>
+                <div class="metric-value">${metric.value}</div>
+                <div class="metric-foot">${metric.note}</div>
+              </article>
+            `
+          )
+          .join("");
+
+        quickFacts.innerHTML = item.quickFacts
+          .map(
+            ([label, value]) => `
+              <li>
+                <div class="detail-label">${label}</div>
+                <div class="detail-value">${value}</div>
+              </li>
+            `
+          )
+          .join("");
+
+        nextSteps.innerHTML = item.nextSteps.map((step) => `<li>${step}</li>`).join("");
+        listingCountBadge.textContent = `${item.listingTimeline.length} timeline entries`;
+        listingTimeline.innerHTML = item.listingTimeline
+          .map(
+            (entry) => `
+              <li>
+                <div class="hearing-top">
+                  <div class="timeline-date">${entry.date}</div>
+                  <div class="muted">${entry.coram}</div>
+                </div>
+                <div class="timeline-purpose">${entry.purpose}</div>
+                <div class="timeline-note">${entry.note}</div>
+              </li>
+            `
+          )
+          .join("");
+
+        orderHighlights.innerHTML = item.orderHighlights
+          .map(
+            (entry) => `
+              <li>
+                <div class="order-date">${entry.date}</div>
+                <div class="order-summary">${entry.summary}</div>
+              </li>
+            `
+          )
+          .join("");
+
+        pendingIaBadge.textContent = `${item.pendingIAs.length} pending`;
+        pendingIaTable.innerHTML = item.pendingIAs
+          .map(
+            ([ia, particular, filedBy, filedOn]) => `
+              <tr>
+                <td>${ia}</td>
+                <td>${particular}</td>
+                <td>${filedBy}</td>
+                <td>${filedOn}</td>
+              </tr>
+            `
+          )
+          .join("");
+
+        ordersCountBadge.textContent = `${item.ordersArchive.length} order links`;
+        ordersArchive.innerHTML = item.ordersArchive
+          .map(
+            ([date, link]) => `
+              <li class="row-between">
+                <div>
+                  <div class="timeline-date">${date}</div>
+                  <div class="muted">High Court order PDF</div>
+                </div>
+                <a class="btn-link" href="${link}" target="_blank" rel="noreferrer">Download</a>
+              </li>
+            `
+          )
+          .join("");
+
+        documentsList.innerHTML = item.documents
+          .map(
+            ([docNo, type, filedBy, filedOn]) => `
+              <li class="doc-row">
+                <div>
+                  <div class="timeline-date">${docNo}</div>
+                  <div class="muted">${type}</div>
+                </div>
+                <div style="text-align:right">
+                  <div>${filedBy}</div>
+                  <div class="muted">${filedOn}</div>
+                </div>
+              </li>
+            `
+          )
+          .join("");
+
+        serviceInfo.innerHTML = item.serviceInfo.map((entry) => `<li>${entry}</li>`).join("");
+
+        petitionerCount.textContent = `${item.petitioners.length} names`;
+        petitionersList.innerHTML =
+          item.petitioners
+            .map(
+              (name) => `
+                <li>
+                  <div>${name}</div>
+                </li>
+              `
+            )
+            .join("") +
+          `
+            <li>
+              <div class="detail-label">Advocates</div>
+              <div class="detail-value">${item.petitionerAdvocates.join(", ")}</div>
+            </li>
+          `;
+
+        respondentCount.textContent = `${item.respondents.length} names`;
+        respondentsList.innerHTML =
+          item.respondents
+            .map(
+              (name) => `
+                <li>
+                  <div>${name}</div>
+                </li>
+              `
+            )
+            .join("") +
+          `
+            <li>
+              <div class="detail-label">Advocates on record</div>
+              <div class="detail-value">${item.respondentAdvocates.join(", ")}</div>
+            </li>
+          `;
+      }
+
+      renderDashboard(cases[0].id);
+    </script>
+  </body>
+</html>
