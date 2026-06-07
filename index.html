@@ -266,6 +266,20 @@
         white-space: nowrap;
       }
 
+      .last-updated-chip {
+        align-items: center;
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.94);
+        display: inline-flex;
+        font-size: 0.82rem;
+        font-weight: 850;
+        min-height: 38px;
+        padding: 8px 14px;
+        white-space: nowrap;
+      }
+
       .language-switcher {
         display: inline-flex;
         align-items: center;
@@ -1211,7 +1225,8 @@
           align-items: stretch;
         }
 
-        .welcome-chip {
+        .welcome-chip,
+        .last-updated-chip {
           justify-content: center;
           width: 100%;
         }
@@ -1344,6 +1359,7 @@
             </a>
           </div>
           <div class="banner-actions">
+            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 7, 2026, 1:39 AM PDT</div>
             <div class="welcome-chip" id="welcomeChip" aria-live="polite">Welcome, Guest</div>
             <div class="language-switcher">
               <label id="languageLabel">Language</label>
@@ -1542,6 +1558,8 @@
     </div>
 
     <script>
+      const siteLastUpdatedAt = "2026-06-07T08:39:00.945Z";
+
       const cases = [
         {
                 "id": "wp-13441-2024",
@@ -3010,6 +3028,7 @@
           pageTitle: "Bagga Case Tracker Dashboard",
           heroTitle: "Bagga Case Tracker Dashboard",
           languageLabel: "Language",
+          lastUpdatedPrefix: "Last updated:",
           welcomePrefix: "Welcome,",
           guestName: "Guest",
           selectorLabel: "Case Selector",
@@ -3058,6 +3077,7 @@
           pageTitle: "बग्गा केस ट्रैकर डैशबोर्ड",
           heroTitle: "बग्गा केस ट्रैकर डैशबोर्ड",
           languageLabel: "भाषा",
+          lastUpdatedPrefix: "डेटा अपडेट:",
           welcomePrefix: "स्वागत है,",
           guestName: "अतिथि",
           selectorLabel: "केस चयन",
@@ -3133,11 +3153,13 @@
         "Stay application": "स्थगन आवेदन",
         "MP High Court": "मध्य प्रदेश उच्च न्यायालय",
         "Civil Court Khargone": "सिविल न्यायालय खरगोन",
+        "Last updated:": "डेटा अपडेट:",
       };
 
       const uiElements = {
         heroTitle: document.getElementById("heroTitle"),
         languageLabel: document.getElementById("languageLabel"),
+        lastUpdatedChip: document.getElementById("lastUpdatedChip"),
         selectorLabel: document.getElementById("selectorLabel"),
         overviewLabel: document.getElementById("overviewLabel"),
         quickFactsHeading: document.getElementById("quickFactsHeading"),
@@ -3253,6 +3275,7 @@
         ".party-card",
         ".btn-link",
         ".welcome-chip",
+        ".last-updated-chip",
         ".language-button",
         ".menu-button",
         ".menu-close",
@@ -3274,7 +3297,7 @@
             if (!rect.width || !rect.height) return;
             const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
             const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            const isCompact = element.matches(".btn-link, .language-button, .menu-button, .menu-close, .menu-link, .logout-button, .home-back-button");
+            const isCompact = element.matches(".btn-link, .language-button, .menu-button, .menu-close, .menu-link, .logout-button, .home-back-button, .last-updated-chip");
             const move = isCompact ? 4 : 7;
             const tilt = isCompact ? 1.2 : 2.6;
             element.classList.add("is-magnetic");
@@ -3323,11 +3346,31 @@
         welcomeChip.textContent = `${t("welcomePrefix")} ${name || t("guestName")}`;
       }
 
+      function formatLastUpdated() {
+        const parsed = new Date(siteLastUpdatedAt);
+        if (Number.isNaN(parsed.getTime())) return siteLastUpdatedAt;
+        return new Intl.DateTimeFormat(currentLanguage === "hi" ? "hi-IN" : "en-US", {
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          month: "short",
+          timeZoneName: "short",
+          year: "numeric",
+        }).format(parsed);
+      }
+
+      function renderLastUpdated() {
+        const chip = document.getElementById("lastUpdatedChip");
+        if (!chip) return;
+        chip.textContent = `${t("lastUpdatedPrefix")} ${formatLastUpdated()}`;
+      }
+
       function updateStaticUi() {
         document.title = t("pageTitle");
         document.documentElement.lang = currentLanguage === "hi" ? "hi" : "en";
         Object.entries(uiElements).forEach(([key, el]) => {
           if (!el) return;
+          if (key === "lastUpdatedChip") return;
           if (key === "footerNote") {
             el.innerHTML = t(key);
           } else {
@@ -3341,6 +3384,7 @@
           button.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
         renderWelcome();
+        renderLastUpdated();
       }
 
       function isPendingCase(item) {
@@ -3366,12 +3410,21 @@
         return cases.some((item) => item.id === requestedId) ? requestedId : cases[0].id;
       }
 
+      function getOrderCount(item) {
+        const archivedOrders = item.ordersArchive || [];
+        const archivedDates = new Set(archivedOrders.map((order) => String(order[0] || "").trim().toLowerCase()));
+        const extraHighlights = (item.orderHighlights || []).filter(
+          (order) => !archivedDates.has(String(order.date || "").trim().toLowerCase())
+        );
+        return archivedOrders.length + extraHighlights.length;
+      }
+
       function updateHighlightCounts() {
         totalCasesCount.textContent = cases.length;
         pendingCasesCount.textContent = cases.filter(isPendingCase).length;
         closedCasesCount.textContent = cases.filter((item) => !isPendingCase(item)).length;
-        documentsCount.textContent = cases.reduce((sum, item) => sum + item.documents.length, 0);
-        ordersCount.textContent = cases.reduce((sum, item) => sum + item.ordersArchive.length, 0);
+        documentsCount.textContent = cases.reduce((sum, item) => sum + (item.documents || []).length, 0);
+        ordersCount.textContent = cases.reduce((sum, item) => sum + getOrderCount(item), 0);
         highlightCards.forEach((card) => {
           card.classList.toggle("active", card.dataset.filter === currentCaseFilter);
         });
@@ -3402,7 +3455,7 @@
                 </div>
                 <div>
                   <div class="case-title">${item.code}</div>
-                  <div class="case-kicker">${localizeText(item.type)} · ${item.bench}</div>
+                  <div class="case-kicker">${localizeText(item.type)} · ${localizeText(item.courtLocation || item.bench)}</div>
                   <div class="case-summary-line">${localizeText(item.dashletSummary || item.stage)}</div>
                   <div class="case-petitioner-line">${localizeText(item.petitionerLine || "")}</div>
                 </div>

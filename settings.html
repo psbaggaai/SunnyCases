@@ -24,6 +24,8 @@
       .home-title-link { color: inherit; text-decoration: none; }
       h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
       .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      .top-banner-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+      .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
       .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
       .menu-lines { display: grid; gap: 4px; width: 18px; }
       .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
@@ -74,7 +76,7 @@
       .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
       .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
       @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
-      @media (max-width: 860px) { .settings-grid { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+      @media (max-width: 860px) { .settings-grid { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } }
     </style>
   </head>
   <body>
@@ -88,7 +90,10 @@
             <h1>Bagga Case Tracker Dashboard</h1>
           </a>
         </div>
-        <a class="back-link" href="index.html">Back to Dashboard</a>
+        <div class="top-banner-actions">
+          <div class="last-updated-chip" data-last-updated>Last updated: Jun 7, 2026, 1:39 AM PDT</div>
+          <a class="back-link" href="index.html">Back to Dashboard</a>
+        </div>
       </div>
     </header>
     <div class="menu-backdrop" data-menu-close hidden></div>
@@ -284,7 +289,7 @@
         if (event.key === "Escape") setMenuOpen(false);
       });
 
-      const magneticSelector = ".page-head, .settings-panel, .primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button";
+      const magneticSelector = ".page-head, .settings-panel, .primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip";
       const magneticItems = new WeakSet();
       const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
 
@@ -298,7 +303,7 @@
             if (!rect.width || !rect.height) return;
             const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
             const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            const isCompact = element.matches(".primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button");
+            const isCompact = element.matches(".primary-button, .secondary-button, .menu-button, .menu-close, .menu-link, .logout-button, .last-updated-chip");
             const move = isCompact ? 4 : 7;
             const tilt = isCompact ? 1.2 : 2.6;
             element.classList.add("is-magnetic");

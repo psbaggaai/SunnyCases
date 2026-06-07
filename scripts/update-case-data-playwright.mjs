@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { chromium } from "playwright";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
@@ -8,6 +7,10 @@ import path from "node:path";
 
 const REPO_DIR = path.resolve(process.cwd());
 const INDEX_PATH = path.join(REPO_DIR, "index.html");
+const CASES_PATH = path.join(REPO_DIR, "cases.html");
+const DOCUMENTS_PATH = path.join(REPO_DIR, "documents.html");
+const ORDERS_PATH = path.join(REPO_DIR, "orders.html");
+const SETTINGS_PATH = path.join(REPO_DIR, "settings.html");
 const COURT_URL = "https://mphc.gov.in/case-status";
 
 const CASE_CONFIGS = [
@@ -240,6 +243,7 @@ async function scrapeCase(page, config, tmpDir) {
     type: modal.type || config.caseTypeName,
     title: config.displayTitle || rowTexts[1] || "",
     bench,
+    courtLocation: "MP High Court",
     status,
     statusTone: /pending/i.test(status) ? "pending" : "clear",
     stage: modal.stage || "",
@@ -319,12 +323,239 @@ async function scrapeCase(page, config, tmpDir) {
   };
 }
 
-function replaceCasesData(indexHtml, cases) {
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function extractCasesData(html) {
+  const match = html.match(/const cases = ([\s\S]*?);\n\n      const translations =/);
+  if (!match) throw new Error("Unable to locate cases data block.");
+  return Function(`"use strict"; return ${match[1]};`)();
+}
+
+function mergeRefreshedCases(existingCases, refreshedCases) {
+  const refreshedById = new Map(refreshedCases.map((item) => [item.id, item]));
+  const merged = existingCases.map((existing) => {
+    const fresh = refreshedById.get(existing.id);
+    if (!fresh) return existing;
+    refreshedById.delete(existing.id);
+    return {
+      ...existing,
+      ...fresh,
+      courtLocation: existing.courtLocation || fresh.courtLocation || "MP High Court",
+      dashletSummary: existing.dashletSummary || fresh.dashletSummary || fresh.stage,
+      petitionerLine: existing.petitionerLine || fresh.petitionerLine || "",
+      summaryLines: existing.summaryLines || fresh.summaryLines || [],
+    };
+  });
+
+  return [...merged, ...refreshedById.values()];
+}
+
+function replaceCasesData(html, cases) {
   const replacement = `const cases = ${JSON.stringify(cases, null, 8)};`;
-  return indexHtml.replace(/const cases = \[[\s\S]*?\n      \];\n\n      const translations =/, `${replacement}\n\n      const translations =`);
+  const next = html.replace(/const cases = [\s\S]*?;\n\n      const translations =/, `${replacement}\n\n      const translations =`);
+  if (next === html) throw new Error("Unable to replace cases data block.");
+  return next;
+}
+
+function extractCasesDataBlock(html) {
+  const match = html.match(/const cases = [\s\S]*?;\n\n      const translations =/);
+  if (!match) throw new Error("Unable to locate cases data block.");
+  return match[0].replace(/\n\n      const translations =$/, "");
+}
+
+function replaceCasesDataBlock(html, sourceHtml) {
+  const replacement = extractCasesDataBlock(sourceHtml);
+  const next = html.replace(/const cases = [\s\S]*?;\n\n      const translations =/, `${replacement}\n\n      const translations =`);
+  if (next === html) throw new Error("Unable to replace cases data block.");
+  return next;
+}
+
+function formatRunTimestamp(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    month: "short",
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+function replaceLastUpdated(html, isoTimestamp, label) {
+  let next = html;
+  if (/const siteLastUpdatedAt = "([^"]*)";/.test(next)) {
+    next = next.replace(/const siteLastUpdatedAt = "([^"]*)";/, `const siteLastUpdatedAt = "${isoTimestamp}";`);
+  }
+  next = next.replace(
+    /(<div class="last-updated-chip"[^>]*data-last-updated[^>]*>)[\s\S]*?(<\/div>)/g,
+    (_match, open, close) => `${open}Last updated: ${escapeHtml(label)}${close}`
+  );
+  return next;
+}
+
+function replaceBetweenMarkers(html, startMarker, endMarker, content) {
+  const pattern = new RegExp(`(\\s*<!-- ${startMarker} -->)[\\s\\S]*?(\\s*<!-- ${endMarker} -->)`);
+  const next = html.replace(pattern, `$1\n${content}\n$2`);
+  if (next === html) throw new Error(`Unable to replace generated section between ${startMarker} and ${endMarker}.`);
+  return next;
+}
+
+function buildDocumentEntries(cases) {
+  return cases.flatMap((item) =>
+    (item.documents || []).map((document) => ({
+      caseCode: item.code,
+      caseTitle: item.title,
+      documentNo: document[0] || "—",
+      documentType: document[1] || "Document",
+      filedBy: document[2] || "—",
+      filedOn: document[3] || "—",
+    }))
+  );
+}
+
+function buildDocumentRows(entries) {
+  if (entries.length === 0) {
+    return `        <div class="empty">No document records are currently stored.</div>`;
+  }
+
+  return entries
+    .map(
+      (entry) => `        <article class="row">
+          <div><div class="case-code">${escapeHtml(entry.caseCode)}</div><div class="muted">${escapeHtml(entry.caseTitle)}</div></div>
+          <div><div class="label">Document</div><div class="value">${escapeHtml(entry.documentNo)}</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">${escapeHtml(String(entry.documentType).toUpperCase())}</div><div class="muted">${escapeHtml(String(entry.filedBy).toUpperCase())}</div></div>
+          <div><div class="label">Filed On</div><div class="value">${escapeHtml(entry.filedOn)}</div></div>
+        </article>`
+    )
+    .join("\n");
+}
+
+function normalizeOrderDate(date) {
+  return String(date || "").trim().replace(/-/g, " ").replace(/\s+/g, " ");
+}
+
+function buildOrderEntries(cases) {
+  return cases.flatMap((item) => {
+    const archivedOrders = item.ordersArchive || [];
+    const highlights = item.orderHighlights || [];
+    const highlightsByDate = new Map(highlights.map((order) => [normalizeOrderDate(order.date).toLowerCase(), order.summary || "Court order or judgment noted in the public record."]));
+    const archivedDates = new Set();
+
+    const archiveEntries = archivedOrders.map((order) => {
+      const date = normalizeOrderDate(order[0]);
+      archivedDates.add(date.toLowerCase());
+      return {
+        caseCode: item.code,
+        caseTitle: item.title,
+        date,
+        note: highlightsByDate.get(date.toLowerCase()) || "Downloadable court order or judgment from the public case record.",
+        link: order[1] || item.sourceUrl || "",
+        linkLabel: order[1] ? "Download" : "Open source",
+      };
+    });
+
+    const highlightEntries = highlights
+      .filter((order) => !archivedDates.has(normalizeOrderDate(order.date).toLowerCase()))
+      .map((order) => ({
+        caseCode: item.code,
+        caseTitle: item.title,
+        date: normalizeOrderDate(order.date),
+        note: order.summary || "Court order or judgment noted in the public record.",
+        link: item.sourceUrl || "",
+        linkLabel: item.sourceUrl ? "Open source" : "Source note",
+      }));
+
+    return [...archiveEntries, ...highlightEntries];
+  });
+}
+
+function buildOrderRows(entries) {
+  if (entries.length === 0) {
+    return `        <div class="empty">No order or judgment records are currently stored.</div>`;
+  }
+
+  return entries
+    .map((entry) => {
+      const action = entry.link
+        ? `<a class="button-link" href="${escapeHtml(entry.link)}" target="_blank" rel="noreferrer">${escapeHtml(entry.linkLabel)}</a>`
+        : `<span class="button-link">${escapeHtml(entry.linkLabel)}</span>`;
+      return `        <article class="row orders">
+          <div><div class="case-code">${escapeHtml(entry.caseCode)}</div><div class="muted">${escapeHtml(entry.caseTitle)}</div></div>
+          <div><div class="label">Date</div><div class="value">${escapeHtml(entry.date || "—")}</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">${escapeHtml(entry.note)}</div></div>
+          ${action}
+        </article>`;
+    })
+    .join("\n");
+}
+
+function updateCasesPage(cases, isoTimestamp, label, sourceHtml = "") {
+  const currentHtml = fs.readFileSync(CASES_PATH, "utf8");
+  const withCases = sourceHtml ? replaceCasesDataBlock(currentHtml, sourceHtml) : replaceCasesData(currentHtml, cases);
+  const nextHtml = replaceLastUpdated(withCases, isoTimestamp, label);
+  fs.writeFileSync(CASES_PATH, nextHtml);
+}
+
+function updateDocumentsPage(cases, isoTimestamp, label) {
+  const entries = buildDocumentEntries(cases);
+  let html = fs.readFileSync(DOCUMENTS_PATH, "utf8");
+  html = replaceLastUpdated(html, isoTimestamp, label);
+  html = html.replace(
+    /(<h2>All Documents<\/h2>\s*)<p>[\s\S]*?<\/p>/,
+    `$1<p>${entries.length} filing, diary, and source ${entries.length === 1 ? "record" : "records"} collected across ${cases.length} tracked cases.</p>`
+  );
+  html = replaceBetweenMarkers(html, "documents-start", "documents-end", buildDocumentRows(entries));
+  fs.writeFileSync(DOCUMENTS_PATH, html);
+}
+
+function updateOrdersPage(cases, isoTimestamp, label) {
+  const entries = buildOrderEntries(cases);
+  let html = fs.readFileSync(ORDERS_PATH, "utf8");
+  html = replaceLastUpdated(html, isoTimestamp, label);
+  html = html.replace(
+    /(<h2>Orders and Judgments<\/h2>\s*)<p>[\s\S]*?<\/p>/,
+    `$1<p>${entries.length} order, judgment, or source ${entries.length === 1 ? "record" : "records"} collected across ${cases.length} tracked cases.</p>`
+  );
+  html = replaceBetweenMarkers(html, "orders-start", "orders-end", buildOrderRows(entries));
+  fs.writeFileSync(ORDERS_PATH, html);
+}
+
+function updateStaticTimestampPages(isoTimestamp, label) {
+  for (const filePath of [SETTINGS_PATH]) {
+    const html = fs.readFileSync(filePath, "utf8");
+    fs.writeFileSync(filePath, replaceLastUpdated(html, isoTimestamp, label));
+  }
+}
+
+function updateDerivedPages(cases, isoTimestamp, label, sourceHtml = "") {
+  updateCasesPage(cases, isoTimestamp, label, sourceHtml);
+  updateDocumentsPage(cases, isoTimestamp, label);
+  updateOrdersPage(cases, isoTimestamp, label);
+  updateStaticTimestampPages(isoTimestamp, label);
+}
+
+function renderFromExistingData() {
+  const currentHtml = fs.readFileSync(INDEX_PATH, "utf8");
+  const cases = extractCasesData(currentHtml);
+  const runDate = new Date();
+  const runIso = runDate.toISOString();
+  const runLabel = formatRunTimestamp(runDate);
+  const nextHtml = replaceLastUpdated(currentHtml, runIso, runLabel);
+  fs.writeFileSync(INDEX_PATH, nextHtml);
+  updateDerivedPages(cases, runIso, runLabel, nextHtml);
+  console.log(`Rendered derived tracker pages from ${cases.length} existing case record(s).`);
 }
 
 async function main() {
+  const { chromium } = await import("playwright");
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bagga-playwright-sync-"));
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
@@ -334,22 +565,44 @@ async function main() {
   });
 
   try {
-    const cases = [];
+    const refreshedCases = [];
+    const failures = [];
     for (const config of CASE_CONFIGS) {
-      const caseData = await scrapeCase(page, config, tmpDir);
-      cases.push(caseData);
+      try {
+        const caseData = await scrapeCase(page, config, tmpDir);
+        refreshedCases.push(caseData);
+      } catch (error) {
+        failures.push(`${config.id}: ${error.message}`);
+        console.error(`Unable to refresh ${config.id}; preserving existing tracker data.`);
+        console.error(error);
+      }
     }
+
+    if (refreshedCases.length === 0 && failures.length > 0) {
+      throw new Error(`No live MP High Court case data could be refreshed: ${failures.join("; ")}`);
+    }
+
     const currentHtml = fs.readFileSync(INDEX_PATH, "utf8");
-    const nextHtml = replaceCasesData(currentHtml, cases);
+    const existingCases = extractCasesData(currentHtml);
+    const cases = mergeRefreshedCases(existingCases, refreshedCases);
+    const runDate = new Date();
+    const runIso = runDate.toISOString();
+    const runLabel = formatRunTimestamp(runDate);
+    const nextHtml = replaceLastUpdated(replaceCasesData(currentHtml, cases), runIso, runLabel);
     fs.writeFileSync(INDEX_PATH, nextHtml);
-    console.log(`Updated ${INDEX_PATH} with ${cases.length} case records using browser-driven scraping.`);
+    updateDerivedPages(cases, runIso, runLabel, nextHtml);
+    console.log(`Refreshed ${refreshedCases.length} MP High Court case(s), preserved ${cases.length - refreshedCases.length} existing case(s), and updated tracker timestamps.`);
   } finally {
     await browser.close();
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (process.argv.includes("--render-only")) {
+  renderFromExistingData();
+} else {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

@@ -15,6 +15,8 @@
       .home-title-link { color: inherit; text-decoration: none; }
       h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
       .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
+      .top-banner-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+      .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
       .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
       .menu-lines { display: grid; gap: 4px; width: 18px; }
       .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
@@ -61,7 +63,7 @@
       .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
       .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
       @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
-      @media (max-width: 860px) { .sort-row, .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+      @media (max-width: 860px) { .sort-row, .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } }
     </style>
   </head>
   <body>
@@ -75,7 +77,10 @@
             <h1>Bagga Case Tracker Dashboard</h1>
           </a>
         </div>
-        <a class="back-link" href="index.html">Back to Dashboard</a>
+        <div class="top-banner-actions">
+          <div class="last-updated-chip" data-last-updated>Last updated: Jun 7, 2026, 1:39 AM PDT</div>
+          <a class="back-link" href="index.html">Back to Dashboard</a>
+        </div>
       </div>
     </header>
     <div class="menu-backdrop" data-menu-close hidden></div>
@@ -104,7 +109,7 @@
         </div>
         <div class="label">Case Library</div>
         <h2>Orders and Judgments</h2>
-        <p>9 downloadable court order or judgment records collected across 5 tracked cases.</p>
+        <p>15 order, judgment, or source records collected across 8 tracked cases.</p>
       </section>
       <section class="library">
         <div class="sort-row" aria-label="Sortable order columns">
@@ -122,6 +127,7 @@
           </button>
           <div class="label">File</div>
         </div>
+        <!-- orders-start -->
         <article class="row orders">
           <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
           <div><div class="label">Date</div><div class="value">01 08 2025</div></div>
@@ -176,6 +182,45 @@
           <div><div class="label">Order / Judgment Note</div><div class="value">MCRC-3868-2025 (PRABHJIT SINGH BAGGA S/O JAGJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH BAGGA Vs KARTAR KAUR CHHABRA ) Shri Ravindra Singh Chhabra, learned senior counsel with Shri Aman Arora, learned counsel for the petitioners. Let notices be issued to the respondent(s) on payment of P.F.</div></div>
           <a class="button-link" href="https://mphc.gov.in/order/download/eyJpdiI6IkhwK2tEaXBrNXoycmJHZWJMeFBnZ2c9PSIsInZhbHVlIjoicjkrRlFwVmlZOTAwd05INFQvdW9lUT09IiwibWFjIjoiZGY1NDdlYjYzZThlYzhlMWQxNDk0OTgyNzI1N2I0ZDNhMzMyNTczYmMyODM4NzA0ZDlmMmFmNzk2ZjFmMmRkNiIsInRhZyI6IiJ9" target="_blank" rel="noreferrer">Download</a>
         </article>
+        <article class="row orders">
+          <div><div class="case-code">RCS HM/86/2024</div><div class="muted">Kartar kaur vs Prabhjitsingh Bagga</div></div>
+          <div><div class="label">Date</div><div class="value">24 Jun 2026</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">No order PDF link was returned in the fetched eCourts history; the record currently emphasizes the pending status and next hearing date.</div></div>
+          <a class="button-link" href="https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">MJC R/278/2024</div><div class="muted">Kartar Kor vs Prabhjitshing</div></div>
+          <div><div class="label">Date</div><div class="value">29 Jun 2026</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">No order PDF link was returned in the fetched eCourts history; the record currently emphasizes appearance of the respondent/non-applicant.</div></div>
+          <a class="button-link" href="https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">MJC R/181/2024</div><div class="muted">Kartar Kor vs Prabhjit Singh and others</div></div>
+          <div><div class="label">Date</div><div class="value">22 Jun 2026</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">No order PDF link was returned in the fetched eCourts history; the record currently emphasizes appearance of accused/surety.</div></div>
+          <a class="button-link" href="https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">T.P.(C) 2085/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
+          <div><div class="label">Date</div><div class="value">23 Sep 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">The later MA 2170/2024 cause-list entry states that the application sought modification of the Court&#039;s order dated 23.09.2024 in T.P.(C) No. 2085/2024.</div></div>
+          <a class="button-link" href="https://api.sci.gov.in/jonew/cl/2024-08-14/M_S_1.pdf" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">MA 2170/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
+          <div><div class="label">Date</div><div class="value">25 Oct 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Public cause list lists MA 2170/2024 in T.P.(C) 2085/2024 for admission and modification of the Court&#039;s order dated 23.09.2024.</div></div>
+          <a class="button-link" href="https://api.sci.gov.in/jonew/cl/2024-10-25/M_J_1.pdf" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+        <article class="row orders">
+          <div><div class="case-code">MA 2644/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
+          <div><div class="label">Date</div><div class="value">20 Dec 2024</div></div>
+          <div><div class="label">Order / Judgment Note</div><div class="value">Public cause list lists MA 2644/2024 in the T.P.(C) 2085/2024 chain for recalling the Court&#039;s order and exemption from filing O.T.</div></div>
+          <a class="button-link" href="https://api.sci.gov.in/jonew/cl/2024-12-20/M_J_1.pdf" target="_blank" rel="noreferrer">Open source</a>
+        </article>
+
+
+        <!-- orders-end -->
       </section>
     </main>
     <script>
@@ -233,7 +278,7 @@
         if (event.key === "Escape") setMenuOpen(false);
       });
 
-      const magneticSelector = ".page-head, .row, .back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .sort-button";
+      const magneticSelector = ".page-head, .row, .back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .sort-button, .last-updated-chip";
       const magneticItems = new WeakSet();
       const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
 
@@ -247,7 +292,7 @@
             if (!rect.width || !rect.height) return;
             const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
             const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            const isCompact = element.matches(".back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .sort-button");
+            const isCompact = element.matches(".back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .sort-button, .last-updated-chip");
             const move = isCompact ? 4 : 7;
             const tilt = isCompact ? 1.2 : 2.6;
             element.classList.add("is-magnetic");
@@ -273,9 +318,26 @@
       });
 
       function parseCourtDate(value) {
-        const parts = value.trim().split(/\s+/).map(Number);
-        if (parts.length !== 3 || parts.some(Number.isNaN)) return 0;
-        const [day, month, year] = parts;
+        const monthMap = {
+          jan: 1,
+          feb: 2,
+          mar: 3,
+          apr: 4,
+          may: 5,
+          jun: 6,
+          jul: 7,
+          aug: 8,
+          sep: 9,
+          oct: 10,
+          nov: 11,
+          dec: 12,
+        };
+        const parts = value.trim().replace(/-/g, " ").split(/\s+/);
+        if (parts.length !== 3) return 0;
+        const day = Number(parts[0]);
+        const month = Number(parts[1]) || monthMap[parts[1].slice(0, 3).toLowerCase()];
+        const year = Number(parts[2]);
+        if (![day, month, year].every(Number.isFinite)) return 0;
         return year * 10000 + month * 100 + day;
       }
 
