@@ -46,6 +46,7 @@ run(
     [
       "add",
       "index.html",
+      "cases.html",
       "documents.html",
       "orders.html",
       "settings.html",

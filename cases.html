@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bagga Case Status Dashboard</title>
+    <title>Bagga Case Detail Dashboard</title>
     <style>
       :root {
         --bg: #eef4fb;
@@ -1327,7 +1327,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-page="case-detail">
     <div class="shell">
       <header class="top-banner">
         <div class="top-banner-inner">
@@ -1367,7 +1367,7 @@
           </button>
         </div>
         <div class="menu-links">
-          <a class="menu-link" href="cases.html">Cases</a>
+          <a class="menu-link active" href="cases.html">Cases</a>
           <a class="menu-link" href="orders.html">Orders</a>
           <a class="menu-link" href="documents.html">Documents</a>
           <a class="menu-link" href="settings.html">Settings</a>
@@ -1378,6 +1378,10 @@
       </nav>
 
       <main class="frame">
+        <section class="case-detail-toolbar" aria-label="Case detail navigation">
+          <button class="home-back-button" type="button" data-home-back>Back to Dashboard</button>
+        </section>
+
         <section class="highlight-grid" aria-label="Case tracker highlights">
           <button class="highlight-card active" type="button" data-filter="all">
             <span class="highlight-label">Total Cases</span>
