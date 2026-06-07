@@ -135,18 +135,37 @@
         opacity: 0.9;
       }
 
-      .language-switcher select {
-        appearance: none;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(13, 31, 56, 0.22);
-        color: white;
-        border-radius: 999px;
-        padding: 8px 28px 8px 12px;
-        font: inherit;
-        cursor: pointer;
+      .language-buttons {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
       }
 
-      .language-switcher select:focus {
+      .language-button {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(13, 31, 56, 0.22);
+        color: rgba(255, 255, 255, 0.88);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+      }
+
+      .language-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .language-button.active {
+        background: rgba(255, 255, 255, 0.94);
+        color: #183357;
+        border-color: rgba(255, 255, 255, 0.92);
+      }
+
+      .language-button:focus {
         outline: 2px solid rgba(137, 199, 255, 0.7);
         outline-offset: 2px;
       }
@@ -561,41 +580,200 @@
         }
       }
 
+      @media (max-width: 900px) {
+        .hero-inner {
+          align-items: flex-start;
+        }
+
+        .overview-head {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .overview-head .btn-link {
+          width: 100%;
+        }
+
+        .case-grid,
+        .metrics-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .brand {
+          width: 100%;
+        }
+      }
+
       @media (max-width: 720px) {
         .hero {
-          padding-top: 24px;
-          padding-bottom: 24px;
+          padding: 20px 16px 22px;
+        }
+
+        .hero-inner {
+          gap: 18px;
+        }
+
+        .brand {
+          gap: 14px;
+          align-items: flex-start;
+        }
+
+        .brand-mark {
+          width: 44px;
+          height: 44px;
+          border-radius: 14px;
         }
 
         .section,
         .overview-head,
         .metrics-grid,
         .insight-grid {
-          padding-left: 18px;
-          padding-right: 18px;
+          padding-left: 16px;
+          padding-right: 16px;
         }
 
         .metrics-grid,
         .insight-grid {
+          padding-bottom: 16px;
+        }
+
+        .frame {
+          padding: 18px 12px 42px;
+        }
+
+        .panel {
+          border-radius: 22px;
+        }
+
+        .section,
+        .detail-card,
+        .timeline-card,
+        .order-card,
+        .party-card,
+        .data-table-card,
+        .notice-card {
+          padding-top: 18px;
           padding-bottom: 18px;
         }
 
+        .case-grid,
+        .metrics-grid,
+        .dashlet-meta {
+          grid-template-columns: 1fr;
+        }
+
+        .case-card {
+          padding: 14px;
+        }
+
+        .case-card-header,
+        .hearing-top,
+        .row-between,
+        .party-header,
+        .doc-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .dashlet-action {
+          width: 100%;
+        }
+
         .metric-value {
-          font-size: 1.9rem;
+          font-size: 1.8rem;
+          margin-top: 12px;
         }
 
         .case-selector h2,
         .overview-title h2 {
-          font-size: 1.8rem;
+          font-size: 1.65rem;
+          line-height: 1.12;
+        }
+
+        .subcopy,
+        .overview-title p,
+        .metric-foot,
+        .timeline-note,
+        .order-summary,
+        .footer-note {
+          font-size: 0.94rem;
         }
 
         .hero-meta {
           width: 100%;
+          flex-direction: column;
+          align-items: stretch;
         }
 
-        .pill {
+        .pill,
+        .language-switcher {
           width: 100%;
           justify-content: center;
+        }
+
+        .language-switcher {
+          flex-direction: column;
+          align-items: stretch;
+          border-radius: 18px;
+        }
+
+        .language-buttons {
+          width: 100%;
+        }
+
+        .language-button {
+          flex: 1 1 0;
+          justify-content: center;
+          min-width: 0;
+        }
+
+        th,
+        td {
+          padding: 11px 0;
+        }
+
+        table {
+          min-width: 520px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 1.9rem;
+        }
+
+        .eyebrow,
+        .section-label,
+        .detail-label,
+        .dashlet-label,
+        th {
+          font-size: 0.72rem;
+        }
+
+        .case-selector h2,
+        .overview-title h2 {
+          font-size: 1.45rem;
+        }
+
+        .badge,
+        .btn-link,
+        .language-button {
+          font-size: 0.82rem;
+        }
+
+        .metric-value {
+          font-size: 1.6rem;
+        }
+
+        .timeline-date,
+        .order-date,
+        .case-title {
+          font-size: 0.95rem;
+        }
+
+        .case-kicker,
+        .muted {
+          font-size: 0.84rem;
         }
       }
     </style>
@@ -615,11 +793,11 @@
             <div class="pill" id="snapshotPill"><span class="dot"></span> Court snapshot captured on June 6, 2026</div>
             <div class="pill" id="heroBench">Bench: Indore</div>
             <div class="language-switcher">
-              <label for="languageSelect" id="languageLabel">Language</label>
-              <select id="languageSelect" aria-label="Language selector">
-                <option value="en">English</option>
-                <option value="hi">हिंदी</option>
-              </select>
+              <label id="languageLabel">Language</label>
+              <div class="language-buttons" role="group" aria-label="Language selector">
+                <button type="button" class="language-button active" id="langEnButton" data-lang="en">English</button>
+                <button type="button" class="language-button" id="langHiButton" data-lang="hi">हिंदी</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1289,7 +1467,7 @@
       const listingCountBadge = document.getElementById("listingCountBadge");
       const pendingIaBadge = document.getElementById("pendingIaBadge");
       const ordersCountBadge = document.getElementById("ordersCountBadge");
-      const languageSelect = document.getElementById("languageSelect");
+      const languageButtons = Array.from(document.querySelectorAll(".language-button"));
       let currentLanguage = "en";
 
       function t(key) {
@@ -1313,6 +1491,11 @@
           }
         });
         sourceLink.textContent = t("openCourtRecord");
+        languageButtons.forEach((button) => {
+          const isActive = button.dataset.lang === currentLanguage;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
       }
 
       function renderCaseCards(activeId) {
@@ -1506,9 +1689,11 @@
           `;
       }
 
-      languageSelect.addEventListener("change", (event) => {
-        currentLanguage = event.target.value;
-        renderDashboard(document.querySelector(".case-card.active")?.dataset.caseId || cases[0].id);
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentLanguage = button.dataset.lang;
+          renderDashboard(document.querySelector(".case-card.active")?.dataset.caseId || cases[0].id);
+        });
       });
 
       renderDashboard(cases[0].id);
