@@ -1044,6 +1044,7 @@
                 "type": "WRIT PETITION",
                 "title": "Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others",
                 "bench": "Indore",
+                "courtLocation": "MP High Court - Indore Bench",
                 "status": "Pending",
                 "statusTone": "pending",
                 "stage": "Motion Hearing",
@@ -1441,6 +1442,7 @@
                 "type": "MISC. CRIMINAL CASE",
                 "title": "Prabhjit Singh Bagga vs Kartar Kaur Chhabra",
                 "bench": "Indore",
+                "courtLocation": "MP High Court - Indore Bench",
                 "status": "Pending",
                 "statusTone": "pending",
                 "stage": "Motion Hearing",
@@ -1612,6 +1614,7 @@
           type: "Regular Civil Suit (Hindu Marriage Act)",
           title: "Kartar kaur vs Prabhjitsingh Bagga",
           bench: "Civil Court Khargone",
+          courtLocation: "Civil Court Khargone",
           status: "Pending",
           statusTone: "pending",
           stage: "Miscellaneous Matters",
@@ -1799,6 +1802,7 @@
           type: "Miscellaneous Judicial Case (Criminal)",
           title: "Kartar Kor vs Prabhjitshing",
           bench: "Civil Court Khargone",
+          courtLocation: "Civil Court Khargone",
           status: "Pending",
           statusTone: "pending",
           stage: "Miscellaneous Matters",
@@ -1985,6 +1989,7 @@
           type: "Miscellaneous Judicial Case (Criminal)",
           title: "Kartar Kor vs Prabhjit Singh and others",
           bench: "Civil Court Khargone",
+          courtLocation: "Civil Court Khargone",
           status: "Pending",
           statusTone: "pending",
           stage: "Miscellaneous Matters",
@@ -2212,7 +2217,7 @@
           footerNote:
             'This dashboard is a structured snapshot of public case-status records from <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a> and <a href="https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/" target="_blank" rel="noreferrer">mandleshwar.dcourts.gov.in</a>. Court data can change without notice, so it should be refreshed before relying on it for filing or hearing decisions.',
           benchPrefix: "Bench",
-          liveSnapshot: "Live snapshot",
+          courtLocation: "Court location",
           nextDate: "Next Date",
           openCaseDetails: "Open case details",
           pendingCount: "pending",
@@ -2258,7 +2263,7 @@
           footerNote:
             'यह डैशबोर्ड <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a> पर उपलब्ध सार्वजनिक केस-स्टेटस रिकॉर्ड का संरचित स्नैपशॉट है। न्यायालय का डेटा बिना सूचना के बदल सकता है, इसलिए फाइलिंग या सुनवाई संबंधी निर्णय लेने से पहले इसे फिर से जांचना चाहिए।',
           benchPrefix: "पीठ",
-          liveSnapshot: "लाइव स्नैपशॉट",
+          courtLocation: "न्यायालय स्थान",
           nextDate: "अगली तिथि",
           openCaseDetails: "केस विवरण खोलें",
           pendingCount: "लंबित",
@@ -2301,6 +2306,8 @@
         "Open case details": "केस विवरण खोलें",
         "High Court order PDF": "हाई कोर्ट आदेश पीडीएफ",
         "Stay application": "स्थगन आवेदन",
+        "MP High Court - Indore Bench": "मध्य प्रदेश उच्च न्यायालय - इंदौर पीठ",
+        "Civil Court Khargone": "सिविल न्यायालय खरगोन",
       };
 
       const uiElements = {
@@ -2438,7 +2445,7 @@
             (item) => `
               <button class="case-card ${item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
                 <div class="case-card-header">
-                  <span class="badge live">${t("liveSnapshot")}</span>
+                  <span class="badge live">${localizeText(item.courtLocation || item.bench)}</span>
                   <span class="badge ${item.statusTone}">${localizeText(item.status)}</span>
                 </div>
                 <div>
