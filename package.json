@@ -1,0 +1,13 @@
+{
+  "name": "baggacasetracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "update-case-data": "node scripts/update-case-data-playwright.mjs",
+    "sync-and-publish": "node scripts/sync-and-publish.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.53.0",
+    "tweetsodium": "^0.0.4"
+  }
+}

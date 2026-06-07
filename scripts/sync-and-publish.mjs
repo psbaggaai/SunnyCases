@@ -39,9 +39,24 @@ if (missing.length > 0) {
   throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
 }
 
-run("node", ["scripts/update-case-data.mjs"], { capture: false });
+run("node", ["scripts/update-case-data-playwright.mjs"], { capture: false });
 
-run("git", ["add", "index.html", ".gitignore", "scripts/update-case-data.mjs", "scripts/sync-and-publish.mjs"], { capture: false });
+run(
+    "git",
+    [
+      "add",
+      "index.html",
+      "package.json",
+      "package-lock.json",
+      ".gitignore",
+      "scripts/update-case-data.mjs",
+      "scripts/update-case-data-playwright.mjs",
+      "scripts/sync-and-publish.mjs",
+      ".github/workflows/case-refresh.yml",
+    "docs/india-runner-setup.md",
+  ],
+  { capture: false }
+);
 
 let hasChanges = true;
 try {
