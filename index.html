@@ -166,20 +166,21 @@
       }
 
       .case-grid {
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         margin-top: 22px;
       }
 
       .case-card {
-        padding: 22px;
+        padding: 16px 18px;
         border-radius: var(--radius-lg);
         border: 1px solid #d9e2f1;
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.94));
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
         cursor: pointer;
         transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+        text-align: left;
       }
 
       .case-card:hover,
@@ -227,15 +228,52 @@
         color: #365ca6;
       }
 
-      .case-number {
-        font-size: 2.2rem;
-        font-weight: 800;
-        letter-spacing: -0.03em;
+      .case-title {
+        font-size: 1rem;
+        font-weight: 700;
       }
 
-      .case-title {
-        font-size: 1.12rem;
+      .case-kicker {
+        font-size: 0.88rem;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .dashlet-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 12px;
+      }
+
+      .dashlet-stat {
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: #f5f8fe;
+        border: 1px solid #e5ebf7;
+      }
+
+      .dashlet-label {
+        color: var(--muted);
+        font-size: 0.74rem;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .dashlet-value {
+        margin-top: 4px;
+        font-size: 0.96rem;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .dashlet-action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #3b67b9;
+        font-weight: 700;
+        font-size: 0.92rem;
       }
 
       .btn-link {
@@ -509,7 +547,6 @@
           padding-bottom: 18px;
         }
 
-        .case-number,
         .metric-value {
           font-size: 1.9rem;
         }
@@ -702,6 +739,7 @@
           stageDetail: "63 - Not Reached COVID-19",
           filedOn: "15 May 2024",
           lastListedOn: "30 Apr 2026",
+          nextVisibleDate: "No next date visible",
           lastOrderLabel: "Not Reached - Ord dt: 28/04/2026",
           before: "SB Proposal Pool",
           da: "WP - DA 11",
@@ -899,6 +937,127 @@
             "Chetan Jain",
           ],
         },
+        {
+          id: "mcrc-3868-2025",
+          code: "MCRC/3868/2025",
+          type: "Misc. Criminal Case",
+          title: "Prabhjit Singh Bagga vs Kartar Kaur Chhabra",
+          bench: "Indore",
+          status: "Pending",
+          statusTone: "pending",
+          stage: "Motion Hearing",
+          stageDetail: "58 - After Week/Month (Court Order) COVID-19",
+          filedOn: "23 Jan 2025",
+          lastListedOn: "22 Jul 2026",
+          nextVisibleDate: "22 Jul 2026",
+          lastOrderLabel: "List After (Weeks) (4), Notice - Ord dt: 10/02/2025",
+          before: "SB Proposal Pool",
+          da: "MCRC - DA 5",
+          cnr: "MPHC020030112025",
+          sourceUrl: "https://mphc.gov.in/case-status",
+          partiesSummary: "1 petitioner, 1 respondent, one pending stay application, and issued notice history",
+          category: "Criminal Law & Procedure > Code of Criminal Procedure, 1973 > Section 407",
+          district: "Leh Ladakh",
+          statutory: "For admission and IA No. 1031/2025 - stay application.",
+          quickFacts: [
+            ["Before", "SB Proposal Pool"],
+            ["Stage", "Motion Hearing"],
+            ["Status", "Pending"],
+            ["CNR", "MPHC020030112025"],
+            ["District shown in record", "Leh Ladakh"],
+            ["Category", "Criminal Law & Procedure > Code of Criminal Procedure, 1973 > Section 407"],
+            ["Earlier court reference", "Khargone (West Nimar) / Misc. Judicial Case (Criminal)-278-2024 / Decision date 07-06-2026"],
+          ],
+          metrics: [
+            {
+              label: "Last listed",
+              value: "22 Jul 2026",
+              note: "Most recent listing date on the public case page",
+              accent: "#d86c63",
+            },
+            {
+              label: "Pending IAs",
+              value: "1",
+              note: "Only the stay application remains pending",
+              accent: "#c89a37",
+            },
+            {
+              label: "Orders online",
+              value: "1",
+              note: "One downloadable order is currently listed",
+              accent: "#73b35c",
+            },
+            {
+              label: "Latest filing",
+              value: "24 Mar 2025",
+              note: "Vakalatnama filed by Kavanpreet Singh Dawar",
+              accent: "#5b8dee",
+            },
+          ],
+          nextSteps: [
+            "The matter remains pending at motion-hearing stage and the latest listing shown is July 22, 2026 before the SB Proposal Pool, with no subsequent action text visible on the public page.",
+            "The single pending IA is IA No. 1031/2025, a stay application filed on January 23, 2025.",
+            "The latest substantive order available online is dated February 10, 2025, when the Court directed issuance of notice to the respondent on PF within seven working days by RAD mode, returnable within four weeks.",
+            "Notice history shows dispatch activity in February and service acknowledgement on one entry dated March 7, 2025, which suggests the case is procedurally beyond first issuance but still awaiting further hearing progress.",
+          ],
+          listingTimeline: [
+            {
+              date: "22 Jul 2026",
+              coram: "SB Proposal Pool",
+              purpose: "Fresh (for admission) - criminal cases",
+              note: "After week/month (court order). No further action text shown.",
+            },
+            {
+              date: "10 Feb 2025",
+              coram: "Hon'ble Shri Justice Binod Kumar Dwivedi",
+              purpose: "Fresh (for admission) - criminal cases",
+              note: "Notice issued and list after four weeks.",
+            },
+            {
+              date: "31 Jan 2025",
+              coram: "Hon'ble Shri Justice Sanjeev S Kalgaonkar",
+              purpose: "Fresh (for admission) - criminal cases",
+              note: "Not reached.",
+            },
+            {
+              date: "29 Jan 2025",
+              coram: "Hon'ble Shri Justice Sanjeev S Kalgaonkar",
+              purpose: "Fresh (for admission) - criminal cases",
+              note: "Not reached.",
+            },
+          ],
+          orderHighlights: [
+            {
+              date: "10 Feb 2025",
+              summary:
+                "The Court issued notice to the respondent on payment of process fee within seven working days by RAD mode, returnable within four weeks.",
+            },
+            {
+              date: "22 Jul 2026",
+              summary:
+                "The case appears in the listing history before the SB Proposal Pool with an after week/month court-order stage marker, but no public order text is attached to that listing.",
+            },
+          ],
+          pendingIAs: [["1031/2025", "Stay application", "", "23 Jan 2025"]],
+          ordersArchive: [
+            ["10 Feb 2025", "https://mphc.gov.in/order/download/eyJpdiI6Im02TkNvSzdSdW1Bd0h5eUxPUk0yZHc9PSIsInZhbHVlIjoiNkN0cWFSNzgxbGRTNmorbmpRc1UwUT09IiwibWFjIjoiZmRiMzdjMjg5NzhjNTA4MTM1YjVlYzJhZDdkMWZiZDZmMjgyYzlhZmExN2EyZDllY2IwNjEzZTZiMzk0MDY3ZiIsInRhZyI6IiJ9"],
+          ],
+          documents: [
+            ["1891-2025", "Vakalatnama", "Kavanpreet Singh Dawar", "24 Mar 2025 18:15"],
+            ["286-2025", "Process application", "Aman Arora", "13 Feb 2025 18:03"],
+            ["815-2025", "Other", "Aman Arora", "27 Jan 2025 10:58"],
+          ],
+          serviceInfo: [
+            "Notice records are present for the respondent Kartar Kaur Chhabra, with issue date 17-02-2025 and returnable date 17-03-2025.",
+            "One notice entry shows service and acknowledgement on 07-03-2025; the other shows dispatch on 19-02-2025 but no service date on the public page.",
+            "Connected cases tab shows this matter as the main case only; no separate connected matters are listed.",
+            "Earlier court tab links the matter to Khargone (West Nimar), Misc. Judicial Case (Criminal)-278-2024, with CNR MP10050042942024.",
+          ],
+          petitioners: ["Prabhjit Singh Bagga s/o Jagjit Singh Bagga through power-of-attorney holder Jagjit Singh Bagga"],
+          petitionerAdvocates: ["Navneet Kour Chhabra", "Praneesha Nayyar", "Raghav Raj Singh", "Aman Arora", "Shreyansh Jain"],
+          respondents: ["Kartar Kaur Chhabra"],
+          respondentAdvocates: ["Mastan Singh Chhabra", "Jigerjeet Singh Chhabra", "Rajat Lohia", "Rishabh Jain", "Rohan Vyas", "Kavanpreet Singh Dawar"],
+        },
       ];
 
       const caseGrid = document.getElementById("caseGrid");
@@ -930,18 +1089,25 @@
               <button class="case-card ${item.id === activeId ? "active" : ""}" data-case-id="${item.id}">
                 <div class="case-card-header">
                   <span class="badge live">Live snapshot</span>
-                  <span class="muted">${item.bench}</span>
+                  <span class="badge ${item.statusTone}">${item.status}</span>
                 </div>
                 <div>
                   <div class="case-title">${item.code}</div>
-                  <div class="subcopy">${item.type}</div>
+                  <div class="case-kicker">${item.type} · ${item.bench}</div>
                 </div>
-                <div class="row-between">
-                  <div>
-                    <div class="case-number">${item.pendingIAs.length}</div>
-                    <div class="muted">Pending IAs</div>
+                <div class="dashlet-meta">
+                  <div class="dashlet-stat">
+                    <div class="dashlet-label">Next Date</div>
+                    <div class="dashlet-value">${item.nextVisibleDate || "—"}</div>
                   </div>
-                  <span class="badge ${item.statusTone}">${item.status}</span>
+                  <div class="dashlet-stat">
+                    <div class="dashlet-label">Pending IAs</div>
+                    <div class="dashlet-value">${item.pendingIAs.length}</div>
+                  </div>
+                </div>
+                <div class="dashlet-action">
+                  <span>Open case details</span>
+                  <span>→</span>
                 </div>
               </button>
             `
