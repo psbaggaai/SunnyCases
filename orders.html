@@ -19,6 +19,10 @@
       h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
       p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
       .library { display: grid; gap: 14px; margin-top: 20px; }
+      .sort-row { align-items: center; color: var(--muted); display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(120px, 0.6fr) minmax(260px, 1.5fr) minmax(110px, 0.5fr); padding: 0 16px; }
+      .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
+      .sort-button:hover, .sort-button.active { color: var(--navy); }
+      .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
       .row { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 10px 26px rgba(29, 53, 87, 0.08); display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(160px, 0.8fr) minmax(220px, 1.1fr) minmax(150px, 0.8fr); padding: 16px; }
       .row.orders { grid-template-columns: minmax(180px, 1fr) minmax(120px, 0.6fr) minmax(260px, 1.5fr) minmax(110px, 0.5fr); }
       .case-code { font-weight: 850; }
@@ -26,7 +30,7 @@
       .value { font-weight: 750; line-height: 1.4; }
       .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
       .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; margin-top: 20px; padding: 24px; text-align: center; }
-      @media (max-width: 860px) { .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
+      @media (max-width: 860px) { .sort-row, .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } }
     </style>
   </head>
   <body>
@@ -43,6 +47,21 @@
         <p>9 downloadable court order or judgment records collected across 5 tracked cases.</p>
       </section>
       <section class="library">
+        <div class="sort-row" aria-label="Sortable order columns">
+          <button class="sort-button" type="button" data-sort="case">
+            Case Number / Parties
+            <span class="sort-state">Sort</span>
+          </button>
+          <button class="sort-button" type="button" data-sort="date">
+            Date
+            <span class="sort-state">Sort</span>
+          </button>
+          <button class="sort-button" type="button" data-sort="note">
+            Order / Judgment Note
+            <span class="sort-state">Sort</span>
+          </button>
+          <div class="label">File</div>
+        </div>
         <article class="row orders">
           <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
           <div><div class="label">Date</div><div class="value">01 08 2025</div></div>
@@ -99,5 +118,77 @@
         </article>
       </section>
     </main>
+    <script>
+      const library = document.querySelector(".library");
+      const sortButtons = Array.from(document.querySelectorAll(".sort-button"));
+      const rows = Array.from(document.querySelectorAll(".row.orders"));
+      const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+      let activeSort = { key: "", direction: "asc" };
+
+      rows.forEach((row, index) => {
+        row.dataset.originalIndex = index;
+      });
+
+      function parseCourtDate(value) {
+        const parts = value.trim().split(/\s+/).map(Number);
+        if (parts.length !== 3 || parts.some(Number.isNaN)) return 0;
+        const [day, month, year] = parts;
+        return year * 10000 + month * 100 + day;
+      }
+
+      function getRowData(row) {
+        if (row._sortData) return row._sortData;
+        const caseCode = row.querySelector(".case-code")?.textContent.trim() || "";
+        const parties = row.querySelector(".muted")?.textContent.trim() || "";
+        const values = Array.from(row.querySelectorAll(".value")).map((node) => node.textContent.trim());
+        row._sortData = {
+          case: `${caseCode} ${parties}`,
+          date: parseCourtDate(values[0] || ""),
+          note: values[1] || "",
+          originalIndex: Number(row.dataset.originalIndex || 0),
+        };
+        return row._sortData;
+      }
+
+      function compareRows(first, second, key) {
+        const firstData = getRowData(first);
+        const secondData = getRowData(second);
+        const firstValue = firstData[key];
+        const secondValue = secondData[key];
+        const result = typeof firstValue === "number"
+          ? firstValue - secondValue
+          : collator.compare(String(firstValue), String(secondValue));
+
+        return result || firstData.originalIndex - secondData.originalIndex;
+      }
+
+      function updateSortButtons() {
+        sortButtons.forEach((button) => {
+          const isActive = button.dataset.sort === activeSort.key;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+          button.querySelector(".sort-state").textContent = isActive
+            ? activeSort.direction === "asc" ? "Asc" : "Desc"
+            : "Sort";
+        });
+      }
+
+      function sortOrders(key) {
+        const direction = activeSort.key === key && activeSort.direction === "asc" ? "desc" : "asc";
+        activeSort = { key, direction };
+        const sortedRows = [...rows].sort((first, second) => {
+          const result = compareRows(first, second, key);
+          return direction === "asc" ? result : -result;
+        });
+
+        sortedRows.forEach((row) => library.appendChild(row));
+        updateSortButtons();
+      }
+
+      sortButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", "false");
+        button.addEventListener("click", () => sortOrders(button.dataset.sort));
+      });
+    </script>
   </body>
 </html>
