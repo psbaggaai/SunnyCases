@@ -12,6 +12,16 @@ const DOCUMENTS_PATH = path.join(REPO_DIR, "documents.html");
 const ORDERS_PATH = path.join(REPO_DIR, "orders.html");
 const SETTINGS_PATH = path.join(REPO_DIR, "settings.html");
 const COURT_URL = "https://mphc.gov.in/case-status";
+const KHARGONE_COURT_URL = "https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/";
+const ECOURTS_CNR_HISTORY_URL = "https://services.ecourts.gov.in/ecourtindia_v6/?p=cnr_status/viewCNRHistory/";
+const KHARGONE_REFRESH_ROUTE = "Party Name > Court Establishment > Civil Court Khargone > Kartar > 2024";
+const KHARGONE_DISTRICT_CONTEXT = {
+  stateCode: "23",
+  districtCode: "16",
+  courtComplexCode: "1230061",
+  courtName: "Civil Court Khargone",
+  district: "Mandleshwar / Khargone",
+};
 
 const CASE_CONFIGS = [
   {
@@ -27,6 +37,48 @@ const CASE_CONFIGS = [
     caseNo: "3868",
     year: "2025",
     displayTitle: "Prabhjit Singh Bagga vs Kartar Kaur Chhabra",
+  },
+];
+
+const KHARGONE_CASE_CONFIGS = [
+  {
+    id: "rcs-hm-86-2024",
+    code: "RCS HM/86/2024",
+    cnr: "MP10050048062024",
+    type: "Regular Civil Suit (Hindu Marriage Act)",
+    displayTitle: "Kartar kaur vs Prabhjitsingh Bagga",
+    partiesSummary: "Kartar kaur against Prabhjitsingh Bagga",
+    category: "Hindu Marriage Act, 1955",
+    statutory:
+      "Regular civil suit under section 9 of the Hindu Marriage Act, 1955. The eCourts status page marks the current sub-stage as proceedings stayed.",
+    orderNote:
+      "No order PDF link was returned in the fetched eCourts history; the record currently emphasizes the pending status and next hearing date.",
+  },
+  {
+    id: "mjc-r-278-2024",
+    code: "MJC R/278/2024",
+    cnr: "MP10050042942024",
+    type: "Miscellaneous Judicial Case (Criminal)",
+    displayTitle: "Kartar Kor vs Prabhjitshing",
+    partiesSummary: "Kartar Kor against Prabhjitshing",
+    category: "Bharatiya Nagarik Suraksha Sanhita, 2023",
+    statutory:
+      "Miscellaneous judicial criminal case under section 144 of the Bharatiya Nagarik Suraksha Sanhita, 2023.",
+    orderNote:
+      "No order PDF link was returned in the fetched eCourts history; the record currently emphasizes appearance of the respondent/non-applicant.",
+  },
+  {
+    id: "mjc-r-181-2024",
+    code: "MJC R/181/2024",
+    cnr: "MP10050024632024",
+    type: "Miscellaneous Judicial Case (Criminal)",
+    displayTitle: "Kartar Kor vs Prabhjit Singh and others",
+    partiesSummary: "Kartar Kor against four Bagga-side respondents",
+    category: "Protection of Women from Domestic Violence Act, 2005",
+    statutory:
+      "Miscellaneous judicial criminal case under section 23 of the Protection of Women from Domestic Violence Act, 2005.",
+    orderNote:
+      "No order PDF link was returned in the fetched eCourts history; the record currently emphasizes appearance of accused/surety.",
   },
 ];
 
@@ -72,6 +124,167 @@ function parseTableRows(html) {
         .filter(Boolean)
     )
     .filter((cells) => cells.length > 0);
+}
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const longMonthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const monthIndexByName = new Map(longMonthNames.map((name, index) => [name.toLowerCase(), index]));
+monthNames.forEach((name, index) => monthIndexByName.set(name.toLowerCase(), index));
+
+function cleanText(value) {
+  return stripTags(String(value || ""))
+    .replace(/\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanLabel(value) {
+  return cleanText(value).replace(/\s+/g, " ").replace(/:$/, "").trim();
+}
+
+function parseCourtDate(value) {
+  const cleaned = cleanText(value).replace(/(\d+)(st|nd|rd|th)/gi, "$1");
+  let match = cleaned.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if (match) {
+    return { day: Number(match[1]), month: Number(match[2]) - 1, year: Number(match[3]) };
+  }
+
+  match = cleaned.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/);
+  if (match) {
+    const month = monthIndexByName.get(match[2].toLowerCase());
+    if (month !== undefined) {
+      return { day: Number(match[1]), month, year: Number(match[3]) };
+    }
+  }
+
+  return null;
+}
+
+function formatCourtDate(value, style = "short") {
+  const parsed = parseCourtDate(value);
+  if (!parsed) return cleanText(value);
+  if (style === "long") return `${longMonthNames[parsed.month]} ${parsed.day}, ${parsed.year}`;
+  return `${String(parsed.day).padStart(2, "0")} ${monthNames[parsed.month]} ${parsed.year}`;
+}
+
+function normalizeDistrictPurpose(value) {
+  return cleanText(value).replace(/Miscellanceous/gi, "Miscellaneous");
+}
+
+function normalizeDistrictStage(value) {
+  const stage = normalizeDistrictPurpose(value);
+  if (/miscellaneous matters not defined otherwise/i.test(stage)) return "Miscellaneous Matters";
+  return stage;
+}
+
+function tableHtmlByClass(html, className) {
+  const match = html.match(new RegExp(`<table[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/table>`, "i"));
+  return match ? match[0] : "";
+}
+
+function parseKeyValueTable(html, className) {
+  const rows = parseTableRows(tableHtmlByClass(html, className));
+  const values = new Map();
+  for (const cells of rows) {
+    if (cells.length === 2) {
+      values.set(cleanLabel(cells[0]), cleanText(cells[1]));
+    } else if (cells.length >= 4) {
+      values.set(cleanLabel(cells[0]), cleanText(cells[1]));
+      values.set(cleanLabel(cells[2]), cleanText(cells[3]));
+    }
+  }
+  return values;
+}
+
+function listHtmlByClass(html, className) {
+  const match = html.match(new RegExp(`<ul[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>([\\s\\S]*?)<\\/ul>`, "i"));
+  return match ? match[1] : "";
+}
+
+function parseDistrictPartyList(html, className) {
+  const listHtml = listHtmlByClass(html, className);
+  const people = [];
+  const advocates = [];
+
+  for (const match of listHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)) {
+    const text = cleanText(match[1]);
+    const entries = text.split(/\s*(?=\d+\)\s*)/).filter(Boolean);
+    for (const entry of entries) {
+      const [namePart, advocatePart] = entry.replace(/^\d+\)\s*/, "").split(/\bAdvocate-\s*/i);
+      const name = cleanText(namePart);
+      const advocate = cleanText(advocatePart || "");
+      if (name) people.push(name);
+      if (advocate) advocates.push(advocate);
+    }
+  }
+
+  return { people, advocates };
+}
+
+function parseDistrictActs(html) {
+  return parseTableRows(tableHtmlByClass(html, "acts_table"))
+    .slice(1)
+    .map((cells) => [cleanText(cells[0]), cleanText(cells[1])])
+    .filter((cells) => cells.some(Boolean));
+}
+
+function parseDistrictHistory(html) {
+  return parseTableRows(tableHtmlByClass(html, "history_table"))
+    .map((cells) => ({
+      coram: cleanText(cells[0]),
+      date: formatCourtDate(cells[1]),
+      rawDate: cleanText(cells[1]),
+      nextDate: formatCourtDate(cells[2]),
+      purpose: normalizeDistrictPurpose(cells[3]),
+    }))
+    .filter((row) => row.date);
+}
+
+function parseDistrictTransfers(html) {
+  return parseTableRows(tableHtmlByClass(html, "transfer_table"))
+    .slice(1)
+    .map((cells) => ({
+      registration: cleanText(cells[0]),
+      date: cleanText(cells[1]),
+      from: cleanText(cells[2]),
+      to: cleanText(cells[3]),
+    }))
+    .filter((row) => row.date || row.from || row.to);
+}
+
+function formatDistrictTimeline(historyRows) {
+  return historyRows.map((row, index) => ({
+    date: row.date,
+    coram: row.coram,
+    purpose: row.purpose,
+    note:
+      index === historyRows.length - 1
+        ? `First hearing date; next hearing listed for ${row.nextDate}.`
+        : `Next hearing listed for ${row.nextDate}.`,
+  }));
+}
+
+function districtSubstageMetric(stageDetail) {
+  if (/stay|stayed/i.test(stageDetail)) return "Stayed";
+  if (/appearance/i.test(stageDetail)) return "Appearance";
+  return stageDetail || "-";
+}
+
+function isBlankCourtValue(value) {
+  return !cleanText(value) || cleanText(value) === "-";
 }
 
 function ensurePdftotext() {
@@ -320,6 +533,173 @@ async function scrapeCase(page, config, tmpDir) {
     respondents: modal.respondents,
     respondentAdvocates: modal.respondentAdvocates,
     filNo,
+  };
+}
+
+async function fetchDistrictCaseHtml(config) {
+  const body = new URLSearchParams({
+    cino: config.cnr,
+    ajax_req: "true",
+    app_token: "",
+  });
+
+  const response = await fetch(ECOURTS_CNR_HISTORY_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      "X-Requested-With": "XMLHttpRequest",
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    },
+    body,
+  });
+
+  if (!response.ok) {
+    throw new Error(`eCourts CNR history request failed with HTTP ${response.status}`);
+  }
+
+  const text = await response.text();
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    throw new Error(`eCourts CNR history returned non-JSON content for ${config.cnr}`);
+  }
+
+  const html = payload.casetype_list || payload.data_list || "";
+  if (!html) {
+    throw new Error(`eCourts CNR history returned no case details for ${config.cnr}`);
+  }
+  return html;
+}
+
+async function scrapeKhargoneCase(config) {
+  const pageHtml = await fetchDistrictCaseHtml(config);
+  const caseDetails = parseKeyValueTable(pageHtml, "case_details_table");
+  const caseStatus = parseKeyValueTable(pageHtml, "case_status_table");
+  const petitioners = parseDistrictPartyList(pageHtml, "Petitioner_Advocate_table");
+  const respondents = parseDistrictPartyList(pageHtml, "Respondent_Advocate_table");
+  const acts = parseDistrictActs(pageHtml);
+  const historyRows = parseDistrictHistory(pageHtml);
+  const transferRows = parseDistrictTransfers(pageHtml);
+
+  const filingNumber = caseDetails.get("Filing Number") || "-";
+  const filingDate = caseDetails.get("Filing Date") || "";
+  const registrationNumber = caseDetails.get("Registration Number") || "";
+  const registrationDate = caseDetails.get("Registration Date") || "";
+  const firstHearingDate = caseStatus.get("First Hearing Date") || "";
+  const nextHearingDate = caseStatus.get("Next Hearing Date") || "";
+  const stage = normalizeDistrictStage(caseStatus.get("Case Stage") || "");
+  const stageDetail = normalizeDistrictPurpose(caseStatus.get("Sub Stage") || "");
+  const before = cleanText(caseStatus.get("Court Number and Judge") || "");
+  const lastListedOn = historyRows[0]?.date || "";
+  const nextVisibleDate = formatCourtDate(nextHearingDate) || historyRows[0]?.nextDate || "No next date visible";
+  const firstHistoryDate = historyRows[historyRows.length - 1]?.date || formatCourtDate(firstHearingDate);
+  const status = /decision|disposed|disposal/i.test(pageHtml) && !nextHearingDate ? "Disposed" : "Pending";
+  const statusTone = /pending/i.test(status) ? "pending" : "clear";
+  const actName = acts[0]?.[0] || config.category || "-";
+  const sectionName = acts[0]?.[1] || "";
+
+  return {
+    id: config.id,
+    code: config.code,
+    type: config.type,
+    title: config.displayTitle,
+    bench: KHARGONE_DISTRICT_CONTEXT.courtName,
+    courtLocation: KHARGONE_DISTRICT_CONTEXT.courtName,
+    status,
+    statusTone,
+    stage,
+    stageDetail,
+    filedOn: formatCourtDate(filingDate),
+    lastListedOn,
+    nextVisibleDate,
+    lastOrderLabel: nextVisibleDate && nextVisibleDate !== "No next date visible" ? `Next hearing: ${nextVisibleDate}` : "",
+    before,
+    da: KHARGONE_DISTRICT_CONTEXT.courtName,
+    cnr: config.cnr,
+    sourceUrl: KHARGONE_COURT_URL,
+    partiesSummary:
+      config.partiesSummary ||
+      (petitioners.people.length && respondents.people.length
+        ? `${petitioners.people[0]} against ${respondents.people.length > 1 ? `${respondents.people.length} respondent(s)` : respondents.people[0]}`
+        : `${petitioners.people.length} petitioner(s), ${respondents.people.length} respondent(s)`),
+    category: config.category || actName,
+    district: KHARGONE_DISTRICT_CONTEXT.district,
+    statutory: config.statutory || `${actName}${sectionName ? `, section ${sectionName}` : ""}.`,
+    quickFacts: [
+      ["Court", KHARGONE_DISTRICT_CONTEXT.courtName],
+      ["Before", before || "-"],
+      ["Status", status || "-"],
+      ["CNR", config.cnr],
+      ["Filing number", filingNumber],
+      ["Registration", `${registrationNumber || "-"}${registrationDate ? ` on ${registrationDate}` : ""}`],
+      ["First hearing", formatCourtDate(firstHearingDate) || firstHistoryDate || "-"],
+      ["Next hearing", nextVisibleDate || "-"],
+      ["Sub-stage", stageDetail || "-"],
+      ["Refresh route", KHARGONE_REFRESH_ROUTE],
+    ],
+    metrics: [
+      {
+        label: "Next hearing",
+        value: nextVisibleDate || "-",
+        note: "Current next date shown on eCourts",
+        accent: "#d86c63",
+      },
+      {
+        label: "Status",
+        value: status,
+        note: "District court status",
+        accent: "#c89a37",
+      },
+      {
+        label: "Sub-stage",
+        value: districtSubstageMetric(stageDetail),
+        note: stageDetail || "Current sub-stage shown on eCourts",
+        accent: "#73b35c",
+      },
+      {
+        label: "History rows",
+        value: String(historyRows.length),
+        note: "Business-date entries returned online",
+        accent: "#5b8dee",
+      },
+    ],
+    nextSteps: [
+      nextVisibleDate && nextVisibleDate !== "No next date visible"
+        ? `The next hearing is listed for ${formatCourtDate(nextVisibleDate, "long")} before ${before || "the current court"}.`
+        : `No future hearing date is visible on the public record, so the next useful refresh should confirm the current ${stageDetail || "sub-stage"}.`,
+      stageDetail
+        ? `The current sub-stage is ${stageDetail.toLowerCase()}, so the next refresh should check whether it changes after the listed date.`
+        : "The current sub-stage is not clearly shown on the public record.",
+      transferRows.length
+        ? `The case-transfer section shows ${transferRows.length} transfer row(s) within the Khargone establishment.`
+        : "No case-transfer section was returned for this matter in the fetched record.",
+    ],
+    listingTimeline: formatDistrictTimeline(historyRows),
+    orderHighlights: [
+      {
+        date: nextVisibleDate,
+        summary: config.orderNote || "No order PDF link was returned in the fetched eCourts history.",
+      },
+    ],
+    pendingIAs: [],
+    ordersArchive: [],
+    documents: [],
+    serviceInfo: [
+      `e-Filing number and e-Filing date are ${
+        isBlankCourtValue(caseDetails.get("e-Filing Number")) && isBlankCourtValue(caseDetails.get("e-Filing Date"))
+          ? "blank on the fetched eCourts case detail."
+          : "shown in the fetched eCourts case detail."
+      }`,
+      ...(transferRows.length
+        ? transferRows.map((row) => `Transfer on ${row.date}: from ${row.from || "-"} to ${row.to || "-"}.`)
+        : ["No case-transfer section was returned for this matter in the fetched record."]),
+    ],
+    petitioners: petitioners.people,
+    petitionerAdvocates: petitioners.advocates,
+    respondents: respondents.people,
+    respondentAdvocates: respondents.advocates,
   };
 }
 
@@ -578,8 +958,19 @@ async function main() {
       }
     }
 
+    for (const config of KHARGONE_CASE_CONFIGS) {
+      try {
+        const caseData = await scrapeKhargoneCase(config);
+        refreshedCases.push(caseData);
+      } catch (error) {
+        failures.push(`${config.id}: ${error.message}`);
+        console.error(`Unable to refresh ${config.id}; preserving existing Khargone tracker data.`);
+        console.error(error);
+      }
+    }
+
     if (refreshedCases.length === 0 && failures.length > 0) {
-      throw new Error(`No live MP High Court case data could be refreshed: ${failures.join("; ")}`);
+      throw new Error(`No live case data could be refreshed: ${failures.join("; ")}`);
     }
 
     const currentHtml = fs.readFileSync(INDEX_PATH, "utf8");
@@ -591,7 +982,7 @@ async function main() {
     const nextHtml = replaceLastUpdated(replaceCasesData(currentHtml, cases), runIso, runLabel);
     fs.writeFileSync(INDEX_PATH, nextHtml);
     updateDerivedPages(cases, runIso, runLabel, nextHtml);
-    console.log(`Refreshed ${refreshedCases.length} MP High Court case(s), preserved ${cases.length - refreshedCases.length} existing case(s), and updated tracker timestamps.`);
+    console.log(`Refreshed ${refreshedCases.length} live case(s), preserved ${cases.length - refreshedCases.length} existing case(s), and updated tracker timestamps.`);
   } finally {
     await browser.close();
     fs.rmSync(tmpDir, { recursive: true, force: true });

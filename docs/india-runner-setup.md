@@ -81,13 +81,12 @@ After the runner is online:
 
 ## What the workflow does
 
-- launches Playwright Chromium
+- launches Playwright Chromium for the MP High Court records
 - opens `https://mphc.gov.in/case-status`
-- selects the case type
-- enters the case number and year
-- clicks search
-- opens the matching result
-- collects modal and tab data
+- selects the case type, enters the case number and year, clicks search, and opens the matching MP High Court result
+- refreshes the three Civil Court Khargone records that come from `https://mandleshwar.dcourts.gov.in/case-status-search-by-petitioner-respondent/`
+- keeps the Khargone source route as `Party Name > Court Establishment > Civil Court Khargone > Kartar > 2024`, then refreshes each known CNR through the public eCourts CNR history endpoint
+- collects modal, tab, district-court status, party, act, transfer, and history data
 - rewrites `index.html`
 - commits and pushes changes if data changed
 - deploys to Cloudflare Pages
