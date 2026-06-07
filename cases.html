@@ -252,20 +252,6 @@
         backdrop-filter: blur(10px);
       }
 
-      .welcome-chip {
-        align-items: center;
-        background: rgba(255, 255, 255, 0.11);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 999px;
-        color: rgba(255, 255, 255, 0.94);
-        display: inline-flex;
-        font-size: 0.9rem;
-        font-weight: 800;
-        min-height: 38px;
-        padding: 8px 14px;
-        white-space: nowrap;
-      }
-
       .last-updated-chip {
         align-items: center;
         background: rgba(255, 255, 255, 0.11);
@@ -1269,7 +1255,6 @@
           align-items: stretch;
         }
 
-        .welcome-chip,
         .last-updated-chip {
           justify-content: center;
           width: 100%;
@@ -1404,7 +1389,6 @@
           </div>
           <div class="banner-actions">
             <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 7, 2026, 1:39 AM PDT</div>
-            <div class="welcome-chip" id="welcomeChip" aria-live="polite">Welcome, Guest</div>
           </div>
         </div>
       </header>
@@ -1623,6 +1607,7 @@
                 "sourceUrl": "https://mphc.gov.in/case-status",
                 "partiesSummary": "4 petitioner(s), 3 respondent(s), 10 pending IA(s)",
                 "dashletSummary": "FIR jurisdiction/protection matter in MP High Court.",
+                "mobileDashletSummary": "Change of Jurisdiction - FIR Stay",
                 "petitionerLine": "Petitioner: Prabhjit Singh Bagga and family.",
                 "summaryLines": [
                         "This is an MP High Court writ petition by Prabhjit Singh Bagga and family about FIR/case jurisdiction and interim protection tied to the Khargone criminal record.",
@@ -2013,7 +1998,7 @@
                 "stageDetail": "58 - AFTER WEEK/MONTH (COURT ORDER) COVID-19",
                 "filedOn": "23 Jan 2025",
                 "lastListedOn": "22 Jul 2026",
-                "nextVisibleDate": "22 07 2026",
+                "nextVisibleDate": "22 July 2026",
                 "lastOrderLabel": "List After (Weeks) (4), Notice-Ord dt:10/02/2025",
                 "before": "SB PROPOSAL POOL",
                 "da": "MCRC – DA 5",
@@ -2021,6 +2006,7 @@
                 "sourceUrl": "https://mphc.gov.in/case-status",
                 "partiesSummary": "1 petitioner(s), 1 respondent(s), 1 pending IA(s)",
                 "dashletSummary": "Criminal case transfer/jurisdiction in MP High Court under CrPC 407.",
+                "mobileDashletSummary": "Change of Jurisdiction - Criminal Case",
                 "petitionerLine": "Petitioner: Prabhjit Singh Bagga.",
                 "summaryLines": [
                         "This is the MP High Court criminal transfer/jurisdiction case filed by Prabhjit Singh Bagga against Kartar Kaur Chhabra.",
@@ -2086,14 +2072,14 @@
                         }
                 ],
                 "nextSteps": [
-                        "The next visible date on the public record is 22 07 2026.",
+                        "The next visible date on the public record is 22 July 2026.",
                         "The matter is currently shown before SB PROPOSAL POOL.",
                         "1 IA(s) remain pending, including STAY APPLICATION.",
                         "The latest downloadable order currently listed is dated 10 02 2025."
                 ],
                 "listingTimeline": [
                         {
-                                "date": "22 07 2026",
+                                "date": "22 July 2026",
                                 "coram": "SB PROPOSAL POOL",
                                 "purpose": "[FRESH (FOR ADMISSION) - CRIMINAL CASES]\n AFTER WEEK/MONTH (COURT ORDER) COVID-19",
                                 "note": "-"
@@ -3073,8 +3059,6 @@
           heroTitle: "Bagga Case Tracker Dashboard",
           languageLabel: "Language",
           lastUpdatedPrefix: "Last updated:",
-          welcomePrefix: "Welcome,",
-          guestName: "Guest",
           selectorLabel: "Case Selector",
           overviewLabel: "Case Overview",
           openCourtRecord: "Open court record",
@@ -3124,8 +3108,6 @@
           heroTitle: "बग्गा केस ट्रैकर डैशबोर्ड",
           languageLabel: "भाषा",
           lastUpdatedPrefix: "डेटा अपडेट:",
-          welcomePrefix: "स्वागत है,",
-          guestName: "अतिथि",
           selectorLabel: "केस चयन",
           overviewLabel: "केस अवलोकन",
           openCourtRecord: "कोर्ट रिकॉर्ड खोलें",
@@ -3205,6 +3187,8 @@
         "Section 9 | Restitution": "धारा 9 | पुनर्स्थापन",
         "Section 144 | Maintenance": "धारा 144 | मेंटेनेंस",
         "Section 23 | Domestic Violence": "धारा 23 | घरेलू हिंसा",
+        "Change of Jurisdiction - FIR Stay": "क्षेत्राधिकार बदलना - FIR स्टे",
+        "Change of Jurisdiction - Criminal Case": "क्षेत्राधिकार बदलना - क्रिमिनल केस",
         "Completed": "पूरा",
       };
 
@@ -3326,7 +3310,6 @@
         ".notice-card",
         ".party-card",
         ".btn-link",
-        ".welcome-chip",
         ".last-updated-chip",
         ".language-button",
         ".menu-button",
@@ -3382,22 +3365,6 @@
         return phraseMapHi[text] || text;
       }
 
-      function getStoredProfile() {
-        try {
-          return JSON.parse(localStorage.getItem("baggaCaseTrackerProfile") || "null");
-        } catch {
-          return null;
-        }
-      }
-
-      function renderWelcome() {
-        const welcomeChip = document.getElementById("welcomeChip");
-        if (!welcomeChip) return;
-        const profile = getStoredProfile();
-        const name = (profile?.displayName || profile?.username || t("guestName")).trim();
-        welcomeChip.textContent = `${t("welcomePrefix")} ${name || t("guestName")}`;
-      }
-
       function formatLastUpdated() {
         const parsed = new Date(siteLastUpdatedAt);
         if (Number.isNaN(parsed.getTime())) return siteLastUpdatedAt;
@@ -3435,7 +3402,6 @@
           button.classList.toggle("active", isActive);
           button.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
-        renderWelcome();
         renderLastUpdated();
       }
 
