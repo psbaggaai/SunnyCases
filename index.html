@@ -1022,14 +1022,123 @@
           padding-bottom: 18px;
         }
 
-        .case-grid,
         .metrics-grid,
         .dashlet-meta {
           grid-template-columns: 1fr;
         }
 
+        .case-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+          margin-top: 14px;
+        }
+
         .case-card {
-          padding: 14px;
+          background: linear-gradient(150deg, #17181b 0%, #202226 100%);
+          border-color: rgba(255, 255, 255, 0.08);
+          border-radius: 18px;
+          box-shadow: 0 16px 28px rgba(7, 12, 21, 0.22);
+          color: #f7f9fd;
+          gap: 8px;
+          min-height: 174px;
+          overflow: hidden;
+          padding: 13px;
+        }
+
+        .case-card.active,
+        .case-card:hover {
+          border-color: rgba(126, 167, 244, 0.74);
+          box-shadow: 0 18px 32px rgba(7, 12, 21, 0.28), 0 0 0 1px rgba(126, 167, 244, 0.16);
+        }
+
+        .case-card > div:nth-child(2) {
+          order: 1;
+        }
+
+        .case-card-header {
+          order: 3;
+        }
+
+        .case-card .dashlet-meta {
+          order: 2;
+        }
+
+        .case-card .dashlet-action {
+          display: none;
+        }
+
+        .case-card .badge {
+          font-size: 0.68rem;
+          max-width: 100%;
+          padding: 5px 8px;
+        }
+
+        .case-card .badge.live {
+          background: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.68);
+        }
+
+        .case-card .badge.pending {
+          background: rgba(217, 165, 58, 0.14);
+          color: #f0c35d;
+        }
+
+        .case-title {
+          color: #ffffff;
+          font-size: 0.98rem;
+          font-weight: 850;
+          line-height: 1.08;
+          overflow-wrap: anywhere;
+        }
+
+        .case-kicker {
+          color: rgba(255, 255, 255, 0.58);
+          display: -webkit-box;
+          font-size: 0.72rem;
+          line-height: 1.25;
+          margin-top: 8px;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .case-summary-line {
+          color: rgba(255, 255, 255, 0.8);
+          display: -webkit-box;
+          font-size: 0.74rem;
+          line-height: 1.25;
+          margin-top: 8px;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .case-petitioner-line {
+          display: none;
+        }
+
+        .case-card .dashlet-meta {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px;
+        }
+
+        .case-card .dashlet-stat {
+          background: transparent;
+          border: 0;
+          padding: 0;
+        }
+
+        .case-card .dashlet-label {
+          color: rgba(255, 255, 255, 0.48);
+          font-size: 0.58rem;
+          letter-spacing: 0.04em;
+        }
+
+        .case-card .dashlet-value {
+          color: #ffffff;
+          font-size: 0.78rem;
+          line-height: 1.15;
+          margin-top: 2px;
         }
 
         .case-card-header,
@@ -1156,6 +1265,32 @@
         .case-kicker,
         .muted {
           font-size: 0.84rem;
+        }
+
+        .case-card {
+          min-height: 158px;
+          padding: 12px;
+        }
+
+        .case-card .case-title {
+          font-size: 0.88rem;
+        }
+
+        .case-card .case-kicker,
+        .case-card .case-summary-line {
+          font-size: 0.66rem;
+        }
+
+        .case-card .badge {
+          font-size: 0.62rem;
+        }
+
+        .case-card .dashlet-label {
+          font-size: 0.54rem;
+        }
+
+        .case-card .dashlet-value {
+          font-size: 0.72rem;
         }
       }
     </style>
