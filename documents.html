@@ -3,25 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Documents</title>
+    <title>Sunny Case Documents</title>
     <style>
       :root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); }
       * { box-sizing: border-box; }
-      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7fbff 0%, #eaf1f8 100%); }
-      .top-banner { background: var(--navy); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); box-shadow: 0 10px 26px rgba(15, 31, 53, 0.18); }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
+      body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(105deg, rgba(47,79,128,0.1), transparent 26%, rgba(217,165,58,0.09) 58%, transparent 76%), repeating-linear-gradient(118deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 34px); pointer-events: none; z-index: -1; }
+      .top-banner { background: linear-gradient(112deg, #101b2e 0%, #18365b 47%, #3d5868 100%); box-shadow: 0 16px 34px rgba(13,25,43,0.24), inset 0 -1px 0 rgba(255,255,255,0.12); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); }
       .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
-      .top-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
-      .banner-title { align-items: center; display: flex; gap: 12px; }
-      .home-title-link { color: inherit; text-decoration: none; }
+      .top-banner-inner { align-items: center; display: flex; gap: 16px; justify-content: space-between; min-height: 36px; }
+      .banner-title, .top-banner-actions { align-items: center; display: flex; gap: 12px; }
+      .home-title-link, .back-link { color: inherit; text-decoration: none; }
       h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
-      .back-link { color: white; font-size: 0.9rem; font-weight: 800; text-decoration: none; }
-      .top-banner-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      h3, p { margin: 0; }
+      p { color: var(--muted); line-height: 1.55; margin-top: 8px; }
       .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
       .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
       .menu-lines { display: grid; gap: 4px; width: 18px; }
       .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
       .menu-backdrop { background: rgba(13,25,43,0.42); inset: 0; position: fixed; z-index: 30; }
-      .site-menu { background: white; box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
+      .site-menu { background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(229,237,249,0.98)); border-right: 1px solid rgba(89,123,171,0.24); box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
       .site-menu.open { transform: translateX(0); }
       .menu-backdrop[hidden], .site-menu[hidden] { display: none; }
       .site-menu-head { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; padding-bottom: 16px; }
@@ -29,37 +31,31 @@
       .site-menu-subtitle { color: var(--muted); font-size: 0.82rem; font-weight: 700; margin-top: 4px; }
       .menu-close { background: #eef4ff; border-color: var(--border); color: var(--navy); }
       .menu-links { display: grid; gap: 8px; padding-top: 18px; }
-      .menu-link, .logout-button { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
+      .menu-link { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
       .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
       .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
-      .logout-button { background: #fff4f2; border-color: rgba(216,108,99,0.22); color: #a9473f; cursor: pointer; width: 100%; }
       main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
-      .page-head { background: rgba(255,255,255,0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); padding: 24px; }
-      .page-tools { display: flex; justify-content: flex-start; margin-bottom: 14px; }
-      .back-button { align-items: center; background: #eef4ff; border: 1px solid var(--border); border-radius: 12px; color: #315fae; cursor: pointer; display: inline-flex; font: inherit; font-size: 0.9rem; font-weight: 850; min-height: 40px; padding: 9px 14px; }
-      .back-button:hover { border-color: #7ea7f4; color: var(--navy); }
+      .page-head, .row, .stat-card { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
+      .page-head { border-radius: 24px; padding: 24px; }
       .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
-      p { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
+      .stats-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+      .stat-card { border-radius: 18px; min-height: 102px; padding: 16px; }
+      .stat-value { font-size: 1.8rem; font-weight: 900; margin-top: 8px; }
       .library { display: grid; gap: 14px; margin-top: 20px; }
-      .row { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 10px 26px rgba(29, 53, 87, 0.08); display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(160px, 0.8fr) minmax(220px, 1.1fr) minmax(150px, 0.8fr); padding: 16px; }
-      .row.orders { grid-template-columns: minmax(180px, 1fr) minmax(120px, 0.6fr) minmax(260px, 1.5fr) minmax(110px, 0.5fr); }
-      .case-code { font-weight: 850; }
-      .muted { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
-      .value { font-weight: 750; line-height: 1.4; }
+      .sort-row, .row { display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(260px, 1.25fr) minmax(150px, 0.65fr) minmax(110px, 0.45fr); }
+      .sort-row { color: var(--muted); padding: 0 16px; }
+      .row { border-radius: 18px; padding: 16px; }
+      .document-row { grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(220px, 1fr) minmax(160px, 0.75fr) minmax(110px, 0.45fr); }
+      .case-code, .value { font-weight: 850; line-height: 1.35; }
+      .case-link { color: inherit; text-decoration: none; }
+      .case-link:hover { color: #315fae; text-decoration: underline; }
+      .muted { color: var(--muted); font-size: 0.9rem; line-height: 1.4; margin-top: 4px; }
       .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
-      .empty { background: white; border: 1px dashed #bed0ea; border-radius: 18px; color: var(--muted); font-weight: 800; margin-top: 20px; padding: 24px; text-align: center; }
-      body { background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
-      body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(105deg, rgba(47,79,128,0.1), transparent 26%, rgba(217,165,58,0.09) 58%, transparent 76%), repeating-linear-gradient(118deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 34px); pointer-events: none; z-index: -1; }
-      .top-banner { background: linear-gradient(112deg, #101b2e 0%, #18365b 47%, #3d5868 100%); box-shadow: 0 16px 34px rgba(13,25,43,0.24), inset 0 -1px 0 rgba(255,255,255,0.12); }
-      .site-menu { background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(229,237,249,0.98)); border-right: 1px solid rgba(89,123,171,0.24); }
-      .page-head, .row { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border-color: rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
-      .magnetic-item { --mag-x: 0px; --mag-y: 0px; --tilt-x: 0deg; --tilt-y: 0deg; --lift: 0px; position: relative; transform: translate3d(var(--mag-x), calc(var(--mag-y) + var(--lift)), 0) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); transform-style: preserve-3d; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease; will-change: transform; }
-      .magnetic-item::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(125deg, rgba(255,255,255,0.55), transparent 34%, rgba(104,178,224,0.14) 54%, transparent 76%); opacity: 0; pointer-events: none; transition: opacity 180ms ease; }
-      .magnetic-item:hover, .magnetic-item.is-magnetic { --lift: -3px; border-color: rgba(82,148,211,0.58); box-shadow: 0 24px 48px rgba(25,47,79,0.18), 0 0 0 1px rgba(121,207,255,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
-      .magnetic-item:hover::after, .magnetic-item.is-magnetic::after { opacity: 1; }
-      @media (prefers-reduced-motion: reduce), (pointer: coarse) { .magnetic-item { transform: none; transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease; } }
-      @media (max-width: 860px) { .row, .row.orders { grid-template-columns: 1fr; } .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } }
+      .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
+      .sort-button:hover, .sort-button.active { color: var(--navy); }
+      .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
+      @media (max-width: 960px) { .stats-grid { grid-template-columns: 1fr 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }
     </style>
   </head>
   <body>
@@ -69,13 +65,13 @@
           <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
             <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
           </button>
-          <a class="home-title-link" href="index.html" aria-label="Go to dashboard home">
-            <h1>Bagga Case Tracker Dashboard</h1>
+          <a class="home-title-link" href="index.html" aria-label="Go to Sunny Case Tracker home">
+            <h1>Sunny Case Tracker</h1>
           </a>
         </div>
         <div class="top-banner-actions">
-          <div class="last-updated-chip" data-last-updated>Last updated: Jun 8, 2026, 6:59 AM PDT</div>
-          <a class="back-link" href="index.html">Back to Dashboard</a>
+          <div class="last-updated-chip">Last updated: Jun 8, 2026, 9:33 AM PDT</div>
+          <a class="back-link" href="index.html">Cases</a>
         </div>
       </div>
     </header>
@@ -83,180 +79,417 @@
     <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
       <div class="site-menu-head">
         <div>
-          <div class="site-menu-title">Bagga Case Tracker</div>
-          <div class="site-menu-subtitle">Dashboard navigation</div>
+          <div class="site-menu-title">Sunny Case Tracker</div>
+          <div class="site-menu-subtitle">Harpreet Singh Ajmani cases</div>
         </div>
         <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close><span aria-hidden="true">X</span></button>
       </div>
       <div class="menu-links">
-        <a class="menu-link" href="cases.html">Cases</a>
-        <a class="menu-link" href="sunny-cases.html">Sunny Cases</a>
+        <a class="menu-link" href="index.html">Cases</a>
         <a class="menu-link" href="orders.html">Orders</a>
         <a class="menu-link active" href="documents.html">Documents</a>
-        <a class="menu-link" href="event-log.html">Event Log</a>
-        <a class="menu-link" href="settings.html">Settings</a>
       </div>
       <div class="menu-footer">
-        <button class="logout-button" type="button" data-logout>Logout</button>
+        <a class="menu-link" href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">SCI Search</a>
       </div>
     </nav>
     <main>
       <section class="page-head">
-        <div class="page-tools">
-          <button class="back-button" type="button" data-go-back>Back</button>
-        </div>
-        <div class="label">Case Library</div>
-        <h2>All Documents</h2>
-        <p>22 filing, diary, and source records collected across 9 tracked cases.</p>
+        <div class="label">Document Library</div>
+        <h2>Documents and Source Filings</h2>
+        <p>Filing, diary, office-report, and source rows collected from public case records where Harpreet Singh Ajmani appears in the tracked material.</p>
+        <section class="stats-grid" aria-label="Document summary">
+          <article class="stat-card"><div class="label">Cases</div><div class="stat-value">34</div><p>Tracked matters</p></article>
+          <article class="stat-card"><div class="label">Rows</div><div class="stat-value">55</div><p>Document/source records</p></article>
+          <article class="stat-card"><div class="label">Scope</div><div class="stat-value">SCI</div><p>Plus MPHC and eCourts sources where available</p></article>
+        </section>
       </section>
       <section class="library">
-        <!-- documents-start -->
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">6772-2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">SHREYANSH JAIN</div></div>
-          <div><div class="label">Filed On</div><div class="value">15-05-2024 12:20:09</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-15262-2020"><div class="case-code">SCI Diary 15262/2020</div></a><div class="muted">The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">622 | 26-04-2021 | 24-04-2021 12:55:54</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-15262-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">3914-2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">RAJAT LOHIA</div></div>
-          <div><div class="label">Filed On</div><div class="value">12-07-2024 14:10:36</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-15262-2020"><div class="case-code">SCI Diary 15262/2020</div></a><div class="muted">The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">713 | 04-05-2021 | 01-05-2021 12:13:40</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-15262-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">12644-2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
-          <div><div class="label">Filed On</div><div class="value">13-09-2024 12:38:30</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">31 | 15-02-2021 | 23-01-2021 12:30:27</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">13917-2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">RETURN</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">04-10-2024 15:09:18</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">31 | 09-04-2021 | 09-04-2021 10:17:01</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">5118-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
-          <div><div class="label">Filed On</div><div class="value">04-04-2025 10:56:07</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">3</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">527 | 22-04-2021 | 19-04-2021 11:09:19</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">9294-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">27-06-2025 14:52:06</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">4</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">986 | 12-07-2021 | 09-07-2021 11:41:34</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">9295-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">27-06-2025 14:52:35</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">5</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value">680 | 12-09-2022 | 09-09-2022 10:35:48</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">5024-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">JIGERJEET SINGH CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">31-07-2025 15:07:24</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">6</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 10-11-2022 | 09-11-2022 14:41:57</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21096-2020">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">5984-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">TARANDEEP SINGH AJMANI</div></div>
-          <div><div class="label">Filed On</div><div class="value">04-09-2025 14:57:42</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21184-2021"><div class="case-code">R.P.(C) No. 001422 - 001497 / 2021</div></a><div class="muted">Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 19-01-2022 | 12-01-2022 14:41:16</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21184-2021">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">2769-2026</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">RAJWARDHAN GAWDE</div></div>
-          <div><div class="label">Filed On</div><div class="value">08-04-2026 14:25:11</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21184-2021"><div class="case-code">R.P.(C) No. 001422 - 001497 / 2021</div></a><div class="muted">Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 27-01-2022 | 25-01-2022 10:07:04</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21184-2021">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">WP/13441/2024</div><div class="muted">Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others</div></div>
-          <div><div class="label">Document</div><div class="value">6604-2026</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">REPLY</div><div class="muted">RAJWARDHAN GAWDE</div></div>
-          <div><div class="label">Filed On</div><div class="value">08-04-2026 14:26:23</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-21184-2021"><div class="case-code">R.P.(C) No. 001422 - 001497 / 2021</div></a><div class="muted">Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters</div></div>
+          <div><div class="label">Document</div><div class="value">3</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 11-05-2026 | 09-05-2026 14:16:08</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-21184-2021">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
-          <div><div class="label">Document</div><div class="value">815-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">OTHER</div><div class="muted">AMAN ARORA</div></div>
-          <div><div class="label">Filed On</div><div class="value">27-01-2025 10:58:09</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-14438-2022"><div class="case-code">MA 000918 - / 2022</div></a><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 12-07-2022 | 11-07-2022 11:18:31</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-14438-2022">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
-          <div><div class="label">Document</div><div class="value">286-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">PROCESS APPLICATION</div><div class="muted">AMAN ARORA</div></div>
-          <div><div class="label">Filed On</div><div class="value">13-02-2025 18:03:13</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-14438-2022"><div class="case-code">MA 000918 - / 2022</div></a><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 27-07-2022 | 26-07-2022 16:15:11</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-14438-2022">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MCRC/3868/2025</div><div class="muted">Prabhjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
-          <div><div class="label">Document</div><div class="value">1891-2025</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">VAKALATNAMA</div><div class="muted">KAVANPREET SINGH DAWAR</div></div>
-          <div><div class="label">Filed On</div><div class="value">24-03-2025 18:15:58</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-14438-2022"><div class="case-code">MA 000918 - / 2022</div></a><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others</div></div>
+          <div><div class="label">Document</div><div class="value">3</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 12-08-2022 | 11-08-2022 15:31:33</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-14438-2022">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">T.P.(C) 2085/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">31814/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">SCI DIARY / REGISTRATION</div><div class="muted">SUPREME COURT SOURCE</div></div>
-          <div><div class="label">Filed On</div><div class="value">Registered on 08-08-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-14438-2022"><div class="case-code">MA 000918 - / 2022</div></a><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others</div></div>
+          <div><div class="label">Document</div><div class="value">4</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 08-09-2022 | 07-09-2022 16:43:12</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-14438-2022">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">T.P.(C) 2085/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">175232/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">EX-PARTE STAY IA</div><div class="muted">KARTAR KOUR CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">Listed on 14-08-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 25-03-2019 | 16-03-2019 13:50:42</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MA 2170/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">45808/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">SCI DIARY / REGISTRATION</div><div class="muted">SUPREME COURT SOURCE</div></div>
-          <div><div class="label">Filed On</div><div class="value">Registered on 21-10-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 03-04-2019 | 02-04-2019 17:27:14</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MA 2170/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">229835/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">MODIFICATION IA</div><div class="muted">KARTAR KOUR CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">Listed on 25-10-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">3</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 10-07-2019 | 09-07-2019 17:42:28</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MA 2644/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">54522/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">SCI DIARY / REGISTRATION</div><div class="muted">SUPREME COURT SOURCE</div></div>
-          <div><div class="label">Filed On</div><div class="value">Registered on 17-12-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">4</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 06-08-2019 | 05-08-2019 17:08:21</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MA 2644/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">271619/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">RECALL IA</div><div class="muted">KARTAR KOUR CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">Listed on 20-12-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">5</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 03-09-2019 | 02-09-2019 16:45:13</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MA 2644/2024</div><div class="muted">Kartar Kour Chhabra vs Bagga Prabhjitsingh Jagjitsingh</div></div>
-          <div><div class="label">Document</div><div class="value">271621/2024</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">EXEMPTION FROM FILING O.T.</div><div class="muted">KARTAR KOUR CHHABRA</div></div>
-          <div><div class="label">Filed On</div><div class="value">Listed on 20-12-2024</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Document</div><div class="value">6</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 24-09-2019 | 23-09-2019 16:33:04</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-38332-2018">Details</a>
         </article>
-        <article class="row">
-          <div><div class="case-code">MCC/178/2025</div><div class="muted">Prabhjit Singh Bagga through power of attorney Jagjit Singh Bagga vs Kartar Kaur Chhabra</div></div>
-          <div><div class="label">Document</div><div class="value">No documents filed.</div></div>
-          <div><div class="label">Type / Filed By</div><div class="value">DOCUMENT</div><div class="muted">—</div></div>
-          <div><div class="label">Filed On</div><div class="value">—</div></div>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 07-01-2020 | 06-01-2020 16:08:54</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
         </article>
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- documents-end -->
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 23-11-2021 | 22-11-2021 17:48:36</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">3</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 27-09-2022 | 26-09-2022 16:27:47</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">4</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 13-12-2022 | 12-12-2022 17:39:44</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">5</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 18-01-2023 | 17-01-2023 17:13:34</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Document</div><div class="value">6</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 01-02-2023 | 31-01-2023 15:31:43</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-27798-2010"><div class="case-code">C.A. No. 002396 / 2011</div></a><div class="muted">The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)</div></div>
+          <div><div class="label">Document</div><div class="value">1</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 29-07-2015 | </div></div>
+          <a class="button-link" href="index.html?case=sci-diary-27798-2010">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-diary-27798-2010"><div class="case-code">C.A. No. 002396 / 2011</div></a><div class="muted">The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)</div></div>
+          <div><div class="label">Document</div><div class="value">2</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Office report</div><div class="muted">SCI Registry</div></div>
+          <div><div class="label">Filed On</div><div class="value"> | 24-09-2024 | 23-09-2024 12:44:10</div></div>
+          <a class="button-link" href="index.html?case=sci-diary-27798-2010">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-ca-18067-2017"><div class="case-code">C.A. No. 18067/2017</div></a><div class="muted">Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another</div></div>
+          <div><div class="label">Document</div><div class="value">C.A. No. 18067/2017</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">SCI cause-list PDF confirmed</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">21 Aug 2025</div></div>
+          <a class="button-link" href="index.html?case=sci-ca-18067-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-ca-18068-2017"><div class="case-code">C.A. No. 18068/2017</div></a><div class="muted">Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another</div></div>
+          <div><div class="label">Document</div><div class="value">C.A. No. 18068/2017</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">SCI cause-list PDF confirmed</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">21 Aug 2025</div></div>
+          <a class="button-link" href="index.html?case=sci-ca-18068-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-ca-18281-2017"><div class="case-code">C.A. No. 18281/2017</div></a><div class="muted">The Principal Officer LG Electronics India Pvt. Ltd. vs Assistant/Deputy Commissioner of Income Tax Noida and another</div></div>
+          <div><div class="label">Document</div><div class="value">C.A. No. 18281/2017</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">SCI cause-list PDF confirmed</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">21 Aug 2025</div></div>
+          <a class="button-link" href="index.html?case=sci-ca-18281-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=sci-slp-19156-2022"><div class="case-code">SLP(C) No. 19156/2022</div></a><div class="muted">The North Face Apparel Corp. vs Pranav Kant Sharma</div></div>
+          <div><div class="label">Document</div><div class="value">SLP(C) No. 19156/2022</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">SCI cause-list PDF confirmed</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">21 May 2026</div></div>
+          <a class="button-link" href="index.html?case=sci-slp-19156-2022">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-zte-sa-27-2026"><div class="case-code">SA 27/DEL/2026</div></a><div class="muted">ZTE Corporation, Noida vs ACIT, International Taxation, Gurgaon</div></div>
+          <div><div class="label">Document</div><div class="value">SA 27/DEL/2026</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">ITAT Delhi</div></div>
+          <div><div class="label">Filed On</div><div class="value">17 Feb 2026</div></div>
+          <a class="button-link" href="index.html?case=web-zte-sa-27-2026">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-ctci-wpc-4302-2013"><div class="case-code">W.P.(C) 4302/2013</div></a><div class="muted">CTCI Overseas Corporation Ltd. vs Director of Income Tax-I, International Taxation</div></div>
+          <div><div class="label">Document</div><div class="value">W.P.(C) 4302/2013</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">20 May 2014</div></div>
+          <a class="button-link" href="index.html?case=web-ctci-wpc-4302-2013">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-ar-magnetics-ita-241-2012"><div class="case-code">IT Appeal No. 241/2012</div></a><div class="muted">Commissioner of Income-tax vs AR Magnetics (P.) Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">IT Appeal No. 241/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">16 Apr 2012</div></div>
+          <a class="button-link" href="index.html?case=web-ar-magnetics-ita-241-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-creative-travel-ita-389-2012"><div class="case-code">ITA 389/2012</div></a><div class="muted">CIT vs M/s Creative Travel Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 389/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">06 Jul 2012</div></div>
+          <a class="button-link" href="index.html?case=web-creative-travel-ita-389-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-giesecke-itat-1159-2051-2017"><div class="case-code">ITA 1159 &amp; 2051/Del/2017</div></a><div class="muted">Addl. CIT vs M/s Giesecke &amp; Devrient Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 1159 &amp; 2051/Del/2017</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">ITAT Delhi</div></div>
+          <div><div class="label">Filed On</div><div class="value">08 Jul 2021</div></div>
+          <a class="button-link" href="index.html?case=web-giesecke-itat-1159-2051-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-honda-itat-1523-2022"><div class="case-code">ITA 1523/Del/2022</div></a><div class="muted">Honda Motorcycle and Scooter India Pvt. Ltd. vs ACIT, Circle-1(1), Gurugram</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 1523/Del/2022</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">ITAT Delhi</div></div>
+          <div><div class="label">Filed On</div><div class="value">22 Aug 2023</div></div>
+          <a class="button-link" href="index.html?case=web-honda-itat-1523-2022">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-ag-holdings-wpc-8031-2011"><div class="case-code">W.P.(C) 8031/2011</div></a><div class="muted">A.G. Holdings Pvt Ltd vs Income Tax Officer</div></div>
+          <div><div class="label">Document</div><div class="value">W.P.(C) 8031/2011</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">25 Apr 2012</div></div>
+          <a class="button-link" href="index.html?case=web-ag-holdings-wpc-8031-2011">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-anand-nishikawa-ita-430-2012"><div class="case-code">ITA 430/2012</div></a><div class="muted">CIT-I vs Anand Nishikawa Company Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 430/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">19 Sep 2012</div></div>
+          <a class="button-link" href="index.html?case=web-anand-nishikawa-ita-430-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-ls-cable-wpc-8799-2015"><div class="case-code">W.P.(C) 8799/2015 and connected</div></a><div class="muted">LS Cable &amp; System Limited, Korea vs Commissioner of Income Tax-II and others</div></div>
+          <div><div class="label">Document</div><div class="value">W.P.(C) 8799/2015 and connected</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">13 May 2016</div></div>
+          <a class="button-link" href="index.html?case=web-ls-cable-wpc-8799-2015">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-mckinsey-ita-526-2017"><div class="case-code">ITA 526/2017, ITA 590/2017, ITA 82/2018</div></a><div class="muted">McKinsey Knowledge Centre India Pvt. Ltd. vs Pr. Commissioner of Income Tax-6 and connected appeals</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 526/2017, ITA 590/2017, ITA 82/2018</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">09 Aug 2018</div></div>
+          <a class="button-link" href="index.html?case=web-mckinsey-ita-526-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-mckinsey-ita-146-2020"><div class="case-code">ITA 146/2020</div></a><div class="muted">Pr. Commissioner of Income Tax-06 vs McKinsey Knowledge Centre India (P) Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 146/2020</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">12 Oct 2021</div></div>
+          <a class="button-link" href="index.html?case=web-mckinsey-ita-146-2020">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-brahmaputra-ita-107-2012"><div class="case-code">ITA 107/2012</div></a><div class="muted">CIT vs Brahmaputra Capital and Financial Services Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 107/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">03 Sep 2012</div></div>
+          <a class="button-link" href="index.html?case=web-brahmaputra-ita-107-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-azeem-investment-ita-252-2012"><div class="case-code">ITA 252, 253 and 258/2012</div></a><div class="muted">Azeem Investment (P.) Ltd. vs Commissioner of Income Tax</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 252, 253 and 258/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">24 Apr 2012</div></div>
+          <a class="button-link" href="index.html?case=web-azeem-investment-ita-252-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-sony-india-ita-1178-2011"><div class="case-code">ITA 1178/2011 and 1182/2011</div></a><div class="muted">CIT vs Sony India Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 1178/2011 and 1182/2011</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">10 Sep 2012</div></div>
+          <a class="button-link" href="index.html?case=web-sony-india-ita-1178-2011">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-regency-valiant-2012"><div class="case-code">ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012</div></a><div class="muted">The Commissioner of Income Tax vs Regency Creations Ltd. and CIT vs Valiant Communications Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">17 Sep 2012</div></div>
+          <a class="button-link" href="index.html?case=web-regency-valiant-2012">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-sarla-fabrics-ita-788-2011"><div class="case-code">ITA 788/2011</div></a><div class="muted">CIT vs Sarla Fabrics Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 788/2011</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">20 Jul 2012</div></div>
+          <a class="button-link" href="index.html?case=web-sarla-fabrics-ita-788-2011">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-seagram-ita-356-2016"><div class="case-code">ITA 356/2016 and 357/2016</div></a><div class="muted">Seagram Manufacturing Pvt. Ltd. (now Pernod Ricard India Pvt. Ltd.) vs Principal Commissioner of Income Tax-Central 3</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 356/2016 and 357/2016</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Official Delhi High Court PDF found by web search</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">01 Jun 2016</div></div>
+          <a class="button-link" href="index.html?case=web-seagram-ita-356-2016">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-beam-global-itat-1604-2014"><div class="case-code">ITA 1604/DEL/2014 and 1214/DEL/2017</div></a><div class="muted">Beam Global Spirits &amp; Wine (India) Pvt. Ltd. vs DCIT, Circle-2(1), New Delhi</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 1604/DEL/2014 and 1214/DEL/2017</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Official ITAT PDF found by web search</div><div class="muted">ITAT Delhi</div></div>
+          <div><div class="label">Filed On</div><div class="value">21 Aug 2019</div></div>
+          <a class="button-link" href="index.html?case=web-beam-global-itat-1604-2014">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-beam-global-dhc-156-2022"><div class="case-code">ITA 156/2022</div></a><div class="muted">PCIT-1, New Delhi vs Beam Global Spirits &amp; Wine (India) Pvt. Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 156/2022</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Delhi High Court</div></div>
+          <div><div class="label">Filed On</div><div class="value">12 Mar 2024</div></div>
+          <a class="button-link" href="index.html?case=web-beam-global-dhc-156-2022">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-danisco-itat-3518-2017"><div class="case-code">ITA 3518/DEL/2017 and 7896-7899/DEL/2018</div></a><div class="muted">ACIT, Circle-7(1), New Delhi vs Danisco (India) Pvt. Ltd., Gurgaon</div></div>
+          <div><div class="label">Document</div><div class="value">ITA 3518/DEL/2017 and 7896-7899/DEL/2018</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Official ITAT PDF found by web search</div><div class="muted">ITAT Delhi</div></div>
+          <div><div class="label">Filed On</div><div class="value">05 May 2021</div></div>
+          <a class="button-link" href="index.html?case=web-danisco-itat-3518-2017">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-pepsi-slp-20367-2015"><div class="case-code">SLP(C) No. 20367/2015</div></a><div class="muted">Deputy Commissioner of Income-tax vs Pepsi Foods (P.) Ltd.</div></div>
+          <div><div class="label">Document</div><div class="value">SLP(C) No. 20367/2015</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">23 Feb 2017</div></div>
+          <a class="button-link" href="index.html?case=web-pepsi-slp-20367-2015">Details</a>
+        </article>
+        <article class="row document-row">
+          <div><a class="case-link" href="index.html?case=web-pepsi-registrar-2019"><div class="case-code">SLP(C) Nos. 3136/2017 and connected</div></a><div class="muted">Deputy Commissioner of Income Tax vs M/s Pepsi Foods Ltd. (now Pepsico India Holdings Pvt. Ltd.)</div></div>
+          <div><div class="label">Document</div><div class="value">SLP(C) Nos. 3136/2017 and connected</div></div>
+          <div><div class="label">Type / Filed By</div><div class="value">Google-indexed public record</div><div class="muted">Supreme Court of India</div></div>
+          <div><div class="label">Filed On</div><div class="value">28 Nov 2019</div></div>
+          <a class="button-link" href="index.html?case=web-pepsi-registrar-2019">Details</a>
+        </article>
       </section>
     </main>
     <script>
@@ -264,9 +497,6 @@
       const menuBackdrop = document.querySelector(".menu-backdrop");
       const menuToggle = document.querySelector("[data-menu-toggle]");
       const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
-      const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
-      const backButtons = Array.from(document.querySelectorAll("[data-go-back]"));
-
       function setMenuOpen(isOpen) {
         if (!menu || !menuBackdrop || !menuToggle) return;
         if (!isOpen && menu.hidden) return;
@@ -284,65 +514,11 @@
           }, 180);
         }
       }
-
       menuToggle?.addEventListener("click", () => setMenuOpen(true));
       menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
-      backButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          try {
-            const referrer = document.referrer ? new URL(document.referrer) : null;
-            if (referrer && referrer.origin === window.location.origin && window.history.length > 1) {
-              window.history.back();
-              return;
-            }
-          } catch {}
-          window.location.href = "index.html";
-        });
-      });
-      logoutButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          localStorage.removeItem("baggaCaseTrackerSession");
-          window.location.href = "index.html";
-        });
-      });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") setMenuOpen(false);
       });
-
-      const magneticSelector = ".page-head, .row, .back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .last-updated-chip";
-      const magneticItems = new WeakSet();
-      const reduceMagneticMotion = window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches;
-
-      function initMagneticUi(root = document) {
-        root.querySelectorAll(magneticSelector).forEach((element) => {
-          element.classList.add("magnetic-item");
-          if (reduceMagneticMotion || magneticItems.has(element)) return;
-          magneticItems.add(element);
-          element.addEventListener("pointermove", (event) => {
-            const rect = element.getBoundingClientRect();
-            if (!rect.width || !rect.height) return;
-            const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-            const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-            const isCompact = element.matches(".back-button, .menu-button, .menu-close, .menu-link, .logout-button, .button-link, .last-updated-chip");
-            const move = isCompact ? 4 : 7;
-            const tilt = isCompact ? 1.2 : 2.6;
-            element.classList.add("is-magnetic");
-            element.style.setProperty("--mag-x", `${(x * move).toFixed(2)}px`);
-            element.style.setProperty("--mag-y", `${(y * move).toFixed(2)}px`);
-            element.style.setProperty("--tilt-x", `${(-y * tilt).toFixed(2)}deg`);
-            element.style.setProperty("--tilt-y", `${(x * tilt).toFixed(2)}deg`);
-          });
-          element.addEventListener("pointerleave", () => {
-            element.classList.remove("is-magnetic");
-            element.style.setProperty("--mag-x", "0px");
-            element.style.setProperty("--mag-y", "0px");
-            element.style.setProperty("--tilt-x", "0deg");
-            element.style.setProperty("--tilt-y", "0deg");
-          });
-        });
-      }
-
-      initMagneticUi();
     </script>
   </body>
 </html>

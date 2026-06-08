@@ -1,22 +1,16 @@
-name: Bagga Case Tracker Refresh
+name: Sunny Case Tracker Deploy
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "30 0 * * *"
-    - cron: "0 14 * * *"
 
 jobs:
-  refresh:
-    runs-on: [self-hosted, linux, x64, india]
-    timeout-minutes: 45
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -27,22 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser
-        run: npx playwright install chromium
-
-      - name: Configure git identity
-        run: |
-          git config user.name "BaggaCaseTracker Bot"
-          git config user.email "actions@users.noreply.github.com"
-
-      - name: Refresh data, push, and deploy
+      - name: Build and deploy Sunny Case Tracker
         env:
-          GITHUB_PAT: ${{ secrets.GH_PAT }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: node scripts/sync-and-publish.mjs
-
-      - name: Stop runner instance after completion
-        if: always()
-        run: |
-          nohup sudo bash -c 'sleep 120; shutdown -h now' >/tmp/baggacase-shutdown.log 2>&1 &
+        run: npm run deploy-sunny-site

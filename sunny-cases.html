@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunny Cases Dashboard</title>
+    <title>Sunny Case Tracker</title>
     <style>
       :root {
         --bg: #eef4fb;
@@ -1443,11 +1443,11 @@
               </span>
             </button>
             <a class="home-title-link" href="index.html" aria-label="Go to dashboard home">
-              <h1 id="heroTitle">Sunny Cases Dashboard</h1>
+              <h1 id="heroTitle">Sunny Case Tracker</h1>
             </a>
           </div>
           <div class="banner-actions">
-            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 9:02 AM PDT</div>
+            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 9:33 AM PDT</div>
           </div>
         </div>
       </header>
@@ -1455,25 +1455,22 @@
       <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
         <div class="site-menu-head">
           <div>
-            <div class="site-menu-title">Bagga Case Tracker</div>
-            <div class="site-menu-subtitle">Dashboard navigation</div>
+            <div class="site-menu-title">Sunny Case Tracker</div>
+            <div class="site-menu-subtitle">Harpreet Singh Ajmani cases</div>
           </div>
           <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close>
             <span aria-hidden="true">X</span>
           </button>
         </div>
         <div class="menu-links">
-          <a class="menu-link" href="cases.html">Cases</a>
-          <a class="menu-link active" href="sunny-cases.html">Sunny Cases</a>
-          <a class="menu-link" href="orders.html">Orders</a>
-          <a class="menu-link" href="documents.html">Documents</a>
-          <a class="menu-link" href="event-log.html">Event Log</a>
-          <a class="menu-link" href="settings.html">Settings</a>
-        </div>
-        <div class="menu-footer">
-          <button class="logout-button" type="button" data-logout>Logout</button>
-        </div>
-      </nav>
+        <a class="menu-link active" href="index.html">Cases</a>
+        <a class="menu-link" href="orders.html">Orders</a>
+        <a class="menu-link" href="documents.html">Documents</a>
+      </div>
+      <div class="menu-footer">
+        <a class="menu-link" href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">SCI Search</a>
+      </div>
+    </nav>
 
       <main class="frame">
         <section class="highlight-grid" aria-label="Case tracker highlights">
@@ -1653,7 +1650,7 @@
     </div>
 
     <script>
-      const siteLastUpdatedAt = "2026-06-08T16:02:28.237Z";
+      const siteLastUpdatedAt = "2026-06-08T16:33:28.996Z";
 
       const cases = [
         {
@@ -6646,8 +6643,8 @@
 
       const translations = {
         en: {
-          pageTitle: "Sunny Cases Dashboard",
-          heroTitle: "Sunny Cases Dashboard",
+          pageTitle: "Sunny Case Tracker",
+          heroTitle: "Sunny Case Tracker",
           languageLabel: "Language",
           lastUpdatedPrefix: "Last updated:",
           selectorLabel: "Case Selector",
@@ -6679,24 +6676,22 @@
           petitionersHeading: "Petitioner side",
           respondentsLabel: "Respondents",
           respondentsHeading: "Respondent side",
-          footerNote:
-            'यह Sunny Cases डैशबोर्ड Harpreet Singh Ajmani के लिए मिले सार्वजनिक SCI, MPHC, eCourts और Google-indexed records का स्नैपशॉट है। CAPTCHA-gated broad searches को bypass नहीं किया गया है, इसलिए source-only rows को manual refresh करें।',
-          benchPrefix: "पीठ",
-          courtLocation: "न्यायालय स्थान",
-          nextDate: "अगली तिथि",
-          lastListed: "आखिरी लिस्टिंग",
-          completed: "पूरा",
-          openCaseDetails: "केस विवरण खोलें",
-          pendingCount: "लंबित",
-          orderLinks: "आदेश लिंक",
-          timelineEntries: "टाइमलाइन प्रविष्टियाँ",
-          highCourtOrderPdf: "हाई कोर्ट आदेश पीडीएफ",
-          download: "डाउनलोड",
-          names: "नाम",
-          advocates: "अधिवक्ता",
-          advocatesOnRecord: "रिकॉर्ड पर अधिवक्ता",
-          caseSummary:
-            "{type} {bench} पीठ में लंबित है। यह {filedOn} को दाखिल हुआ, {lastListedOn} को अंतिम बार सूचीबद्ध हुआ, और अभी भी {stage} चरण में {status} दिख रहा है।",
+          footerNote: "This Sunny Case Tracker is a structured snapshot of public records found for AOR/Lawyer Harpreet Singh Ajmani from <a href=\"https://www.sci.gov.in/case-status-diary-no/\" target=\"_blank\" rel=\"noreferrer\">sci.gov.in case status</a>, official SCI PDFs, <a href=\"https://mphc.gov.in/case-status\" target=\"_blank\" rel=\"noreferrer\">mphc.gov.in/case-status</a>, <a href=\"https://services.ecourts.gov.in/\" target=\"_blank\" rel=\"noreferrer\">services.ecourts.gov.in</a>, and broader Google-indexed web records. CAPTCHA-gated broad searches were not bypassed, so source-only rows are labeled and should be manually refreshed before reliance.",
+          benchPrefix: "Bench",
+          courtLocation: "Court location",
+          nextDate: "Next date",
+          lastListed: "Last listed",
+          completed: "Completed",
+          openCaseDetails: "Open case details",
+          pendingCount: "pending",
+          orderLinks: "order links",
+          timelineEntries: "timeline entries",
+          highCourtOrderPdf: "Court source PDF",
+          download: "Download",
+          names: "names",
+          advocates: "Advocates",
+          advocatesOnRecord: "Advocates on record",
+          caseSummary: "{type} is tracked in {bench}. It was filed on {filedOn}, last listed on {lastListedOn}, and is currently marked {status} at the {stage} stage.",
         },
       };
 
@@ -6805,14 +6800,15 @@
       const ordersCount = document.getElementById("ordersCount");
       const detailSections = Array.from(document.querySelectorAll(".overview, .timeline-grid, .order-grid, .party-grid"));
       const languageButtons = Array.from(document.querySelectorAll(".language-button"));
-      let currentLanguage = localStorage.getItem("baggaCaseTrackerLanguage") === "hi" ? "hi" : "en";
+      let currentLanguage = localStorage.getItem("sunnyCaseTrackerLanguage") === "hi" ? "hi" : "en";
       let currentCaseFilter = "all";
       const menu = document.getElementById("siteMenu");
       const menuBackdrop = document.querySelector(".menu-backdrop");
       const menuToggle = document.querySelector("[data-menu-toggle]");
       const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
       const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
-      const isCaseDetailPage = document.body.dataset.page === "case-detail";
+      const isCaseDetailPage = new URLSearchParams(window.location.search).has("case");
+      if (isCaseDetailPage) document.body.dataset.page = "case-detail";
       const homeBackButtons = Array.from(document.querySelectorAll("[data-home-back]"));
 
       function setMenuOpen(isOpen) {
@@ -6840,7 +6836,7 @@
       });
       logoutButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          localStorage.removeItem("baggaCaseTrackerSession");
+          localStorage.removeItem("sunnyCaseTrackerSession");
           window.location.href = "index.html";
         });
       });
@@ -6910,7 +6906,8 @@
       }
 
       function t(key) {
-        return translations[currentLanguage][key] || translations.en[key] || key;
+        const dictionary = translations[currentLanguage] || translations.en || {};
+        return dictionary[key] || translations.en?.[key] || key;
       }
 
       function localizeText(text) {
@@ -7092,7 +7089,7 @@
       }
 
       function getCaseDetailUrl(caseId) {
-        return `sunny-cases.html?case=${encodeURIComponent(caseId)}`;
+        return `index.html?case=${encodeURIComponent(caseId)}`;
       }
 
       function openCaseDetail(caseId) {
@@ -7373,6 +7370,7 @@
       languageButtons.forEach((button) => {
         button.addEventListener("click", () => {
           currentLanguage = button.dataset.lang;
+          localStorage.setItem("sunnyCaseTrackerLanguage", currentLanguage);
           if (isCaseDetailPage) {
             renderDashboard(document.querySelector(".case-card.active")?.dataset.caseId || getInitialCaseId());
           } else {
