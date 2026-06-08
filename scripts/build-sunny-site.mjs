@@ -336,9 +336,7 @@ ${links
 }
 
 function menuFooter() {
-  return `<div class="menu-footer">
-        <a class="menu-link" href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">SCI Search</a>
-      </div>`;
+  return "<!-- menu footer removed -->";
 }
 
 function safeInlineJson(value) {
@@ -356,8 +354,10 @@ function rewriteTrackerPage(source, aiInsights, options = {}) {
   html = html.replace(/Dashboard navigation/g, "Harpreet Singh Ajmani cases");
   html = html.replace(/Last updated: [^<]+<\/div>/, `Last updated: ${escapeHtml(updatedLabel)}</div>`);
   html = html.replace(/const siteLastUpdatedAt = "[^"]+";/, `const siteLastUpdatedAt = "${nowIso}";`);
-  html = html.replace(/<div class="menu-links">[\s\S]*?<\/div>\n\s*<div class="menu-footer">/, `${navLinks("cases")}\n      <div class="menu-footer">`);
-  html = html.replace(/<div class="menu-footer">[\s\S]*?<\/div>\n\s*<\/nav>/, `${menuFooter()}\n    </nav>`);
+  html = html.replace(
+    /<div class="menu-links">[\s\S]*?<\/div>(?:\n\s*<div class="menu-footer">[\s\S]*?<\/div>)?\n\s*<\/nav>/,
+    `${navLinks("cases")}\n      ${menuFooter()}\n    </nav>`
+  );
   html = html.replace(/baggaCaseTracker/g, "sunnyCaseTracker");
   if (!ENABLE_AI_INSIGHTS) {
     html = stripTrackerAiUi(html);
@@ -795,20 +795,6 @@ function buildEventLogPage(cases, aiInsights, updatedLabel, eventData) {
         .join("\n")
     : `        <div class="event-empty">No source-change events have been recorded yet. The next scheduled run will create the first baseline.</div>`;
   const body = `${aiPanel}
-      <section class="page-head">
-        <div class="label">Publishing</div>
-        <h2>Sunny Case Tracker Status</h2>
-        <p>This static site is built from the Sunny case dataset and deployed to Cloudflare Pages as <strong>sunnycasetracker.pages.dev</strong>. The Mumbai runner checks known public source pages and marks CAPTCHA-gated official forms for manual refresh.</p>
-        <section class="stats-grid" aria-label="Publishing summary">
-          <article class="stat-card"><div class="label">Cases</div><div class="stat-value">${cases.length}</div><p>Current tracked matters</p></article>
-          <article class="stat-card"><div class="label">Sources Checked</div><div class="stat-value">${escapeHtml(lastRun.checkedSources ?? 0)}</div><p>Last run: ${escapeHtml(formatEventTime(lastRun.completedAt))}</p></article>
-          <article class="stat-card"><div class="label">Changed</div><div class="stat-value">${escapeHtml(lastRun.changedSources ?? 0)}</div><p>Changed source fingerprints</p></article>
-          <article class="stat-card"><div class="label">Warnings</div><div class="stat-value">${escapeHtml(lastRun.failedSources ?? 0)}</div><p>Failed checks in the last run</p></article>
-          <article class="stat-card"><div class="label">CAPTCHA</div><div class="stat-value">${escapeHtml(lastRun.captchaSources ?? 0)}</div><p>Official forms requiring manual entry</p></article>
-          <article class="stat-card"><div class="label">Documents</div><div class="stat-value">${totalDocuments(cases)}</div><p>Document/source rows</p></article>
-          <article class="stat-card"><div class="label">Orders</div><div class="stat-value">${buildOrderRecords(cases).length}</div><p>Order/source rows</p></article>
-        </section>
-      </section>
       <section class="library" aria-label="Automation source events">
         <div class="page-head">
           <div class="label">Automation Checks</div>
