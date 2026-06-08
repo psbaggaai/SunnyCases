@@ -403,6 +403,56 @@
         text-align: center;
       }
 
+      .year-filter-panel {
+        margin-bottom: 18px;
+      }
+
+      .year-filter-row {
+        align-items: center;
+        display: flex;
+        gap: 18px;
+        justify-content: space-between;
+        padding: 18px 22px;
+      }
+
+      .year-filter-summary {
+        color: var(--muted);
+        font-size: 0.94rem;
+        font-weight: 700;
+        line-height: 1.45;
+        margin-top: 6px;
+      }
+
+      .year-filter-control {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
+
+      .year-filter-control label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .year-select {
+        appearance: none;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 248, 253, 0.94)),
+          linear-gradient(135deg, rgba(91, 141, 238, 0.12), rgba(217, 165, 58, 0.08));
+        border: 1px solid rgba(105, 131, 173, 0.28);
+        border-radius: 14px;
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        font-weight: 850;
+        min-height: 42px;
+        min-width: 142px;
+        padding: 9px 38px 9px 14px;
+      }
+
       .section {
         padding: 28px;
       }
@@ -614,6 +664,7 @@
       }
 
       body[data-page="case-detail"] .highlight-grid,
+      body[data-page="case-detail"] .year-filter-panel,
       body[data-page="case-detail"] .case-selector {
         display: none;
       }
@@ -1065,6 +1116,21 @@
           margin-bottom: 12px;
         }
 
+        .year-filter-row {
+          align-items: stretch;
+          flex-direction: column;
+          padding: 14px 16px;
+        }
+
+        .year-filter-control {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .year-select {
+          width: 100%;
+        }
+
         .highlight-card {
           border-radius: 16px;
           gap: 4px;
@@ -1447,7 +1513,7 @@
             </a>
           </div>
           <div class="banner-actions">
-            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 9:33 AM PDT</div>
+            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 9:45 AM PDT</div>
           </div>
         </div>
       </header>
@@ -1463,7 +1529,7 @@
           </button>
         </div>
         <div class="menu-links">
-        <a class="menu-link active" href="index.html">Cases</a>
+        <a class="menu-link active" href="cases.html">Cases</a>
         <a class="menu-link" href="orders.html">Orders</a>
         <a class="menu-link" href="documents.html">Documents</a>
       </div>
@@ -1499,6 +1565,19 @@
             <span class="highlight-value" id="ordersCount">0</span>
             <span class="highlight-note">Open orders and judgments</span>
           </a>
+        </section>
+
+        <section class="panel year-filter-panel" aria-label="Filter cases by year">
+          <div class="year-filter-row">
+            <div>
+              <div class="section-label" id="yearFilterLabel">Year Filter</div>
+              <p class="year-filter-summary" id="yearFilterSummary">Showing all years</p>
+            </div>
+            <div class="year-filter-control">
+              <label for="yearFilter">Year</label>
+              <select class="year-select" id="yearFilter" aria-label="Select case year"></select>
+            </div>
+          </div>
         </section>
 
         <section class="panel case-selector">
@@ -1650,7 +1729,7 @@
     </div>
 
     <script>
-      const siteLastUpdatedAt = "2026-06-08T16:33:28.996Z";
+      const siteLastUpdatedAt = "2026-06-08T16:45:38.427Z";
 
       const cases = [
         {
@@ -6647,6 +6726,10 @@
           heroTitle: "Sunny Case Tracker",
           languageLabel: "Language",
           lastUpdatedPrefix: "Last updated:",
+          yearFilterLabel: "Year Filter",
+          allYears: "All years",
+          showingAllYears: "Showing all tracked cases.",
+          showingYear: "Showing cases with public-record dates in {year}.",
           selectorLabel: "Case Selector",
           overviewLabel: "Case Overview",
           openCourtRecord: "Open court record",
@@ -6737,6 +6820,7 @@
         heroTitle: document.getElementById("heroTitle"),
         languageLabel: document.getElementById("languageLabel"),
         lastUpdatedChip: document.getElementById("lastUpdatedChip"),
+        yearFilterLabel: document.getElementById("yearFilterLabel"),
         selectorLabel: document.getElementById("selectorLabel"),
         overviewLabel: document.getElementById("overviewLabel"),
         sourceGuideLabel: document.getElementById("sourceGuideLabel"),
@@ -6769,6 +6853,8 @@
       };
 
       const caseGrid = document.getElementById("caseGrid");
+      const yearFilterSelect = document.getElementById("yearFilter");
+      const yearFilterSummary = document.getElementById("yearFilterSummary");
       const caseHeadline = document.getElementById("caseHeadline");
       const caseBrief = document.getElementById("caseBrief");
       const caseSummary = document.getElementById("caseSummary");
@@ -6802,13 +6888,13 @@
       const languageButtons = Array.from(document.querySelectorAll(".language-button"));
       let currentLanguage = localStorage.getItem("sunnyCaseTrackerLanguage") === "hi" ? "hi" : "en";
       let currentCaseFilter = "all";
+      let currentYearFilter = "all";
       const menu = document.getElementById("siteMenu");
       const menuBackdrop = document.querySelector(".menu-backdrop");
       const menuToggle = document.querySelector("[data-menu-toggle]");
       const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
       const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
-      const isCaseDetailPage = new URLSearchParams(window.location.search).has("case");
-      if (isCaseDetailPage) document.body.dataset.page = "case-detail";
+      const isCaseDetailPage = false;
       const homeBackButtons = Array.from(document.querySelectorAll("[data-home-back]"));
 
       function setMenuOpen(isOpen) {
@@ -6860,6 +6946,8 @@
         ".party-card",
         ".btn-link",
         ".last-updated-chip",
+        ".year-filter-panel",
+        ".year-select",
         ".language-button",
         ".menu-button",
         ".menu-close",
@@ -7060,6 +7148,8 @@
           button.setAttribute("aria-pressed", isActive ? "true" : "false");
         });
         renderLastUpdated();
+        populateYearFilter();
+        updateYearFilterSummary(getFilteredCases().length);
       }
 
       function isPendingCase(item) {
@@ -7082,14 +7172,65 @@
         return isCompletedCase(item) ? t("completed") : localizeText(item.nextVisibleDate || "—");
       }
 
+      function collectCaseYears(item) {
+        const values = [
+          item.filedOn,
+          item.lastListedOn,
+          item.nextVisibleDate,
+          item.lastOrderLabel,
+          ...(item.listingTimeline || []).map((entry) => entry.date),
+          ...(item.orderHighlights || []).map((entry) => entry.date),
+          ...(item.ordersArchive || []).map(([date]) => date),
+          ...(item.documents || []).map((row) => row[3]),
+        ];
+        const years = new Set();
+        values.forEach((value) => {
+          String(value || "")
+            .match(/\b(?:19|20)\d{2}\b/g)
+            ?.forEach((year) => years.add(year));
+        });
+        return years;
+      }
+
+      const caseYearMap = new Map(cases.map((item) => [item.id, collectCaseYears(item)]));
+      const availableCaseYears = Array.from(new Set(Array.from(caseYearMap.values()).flatMap((years) => Array.from(years)))).sort(
+        (a, b) => Number(b) - Number(a)
+      );
+
+      function caseMatchesYear(item) {
+        return currentYearFilter === "all" || caseYearMap.get(item.id)?.has(currentYearFilter);
+      }
+
+      function getYearScopedCases() {
+        return cases.filter(caseMatchesYear);
+      }
+
+      function populateYearFilter() {
+        if (!yearFilterSelect) return;
+        const selected = currentYearFilter;
+        yearFilterSelect.innerHTML = [
+          `<option value="all">${escapeHtml(t("allYears"))}</option>`,
+          ...availableCaseYears.map((year) => `<option value="${escapeHtml(year)}">${escapeHtml(year)}</option>`),
+        ].join("");
+        if (selected !== "all" && !availableCaseYears.includes(selected)) currentYearFilter = "all";
+        yearFilterSelect.value = currentYearFilter;
+      }
+
+      function updateYearFilterSummary(visibleCount = getFilteredCases().length) {
+        if (!yearFilterSummary) return;
+        const yearText = currentYearFilter === "all" ? t("showingAllYears") : t("showingYear").replace("{year}", currentYearFilter);
+        yearFilterSummary.textContent = `${yearText} ${pluralize(visibleCount, "case")} shown.`;
+      }
+
       function getFilteredCases() {
-        if (currentCaseFilter === "pending") return cases.filter(isPendingCase);
-        if (currentCaseFilter === "closed") return cases.filter((item) => !isPendingCase(item));
-        return cases;
+        const yearCases = getYearScopedCases();
+        if (currentCaseFilter === "pending") return yearCases.filter(isPendingCase);
+        if (currentCaseFilter === "closed") return yearCases.filter((item) => !isPendingCase(item));
+        return yearCases;
       }
 
       function getCaseDetailUrl(caseId) {
-        return `index.html?case=${encodeURIComponent(caseId)}`;
+        return `cases.html?case=${encodeURIComponent(caseId)}`;
       }
 
       function openCaseDetail(caseId) {
@@ -7111,14 +7252,16 @@
       }
 
       function updateHighlightCounts() {
-        totalCasesCount.textContent = cases.length;
-        pendingCasesCount.textContent = cases.filter(isPendingCase).length;
-        closedCasesCount.textContent = cases.filter((item) => !isPendingCase(item)).length;
-        documentsCount.textContent = cases.reduce((sum, item) => sum + (item.documents || []).length, 0);
-        ordersCount.textContent = cases.reduce((sum, item) => sum + getOrderCount(item), 0);
+        const yearCases = getYearScopedCases();
+        totalCasesCount.textContent = yearCases.length;
+        pendingCasesCount.textContent = yearCases.filter(isPendingCase).length;
+        closedCasesCount.textContent = yearCases.filter((item) => !isPendingCase(item)).length;
+        documentsCount.textContent = yearCases.reduce((sum, item) => sum + (item.documents || []).length, 0);
+        ordersCount.textContent = yearCases.reduce((sum, item) => sum + getOrderCount(item), 0);
         highlightCards.forEach((card) => {
           card.classList.toggle("active", card.dataset.filter === currentCaseFilter);
         });
+        updateYearFilterSummary(getFilteredCases().length);
       }
 
       function setDetailVisibility(isVisible) {
@@ -7130,7 +7273,9 @@
       function renderCaseCards(activeId) {
         const visibleCases = getFilteredCases();
         if (visibleCases.length === 0) {
-          caseGrid.innerHTML = `<div class="case-empty">No ${currentCaseFilter} cases are currently tracked.</div>`;
+          const statusText = currentCaseFilter === "all" ? "" : `${currentCaseFilter} `;
+          const yearText = currentYearFilter === "all" ? "" : ` for ${currentYearFilter}`;
+          caseGrid.innerHTML = `<div class="case-empty">No ${statusText}cases are currently tracked${yearText}.</div>`;
           updateHighlightCounts();
           setDetailVisibility(false);
           return;
@@ -7397,7 +7542,19 @@
         });
       });
 
+      yearFilterSelect?.addEventListener("change", () => {
+        currentYearFilter = yearFilterSelect.value || "all";
+        const visibleCases = getFilteredCases();
+        if (isCaseDetailPage) {
+          renderDashboard(visibleCases[0]?.id || getInitialCaseId());
+        } else {
+          setDetailVisibility(false);
+          renderCaseCards(null);
+        }
+      });
+
       if (isCaseDetailPage) {
+        populateYearFilter();
         renderDashboard(getInitialCaseId());
       } else {
         updateStaticUi();

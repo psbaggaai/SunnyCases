@@ -1508,7 +1508,7 @@
                 <span></span>
               </span>
             </button>
-            <a class="home-title-link" href="index.html" aria-label="Go to dashboard home">
+            <a class="home-title-link" href="index.html" aria-label="Go to Sunny Case Tracker home">
               <h1 id="heroTitle">Sunny Case Tracker</h1>
             </a>
           </div>
@@ -6894,7 +6894,8 @@
       const menuToggle = document.querySelector("[data-menu-toggle]");
       const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
       const logoutButtons = Array.from(document.querySelectorAll("[data-logout]"));
-      const isCaseDetailPage = false;
+      const isCaseDetailPage = true;
+      document.body.dataset.page = "case-detail";
       const homeBackButtons = Array.from(document.querySelectorAll("[data-home-back]"));
 
       function setMenuOpen(isOpen) {

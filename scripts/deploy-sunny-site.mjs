@@ -12,7 +12,15 @@ const ENV_PATH = path.join(REPO_DIR, ".env.local");
 const REQUIRED_ENV = ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"];
 const PROJECT_NAME = "sunnycasetracker";
 const LIVE_URL = "https://sunnycasetracker.pages.dev";
-const SITE_FILES = ["index.html", "sunny-cases.html", "documents.html", "orders.html", "event-log.html", "automation-events.json"];
+const SITE_FILES = [
+  "index.html",
+  "cases.html",
+  "sunny-cases.html",
+  "documents.html",
+  "orders.html",
+  "event-log.html",
+  "automation-events.json",
+];
 
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return;

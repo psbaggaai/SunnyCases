@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const SOURCE_PATH = path.join(ROOT, "sunny-cases.html");
 const INDEX_PATH = path.join(ROOT, "index.html");
+const CASES_PATH = path.join(ROOT, "cases.html");
 const SUNNY_PATH = path.join(ROOT, "sunny-cases.html");
 const ORDERS_PATH = path.join(ROOT, "orders.html");
 const DOCUMENTS_PATH = path.join(ROOT, "documents.html");
@@ -118,7 +119,7 @@ function buildDocumentRecords(cases) {
 
 function navLinks(active) {
   const links = [
-    ["cases", "index.html", "Cases"],
+    ["cases", "cases.html", "Cases"],
     ["orders", "orders.html", "Orders"],
     ["documents", "documents.html", "Documents"],
   ];
@@ -138,7 +139,8 @@ function menuFooter() {
       </div>`;
 }
 
-function rewriteHomepage(source) {
+function rewriteTrackerPage(source, options = {}) {
+  const isDetailPage = Boolean(options.isDetailPage);
   const updatedLabel = formatUpdatedLabel(nowIso);
   let html = source;
 
@@ -152,12 +154,14 @@ function rewriteHomepage(source) {
   html = html.replace(/<div class="menu-footer">[\s\S]*?<\/div>\n\s*<\/nav>/, `${menuFooter()}\n    </nav>`);
   html = html.replace(/baggaCaseTracker/g, "sunnyCaseTracker");
   html = html.replace(
-    /const isCaseDetailPage = document\.body\.dataset\.page === "case-detail";/,
-    'const isCaseDetailPage = new URLSearchParams(window.location.search).has("case");\n      if (isCaseDetailPage) document.body.dataset.page = "case-detail";'
+    /const isCaseDetailPage = [^;]+;\n\s*(?:if \(isCaseDetailPage\) document\.body\.dataset\.page = "case-detail";\n\s*)?/,
+    isDetailPage
+      ? 'const isCaseDetailPage = true;\n      document.body.dataset.page = "case-detail";\n      '
+      : "const isCaseDetailPage = false;\n      "
   );
   html = html.replace(
-    /return `sunny-cases\.html\?case=\$\{encodeURIComponent\(caseId\)\}`;/,
-    'return `index.html?case=${encodeURIComponent(caseId)}`;'
+    /return `(?:sunny-cases|index|cases)\.html\?case=\$\{encodeURIComponent\(caseId\)\}`;/,
+    'return `cases.html?case=${encodeURIComponent(caseId)}`;'
   );
   html = html.replace(
     /footerNote:\s*'[^']*',/,
@@ -202,6 +206,13 @@ function rewriteHomepage(source) {
     /currentLanguage = button\.dataset\.lang;\n\s*if \(isCaseDetailPage\)/,
     'currentLanguage = button.dataset.lang;\n          localStorage.setItem("sunnyCaseTrackerLanguage", currentLanguage);\n          if (isCaseDetailPage)'
   );
+
+  if (isDetailPage) {
+    html = html.replace(
+      /<a class="home-title-link" href="index\.html" aria-label="Go to dashboard home">/,
+      '<a class="home-title-link" href="index.html" aria-label="Go to Sunny Case Tracker home">'
+    );
+  }
 
   return html;
 }
@@ -284,7 +295,7 @@ function pageChrome({ title, active, updatedLabel, body }) {
         </div>
         <div class="top-banner-actions">
           <div class="last-updated-chip">Last updated: ${escapeHtml(updatedLabel)}</div>
-          <a class="back-link" href="index.html">Cases</a>
+          <a class="back-link" href="cases.html">Cases</a>
         </div>
       </div>
     </header>
@@ -351,11 +362,11 @@ function buildDocumentsPage(cases, updatedLabel) {
 ${rows
   .map(
     (row) => `        <article class="row document-row">
-          <div><a class="case-link" href="index.html?case=${encodeURIComponent(row.caseId)}"><div class="case-code">${escapeHtml(row.caseCode)}</div></a><div class="muted">${escapeHtml(row.caseTitle)}</div></div>
+          <div><a class="case-link" href="cases.html?case=${encodeURIComponent(row.caseId)}"><div class="case-code">${escapeHtml(row.caseCode)}</div></a><div class="muted">${escapeHtml(row.caseTitle)}</div></div>
           <div><div class="label">Document</div><div class="value">${escapeHtml(row.docNo)}</div></div>
           <div><div class="label">Type / Filed By</div><div class="value">${escapeHtml(row.type)}</div><div class="muted">${escapeHtml(row.filedBy)}</div></div>
           <div><div class="label">Filed On</div><div class="value">${escapeHtml(row.filedOn)}</div></div>
-          <a class="button-link" href="index.html?case=${encodeURIComponent(row.caseId)}">Details</a>
+          <a class="button-link" href="cases.html?case=${encodeURIComponent(row.caseId)}">Details</a>
         </article>`
   )
   .join("\n")}
@@ -386,11 +397,11 @@ function buildOrdersPage(cases, updatedLabel) {
 ${rows
   .map(
     (row, index) => `        <article class="row order-row" data-original-index="${index}">
-          <div><a class="case-link" href="index.html?case=${encodeURIComponent(row.caseId)}"><div class="case-code">${escapeHtml(row.caseCode)}</div></a><div class="muted">${escapeHtml(row.caseTitle)}</div></div>
+          <div><a class="case-link" href="cases.html?case=${encodeURIComponent(row.caseId)}"><div class="case-code">${escapeHtml(row.caseCode)}</div></a><div class="muted">${escapeHtml(row.caseTitle)}</div></div>
           <div><div class="label">Date</div><div class="value">${escapeHtml(row.date)}</div></div>
           <div><div class="label">Order / Judgment Note</div><div class="value">${escapeHtml(row.note)}</div></div>
           <a class="button-link" href="${escapeAttr(row.href)}" target="_blank" rel="noreferrer">${escapeHtml(row.action)}</a>
-          <a class="button-link" href="index.html?case=${encodeURIComponent(row.caseId)}">Details</a>
+          <a class="button-link" href="cases.html?case=${encodeURIComponent(row.caseId)}">Details</a>
         </article>`
   )
   .join("\n")}
@@ -456,9 +467,11 @@ function buildEventLogPage(cases, updatedLabel) {
 const source = readText(SOURCE_PATH);
 const cases = extractCases(source);
 const updatedLabel = formatUpdatedLabel(nowIso);
-const homepage = rewriteHomepage(source);
+const homepage = rewriteTrackerPage(source);
+const casesPage = rewriteTrackerPage(source, { isDetailPage: true });
 
 writeText(INDEX_PATH, homepage);
+writeText(CASES_PATH, casesPage);
 writeText(SUNNY_PATH, homepage);
 writeText(DOCUMENTS_PATH, buildDocumentsPage(cases, updatedLabel));
 writeText(ORDERS_PATH, buildOrdersPage(cases, updatedLabel));
