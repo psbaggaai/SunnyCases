@@ -8,6 +8,7 @@ import path from "node:path";
 const REPO_DIR = path.resolve(process.cwd());
 const INDEX_PATH = path.join(REPO_DIR, "index.html");
 const CASES_PATH = path.join(REPO_DIR, "cases.html");
+const SUNNY_CASES_PATH = path.join(REPO_DIR, "sunny-cases.html");
 const DOCUMENTS_PATH = path.join(REPO_DIR, "documents.html");
 const ORDERS_PATH = path.join(REPO_DIR, "orders.html");
 const SETTINGS_PATH = path.join(REPO_DIR, "settings.html");
@@ -971,7 +972,7 @@ function updateOrdersPage(cases, isoTimestamp, label) {
 }
 
 function updateStaticTimestampPages(isoTimestamp, label) {
-  for (const filePath of [SETTINGS_PATH, EVENT_LOG_PATH]) {
+  for (const filePath of [SUNNY_CASES_PATH, SETTINGS_PATH, EVENT_LOG_PATH]) {
     if (!fs.existsSync(filePath)) continue;
     const html = fs.readFileSync(filePath, "utf8");
     fs.writeFileSync(filePath, replaceLastUpdated(html, isoTimestamp, label));

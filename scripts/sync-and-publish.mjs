@@ -15,6 +15,7 @@ const REQUIRED_ENV = ["GITHUB_PAT", "CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_
 const SITE_FILES = [
   "index.html",
   "cases.html",
+  "sunny-cases.html",
   "documents.html",
   "orders.html",
   "settings.html",
@@ -364,6 +365,7 @@ function buildEventLogPage(events, updatedAtIso) {
       </div>
       <div class="menu-links">
         <a class="menu-link" href="cases.html">Cases</a>
+        <a class="menu-link" href="sunny-cases.html">Sunny Cases</a>
         <a class="menu-link" href="orders.html">Orders</a>
         <a class="menu-link" href="documents.html">Documents</a>
         <a class="menu-link active" href="event-log.html">Event Log</a>
