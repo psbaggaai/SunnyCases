@@ -35,6 +35,14 @@
       .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
       .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
       main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .ai-summary-panel { background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(230,237,248,0.9)), linear-gradient(90deg, rgba(113,185,223,0.1), rgba(217,165,58,0.1)); border: 1px solid rgba(89,123,171,0.28); border-radius: 22px; box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.84); margin-bottom: 20px; padding: 20px; }
+      .ai-panel-head { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
+      .ai-title { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
+      .ai-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .ai-block { background: rgba(255,255,255,0.56); border: 1px solid rgba(105,131,173,0.16); border-radius: 16px; padding: 14px; }
+      .ai-block p { color: #31435d; font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-top: 8px; }
+      .ai-list { color: #31435d; display: grid; gap: 8px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; padding-left: 18px; }
+      .ai-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
       .page-head, .row, .stat-card { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
       .page-head { border-radius: 24px; padding: 24px; }
       .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -54,7 +62,7 @@
       .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
       .sort-button:hover, .sort-button.active { color: var(--navy); }
       .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
-      @media (max-width: 960px) { .stats-grid { grid-template-columns: 1fr 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
       @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }
     </style>
   </head>
@@ -70,7 +78,7 @@
           </a>
         </div>
         <div class="top-banner-actions">
-          <div class="last-updated-chip">Last updated: Jun 8, 2026, 9:45 AM PDT</div>
+          <div class="last-updated-chip">Last updated: Jun 8, 2026, 10:08 AM PDT</div>
           <a class="back-link" href="cases.html">Cases</a>
         </div>
       </div>
@@ -86,6 +94,7 @@
       </div>
       <div class="menu-links">
         <a class="menu-link" href="cases.html">Cases</a>
+        <a class="menu-link" href="ai-insights.html">AI Insights</a>
         <a class="menu-link" href="orders.html">Orders</a>
         <a class="menu-link active" href="documents.html">Documents</a>
       </div>
@@ -94,6 +103,27 @@
       </div>
     </nav>
     <main>
+      <section class="ai-summary-panel">
+        <div class="ai-panel-head">
+          <div>
+            <div class="label">AI Insights</div>
+            <div class="ai-title">Document library summary</div>
+          </div>
+          <a class="button-link" href="ai-insights.html#documents">View more</a>
+        </div>
+        <div class="ai-grid">
+          <article class="ai-block">
+            <div class="label">Summary</div>
+            <p>55 document/source row(s) are collected, concentrated in SCI office reports and accessible filing records tied to the tracked case set.</p>
+          </article>
+          <article class="ai-block">
+            <div class="label">Recommendations</div>
+            <ul class="ai-list">
+              <li>Keep document rows aligned with the case overview by adding missing office reports, diary records, or filing references whenever a source refresh is done.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
       <section class="page-head">
         <div class="label">Document Library</div>
         <h2>Documents and Source Filings</h2>
@@ -518,6 +548,13 @@
       menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") setMenuOpen(false);
+      });
+    </script>
+    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
+    <script>
+      window.SiteTracker.init({
+        siteId: "sunnycasetracker",
+        endpoint: "https://personal-tracker-api.psbaggaai.workers.dev/api/track"
       });
     </script>
   </body>

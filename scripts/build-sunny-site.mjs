@@ -12,6 +12,7 @@ const CASES_PATH = path.join(ROOT, "cases.html");
 const SUNNY_PATH = path.join(ROOT, "sunny-cases.html");
 const ORDERS_PATH = path.join(ROOT, "orders.html");
 const DOCUMENTS_PATH = path.join(ROOT, "documents.html");
+const AI_INSIGHTS_PATH = path.join(ROOT, "ai-insights.html");
 const EVENT_LOG_PATH = path.join(ROOT, "event-log.html");
 const EVENT_DATA_PATH = path.join(ROOT, "automation-events.json");
 
@@ -52,13 +53,31 @@ function formatUpdatedLabel(isoDate) {
 }
 
 function extractCases(source) {
-  const match = source.match(/const cases = (\[[\s\S]*?\n\s*\]);\n\n\s*const translations/);
+  const match = source.match(/const cases = (\[[\s\S]*?\n\s*\]);\n\n\s*const (?:aiInsights|translations)/);
   if (!match) throw new Error("Unable to find Sunny case data in sunny-cases.html.");
   return Function(`return ${match[1]}`)();
 }
 
 function totalDocuments(cases) {
   return cases.reduce((sum, item) => sum + (item.documents || []).length, 0);
+}
+
+function isPendingCase(item) {
+  return /pending/i.test(item.status || "");
+}
+
+function isSourceCheckCase(item) {
+  return /source check|manual status refresh/i.test(
+    `${item.status || ""} ${item.nextVisibleDate || ""} ${item.dashletSummary || ""} ${item.stageDetail || ""}`
+  );
+}
+
+function cleanText(value, maxLength = 220) {
+  const text = String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,.;:])/g, "$1")
+    .trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 3).trim()}...` : text;
 }
 
 function buildOrderRecords(cases) {
@@ -117,9 +136,115 @@ function buildDocumentRecords(cases) {
   return rows;
 }
 
+function summarizeCaseForAi(item) {
+  const orderCount = (item.ordersArchive || []).length + (item.orderHighlights || []).length;
+  const docCount = (item.documents || []).length;
+  const pendingIaCount = (item.pendingIAs || []).length;
+  const firstLine = cleanText(
+    (item.summaryLines || [])[0] ||
+      `${item.code} is a ${item.type || "case"} in ${item.courtLocation || item.bench || "the public court records"}.`,
+    240
+  );
+  const statusParts = [
+    item.status ? `status ${item.status}` : "",
+    item.lastListedOn ? `last listed ${item.lastListedOn}` : "",
+    item.nextVisibleDate ? `next/status marker ${item.nextVisibleDate}` : "",
+  ].filter(Boolean);
+  const secondLine = cleanText(
+    `${item.code} has ${statusParts.join(", ") || "public-record status markers"}, ${pendingIaCount} pending IA(s), ${orderCount} order/source record(s), and ${docCount} document row(s).`,
+    240
+  );
+  return [firstLine, secondLine];
+}
+
+function recommendCaseForAi(item) {
+  const recommendations = [];
+  const orderCount = (item.ordersArchive || []).length + (item.orderHighlights || []).length;
+  const docCount = (item.documents || []).length;
+  if (isPendingCase(item)) {
+    recommendations.push("Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.");
+  }
+  if (isSourceCheckCase(item)) {
+    recommendations.push("Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.");
+  }
+  if (!isPendingCase(item) && !isSourceCheckCase(item)) {
+    recommendations.push("Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.");
+  }
+  if (orderCount === 0 || docCount === 0) {
+    recommendations.push("If this matter remains important, add any missing official order or document source rows so the record is audit-ready.");
+  }
+  return recommendations.slice(0, 2);
+}
+
+function buildAiInsights(cases) {
+  const pendingCases = cases.filter(isPendingCase);
+  const sourceCheckCases = cases.filter(isSourceCheckCase);
+  const orderRecords = buildOrderRecords(cases);
+  const documentRecords = buildDocumentRecords(cases);
+  const pendingCodes = pendingCases.slice(0, 4).map((item) => item.code).join(", ");
+  const sourceCodes = sourceCheckCases.slice(0, 4).map((item) => item.code).join(", ");
+  const caseInsights = Object.fromEntries(
+    cases.map((item) => [
+      item.id,
+      {
+        id: item.id,
+        code: item.code,
+        title: item.title,
+        status: item.status,
+        court: item.courtLocation || item.bench,
+        lastListedOn: item.lastListedOn,
+        summaryLines: summarizeCaseForAi(item),
+        recommendations: recommendCaseForAi(item),
+        priority: isPendingCase(item) || isSourceCheckCase(item) ? "Review" : "Archive",
+      },
+    ])
+  );
+
+  return {
+    generatedAt: nowIso,
+    home: {
+      summaryLines: [
+        `${pendingCases.length} pending/source-check case(s) need attention across the Sunny tracker${pendingCodes ? `, led by ${pendingCodes}` : ""}.`,
+      ],
+      recommendations: [
+        `Prioritize manual refreshes for ${sourceCheckCases.length} source-check matter(s)${sourceCodes ? ` (${sourceCodes})` : ""} before relying on dates or status.`,
+        `For active matters, capture any new order PDFs and office-report rows, then update next-step notes after each official-source check.`,
+      ],
+    },
+    pages: {
+      orders: {
+        summaryLines: [
+          `${orderRecords.length} order/source record(s) are linked across ${cases.length} tracked case(s), with direct PDFs available where public sources expose them.`,
+        ],
+        recommendations: [
+          "For pending and source-check cases, download the latest PDF/source record and compare the order date against the case overview before taking action.",
+        ],
+      },
+      documents: {
+        summaryLines: [
+          `${documentRecords.length} document/source row(s) are collected, concentrated in SCI office reports and accessible filing records tied to the tracked case set.`,
+        ],
+        recommendations: [
+          "Keep document rows aligned with the case overview by adding missing office reports, diary records, or filing references whenever a source refresh is done.",
+        ],
+      },
+      status: {
+        summaryLines: [
+          `The published static report currently covers ${cases.length} cases, ${documentRecords.length} document rows, and ${orderRecords.length} order/source rows.`,
+        ],
+        recommendations: [
+          "Regenerate and redeploy the AI report after any material source refresh so homepage and detail recommendations stay synchronized.",
+        ],
+      },
+    },
+    cases: caseInsights,
+  };
+}
+
 function navLinks(active) {
   const links = [
     ["cases", "cases.html", "Cases"],
+    ["ai", "ai-insights.html", "AI Insights"],
     ["orders", "orders.html", "Orders"],
     ["documents", "documents.html", "Documents"],
   ];
@@ -139,7 +264,11 @@ function menuFooter() {
       </div>`;
 }
 
-function rewriteTrackerPage(source, options = {}) {
+function safeInlineJson(value) {
+  return JSON.stringify(value).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
+}
+
+function rewriteTrackerPage(source, aiInsights, options = {}) {
   const isDetailPage = Boolean(options.isDetailPage);
   const updatedLabel = formatUpdatedLabel(nowIso);
   let html = source;
@@ -153,6 +282,12 @@ function rewriteTrackerPage(source, options = {}) {
   html = html.replace(/<div class="menu-links">[\s\S]*?<\/div>\n\s*<div class="menu-footer">/, `${navLinks("cases")}\n      <div class="menu-footer">`);
   html = html.replace(/<div class="menu-footer">[\s\S]*?<\/div>\n\s*<\/nav>/, `${menuFooter()}\n    </nav>`);
   html = html.replace(/baggaCaseTracker/g, "sunnyCaseTracker");
+  const aiInsightScript = `const aiInsights = ${safeInlineJson(aiInsights)};`;
+  if (/const aiInsights = [\s\S]*?;\n\n\s*const translations/.test(html)) {
+    html = html.replace(/const aiInsights = [\s\S]*?;\n\n\s*const translations/, `${aiInsightScript}\n\n      const translations`);
+  } else {
+    html = html.replace(/\];\n\n\s*const translations/, `];\n\n      ${aiInsightScript}\n\n      const translations`);
+  }
   html = html.replace(
     /const isCaseDetailPage = [^;]+;\n\s*(?:if \(isCaseDetailPage\) document\.body\.dataset\.page = "case-detail";\n\s*)?/,
     isDetailPage
@@ -248,6 +383,14 @@ function sharedStyles() {
       .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
       .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
       main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .ai-summary-panel { background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(230,237,248,0.9)), linear-gradient(90deg, rgba(113,185,223,0.1), rgba(217,165,58,0.1)); border: 1px solid rgba(89,123,171,0.28); border-radius: 22px; box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.84); margin-bottom: 20px; padding: 20px; }
+      .ai-panel-head { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
+      .ai-title { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
+      .ai-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .ai-block { background: rgba(255,255,255,0.56); border: 1px solid rgba(105,131,173,0.16); border-radius: 16px; padding: 14px; }
+      .ai-block p { color: #31435d; font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-top: 8px; }
+      .ai-list { color: #31435d; display: grid; gap: 8px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; padding-left: 18px; }
+      .ai-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
       .page-head, .row, .stat-card { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
       .page-head { border-radius: 24px; padding: 24px; }
       .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -267,7 +410,7 @@ function sharedStyles() {
       .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
       .sort-button:hover, .sort-button.active { color: var(--navy); }
       .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
-      @media (max-width: 960px) { .stats-grid { grid-template-columns: 1fr 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
       @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }`;
 }
 
@@ -342,13 +485,50 @@ ${body}
         if (event.key === "Escape") setMenuOpen(false);
       });
     </script>
+    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
+    <script>
+      window.SiteTracker.init({
+        siteId: "sunnycasetracker",
+        endpoint: "https://personal-tracker-api.psbaggaai.workers.dev/api/track"
+      });
+    </script>
   </body>
 </html>`;
 }
 
-function buildDocumentsPage(cases, updatedLabel) {
+function buildAiPanel({ title = "AI Summary", summaryLines = [], recommendations = [], href = "ai-insights.html" }) {
+  return `      <section class="ai-summary-panel">
+        <div class="ai-panel-head">
+          <div>
+            <div class="label">AI Insights</div>
+            <div class="ai-title">${escapeHtml(title)}</div>
+          </div>
+          <a class="button-link" href="${escapeAttr(href)}">View more</a>
+        </div>
+        <div class="ai-grid">
+          <article class="ai-block">
+            <div class="label">Summary</div>
+${summaryLines.map((line) => `            <p>${escapeHtml(line)}</p>`).join("\n")}
+          </article>
+          <article class="ai-block">
+            <div class="label">Recommendations</div>
+            <ul class="ai-list">
+${recommendations.map((line) => `              <li>${escapeHtml(line)}</li>`).join("\n")}
+            </ul>
+          </article>
+        </div>
+      </section>`;
+}
+
+function buildDocumentsPage(cases, aiInsights, updatedLabel) {
   const rows = buildDocumentRecords(cases);
-  const body = `      <section class="page-head">
+  const body = `${buildAiPanel({
+    title: "Document library summary",
+    summaryLines: aiInsights.pages.documents.summaryLines,
+    recommendations: aiInsights.pages.documents.recommendations,
+    href: "ai-insights.html#documents",
+  })}
+      <section class="page-head">
         <div class="label">Document Library</div>
         <h2>Documents and Source Filings</h2>
         <p>Filing, diary, office-report, and source rows collected from public case records where Harpreet Singh Ajmani appears in the tracked material.</p>
@@ -374,9 +554,15 @@ ${rows
   return pageChrome({ title: "Sunny Case Documents", active: "documents", updatedLabel, body });
 }
 
-function buildOrdersPage(cases, updatedLabel) {
+function buildOrdersPage(cases, aiInsights, updatedLabel) {
   const rows = buildOrderRecords(cases);
-  const body = `      <section class="page-head">
+  const body = `${buildAiPanel({
+    title: "Orders and source notes summary",
+    summaryLines: aiInsights.pages.orders.summaryLines,
+    recommendations: aiInsights.pages.orders.recommendations,
+    href: "ai-insights.html#orders",
+  })}
+      <section class="page-head">
         <div class="label">Order Library</div>
         <h2>Orders, Judgments, and Source Notes</h2>
         <p>Downloadable order links and order-note records collected from the tracked Harpreet Singh Ajmani case set.</p>
@@ -450,8 +636,14 @@ ${rows
   return pageChrome({ title: "Sunny Case Orders", active: "orders", updatedLabel, body });
 }
 
-function buildEventLogPage(cases, updatedLabel) {
-  const body = `      <section class="page-head">
+function buildEventLogPage(cases, aiInsights, updatedLabel) {
+  const body = `${buildAiPanel({
+    title: "Publishing report summary",
+    summaryLines: aiInsights.pages.status.summaryLines,
+    recommendations: aiInsights.pages.status.recommendations,
+    href: "ai-insights.html#site-report",
+  })}
+      <section class="page-head">
         <div class="label">Publishing</div>
         <h2>Sunny Case Tracker Status</h2>
         <p>This static site is built from the Sunny case dataset and deployed to Cloudflare Pages as <strong>sunnycasetracker.pages.dev</strong>.</p>
@@ -464,18 +656,68 @@ function buildEventLogPage(cases, updatedLabel) {
   return pageChrome({ title: "Sunny Case Tracker Status", active: "cases", updatedLabel, body });
 }
 
+function buildAiInsightsPage(cases, aiInsights, updatedLabel) {
+  const pendingCases = cases.filter(isPendingCase);
+  const sourceCheckCases = cases.filter(isSourceCheckCase);
+  const body = `      <section class="page-head" id="site-report">
+        <div class="label">AI Insights</div>
+        <h2>Sunny Case AI Report</h2>
+        <p>Generated locally from the published Sunny case dataset. This is a practical triage layer over public case-status, order, and document records.</p>
+        <section class="stats-grid" aria-label="AI report summary">
+          <article class="stat-card"><div class="label">Tracked Cases</div><div class="stat-value">${cases.length}</div><p>Total matters in this report</p></article>
+          <article class="stat-card"><div class="label">Pending / Check</div><div class="stat-value">${pendingCases.length}</div><p>Need status or source attention</p></article>
+          <article class="stat-card"><div class="label">Source Checks</div><div class="stat-value">${sourceCheckCases.length}</div><p>Manual verification recommended</p></article>
+        </section>
+      </section>
+${buildAiPanel({
+  title: "Homepage triage",
+  summaryLines: aiInsights.home.summaryLines,
+  recommendations: aiInsights.home.recommendations,
+  href: "cases.html",
+})}
+${buildAiPanel({
+  title: "Orders report",
+  summaryLines: aiInsights.pages.orders.summaryLines,
+  recommendations: aiInsights.pages.orders.recommendations,
+  href: "orders.html",
+}).replace('<section class="ai-summary-panel">', '<section class="ai-summary-panel" id="orders">')}
+${buildAiPanel({
+  title: "Documents report",
+  summaryLines: aiInsights.pages.documents.summaryLines,
+  recommendations: aiInsights.pages.documents.recommendations,
+  href: "documents.html",
+}).replace('<section class="ai-summary-panel">', '<section class="ai-summary-panel" id="documents">')}
+      <section class="library" aria-label="Case AI insights">
+${cases
+  .map((item) => {
+    const insight = aiInsights.cases[item.id];
+    return `        <article class="row" id="case-${escapeAttr(item.id)}">
+          <div><a class="case-link" href="cases.html?case=${encodeURIComponent(item.id)}"><div class="case-code">${escapeHtml(item.code)}</div></a><div class="muted">${escapeHtml(item.title)}</div></div>
+          <div><div class="label">Status</div><div class="value">${escapeHtml(item.status || "-")}</div><div class="muted">${escapeHtml(item.lastListedOn || "No listed date")}</div></div>
+          <div><div class="label">AI Summary</div>${insight.summaryLines.map((line) => `<div class="muted">${escapeHtml(line)}</div>`).join("")}</div>
+          <div><div class="label">Recommendations</div><ul class="ai-list">${insight.recommendations.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul></div>
+          <a class="button-link" href="cases.html?case=${encodeURIComponent(item.id)}">Details</a>
+        </article>`;
+  })
+  .join("\n")}
+      </section>`;
+  return pageChrome({ title: "Sunny AI Insights", active: "ai", updatedLabel, body });
+}
+
 const source = readText(SOURCE_PATH);
 const cases = extractCases(source);
 const updatedLabel = formatUpdatedLabel(nowIso);
-const homepage = rewriteTrackerPage(source);
-const casesPage = rewriteTrackerPage(source, { isDetailPage: true });
+const aiInsights = buildAiInsights(cases);
+const homepage = rewriteTrackerPage(source, aiInsights);
+const casesPage = rewriteTrackerPage(source, aiInsights, { isDetailPage: true });
 
 writeText(INDEX_PATH, homepage);
 writeText(CASES_PATH, casesPage);
 writeText(SUNNY_PATH, homepage);
-writeText(DOCUMENTS_PATH, buildDocumentsPage(cases, updatedLabel));
-writeText(ORDERS_PATH, buildOrdersPage(cases, updatedLabel));
-writeText(EVENT_LOG_PATH, buildEventLogPage(cases, updatedLabel));
+writeText(DOCUMENTS_PATH, buildDocumentsPage(cases, aiInsights, updatedLabel));
+writeText(ORDERS_PATH, buildOrdersPage(cases, aiInsights, updatedLabel));
+writeText(AI_INSIGHTS_PATH, buildAiInsightsPage(cases, aiInsights, updatedLabel));
+writeText(EVENT_LOG_PATH, buildEventLogPage(cases, aiInsights, updatedLabel));
 writeText(
   EVENT_DATA_PATH,
   JSON.stringify(

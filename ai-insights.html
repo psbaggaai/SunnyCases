@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunny AI Insights</title>
+    <style>
+      :root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
+      body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(105deg, rgba(47,79,128,0.1), transparent 26%, rgba(217,165,58,0.09) 58%, transparent 76%), repeating-linear-gradient(118deg, rgba(255,255,255,0.2) 0 1px, transparent 1px 34px); pointer-events: none; z-index: -1; }
+      .top-banner { background: linear-gradient(112deg, #101b2e 0%, #18365b 47%, #3d5868 100%); box-shadow: 0 16px 34px rgba(13,25,43,0.24), inset 0 -1px 0 rgba(255,255,255,0.12); color: white; min-height: 52px; padding: 8px clamp(16px, 4vw, 32px); }
+      .top-banner-inner, main { max-width: 1440px; margin: 0 auto; }
+      .top-banner-inner { align-items: center; display: flex; gap: 16px; justify-content: space-between; min-height: 36px; }
+      .banner-title, .top-banner-actions { align-items: center; display: flex; gap: 12px; }
+      .home-title-link, .back-link { color: inherit; text-decoration: none; }
+      h1 { font-size: clamp(1.05rem, 2vw, 1.28rem); line-height: 1.15; margin: 0; }
+      h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); margin: 8px 0 0; }
+      h3, p { margin: 0; }
+      p { color: var(--muted); line-height: 1.55; margin-top: 8px; }
+      .last-updated-chip { align-items: center; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: rgba(255,255,255,0.94); display: inline-flex; font-size: 0.82rem; font-weight: 850; min-height: 34px; padding: 7px 12px; white-space: nowrap; }
+      .menu-button, .menu-close { align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; color: white; cursor: pointer; display: inline-flex; height: 38px; justify-content: center; padding: 0; width: 38px; }
+      .menu-lines { display: grid; gap: 4px; width: 18px; }
+      .menu-lines span { background: currentColor; border-radius: 999px; display: block; height: 2px; }
+      .menu-backdrop { background: rgba(13,25,43,0.42); inset: 0; position: fixed; z-index: 30; }
+      .site-menu { background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(229,237,249,0.98)); border-right: 1px solid rgba(89,123,171,0.24); box-shadow: 24px 0 60px rgba(15,31,53,0.2); color: var(--ink); display: flex; flex-direction: column; height: 100vh; left: 0; max-width: min(360px, calc(100vw - 36px)); padding: 18px; position: fixed; top: 0; transform: translateX(-110%); transition: transform 180ms ease; width: 340px; z-index: 40; }
+      .site-menu.open { transform: translateX(0); }
+      .menu-backdrop[hidden], .site-menu[hidden] { display: none; }
+      .site-menu-head { align-items: center; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; padding-bottom: 16px; }
+      .site-menu-title { font-size: 1rem; font-weight: 850; }
+      .site-menu-subtitle { color: var(--muted); font-size: 0.82rem; font-weight: 700; margin-top: 4px; }
+      .menu-close { background: #eef4ff; border-color: var(--border); color: var(--navy); }
+      .menu-links { display: grid; gap: 8px; padding-top: 18px; }
+      .menu-link { align-items: center; border: 1px solid transparent; border-radius: 14px; color: var(--ink); display: flex; font-size: 0.96rem; font-weight: 800; gap: 12px; min-height: 46px; padding: 12px 14px; text-decoration: none; }
+      .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
+      .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
+      main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
+      .ai-summary-panel { background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(230,237,248,0.9)), linear-gradient(90deg, rgba(113,185,223,0.1), rgba(217,165,58,0.1)); border: 1px solid rgba(89,123,171,0.28); border-radius: 22px; box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.84); margin-bottom: 20px; padding: 20px; }
+      .ai-panel-head { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
+      .ai-title { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
+      .ai-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .ai-block { background: rgba(255,255,255,0.56); border: 1px solid rgba(105,131,173,0.16); border-radius: 16px; padding: 14px; }
+      .ai-block p { color: #31435d; font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-top: 8px; }
+      .ai-list { color: #31435d; display: grid; gap: 8px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; padding-left: 18px; }
+      .ai-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+      .page-head, .row, .stat-card { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
+      .page-head { border-radius: 24px; padding: 24px; }
+      .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+      .stats-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+      .stat-card { border-radius: 18px; min-height: 102px; padding: 16px; }
+      .stat-value { font-size: 1.8rem; font-weight: 900; margin-top: 8px; }
+      .library { display: grid; gap: 14px; margin-top: 20px; }
+      .sort-row, .row { display: grid; gap: 14px; grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(260px, 1.25fr) minmax(150px, 0.65fr) minmax(110px, 0.45fr); }
+      .sort-row { color: var(--muted); padding: 0 16px; }
+      .row { border-radius: 18px; padding: 16px; }
+      .document-row { grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(220px, 1fr) minmax(160px, 0.75fr) minmax(110px, 0.45fr); }
+      .case-code, .value { font-weight: 850; line-height: 1.35; }
+      .case-link { color: inherit; text-decoration: none; }
+      .case-link:hover { color: #315fae; text-decoration: underline; }
+      .muted { color: var(--muted); font-size: 0.9rem; line-height: 1.4; margin-top: 4px; }
+      .button-link { align-self: start; background: #eef4ff; border-radius: 999px; color: #3b67b9; display: inline-flex; font-weight: 850; justify-content: center; padding: 10px 14px; text-decoration: none; }
+      .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
+      .sort-button:hover, .sort-button.active { color: var(--navy); }
+      .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
+      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="top-banner">
+      <div class="top-banner-inner">
+        <div class="banner-title">
+          <button class="menu-button" type="button" aria-label="Open navigation menu" aria-controls="siteMenu" aria-expanded="false" data-menu-toggle>
+            <span class="menu-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <a class="home-title-link" href="index.html" aria-label="Go to Sunny Case Tracker home">
+            <h1>Sunny Case Tracker</h1>
+          </a>
+        </div>
+        <div class="top-banner-actions">
+          <div class="last-updated-chip">Last updated: Jun 8, 2026, 10:08 AM PDT</div>
+          <a class="back-link" href="cases.html">Cases</a>
+        </div>
+      </div>
+    </header>
+    <div class="menu-backdrop" data-menu-close hidden></div>
+    <nav class="site-menu" id="siteMenu" aria-label="Site navigation" aria-hidden="true" hidden>
+      <div class="site-menu-head">
+        <div>
+          <div class="site-menu-title">Sunny Case Tracker</div>
+          <div class="site-menu-subtitle">Harpreet Singh Ajmani cases</div>
+        </div>
+        <button class="menu-close" type="button" aria-label="Close navigation menu" data-menu-close><span aria-hidden="true">X</span></button>
+      </div>
+      <div class="menu-links">
+        <a class="menu-link" href="cases.html">Cases</a>
+        <a class="menu-link active" href="ai-insights.html">AI Insights</a>
+        <a class="menu-link" href="orders.html">Orders</a>
+        <a class="menu-link" href="documents.html">Documents</a>
+      </div>
+      <div class="menu-footer">
+        <a class="menu-link" href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">SCI Search</a>
+      </div>
+    </nav>
+    <main>
+      <section class="page-head" id="site-report">
+        <div class="label">AI Insights</div>
+        <h2>Sunny Case AI Report</h2>
+        <p>Generated locally from the published Sunny case dataset. This is a practical triage layer over public case-status, order, and document records.</p>
+        <section class="stats-grid" aria-label="AI report summary">
+          <article class="stat-card"><div class="label">Tracked Cases</div><div class="stat-value">34</div><p>Total matters in this report</p></article>
+          <article class="stat-card"><div class="label">Pending / Check</div><div class="stat-value">5</div><p>Need status or source attention</p></article>
+          <article class="stat-card"><div class="label">Source Checks</div><div class="stat-value">5</div><p>Manual verification recommended</p></article>
+        </section>
+      </section>
+      <section class="ai-summary-panel">
+        <div class="ai-panel-head">
+          <div>
+            <div class="label">AI Insights</div>
+            <div class="ai-title">Homepage triage</div>
+          </div>
+          <a class="button-link" href="cases.html">View more</a>
+        </div>
+        <div class="ai-grid">
+          <article class="ai-block">
+            <div class="label">Summary</div>
+            <p>5 pending/source-check case(s) need attention across the Sunny tracker, led by C.A. No. 18067/2017, C.A. No. 18068/2017, C.A. No. 18281/2017, SLP(C) No. 19156/2022.</p>
+          </article>
+          <article class="ai-block">
+            <div class="label">Recommendations</div>
+            <ul class="ai-list">
+              <li>Prioritize manual refreshes for 5 source-check matter(s) (C.A. No. 18067/2017, C.A. No. 18068/2017, C.A. No. 18281/2017, SLP(C) No. 19156/2022) before relying on dates or status.</li>
+              <li>For active matters, capture any new order PDFs and office-report rows, then update next-step notes after each official-source check.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section class="ai-summary-panel" id="orders">
+        <div class="ai-panel-head">
+          <div>
+            <div class="label">AI Insights</div>
+            <div class="ai-title">Orders report</div>
+          </div>
+          <a class="button-link" href="orders.html">View more</a>
+        </div>
+        <div class="ai-grid">
+          <article class="ai-block">
+            <div class="label">Summary</div>
+            <p>36 order/source record(s) are linked across 34 tracked case(s), with direct PDFs available where public sources expose them.</p>
+          </article>
+          <article class="ai-block">
+            <div class="label">Recommendations</div>
+            <ul class="ai-list">
+              <li>For pending and source-check cases, download the latest PDF/source record and compare the order date against the case overview before taking action.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section class="ai-summary-panel" id="documents">
+        <div class="ai-panel-head">
+          <div>
+            <div class="label">AI Insights</div>
+            <div class="ai-title">Documents report</div>
+          </div>
+          <a class="button-link" href="documents.html">View more</a>
+        </div>
+        <div class="ai-grid">
+          <article class="ai-block">
+            <div class="label">Summary</div>
+            <p>55 document/source row(s) are collected, concentrated in SCI office reports and accessible filing records tied to the tracked case set.</p>
+          </article>
+          <article class="ai-block">
+            <div class="label">Recommendations</div>
+            <ul class="ai-list">
+              <li>Keep document rows aligned with the case overview by adding missing office reports, diary records, or filing references whenever a source refresh is done.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section class="library" aria-label="Case AI insights">
+        <article class="row" id="case-sci-diary-9965-2017">
+          <div><a class="case-link" href="cases.html?case=sci-diary-9965-2017"><div class="case-code">C.A. No. 001116 / 2021</div></a><div class="muted">Principal Commissioner of Income Tax (Central) 1 vs Pepsi Foods Pvt. Ltd. (now Pepsico India Holding Pvt. Ltd)</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Apr 06, 2021</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Principal Commissioner of Income Tax (Central) 1 vs Pepsi Foods Pvt. Ltd. (now Pepsico India Holding Pvt. Ltd) is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.</div><div class="muted">C.A. No. 001116 / 2021 has status Disposed, last listed Apr 06, 2021, next/status marker Disposed, 0 pending IA(s), 1 order/source record(s), and 0 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li><li>If this matter remains important, add any missing official order or document source rows so the record is audit-ready.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-9965-2017">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-15262-2020">
+          <div><a class="case-link" href="cases.html?case=sci-diary-15262-2020"><div class="case-code">SCI Diary 15262/2020</div></a><div class="muted">The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">May 04, 2021</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.</div><div class="muted">SCI Diary 15262/2020 has status Disposed, last listed May 04, 2021, next/status marker Disposed, 0 pending IA(s), 1 order/source record(s), and 2 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-15262-2020">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-21096-2020">
+          <div><a class="case-link" href="cases.html?case=sci-diary-21096-2020"><div class="case-code">SLP(C) No. 020841 / 2022</div></a><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Nov 10, 2022</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd. is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.</div><div class="muted">SLP(C) No. 020841 / 2022 has status Disposed, last listed Nov 10, 2022, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 6 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-21096-2020">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-21184-2021">
+          <div><a class="case-link" href="cases.html?case=sci-diary-21184-2021"><div class="case-code">R.P.(C) No. 001422 - 001497 / 2021</div></a><div class="muted">Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">May 11, 2026</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI...</div><div class="muted">R.P.(C) No. 001422 - 001497 / 2021 has status Disposed, last listed May 11, 2026, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 3 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-21184-2021">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-14438-2022">
+          <div><a class="case-link" href="cases.html?case=sci-diary-14438-2022"><div class="case-code">MA 000918 - / 2022</div></a><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Dec 15, 2022</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.</div><div class="muted">MA 000918 - / 2022 has status Disposed, last listed Dec 15, 2022, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 4 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-14438-2022">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-38332-2018">
+          <div><a class="case-link" href="cases.html?case=sci-diary-38332-2018"><div class="case-code">C.A. No. 008463 / 2022</div></a><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Apr 19, 2023</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.</div><div class="muted">C.A. No. 008463 / 2022 has status Disposed, last listed Apr 19, 2023, next/status marker Disposed, 0 pending IA(s), 4 order/source record(s), and 6 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-38332-2018">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-4382-2014">
+          <div><a class="case-link" href="cases.html?case=sci-diary-4382-2014"><div class="case-code">W.P.(C) No. 000104 / 2014</div></a><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Aug 06, 2025</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">BSES Rajdhani Power Ltd. and another vs Union of India and others is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.</div><div class="muted">W.P.(C) No. 000104 / 2014 has status Disposed, last listed Aug 06, 2025, next/status marker Disposed, 0 pending IA(s), 4 order/source record(s), and 6 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-4382-2014">Details</a>
+        </article>
+        <article class="row" id="case-sci-diary-27798-2010">
+          <div><a class="case-link" href="cases.html?case=sci-diary-27798-2010"><div class="case-code">C.A. No. 002396 / 2011</div></a><div class="muted">The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">Sep 24, 2024</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.) is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.</div><div class="muted">C.A. No. 002396 / 2011 has status Disposed, last listed Sep 24, 2024, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 2 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-diary-27798-2010">Details</a>
+        </article>
+        <article class="row" id="case-sci-ca-18067-2017">
+          <div><a class="case-link" href="cases.html?case=sci-ca-18067-2017"><div class="case-code">C.A. No. 18067/2017</div></a><div class="muted">Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another</div></div>
+          <div><div class="label">Status</div><div class="value">Pending source check</div><div class="muted">21 Aug 2025</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official SCI daily cause list lists IA No. 118582/2025 and Harpreet Singh Ajmani for C.A. No. 18067/2017.</div><div class="muted">C.A. No. 18067/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.</li><li>Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-ca-18067-2017">Details</a>
+        </article>
+        <article class="row" id="case-sci-ca-18068-2017">
+          <div><a class="case-link" href="cases.html?case=sci-ca-18068-2017"><div class="case-code">C.A. No. 18068/2017</div></a><div class="muted">Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another</div></div>
+          <div><div class="label">Status</div><div class="value">Pending source check</div><div class="muted">21 Aug 2025</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official SCI daily cause list lists IA No. 118518/2025 and Harpreet Singh Ajmani for connected C.A. No. 18068/2017.</div><div class="muted">C.A. No. 18068/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.</li><li>Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-ca-18068-2017">Details</a>
+        </article>
+        <article class="row" id="case-sci-ca-18281-2017">
+          <div><a class="case-link" href="cases.html?case=sci-ca-18281-2017"><div class="case-code">C.A. No. 18281/2017</div></a><div class="muted">The Principal Officer LG Electronics India Pvt. Ltd. vs Assistant/Deputy Commissioner of Income Tax Noida and another</div></div>
+          <div><div class="label">Status</div><div class="value">Pending source check</div><div class="muted">21 Aug 2025</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official SCI daily cause list lists IA No. 118527/2025 and Harpreet Singh Ajmani for connected C.A. No. 18281/2017.</div><div class="muted">C.A. No. 18281/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.</li><li>Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-ca-18281-2017">Details</a>
+        </article>
+        <article class="row" id="case-sci-slp-19156-2022">
+          <div><a class="case-link" href="cases.html?case=sci-slp-19156-2022"><div class="case-code">SLP(C) No. 19156/2022</div></a><div class="muted">The North Face Apparel Corp. vs Pranav Kant Sharma</div></div>
+          <div><div class="label">Status</div><div class="value">Pending source check</div><div class="muted">21 May 2026</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official SCI daily cause list lists The North Face Apparel Corp. with Harpreet Singh Ajmani for SLP(C) No. 19156/2022.</div><div class="muted">SLP(C) No. 19156/2022 has status Pending source check, last listed 21 May 2026, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.</li><li>Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.</li></ul></div>
+          <a class="button-link" href="cases.html?case=sci-slp-19156-2022">Details</a>
+        </article>
+        <article class="row" id="case-web-zte-sa-27-2026">
+          <div><a class="case-link" href="cases.html?case=web-zte-sa-27-2026"><div class="case-code">SA 27/DEL/2026</div></a><div class="muted">ZTE Corporation, Noida vs ACIT, International Taxation, Gurgaon</div></div>
+          <div><div class="label">Status</div><div class="value">Pending source check</div><div class="muted">17 Feb 2026</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CaseMine indexes the ITAT Delhi stay application and lists ZTE Corporation c/o Harpreet Singh Ajmani, Advocate.</div><div class="muted">SA 27/DEL/2026 has status Pending source check, last listed 17 Feb 2026, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.</li><li>Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-zte-sa-27-2026">Details</a>
+        </article>
+        <article class="row" id="case-web-ctci-wpc-4302-2013">
+          <div><a class="case-link" href="cases.html?case=web-ctci-wpc-4302-2013"><div class="case-code">W.P.(C) 4302/2013</div></a><div class="muted">CTCI Overseas Corporation Ltd. vs Director of Income Tax-I, International Taxation</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">20 May 2014</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">SooperKanoon judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the petitioner.</div><div class="muted">W.P.(C) 4302/2013 has status Disposed, last listed 20 May 2014, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-ctci-wpc-4302-2013">Details</a>
+        </article>
+        <article class="row" id="case-web-ar-magnetics-ita-241-2012">
+          <div><a class="case-link" href="cases.html?case=web-ar-magnetics-ita-241-2012"><div class="case-code">IT Appeal No. 241/2012</div></a><div class="muted">Commissioner of Income-tax vs AR Magnetics (P.) Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">16 Apr 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Taxlok lists Deepak Chopra and Harpreet Singh Ajmani for the appellant.</div><div class="muted">IT Appeal No. 241/2012 has status Dismissed, last listed 16 Apr 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-ar-magnetics-ita-241-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-creative-travel-ita-389-2012">
+          <div><a class="case-link" href="cases.html?case=web-creative-travel-ita-389-2012"><div class="case-code">ITA 389/2012</div></a><div class="muted">CIT vs M/s Creative Travel Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">06 Jul 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.</div><div class="muted">ITA 389/2012 has status Dismissed, last listed 06 Jul 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-creative-travel-ita-389-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-giesecke-itat-1159-2051-2017">
+          <div><a class="case-link" href="cases.html?case=web-giesecke-itat-1159-2051-2017"><div class="case-code">ITA 1159 &amp; 2051/Del/2017</div></a><div class="muted">Addl. CIT vs M/s Giesecke &amp; Devrient Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">08 Jul 2021</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CourtKutchehry lists Harpreet Singh Ajmani among advocates in the ITAT judgment.</div><div class="muted">ITA 1159 &amp; 2051/Del/2017 has status Dismissed, last listed 08 Jul 2021, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-giesecke-itat-1159-2051-2017">Details</a>
+        </article>
+        <article class="row" id="case-web-honda-itat-1523-2022">
+          <div><a class="case-link" href="cases.html?case=web-honda-itat-1523-2022"><div class="case-code">ITA 1523/Del/2022</div></a><div class="muted">Honda Motorcycle and Scooter India Pvt. Ltd. vs ACIT, Circle-1(1), Gurugram</div></div>
+          <div><div class="label">Status</div><div class="value">Partly Allowed</div><div class="muted">22 Aug 2023</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CaseMine indexes the ITAT order and lists Harpreet Singh Ajmani for the assessee.</div><div class="muted">ITA 1523/Del/2022 has status Partly Allowed, last listed 22 Aug 2023, next/status marker Partly Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-honda-itat-1523-2022">Details</a>
+        </article>
+        <article class="row" id="case-web-ag-holdings-wpc-8031-2011">
+          <div><a class="case-link" href="cases.html?case=web-ag-holdings-wpc-8031-2011"><div class="case-code">W.P.(C) 8031/2011</div></a><div class="muted">A.G. Holdings Pvt Ltd vs Income Tax Officer</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">25 Apr 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Indian Kanoon judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the respondent.</div><div class="muted">W.P.(C) 8031/2011 has status Disposed, last listed 25 Apr 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-ag-holdings-wpc-8031-2011">Details</a>
+        </article>
+        <article class="row" id="case-web-anand-nishikawa-ita-430-2012">
+          <div><a class="case-link" href="cases.html?case=web-anand-nishikawa-ita-430-2012"><div class="case-code">ITA 430/2012</div></a><div class="muted">CIT-I vs Anand Nishikawa Company Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">19 Sep 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.</div><div class="muted">ITA 430/2012 has status Disposed, last listed 19 Sep 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-anand-nishikawa-ita-430-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-ls-cable-wpc-8799-2015">
+          <div><a class="case-link" href="cases.html?case=web-ls-cable-wpc-8799-2015"><div class="case-code">W.P.(C) 8799/2015 and connected</div></a><div class="muted">LS Cable &amp; System Limited, Korea vs Commissioner of Income Tax-II and others</div></div>
+          <div><div class="label">Status</div><div class="value">Allowed</div><div class="muted">13 May 2016</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CaseMine/Delhi HC judgment text lists Deepak Chopra, Harpreet Singh Ajmani and Rohan Khare for the petitioner.</div><div class="muted">W.P.(C) 8799/2015 and connected has status Allowed, last listed 13 May 2016, next/status marker Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-ls-cable-wpc-8799-2015">Details</a>
+        </article>
+        <article class="row" id="case-web-mckinsey-ita-526-2017">
+          <div><a class="case-link" href="cases.html?case=web-mckinsey-ita-526-2017"><div class="case-code">ITA 526/2017, ITA 590/2017, ITA 82/2018</div></a><div class="muted">McKinsey Knowledge Centre India Pvt. Ltd. vs Pr. Commissioner of Income Tax-6 and connected appeals</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">09 Aug 2018</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CaseMine indexes the Delhi High Court order and lists Porus Kaka with Divesh Chawla and Harpreet Singh Ajmani for McKinsey.</div><div class="muted">ITA 526/2017, ITA 590/2017, ITA 82/2018 has status Dismissed, last listed 09 Aug 2018, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-mckinsey-ita-526-2017">Details</a>
+        </article>
+        <article class="row" id="case-web-mckinsey-ita-146-2020">
+          <div><a class="case-link" href="cases.html?case=web-mckinsey-ita-146-2020"><div class="case-code">ITA 146/2020</div></a><div class="muted">Pr. Commissioner of Income Tax-06 vs McKinsey Knowledge Centre India (P) Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">12 Oct 2021</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CaseMine lists Porus Kaka with Harpreet Singh Ajmani and Divesh Chawla for McKinsey.</div><div class="muted">ITA 146/2020 has status Dismissed, last listed 12 Oct 2021, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-mckinsey-ita-146-2020">Details</a>
+        </article>
+        <article class="row" id="case-web-brahmaputra-ita-107-2012">
+          <div><a class="case-link" href="cases.html?case=web-brahmaputra-ita-107-2012"><div class="case-code">ITA 107/2012</div></a><div class="muted">CIT vs Brahmaputra Capital and Financial Services Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Judgment record</div><div class="muted">03 Sep 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CourtKutchehry lists Deepak Chopra and Harpreet Singh Ajmani for the appellant.</div><div class="muted">ITA 107/2012 has status Judgment record, last listed 03 Sep 2012, next/status marker Judgment record, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-brahmaputra-ita-107-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-azeem-investment-ita-252-2012">
+          <div><a class="case-link" href="cases.html?case=web-azeem-investment-ita-252-2012"><div class="case-code">ITA 252, 253 and 258/2012</div></a><div class="muted">Azeem Investment (P.) Ltd. vs Commissioner of Income Tax</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">24 Apr 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CourtKutchehry lists Deepak Chopra and Harpreet Singh Ajmani for the respondent.</div><div class="muted">ITA 252, 253 and 258/2012 has status Dismissed, last listed 24 Apr 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-azeem-investment-ita-252-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-sony-india-ita-1178-2011">
+          <div><a class="case-link" href="cases.html?case=web-sony-india-ita-1178-2011"><div class="case-code">ITA 1178/2011 and 1182/2011</div></a><div class="muted">CIT vs Sony India Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Disposed</div><div class="muted">10 Sep 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">CourtKutchehry lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.</div><div class="muted">ITA 1178/2011 and 1182/2011 has status Disposed, last listed 10 Sep 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-sony-india-ita-1178-2011">Details</a>
+        </article>
+        <article class="row" id="case-web-regency-valiant-2012">
+          <div><a class="case-link" href="cases.html?case=web-regency-valiant-2012"><div class="case-code">ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012</div></a><div class="muted">The Commissioner of Income Tax vs Regency Creations Ltd. and CIT vs Valiant Communications Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Allowed</div><div class="muted">17 Sep 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Indian Kanoon judgment text lists Rashmi Chopra with Harpreet Singh Ajmani for the Revenue.</div><div class="muted">ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 has status Allowed, last listed 17 Sep 2012, next/status marker Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-regency-valiant-2012">Details</a>
+        </article>
+        <article class="row" id="case-web-sarla-fabrics-ita-788-2011">
+          <div><a class="case-link" href="cases.html?case=web-sarla-fabrics-ita-788-2011"><div class="case-code">ITA 788/2011</div></a><div class="muted">CIT vs Sarla Fabrics Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed</div><div class="muted">20 Jul 2012</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.</div><div class="muted">ITA 788/2011 has status Dismissed, last listed 20 Jul 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-sarla-fabrics-ita-788-2011">Details</a>
+        </article>
+        <article class="row" id="case-web-seagram-ita-356-2016">
+          <div><a class="case-link" href="cases.html?case=web-seagram-ita-356-2016"><div class="case-code">ITA 356/2016 and 357/2016</div></a><div class="muted">Seagram Manufacturing Pvt. Ltd. (now Pernod Ricard India Pvt. Ltd.) vs Principal Commissioner of Income Tax-Central 3</div></div>
+          <div><div class="label">Status</div><div class="value">Order</div><div class="muted">01 Jun 2016</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official Delhi High Court PDF lists Deepak Chopra, Harpreet Singh Ajmani, Rashi Khanna and Rohan Khare for Seagram/Pernod Ricard.</div><div class="muted">ITA 356/2016 and 357/2016 has status Order, last listed 01 Jun 2016, next/status marker Order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-seagram-ita-356-2016">Details</a>
+        </article>
+        <article class="row" id="case-web-beam-global-itat-1604-2014">
+          <div><a class="case-link" href="cases.html?case=web-beam-global-itat-1604-2014"><div class="case-code">ITA 1604/DEL/2014 and 1214/DEL/2017</div></a><div class="muted">Beam Global Spirits &amp; Wine (India) Pvt. Ltd. vs DCIT, Circle-2(1), New Delhi</div></div>
+          <div><div class="label">Status</div><div class="value">ITAT order</div><div class="muted">21 Aug 2019</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official ITAT PDF lists Deepak Chopra, Harpreet Singh Ajmani and Yujit Pareek for the assessee.</div><div class="muted">ITA 1604/DEL/2014 and 1214/DEL/2017 has status ITAT order, last listed 21 Aug 2019, next/status marker ITAT order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-beam-global-itat-1604-2014">Details</a>
+        </article>
+        <article class="row" id="case-web-beam-global-dhc-156-2022">
+          <div><a class="case-link" href="cases.html?case=web-beam-global-dhc-156-2022"><div class="case-code">ITA 156/2022</div></a><div class="muted">PCIT-1, New Delhi vs Beam Global Spirits &amp; Wine (India) Pvt. Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Order</div><div class="muted">12 Mar 2024</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Indian Kanoon indexes the Delhi High Court order and lists Deepak Chopra with Harpreet Singh Ajmani for Beam Global.</div><div class="muted">ITA 156/2022 has status Order, last listed 12 Mar 2024, next/status marker Order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-beam-global-dhc-156-2022">Details</a>
+        </article>
+        <article class="row" id="case-web-danisco-itat-3518-2017">
+          <div><a class="case-link" href="cases.html?case=web-danisco-itat-3518-2017"><div class="case-code">ITA 3518/DEL/2017 and 7896-7899/DEL/2018</div></a><div class="muted">ACIT, Circle-7(1), New Delhi vs Danisco (India) Pvt. Ltd., Gurgaon</div></div>
+          <div><div class="label">Status</div><div class="value">ITAT order</div><div class="muted">05 May 2021</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Official ITAT PDF/Indian Kanoon record lists Harpreet Singh Ajmani and Rohan Khare for Danisco India.</div><div class="muted">ITA 3518/DEL/2017 and 7896-7899/DEL/2018 has status ITAT order, last listed 05 May 2021, next/status marker ITAT order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-danisco-itat-3518-2017">Details</a>
+        </article>
+        <article class="row" id="case-web-pepsi-slp-20367-2015">
+          <div><a class="case-link" href="cases.html?case=web-pepsi-slp-20367-2015"><div class="case-code">SLP(C) No. 20367/2015</div></a><div class="muted">Deputy Commissioner of Income-tax vs Pepsi Foods (P.) Ltd.</div></div>
+          <div><div class="label">Status</div><div class="value">Dismissed as infructuous</div><div class="muted">23 Feb 2017</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Taxlok Supreme Court record lists Deepak Chopra and Harpreet Singh Ajmani for Pepsi Foods.</div><div class="muted">SLP(C) No. 20367/2015 has status Dismissed as infructuous, last listed 23 Feb 2017, next/status marker Dismissed as infructuous, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-pepsi-slp-20367-2015">Details</a>
+        </article>
+        <article class="row" id="case-web-pepsi-registrar-2019">
+          <div><a class="case-link" href="cases.html?case=web-pepsi-registrar-2019"><div class="case-code">SLP(C) Nos. 3136/2017 and connected</div></a><div class="muted">Deputy Commissioner of Income Tax vs M/s Pepsi Foods Ltd. (now Pepsico India Holdings Pvt. Ltd.)</div></div>
+          <div><div class="label">Status</div><div class="value">Registrar Court order</div><div class="muted">28 Nov 2019</div></div>
+          <div><div class="label">AI Summary</div><div class="muted">Indian Kanoon Supreme Court daily order lists Harpreet Singh Ajmani, AOR for respondent-side appearances.</div><div class="muted">SLP(C) Nos. 3136/2017 and connected has status Registrar Court order, last listed 28 Nov 2019, next/status marker Registrar Court order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s).</div></div>
+          <div><div class="label">Recommendations</div><ul class="ai-list"><li>Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.</li></ul></div>
+          <a class="button-link" href="cases.html?case=web-pepsi-registrar-2019">Details</a>
+        </article>
+      </section>
+    </main>
+    <script>
+      const menu = document.getElementById("siteMenu");
+      const menuBackdrop = document.querySelector(".menu-backdrop");
+      const menuToggle = document.querySelector("[data-menu-toggle]");
+      const menuCloseButtons = Array.from(document.querySelectorAll("[data-menu-close]"));
+      function setMenuOpen(isOpen) {
+        if (!menu || !menuBackdrop || !menuToggle) return;
+        if (!isOpen && menu.hidden) return;
+        menu.hidden = false;
+        menuBackdrop.hidden = false;
+        requestAnimationFrame(() => {
+          menu.classList.toggle("open", isOpen);
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menu.setAttribute("aria-hidden", String(!isOpen));
+        });
+        if (!isOpen) {
+          window.setTimeout(() => {
+            menu.hidden = true;
+            menuBackdrop.hidden = true;
+          }, 180);
+        }
+      }
+      menuToggle?.addEventListener("click", () => setMenuOpen(true));
+      menuCloseButtons.forEach((button) => button.addEventListener("click", () => setMenuOpen(false)));
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+    </script>
+    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
+    <script>
+      window.SiteTracker.init({
+        siteId: "sunnycasetracker",
+        endpoint: "https://personal-tracker-api.psbaggaai.workers.dev/api/track"
+      });
+    </script>
+  </body>
+</html>

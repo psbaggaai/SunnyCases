@@ -394,6 +394,75 @@
         margin-top: 8px;
       }
 
+      .ai-summary-panel {
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(230, 237, 248, 0.9)),
+          linear-gradient(90deg, rgba(113, 185, 223, 0.1), rgba(217, 165, 58, 0.1));
+        border: 1px solid rgba(89, 123, 171, 0.28);
+        border-radius: 22px;
+        box-shadow:
+          0 18px 42px rgba(29, 53, 87, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.84);
+        margin-bottom: 18px;
+        padding: 20px;
+      }
+
+      .case-ai-panel {
+        margin: 0 28px 18px;
+      }
+
+      .ai-panel-head {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .ai-title {
+        font-size: 1.15rem;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+
+      .ai-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .ai-block {
+        background: rgba(255, 255, 255, 0.56);
+        border: 1px solid rgba(105, 131, 173, 0.16);
+        border-radius: 16px;
+        padding: 14px;
+      }
+
+      .ai-block p {
+        color: #31435d;
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.5;
+        margin-top: 8px;
+      }
+
+      .ai-list {
+        color: #31435d;
+        display: grid;
+        gap: 8px;
+        font-weight: 700;
+        line-height: 1.5;
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+
+      .ai-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
       .case-empty {
         border: 1px dashed #bed0ea;
         border-radius: var(--radius-lg);
@@ -664,8 +733,13 @@
       }
 
       body[data-page="case-detail"] .highlight-grid,
+      body[data-page="case-detail"] .home-ai-panel,
       body[data-page="case-detail"] .year-filter-panel,
       body[data-page="case-detail"] .case-selector {
+        display: none;
+      }
+
+      body:not([data-page="case-detail"]) .case-ai-panel {
         display: none;
       }
 
@@ -1084,6 +1158,7 @@
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
+        .ai-grid,
         .insight-grid,
         .timeline-grid,
         .order-grid,
@@ -1164,6 +1239,7 @@
         }
 
         .section,
+        .case-ai-panel,
         .overview-head,
         .source-card,
         .metrics-grid,
@@ -1408,11 +1484,19 @@
 
         th,
         td {
+          overflow-wrap: anywhere;
           padding: 11px 0;
         }
 
+        .data-table-card {
+          min-width: 0;
+          overflow: hidden;
+        }
+
         table {
-          min-width: 520px;
+          min-width: 0;
+          table-layout: fixed;
+          width: 100%;
         }
       }
 
@@ -1513,7 +1597,7 @@
             </a>
           </div>
           <div class="banner-actions">
-            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 9:45 AM PDT</div>
+            <div class="last-updated-chip" id="lastUpdatedChip" data-last-updated>Last updated: Jun 8, 2026, 10:08 AM PDT</div>
           </div>
         </div>
       </header>
@@ -1530,6 +1614,7 @@
         </div>
         <div class="menu-links">
         <a class="menu-link active" href="cases.html">Cases</a>
+        <a class="menu-link" href="ai-insights.html">AI Insights</a>
         <a class="menu-link" href="orders.html">Orders</a>
         <a class="menu-link" href="documents.html">Documents</a>
       </div>
@@ -1539,6 +1624,26 @@
     </nav>
 
       <main class="frame">
+        <section class="ai-summary-panel home-ai-panel" aria-label="AI summary">
+          <div class="ai-panel-head">
+            <div>
+              <div class="section-label">AI Insights</div>
+              <div class="ai-title">Pending-case triage</div>
+            </div>
+            <a class="btn-link" id="homeAiMore" href="ai-insights.html">View more</a>
+          </div>
+          <div class="ai-grid">
+            <article class="ai-block">
+              <div class="detail-label">Summary</div>
+              <div id="homeAiSummary"></div>
+            </article>
+            <article class="ai-block">
+              <div class="detail-label">Recommendations</div>
+              <ul class="ai-list" id="homeAiRecommendations"></ul>
+            </article>
+          </div>
+        </section>
+
         <section class="highlight-grid" aria-label="Case tracker highlights">
           <button class="highlight-card active" type="button" data-filter="all">
             <span class="highlight-label">Total Cases</span>
@@ -1588,6 +1693,25 @@
         </section>
 
         <section class="panel overview" id="dashboardPanel">
+          <article class="ai-summary-panel case-ai-panel" aria-label="AI case summary">
+            <div class="ai-panel-head">
+              <div>
+                <div class="section-label">AI Insights</div>
+                <div class="ai-title" id="caseAiTitle">Case triage</div>
+              </div>
+              <a class="btn-link" id="caseAiMore" href="ai-insights.html">View more</a>
+            </div>
+            <div class="ai-grid">
+              <article class="ai-block">
+                <div class="detail-label">AI Summary</div>
+                <div id="caseAiSummary"></div>
+              </article>
+              <article class="ai-block">
+                <div class="detail-label">AI Recommendations</div>
+                <ul class="ai-list" id="caseAiRecommendations"></ul>
+              </article>
+            </div>
+          </article>
           <div class="overview-head">
             <div class="overview-title">
               <div class="section-label" id="overviewLabel">Case Overview</div>
@@ -1729,7 +1853,7 @@
     </div>
 
     <script>
-      const siteLastUpdatedAt = "2026-06-08T16:45:38.427Z";
+      const siteLastUpdatedAt = "2026-06-08T17:08:08.444Z";
 
       const cases = [
         {
@@ -6720,6 +6844,8 @@
         }
 ];
 
+      const aiInsights = {"generatedAt":"2026-06-08T17:08:08.444Z","home":{"summaryLines":["5 pending/source-check case(s) need attention across the Sunny tracker, led by C.A. No. 18067/2017, C.A. No. 18068/2017, C.A. No. 18281/2017, SLP(C) No. 19156/2022."],"recommendations":["Prioritize manual refreshes for 5 source-check matter(s) (C.A. No. 18067/2017, C.A. No. 18068/2017, C.A. No. 18281/2017, SLP(C) No. 19156/2022) before relying on dates or status.","For active matters, capture any new order PDFs and office-report rows, then update next-step notes after each official-source check."]},"pages":{"orders":{"summaryLines":["36 order/source record(s) are linked across 34 tracked case(s), with direct PDFs available where public sources expose them."],"recommendations":["For pending and source-check cases, download the latest PDF/source record and compare the order date against the case overview before taking action."]},"documents":{"summaryLines":["55 document/source row(s) are collected, concentrated in SCI office reports and accessible filing records tied to the tracked case set."],"recommendations":["Keep document rows aligned with the case overview by adding missing office reports, diary records, or filing references whenever a source refresh is done."]},"status":{"summaryLines":["The published static report currently covers 34 cases, 55 document rows, and 36 order/source rows."],"recommendations":["Regenerate and redeploy the AI report after any material source refresh so homepage and detail recommendations stay synchronized."]}},"cases":{"sci-diary-9965-2017":{"id":"sci-diary-9965-2017","code":"C.A. No. 001116 / 2021","title":"Principal Commissioner of Income Tax (Central) 1 vs Pepsi Foods Pvt. Ltd. (now Pepsico India Holding Pvt. Ltd)","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Apr 06, 2021","summaryLines":["Principal Commissioner of Income Tax (Central) 1 vs Pepsi Foods Pvt. Ltd. (now Pepsico India Holding Pvt. Ltd) is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.","C.A. No. 001116 / 2021 has status Disposed, last listed Apr 06, 2021, next/status marker Disposed, 0 pending IA(s), 1 order/source record(s), and 0 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear.","If this matter remains important, add any missing official order or document source rows so the record is audit-ready."],"priority":"Archive"},"sci-diary-15262-2020":{"id":"sci-diary-15262-2020","code":"SCI Diary 15262/2020","title":"The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd","status":"Disposed","court":"Supreme Court of India","lastListedOn":"May 04, 2021","summaryLines":["The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.","SCI Diary 15262/2020 has status Disposed, last listed May 04, 2021, next/status marker Disposed, 0 pending IA(s), 1 order/source record(s), and 2 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-21096-2020":{"id":"sci-diary-21096-2020","code":"SLP(C) No. 020841 / 2022","title":"Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd.","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Nov 10, 2022","summaryLines":["Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd. is included because Harpreet Singh Ajmani appears in sci detail confirmed material for this SCI matter.","SLP(C) No. 020841 / 2022 has status Disposed, last listed Nov 10, 2022, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 6 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-21184-2021":{"id":"sci-diary-21184-2021","code":"R.P.(C) No. 001422 - 001497 / 2021","title":"Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters","status":"Disposed","court":"Supreme Court of India","lastListedOn":"May 11, 2026","summaryLines":["Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI...","R.P.(C) No. 001422 - 001497 / 2021 has status Disposed, last listed May 11, 2026, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 3 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-14438-2022":{"id":"sci-diary-14438-2022","code":"MA 000918 - / 2022","title":"Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Dec 15, 2022","summaryLines":["Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.","MA 000918 - / 2022 has status Disposed, last listed Dec 15, 2022, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 4 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-38332-2018":{"id":"sci-diary-38332-2018","code":"C.A. No. 008463 / 2022","title":"SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Apr 19, 2023","summaryLines":["SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.","C.A. No. 008463 / 2022 has status Disposed, last listed Apr 19, 2023, next/status marker Disposed, 0 pending IA(s), 4 order/source record(s), and 6 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-4382-2014":{"id":"sci-diary-4382-2014","code":"W.P.(C) No. 000104 / 2014","title":"BSES Rajdhani Power Ltd. and another vs Union of India and others","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Aug 06, 2025","summaryLines":["BSES Rajdhani Power Ltd. and another vs Union of India and others is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.","W.P.(C) No. 000104 / 2014 has status Disposed, last listed Aug 06, 2025, next/status marker Disposed, 0 pending IA(s), 4 order/source record(s), and 6 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-diary-27798-2010":{"id":"sci-diary-27798-2010","code":"C.A. No. 002396 / 2011","title":"The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)","status":"Disposed","court":"Supreme Court of India","lastListedOn":"Sep 24, 2024","summaryLines":["The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.) is included because Harpreet Singh Ajmani appears in sci pdf confirmed material for this SCI matter.","C.A. No. 002396 / 2011 has status Disposed, last listed Sep 24, 2024, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 2 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"sci-ca-18067-2017":{"id":"sci-ca-18067-2017","code":"C.A. No. 18067/2017","title":"Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another","status":"Pending source check","court":"Supreme Court of India","lastListedOn":"21 Aug 2025","summaryLines":["Official SCI daily cause list lists IA No. 118582/2025 and Harpreet Singh Ajmani for C.A. No. 18067/2017.","C.A. No. 18067/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.","Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification."],"priority":"Review"},"sci-ca-18068-2017":{"id":"sci-ca-18068-2017","code":"C.A. No. 18068/2017","title":"Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another","status":"Pending source check","court":"Supreme Court of India","lastListedOn":"21 Aug 2025","summaryLines":["Official SCI daily cause list lists IA No. 118518/2025 and Harpreet Singh Ajmani for connected C.A. No. 18068/2017.","C.A. No. 18068/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.","Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification."],"priority":"Review"},"sci-ca-18281-2017":{"id":"sci-ca-18281-2017","code":"C.A. No. 18281/2017","title":"The Principal Officer LG Electronics India Pvt. Ltd. vs Assistant/Deputy Commissioner of Income Tax Noida and another","status":"Pending source check","court":"Supreme Court of India","lastListedOn":"21 Aug 2025","summaryLines":["Official SCI daily cause list lists IA No. 118527/2025 and Harpreet Singh Ajmani for connected C.A. No. 18281/2017.","C.A. No. 18281/2017 has status Pending source check, last listed 21 Aug 2025, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.","Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification."],"priority":"Review"},"sci-slp-19156-2022":{"id":"sci-slp-19156-2022","code":"SLP(C) No. 19156/2022","title":"The North Face Apparel Corp. vs Pranav Kant Sharma","status":"Pending source check","court":"Supreme Court of India","lastListedOn":"21 May 2026","summaryLines":["Official SCI daily cause list lists The North Face Apparel Corp. with Harpreet Singh Ajmani for SLP(C) No. 19156/2022.","SLP(C) No. 19156/2022 has status Pending source check, last listed 21 May 2026, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.","Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification."],"priority":"Review"},"web-zte-sa-27-2026":{"id":"web-zte-sa-27-2026","code":"SA 27/DEL/2026","title":"ZTE Corporation, Noida vs ACIT, International Taxation, Gurgaon","status":"Pending source check","court":"ITAT Delhi","lastListedOn":"17 Feb 2026","summaryLines":["CaseMine indexes the ITAT Delhi stay application and lists ZTE Corporation c/o Harpreet Singh Ajmani, Advocate.","SA 27/DEL/2026 has status Pending source check, last listed 17 Feb 2026, next/status marker Manual status refresh needed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Refresh the official court source before any filing or hearing decision, then confirm next date, stage, and latest order status.","Run a manual source/PDF check and capture the direct source link because the current record is marked as needing source verification."],"priority":"Review"},"web-ctci-wpc-4302-2013":{"id":"web-ctci-wpc-4302-2013","code":"W.P.(C) 4302/2013","title":"CTCI Overseas Corporation Ltd. vs Director of Income Tax-I, International Taxation","status":"Disposed","court":"Delhi High Court","lastListedOn":"20 May 2014","summaryLines":["SooperKanoon judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the petitioner.","W.P.(C) 4302/2013 has status Disposed, last listed 20 May 2014, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-ar-magnetics-ita-241-2012":{"id":"web-ar-magnetics-ita-241-2012","code":"IT Appeal No. 241/2012","title":"Commissioner of Income-tax vs AR Magnetics (P.) Ltd.","status":"Dismissed","court":"Delhi High Court","lastListedOn":"16 Apr 2012","summaryLines":["Taxlok lists Deepak Chopra and Harpreet Singh Ajmani for the appellant.","IT Appeal No. 241/2012 has status Dismissed, last listed 16 Apr 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-creative-travel-ita-389-2012":{"id":"web-creative-travel-ita-389-2012","code":"ITA 389/2012","title":"CIT vs M/s Creative Travel Pvt. Ltd.","status":"Dismissed","court":"Delhi High Court","lastListedOn":"06 Jul 2012","summaryLines":["LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.","ITA 389/2012 has status Dismissed, last listed 06 Jul 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-giesecke-itat-1159-2051-2017":{"id":"web-giesecke-itat-1159-2051-2017","code":"ITA 1159 \u0026 2051/Del/2017","title":"Addl. CIT vs M/s Giesecke \u0026 Devrient Pvt. Ltd.","status":"Dismissed","court":"ITAT Delhi","lastListedOn":"08 Jul 2021","summaryLines":["CourtKutchehry lists Harpreet Singh Ajmani among advocates in the ITAT judgment.","ITA 1159 \u0026 2051/Del/2017 has status Dismissed, last listed 08 Jul 2021, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-honda-itat-1523-2022":{"id":"web-honda-itat-1523-2022","code":"ITA 1523/Del/2022","title":"Honda Motorcycle and Scooter India Pvt. Ltd. vs ACIT, Circle-1(1), Gurugram","status":"Partly Allowed","court":"ITAT Delhi","lastListedOn":"22 Aug 2023","summaryLines":["CaseMine indexes the ITAT order and lists Harpreet Singh Ajmani for the assessee.","ITA 1523/Del/2022 has status Partly Allowed, last listed 22 Aug 2023, next/status marker Partly Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-ag-holdings-wpc-8031-2011":{"id":"web-ag-holdings-wpc-8031-2011","code":"W.P.(C) 8031/2011","title":"A.G. Holdings Pvt Ltd vs Income Tax Officer","status":"Disposed","court":"Delhi High Court","lastListedOn":"25 Apr 2012","summaryLines":["Indian Kanoon judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the respondent.","W.P.(C) 8031/2011 has status Disposed, last listed 25 Apr 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-anand-nishikawa-ita-430-2012":{"id":"web-anand-nishikawa-ita-430-2012","code":"ITA 430/2012","title":"CIT-I vs Anand Nishikawa Company Ltd.","status":"Disposed","court":"Delhi High Court","lastListedOn":"19 Sep 2012","summaryLines":["LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.","ITA 430/2012 has status Disposed, last listed 19 Sep 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-ls-cable-wpc-8799-2015":{"id":"web-ls-cable-wpc-8799-2015","code":"W.P.(C) 8799/2015 and connected","title":"LS Cable \u0026 System Limited, Korea vs Commissioner of Income Tax-II and others","status":"Allowed","court":"Delhi High Court","lastListedOn":"13 May 2016","summaryLines":["CaseMine/Delhi HC judgment text lists Deepak Chopra, Harpreet Singh Ajmani and Rohan Khare for the petitioner.","W.P.(C) 8799/2015 and connected has status Allowed, last listed 13 May 2016, next/status marker Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-mckinsey-ita-526-2017":{"id":"web-mckinsey-ita-526-2017","code":"ITA 526/2017, ITA 590/2017, ITA 82/2018","title":"McKinsey Knowledge Centre India Pvt. Ltd. vs Pr. Commissioner of Income Tax-6 and connected appeals","status":"Dismissed","court":"Delhi High Court","lastListedOn":"09 Aug 2018","summaryLines":["CaseMine indexes the Delhi High Court order and lists Porus Kaka with Divesh Chawla and Harpreet Singh Ajmani for McKinsey.","ITA 526/2017, ITA 590/2017, ITA 82/2018 has status Dismissed, last listed 09 Aug 2018, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-mckinsey-ita-146-2020":{"id":"web-mckinsey-ita-146-2020","code":"ITA 146/2020","title":"Pr. Commissioner of Income Tax-06 vs McKinsey Knowledge Centre India (P) Ltd.","status":"Dismissed","court":"Delhi High Court","lastListedOn":"12 Oct 2021","summaryLines":["CaseMine lists Porus Kaka with Harpreet Singh Ajmani and Divesh Chawla for McKinsey.","ITA 146/2020 has status Dismissed, last listed 12 Oct 2021, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-brahmaputra-ita-107-2012":{"id":"web-brahmaputra-ita-107-2012","code":"ITA 107/2012","title":"CIT vs Brahmaputra Capital and Financial Services Ltd.","status":"Judgment record","court":"Delhi High Court","lastListedOn":"03 Sep 2012","summaryLines":["CourtKutchehry lists Deepak Chopra and Harpreet Singh Ajmani for the appellant.","ITA 107/2012 has status Judgment record, last listed 03 Sep 2012, next/status marker Judgment record, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-azeem-investment-ita-252-2012":{"id":"web-azeem-investment-ita-252-2012","code":"ITA 252, 253 and 258/2012","title":"Azeem Investment (P.) Ltd. vs Commissioner of Income Tax","status":"Dismissed","court":"Delhi High Court","lastListedOn":"24 Apr 2012","summaryLines":["CourtKutchehry lists Deepak Chopra and Harpreet Singh Ajmani for the respondent.","ITA 252, 253 and 258/2012 has status Dismissed, last listed 24 Apr 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-sony-india-ita-1178-2011":{"id":"web-sony-india-ita-1178-2011","code":"ITA 1178/2011 and 1182/2011","title":"CIT vs Sony India Pvt. Ltd.","status":"Disposed","court":"Delhi High Court","lastListedOn":"10 Sep 2012","summaryLines":["CourtKutchehry lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.","ITA 1178/2011 and 1182/2011 has status Disposed, last listed 10 Sep 2012, next/status marker Disposed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-regency-valiant-2012":{"id":"web-regency-valiant-2012","code":"ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012","title":"The Commissioner of Income Tax vs Regency Creations Ltd. and CIT vs Valiant Communications Ltd.","status":"Allowed","court":"Delhi High Court","lastListedOn":"17 Sep 2012","summaryLines":["Indian Kanoon judgment text lists Rashmi Chopra with Harpreet Singh Ajmani for the Revenue.","ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 has status Allowed, last listed 17 Sep 2012, next/status marker Allowed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-sarla-fabrics-ita-788-2011":{"id":"web-sarla-fabrics-ita-788-2011","code":"ITA 788/2011","title":"CIT vs Sarla Fabrics Pvt. Ltd.","status":"Dismissed","court":"Delhi High Court","lastListedOn":"20 Jul 2012","summaryLines":["LatestLaws judgment text lists Deepak Chopra with Harpreet Singh Ajmani for the appellant.","ITA 788/2011 has status Dismissed, last listed 20 Jul 2012, next/status marker Dismissed, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-seagram-ita-356-2016":{"id":"web-seagram-ita-356-2016","code":"ITA 356/2016 and 357/2016","title":"Seagram Manufacturing Pvt. Ltd. (now Pernod Ricard India Pvt. Ltd.) vs Principal Commissioner of Income Tax-Central 3","status":"Order","court":"Delhi High Court","lastListedOn":"01 Jun 2016","summaryLines":["Official Delhi High Court PDF lists Deepak Chopra, Harpreet Singh Ajmani, Rashi Khanna and Rohan Khare for Seagram/Pernod Ricard.","ITA 356/2016 and 357/2016 has status Order, last listed 01 Jun 2016, next/status marker Order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-beam-global-itat-1604-2014":{"id":"web-beam-global-itat-1604-2014","code":"ITA 1604/DEL/2014 and 1214/DEL/2017","title":"Beam Global Spirits \u0026 Wine (India) Pvt. Ltd. vs DCIT, Circle-2(1), New Delhi","status":"ITAT order","court":"ITAT Delhi","lastListedOn":"21 Aug 2019","summaryLines":["Official ITAT PDF lists Deepak Chopra, Harpreet Singh Ajmani and Yujit Pareek for the assessee.","ITA 1604/DEL/2014 and 1214/DEL/2017 has status ITAT order, last listed 21 Aug 2019, next/status marker ITAT order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-beam-global-dhc-156-2022":{"id":"web-beam-global-dhc-156-2022","code":"ITA 156/2022","title":"PCIT-1, New Delhi vs Beam Global Spirits \u0026 Wine (India) Pvt. Ltd.","status":"Order","court":"Delhi High Court","lastListedOn":"12 Mar 2024","summaryLines":["Indian Kanoon indexes the Delhi High Court order and lists Deepak Chopra with Harpreet Singh Ajmani for Beam Global.","ITA 156/2022 has status Order, last listed 12 Mar 2024, next/status marker Order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-danisco-itat-3518-2017":{"id":"web-danisco-itat-3518-2017","code":"ITA 3518/DEL/2017 and 7896-7899/DEL/2018","title":"ACIT, Circle-7(1), New Delhi vs Danisco (India) Pvt. Ltd., Gurgaon","status":"ITAT order","court":"ITAT Delhi","lastListedOn":"05 May 2021","summaryLines":["Official ITAT PDF/Indian Kanoon record lists Harpreet Singh Ajmani and Rohan Khare for Danisco India.","ITA 3518/DEL/2017 and 7896-7899/DEL/2018 has status ITAT order, last listed 05 May 2021, next/status marker ITAT order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-pepsi-slp-20367-2015":{"id":"web-pepsi-slp-20367-2015","code":"SLP(C) No. 20367/2015","title":"Deputy Commissioner of Income-tax vs Pepsi Foods (P.) Ltd.","status":"Dismissed as infructuous","court":"Supreme Court of India","lastListedOn":"23 Feb 2017","summaryLines":["Taxlok Supreme Court record lists Deepak Chopra and Harpreet Singh Ajmani for Pepsi Foods.","SLP(C) No. 20367/2015 has status Dismissed as infructuous, last listed 23 Feb 2017, next/status marker Dismissed as infructuous, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"},"web-pepsi-registrar-2019":{"id":"web-pepsi-registrar-2019","code":"SLP(C) Nos. 3136/2017 and connected","title":"Deputy Commissioner of Income Tax vs M/s Pepsi Foods Ltd. (now Pepsico India Holdings Pvt. Ltd.)","status":"Registrar Court order","court":"Supreme Court of India","lastListedOn":"28 Nov 2019","summaryLines":["Indian Kanoon Supreme Court daily order lists Harpreet Singh Ajmani, AOR for respondent-side appearances.","SLP(C) Nos. 3136/2017 and connected has status Registrar Court order, last listed 28 Nov 2019, next/status marker Registrar Court order, 0 pending IA(s), 2 order/source record(s), and 1 document row(s)."],"recommendations":["Keep the final order/source PDF archived and monitor only if connected matters, notices, or follow-on filings appear."],"priority":"Archive"}}};
+
       const translations = {
         en: {
           pageTitle: "Sunny Case Tracker",
@@ -6855,6 +6981,13 @@
       const caseGrid = document.getElementById("caseGrid");
       const yearFilterSelect = document.getElementById("yearFilter");
       const yearFilterSummary = document.getElementById("yearFilterSummary");
+      const homeAiSummary = document.getElementById("homeAiSummary");
+      const homeAiRecommendations = document.getElementById("homeAiRecommendations");
+      const homeAiMore = document.getElementById("homeAiMore");
+      const caseAiTitle = document.getElementById("caseAiTitle");
+      const caseAiSummary = document.getElementById("caseAiSummary");
+      const caseAiRecommendations = document.getElementById("caseAiRecommendations");
+      const caseAiMore = document.getElementById("caseAiMore");
       const caseHeadline = document.getElementById("caseHeadline");
       const caseBrief = document.getElementById("caseBrief");
       const caseSummary = document.getElementById("caseSummary");
@@ -6938,6 +7071,7 @@
 
       const magneticSelector = [
         ".highlight-card",
+        ".ai-summary-panel",
         ".case-card",
         ".metric-card",
         ".detail-card",
@@ -7130,6 +7264,34 @@
         chip.textContent = `${t("lastUpdatedPrefix")} ${formatLastUpdated()}`;
       }
 
+      function renderAiParagraphs(container, lines = []) {
+        if (!container) return;
+        container.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
+      }
+
+      function renderAiList(container, lines = []) {
+        if (!container) return;
+        container.innerHTML = lines.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+      }
+
+      function renderHomeAiInsights() {
+        const insight = aiInsights.home || { summaryLines: [], recommendations: [] };
+        renderAiParagraphs(homeAiSummary, insight.summaryLines);
+        renderAiList(homeAiRecommendations, insight.recommendations);
+        homeAiMore?.setAttribute("href", "ai-insights.html#site-report");
+      }
+
+      function renderCaseAiInsights(item) {
+        const insight = aiInsights.cases?.[item.id] || {
+          summaryLines: item.summaryLines || [],
+          recommendations: item.nextSteps || [],
+        };
+        if (caseAiTitle) caseAiTitle.textContent = `${item.code} triage`;
+        renderAiParagraphs(caseAiSummary, insight.summaryLines);
+        renderAiList(caseAiRecommendations, insight.recommendations);
+        caseAiMore?.setAttribute("href", `ai-insights.html#case-${encodeURIComponent(item.id)}`);
+      }
+
       function updateStaticUi() {
         document.title = t("pageTitle");
         document.documentElement.lang = currentLanguage === "hi" ? "hi" : "en";
@@ -7151,6 +7313,7 @@
         renderLastUpdated();
         populateYearFilter();
         updateYearFilterSummary(getFilteredCases().length);
+        renderHomeAiInsights();
       }
 
       function isPendingCase(item) {
@@ -7340,6 +7503,7 @@
         setDetailVisibility(true);
         updateStaticUi();
         renderCaseCards(item.id);
+        renderCaseAiInsights(item);
         caseHeadline.textContent = `${item.code} · ${item.title}`;
         caseBrief.innerHTML = (item.summaryLines || [])
           .map((line) => `<p>${localizeText(line)}</p>`)
