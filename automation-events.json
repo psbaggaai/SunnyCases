@@ -1,7 +1,7 @@
 {
   "version": 2,
   "updatedAt": "2026-06-08T18:02:55.402Z",
-  "siteBuiltAt": "2026-06-08T18:05:54.700Z",
+  "siteBuiltAt": "2026-06-08T18:27:14.073Z",
   "captchaPolicy": {
     "mode": "detect-only",
     "note": "The scheduled job detects CAPTCHA-gated official forms and records manual-refresh targets. It does not solve or bypass CAPTCHA challenges."

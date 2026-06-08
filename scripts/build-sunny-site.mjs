@@ -320,6 +320,7 @@ function buildAiInsights(cases) {
 function navLinks(active) {
   const links = [
     ["cases", "cases.html", "Cases"],
+    ["status", "event-log.html", "Event Log"],
     ...(ENABLE_AI_INSIGHTS ? [["ai", "ai-insights.html", "AI Insights"]] : []),
     ["orders", "orders.html", "Orders"],
     ["documents", "documents.html", "Documents"],
@@ -816,7 +817,7 @@ function buildEventLogPage(cases, aiInsights, updatedLabel, eventData) {
         </div>
 ${eventRows}
       </section>`;
-  return pageChrome({ title: "Sunny Case Tracker Status", active: "cases", updatedLabel, body });
+  return pageChrome({ title: "Sunny Case Tracker Status", active: "status", updatedLabel, body });
 }
 
 function buildAiInsightsPage(cases, aiInsights, updatedLabel) {
