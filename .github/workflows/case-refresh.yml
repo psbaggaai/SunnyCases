@@ -41,15 +41,48 @@ jobs:
 
       - name: Stop runner instance after queued work completes
         if: always()
+        env:
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
         run: |
-          nohup sudo bash -c '
-            for attempt in $(seq 1 90); do
-              if pgrep -fa "[R]unner.Worker" >/dev/null; then
-                sleep 60
-              else
-                shutdown -h now
-                exit 0
-              fi
+          cat >/tmp/sunnycase-wait-and-shutdown.sh <<'SH'
+          #!/usr/bin/env bash
+          set +e
+
+          repos=("psbaggaai/SunnyCases" "psbaggaai/BaggaCaseTracker")
+          workflow="case-refresh.yml"
+
+          github_has_active_runs() {
+            [ -n "${GITHUB_PAT:-}" ] || return 1
+            for repo in "${repos[@]}"; do
+              for state in queued in_progress; do
+                body=$(curl -fsS \
+                  -H "Authorization: Bearer ${GITHUB_PAT}" \
+                  -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/${repo}/actions/workflows/${workflow}/runs?status=${state}&per_page=20") || return 0
+                count=$(printf "%s" "$body" | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{try{process.stdout.write(String((JSON.parse(s).workflow_runs||[]).length));}catch{process.stdout.write("1");}});')
+                if [ "${count:-1}" -gt 0 ]; then
+                  return 0
+                fi
+              done
             done
-            shutdown -h now
-          ' >/tmp/sunnycase-shutdown.log 2>&1 &
+            return 1
+          }
+
+          local_runner_active() {
+            pgrep -fa "[R]unner.Worker" >/dev/null 2>&1
+          }
+
+          sleep 90
+          for attempt in $(seq 1 120); do
+            if github_has_active_runs || local_runner_active; then
+              sleep 60
+            else
+              sudo shutdown -h now
+              exit 0
+            fi
+          done
+
+          sudo shutdown -h now
+          SH
+          chmod +x /tmp/sunnycase-wait-and-shutdown.sh
+          nohup /tmp/sunnycase-wait-and-shutdown.sh >/tmp/sunnycase-shutdown.log 2>&1 &

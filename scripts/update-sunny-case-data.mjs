@@ -197,6 +197,86 @@ function extractPdfLinks(html, baseUrl) {
   return Array.from(new Set(links));
 }
 
+function parseAttributes(tag) {
+  const attributes = {};
+  for (const match of String(tag || "").matchAll(/([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(["'])(.*?)\2/g)) {
+    attributes[match[1].toLowerCase()] = decodeHtmlEntities(match[3]);
+  }
+  return attributes;
+}
+
+function extractLabelMap(html) {
+  const labels = new Map();
+  for (const match of String(html || "").matchAll(/<label\b([^>]*)>([\s\S]*?)<\/label>/gi)) {
+    const attrs = parseAttributes(match[1]);
+    const text = stripHtml(match[2], 120);
+    if (attrs.for && text) labels.set(attrs.for, text);
+  }
+  return labels;
+}
+
+function extractFormHints(html, baseUrl) {
+  const labelMap = extractLabelMap(html);
+  const forms = [];
+  for (const formMatch of String(html || "").matchAll(/<form\b([^>]*)>([\s\S]*?)<\/form>/gi)) {
+    const formAttrs = parseAttributes(formMatch[1]);
+    const body = formMatch[2];
+    const fields = [];
+    const selects = [];
+
+    for (const inputMatch of body.matchAll(/<(input|textarea)\b([^>]*)>/gi)) {
+      const attrs = parseAttributes(inputMatch[2]);
+      const name = attrs.name || attrs.id || "";
+      if (!name || /^(_wp|wp-|comment-|search-submit)/i.test(name)) continue;
+      fields.push({
+        tag: inputMatch[1].toLowerCase(),
+        name,
+        id: attrs.id || "",
+        type: attrs.type || (inputMatch[1].toLowerCase() === "textarea" ? "textarea" : "text"),
+        label: labelMap.get(attrs.id || "") || attrs.placeholder || attrs["aria-label"] || "",
+      });
+    }
+
+    for (const selectMatch of body.matchAll(/<select\b([^>]*)>([\s\S]*?)<\/select>/gi)) {
+      const attrs = parseAttributes(selectMatch[1]);
+      const name = attrs.name || attrs.id || "";
+      if (!name) continue;
+      const options = Array.from(selectMatch[2].matchAll(/<option\b([^>]*)>([\s\S]*?)<\/option>/gi))
+        .map((optionMatch) => {
+          const optionAttrs = parseAttributes(optionMatch[1]);
+          return cleanText(optionAttrs.value || stripHtml(optionMatch[2], 80), 80);
+        })
+        .filter(Boolean)
+        .slice(0, 12);
+      selects.push({
+        name,
+        id: attrs.id || "",
+        label: labelMap.get(attrs.id || "") || attrs["aria-label"] || "",
+        options,
+      });
+    }
+
+    if (fields.length === 0 && selects.length === 0) continue;
+    let action = formAttrs.action || baseUrl;
+    try {
+      action = new URL(action, baseUrl).toString();
+    } catch {
+      action = baseUrl;
+    }
+    forms.push({
+      action,
+      method: (formAttrs.method || "get").toUpperCase(),
+      fields: fields.slice(0, 16),
+      selects: selects.slice(0, 8),
+      captchaRelated:
+        /captcha|security code|answer to the given captcha/i.test(stripHtml(body, 1600)) ||
+        fields.some((field) => /captcha|security/i.test(`${field.name} ${field.id} ${field.label}`)),
+    });
+    if (forms.length >= 8) break;
+  }
+  return forms;
+}
+
 function canRun(command, args) {
   try {
     execFileSync(command, args, { stdio: "ignore" });
@@ -336,6 +416,7 @@ async function fetchSource(target) {
     let sourceFingerprint = "";
     let dateHints = [];
     let discoveredPdfUrls = [];
+    let formHints = [];
     let captchaDetected = false;
 
     if (isPdf) {
@@ -353,6 +434,7 @@ async function fetchSource(target) {
       sourceFingerprint = stableFingerprint(fullPlainText);
       dateHints = extractDateHints(fullPlainText);
       discoveredPdfUrls = extractPdfLinks(bodyText, response.url);
+      formHints = extractFormHints(bodyText, response.url);
       captchaDetected = /captcha|security code|answer to the given captcha/i.test(fullPlainText);
     }
 
@@ -377,6 +459,7 @@ async function fetchSource(target) {
       sourceFingerprint,
       dateHints,
       discoveredPdfUrls,
+      formHints,
       captchaDetected,
       captchaMode: captchaDetected ? "detect-only" : "",
     };
