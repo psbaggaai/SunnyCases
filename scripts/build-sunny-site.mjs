@@ -552,6 +552,24 @@ ${TRACKER_SCRIPT}
 </html>`;
 }
 
+function buildHiddenInsightsRedirect() {
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="0; url=cases.html" />
+    <title>Sunny Case Tracker</title>
+    <script>
+      window.location.replace("cases.html");
+    </script>
+  </head>
+  <body>
+    <p><a href="cases.html">Open Sunny Case Tracker</a></p>
+  </body>
+</html>`;
+}
+
 function buildAiPanel({ title = "AI Summary", summaryLines = [], recommendations = [], href = "ai-insights.html" }) {
   return `      <section class="ai-summary-panel">
         <div class="ai-panel-head">
@@ -783,8 +801,8 @@ writeText(DOCUMENTS_PATH, buildDocumentsPage(cases, aiInsights, updatedLabel));
 writeText(ORDERS_PATH, buildOrdersPage(cases, aiInsights, updatedLabel));
 if (ENABLE_AI_INSIGHTS) {
   writeText(AI_INSIGHTS_PATH, buildAiInsightsPage(cases, aiInsights, updatedLabel));
-} else if (fs.existsSync(AI_INSIGHTS_PATH)) {
-  fs.unlinkSync(AI_INSIGHTS_PATH);
+} else {
+  writeText(AI_INSIGHTS_PATH, buildHiddenInsightsRedirect());
 }
 writeText(EVENT_LOG_PATH, buildEventLogPage(cases, aiInsights, updatedLabel));
 writeText(

@@ -16,6 +16,7 @@ const SITE_FILES = [
   "index.html",
   "cases.html",
   "sunny-cases.html",
+  "ai-insights.html",
   "documents.html",
   "orders.html",
   "event-log.html",
