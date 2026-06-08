@@ -664,6 +664,52 @@
         padding: 10px 12px;
       }
 
+      .source-card {
+        margin: 0 28px 28px;
+      }
+
+      .source-card h3 {
+        font-size: 1.14rem;
+      }
+
+      .source-url-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        margin-top: 16px;
+      }
+
+      .source-link-block {
+        background: #f5f8fe;
+        border: 1px solid #e5ebf7;
+        border-radius: 14px;
+        padding: 12px;
+      }
+
+      .source-url {
+        color: #365ca6;
+        display: inline-block;
+        font-size: 0.88rem;
+        font-weight: 750;
+        line-height: 1.35;
+        margin-top: 6px;
+        overflow-wrap: anywhere;
+      }
+
+      .search-steps {
+        color: var(--muted);
+        display: grid;
+        gap: 8px;
+        line-height: 1.45;
+        margin: 16px 0 0;
+        padding-left: 20px;
+      }
+
+      .search-steps li::marker {
+        color: #365ca6;
+        font-weight: 850;
+      }
+
       .metrics-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         padding: 0 28px 28px;
@@ -1053,10 +1099,15 @@
 
         .section,
         .overview-head,
+        .source-card,
         .metrics-grid,
         .insight-grid {
           padding-left: 16px;
           padding-right: 16px;
+        }
+
+        .source-card {
+          margin: 0 16px 16px;
         }
 
         .metrics-grid,
@@ -1469,6 +1520,22 @@
             </div>
             <a class="btn-link" id="sourceLink" href="#" target="_blank" rel="noreferrer">Open court record</a>
           </div>
+
+          <article class="detail-card source-card">
+            <div class="section-label" id="sourceGuideLabel">Source</div>
+            <h3 id="sourceGuideHeading">Case URL and how to search</h3>
+            <div class="source-url-grid">
+              <div class="source-link-block">
+                <div class="detail-label" id="caseUrlLabel">Case URL</div>
+                <a class="source-url" id="caseUrlLink" href="#" target="_blank" rel="noreferrer"></a>
+              </div>
+              <div class="source-link-block">
+                <div class="detail-label" id="searchUrlLabel">Search page</div>
+                <a class="source-url" id="searchUrlLink" href="#" target="_blank" rel="noreferrer"></a>
+              </div>
+            </div>
+            <ol class="search-steps" id="searchSteps"></ol>
+          </article>
 
           <div class="metrics-grid" id="metricsGrid"></div>
 
@@ -3418,6 +3485,10 @@
           selectorLabel: "Case Selector",
           overviewLabel: "Case Overview",
           openCourtRecord: "Open court record",
+          sourceGuideLabel: "Source",
+          sourceGuideHeading: "Case URL and how to search",
+          caseUrlLabel: "Case URL",
+          searchUrlLabel: "Search page",
           quickFactsHeading: "Quick facts",
           nextStepsHeading: "Next steps",
           listingLabel: "Listing History",
@@ -3467,6 +3538,10 @@
           selectorLabel: "केस चयन",
           overviewLabel: "केस अवलोकन",
           openCourtRecord: "कोर्ट रिकॉर्ड खोलें",
+          sourceGuideLabel: "स्रोत",
+          sourceGuideHeading: "केस URL और कैसे search करें",
+          caseUrlLabel: "केस URL",
+          searchUrlLabel: "सर्च पेज",
           quickFactsHeading: "मुख्य तथ्य",
           nextStepsHeading: "अगले कदम",
           listingLabel: "लिस्टिंग इतिहास",
@@ -3554,6 +3629,10 @@
         lastUpdatedChip: document.getElementById("lastUpdatedChip"),
         selectorLabel: document.getElementById("selectorLabel"),
         overviewLabel: document.getElementById("overviewLabel"),
+        sourceGuideLabel: document.getElementById("sourceGuideLabel"),
+        sourceGuideHeading: document.getElementById("sourceGuideHeading"),
+        caseUrlLabel: document.getElementById("caseUrlLabel"),
+        searchUrlLabel: document.getElementById("searchUrlLabel"),
         quickFactsHeading: document.getElementById("quickFactsHeading"),
         nextStepsHeading: document.getElementById("nextStepsHeading"),
         listingLabel: document.getElementById("listingLabel"),
@@ -3584,6 +3663,9 @@
       const caseBrief = document.getElementById("caseBrief");
       const caseSummary = document.getElementById("caseSummary");
       const sourceLink = document.getElementById("sourceLink");
+      const caseUrlLink = document.getElementById("caseUrlLink");
+      const searchUrlLink = document.getElementById("searchUrlLink");
+      const searchSteps = document.getElementById("searchSteps");
       const metricsGrid = document.getElementById("metricsGrid");
       const quickFacts = document.getElementById("quickFacts");
       const nextSteps = document.getElementById("nextSteps");
@@ -3719,6 +3801,100 @@
       function localizeText(text) {
         if (currentLanguage !== "hi") return text;
         return phraseMapHi[text] || text;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function getSlashCaseParts(code) {
+        const parts = String(code).split("/");
+        if (parts.length < 3) return { type: code, number: "—", year: "—" };
+        const year = parts.pop();
+        const number = parts.pop();
+        return { type: parts.join("/"), number, year };
+      }
+
+      function getSearchPageUrl(item) {
+        if (/supreme court/i.test(item.courtLocation || "")) return "https://www.sci.gov.in/case-status-diary-no/";
+        if ((item.sourceUrl || "").includes("mandleshwar.dcourts.gov.in")) return item.sourceUrl;
+        if ((item.sourceUrl || "").includes("mphc.gov.in")) return item.sourceUrl;
+        return item.sourceUrl;
+      }
+
+      function getSearchGuide(item) {
+        const isHindi = currentLanguage === "hi";
+        const parts = getSlashCaseParts(item.code);
+        const searchUrl = getSearchPageUrl(item);
+
+        if (/supreme court/i.test(item.courtLocation || "")) {
+          return {
+            searchUrl,
+            steps: isHindi
+              ? [
+                  "Supreme Court case-status page खोलें और Party Name search चुनें।",
+                  "Petitioner/Respondent में Any चुनें; party name में BAGGA PRABHJITSINGH JAGJITSINGH डालें।",
+                  "Diary year 2024 और status Disposed चुनें, CAPTCHA भरें, फिर search करें।",
+                  `${item.cnr} / ${item.code} वाला result खोलें।`,
+                ]
+              : [
+                  "Open the Supreme Court case-status page and choose Party Name search.",
+                  "For Petitioner/Respondent, select Any; enter BAGGA PRABHJITSINGH JAGJITSINGH as the party name.",
+                  "Set diary year 2024 and status Disposed, complete the CAPTCHA, then search.",
+                  `Open the result matching ${item.cnr} / ${item.code}.`,
+                ],
+          };
+        }
+
+        if ((item.sourceUrl || "").includes("mandleshwar.dcourts.gov.in")) {
+          return {
+            searchUrl,
+            steps: isHindi
+              ? [
+                  "Mandleshwar District Court petitioner/respondent search page खोलें।",
+                  "Party Name पर क्लिक करें, Court Establishment चुनें, फिर Civil Court Khargone चुनें।",
+                  "Petitioner/Respondent में Kartar और year 2024 डालें, CAPTCHA भरें, फिर Search क्लिक करें।",
+                  `${item.code} वाला result खोलें और CNR ${item.cnr} मिलाएँ।`,
+                ]
+              : [
+                  "Open the Mandleshwar District Court petitioner/respondent search page.",
+                  "Click Party Name, choose Court Establishment, then select Civil Court Khargone.",
+                  "Enter Kartar in Petitioner/Respondent and year 2024, fill the CAPTCHA, then click Search.",
+                  `Open the ${item.code} result and confirm CNR ${item.cnr}.`,
+                ],
+          };
+        }
+
+        if ((item.sourceUrl || "").includes("mphc.gov.in")) {
+          return {
+            searchUrl,
+            steps: isHindi
+              ? [
+                  "MP High Court case-status page खोलें।",
+                  `Case Number search में case type ${parts.type}, number ${parts.number}, और year ${parts.year} डालें, फिर CAPTCHA भरें।`,
+                  `अगर case-number search नहीं खुले, CNR ${item.cnr} से search करें।`,
+                  `${item.code} वाला result खोलकर listing और orders मिलाएँ।`,
+                ]
+              : [
+                  "Open the MP High Court case-status page.",
+                  `Use Case Number search with case type ${parts.type}, number ${parts.number}, and year ${parts.year}, then complete the CAPTCHA.`,
+                  `If case-number search does not load, search by CNR ${item.cnr}.`,
+                  `Open the ${item.code} result and compare the listing and orders with this dashboard.`,
+                ],
+          };
+        }
+
+        return {
+          searchUrl,
+          steps: isHindi
+            ? [`दिए गए case URL को खोलें और ${item.code} या CNR ${item.cnr} से search करें।`]
+            : [`Open the linked case URL and search by ${item.code} or CNR ${item.cnr}.`],
+        };
       }
 
       function formatLastUpdated() {
@@ -3906,8 +4082,15 @@
           .replace("{stage}", localizeText(item.stage).toLowerCase());
         sourceLink.setAttribute("href", item.sourceUrl);
         sourceLink.textContent = item.sourceUrl.includes("mandleshwar.dcourts.gov.in")
-          ? "Open Mandleshwar search"
+          ? currentLanguage === "hi" ? "Mandleshwar search खोलें" : "Open Mandleshwar search"
           : t("openCourtRecord");
+
+        const searchGuide = getSearchGuide(item);
+        caseUrlLink.setAttribute("href", item.sourceUrl);
+        caseUrlLink.textContent = item.sourceUrl;
+        searchUrlLink.setAttribute("href", searchGuide.searchUrl);
+        searchUrlLink.textContent = searchGuide.searchUrl;
+        searchSteps.innerHTML = searchGuide.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("");
 
         metricsGrid.innerHTML = item.metrics
           .map(
