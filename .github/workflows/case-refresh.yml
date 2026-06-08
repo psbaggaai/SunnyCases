@@ -48,8 +48,13 @@ jobs:
           #!/usr/bin/env bash
           set +e
 
+          log_file="/tmp/sunnycase-shutdown.log"
+          exec >>"$log_file" 2>&1
+
           repos=("psbaggaai/SunnyCases" "psbaggaai/BaggaCaseTracker")
           workflow="case-refresh.yml"
+
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) starting Sunny shutdown guard"
 
           github_has_active_runs() {
             [ -n "${GITHUB_PAT:-}" ] || return 1
@@ -75,14 +80,22 @@ jobs:
           sleep 90
           for attempt in $(seq 1 120); do
             if github_has_active_runs || local_runner_active; then
+              echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) active tracker work detected; waiting (${attempt}/120)"
               sleep 60
             else
+              echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) no active tracker work found; shutting down"
               sudo shutdown -h now
               exit 0
             fi
           done
 
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) wait limit reached; shutting down"
           sudo shutdown -h now
           SH
           chmod +x /tmp/sunnycase-wait-and-shutdown.sh
-          nohup /tmp/sunnycase-wait-and-shutdown.sh >/tmp/sunnycase-shutdown.log 2>&1 &
+          unit="sunnycase-wait-and-shutdown-${GITHUB_RUN_ID:-manual}"
+          if command -v systemd-run >/dev/null 2>&1; then
+            sudo systemd-run --unit="$unit" --collect --setenv="GITHUB_PAT=${GITHUB_PAT:-}" /tmp/sunnycase-wait-and-shutdown.sh
+          else
+            nohup setsid /tmp/sunnycase-wait-and-shutdown.sh >/dev/null 2>&1 &
+          fi
