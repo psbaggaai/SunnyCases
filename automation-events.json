@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "updatedAt": "2026-06-08T18:36:01.159Z",
-  "siteBuiltAt": "2026-06-08T18:36:01.317Z",
+  "updatedAt": "2026-06-08T18:49:14.658Z",
+  "siteBuiltAt": "2026-06-08T18:49:14.724Z",
   "captchaPolicy": {
     "mode": "detect-only",
     "note": "The scheduled job detects CAPTCHA-gated official forms and records manual-refresh targets. It does not solve or bypass CAPTCHA challenges."
   },
   "lastRun": {
-    "startedAt": "2026-06-08T18:35:30.301Z",
-    "completedAt": "2026-06-08T18:36:01.159Z",
+    "startedAt": "2026-06-08T18:48:40.932Z",
+    "completedAt": "2026-06-08T18:49:14.658Z",
     "status": "completed_with_warnings",
     "checkedSources": 41,
-    "changedSources": 23,
-    "failedSources": 7,
+    "changedSources": 2,
+    "failedSources": 8,
     "captchaSources": 8,
     "caseCount": 34,
     "officialProbeCount": 9,
@@ -72,18 +72,18 @@
       "firstSeenAt": "2026-06-08T17:57:33.053Z",
       "lastChangedAt": "2026-06-08T18:00:57.162Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.601Z",
-        "startedAt": "2026-06-08T18:35:30.316Z",
+        "checkedAt": "2026-06-08T18:48:41.188Z",
+        "startedAt": "2026-06-08T18:48:40.955Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/case-status-diary-no/",
         "contentType": "text/html; charset=UTF-8",
-        "contentLength": "28503",
+        "contentLength": "28501",
         "lastModified": "",
         "etag": "",
         "bytesRead": 120363,
         "truncated": false,
-        "sha256": "885b13093a5c67dbb4798910e6ffd1fa0e67f69360fdc96af844ef711ea4d53c",
+        "sha256": "fe34987cfbae091f1ba51da7035e90b725d99284dc57a3a4fa8b7077098e36d1",
         "title": "Diary number | Supreme Court of India | India",
         "heading": "Diary number",
         "textPreview": "Diary number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
@@ -96,6 +96,115 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/case-status-diary-no/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "diary_no",
+                "id": "diary_no",
+                "type": "text",
+                "label": "Diary Number *"
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_c3970e0ea4972fbabab279a5e78809449d706e1f",
+                "id": "tok_c3970e0ea4972fbabab279a5e78809449d706e1f",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Diary year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
@@ -110,18 +219,18 @@
       "firstSeenAt": "2026-06-08T17:57:33.295Z",
       "lastChangedAt": "2026-06-08T18:00:57.214Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.627Z",
-        "startedAt": "2026-06-08T18:35:30.602Z",
+        "checkedAt": "2026-06-08T18:48:41.230Z",
+        "startedAt": "2026-06-08T18:48:41.191Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/case-status-case-no/",
         "contentType": "text/html; charset=UTF-8",
-        "contentLength": "29101",
+        "contentLength": "29099",
         "lastModified": "",
         "etag": "",
         "bytesRead": 124050,
         "truncated": false,
-        "sha256": "c45adf4b06d6f69b3bf838326f483ef45f3d9f917fec6404a0e10ed4c7c9ea21",
+        "sha256": "aa18cd79a4f2a7678d665832346b5bd597f543a9fdf831c0cc6514d60ac89102",
         "title": "Case Number | Supreme Court of India | India",
         "heading": "Case Number",
         "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
@@ -134,6 +243,134 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/case-status-case-no/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "case_no",
+                "id": "case_no",
+                "type": "text",
+                "label": "Case Number *"
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_0d654ed2f6887faea3e87f890245813570493118",
+                "id": "tok_0d654ed2f6887faea3e87f890245813570493118",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "case_type",
+                "id": "case_type",
+                "label": "Select case type *",
+                "options": [
+                  "--Select--",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11"
+                ]
+              },
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Case Year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
@@ -148,18 +385,18 @@
       "firstSeenAt": "2026-06-08T17:57:34.372Z",
       "lastChangedAt": "2026-06-08T18:00:57.292Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.668Z",
-        "startedAt": "2026-06-08T18:35:30.628Z",
+        "checkedAt": "2026-06-08T18:48:41.361Z",
+        "startedAt": "2026-06-08T18:48:41.230Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/case-status-aor-code/",
         "contentType": "text/html; charset=UTF-8",
-        "contentLength": "83133",
+        "contentLength": "83131",
         "lastModified": "",
         "etag": "",
         "bytesRead": 435205,
         "truncated": false,
-        "sha256": "626b4cdfdf5c5cf4741b79872fd562919a4a39b3a7b22f2aedc6ceb71d248327",
+        "sha256": "29130bd3bb5f3b4422b34b3f260e29d46e6e5875b836928b8f6edb4debdd3130",
         "title": "AOR Code | Supreme Court of India | India",
         "heading": "AOR Code",
         "textPreview": "AOR Code | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges Lib...",
@@ -170,6 +407,147 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/case-status-aor-code/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_ba5a5a3b05590d094d887be669d878637154b06b",
+                "id": "tok_ba5a5a3b05590d094d887be669d878637154b06b",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "party_type",
+                "id": "party_type",
+                "label": "Petitioner / Respondent *",
+                "options": [
+                  "--Select--",
+                  "any",
+                  "P",
+                  "R"
+                ]
+              },
+              {
+                "name": "aor_code",
+                "id": "aor_code",
+                "label": "AOR Name *",
+                "options": [
+                  "--Select--",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "13",
+                  "14",
+                  "15",
+                  "17",
+                  "23"
+                ]
+              },
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Case Year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              },
+              {
+                "name": "case_status",
+                "id": "case_status",
+                "label": "Status *",
+                "options": [
+                  "P",
+                  "D"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": false,
         "captchaMode": ""
@@ -184,8 +562,8 @@
       "firstSeenAt": "2026-06-08T17:57:34.595Z",
       "lastChangedAt": "2026-06-08T18:00:57.363Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.692Z",
-        "startedAt": "2026-06-08T18:35:30.669Z",
+        "checkedAt": "2026-06-08T18:48:42.097Z",
+        "startedAt": "2026-06-08T18:48:41.361Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/daily-order-case-no/",
@@ -195,7 +573,7 @@
         "etag": "",
         "bytesRead": 123724,
         "truncated": false,
-        "sha256": "5bdf692c77cd92a2a72b4cce092af3d664a5a25f850c5bc1313ddf891f919dfd",
+        "sha256": "ceb0d5362bbb633eb5a728d36b3bfc2c4cfb993c5836f9adafcd3b84182cb860",
         "title": "Case Number | Supreme Court of India | India",
         "heading": "Case Number",
         "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
@@ -208,6 +586,134 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/daily-order-case-no/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "case_no",
+                "id": "case_no",
+                "type": "text",
+                "label": "Case Number *"
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_7e0bf8f45fd2862fbe626fb53fe41e30e302e08e",
+                "id": "tok_7e0bf8f45fd2862fbe626fb53fe41e30e302e08e",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "case_type",
+                "id": "case_type",
+                "label": "Select case type *",
+                "options": [
+                  "--Select--",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11"
+                ]
+              },
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Diary year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
@@ -222,18 +728,18 @@
       "firstSeenAt": "2026-06-08T17:57:34.811Z",
       "lastChangedAt": "2026-06-08T18:00:57.422Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.714Z",
-        "startedAt": "2026-06-08T18:35:30.692Z",
+        "checkedAt": "2026-06-08T18:48:42.145Z",
+        "startedAt": "2026-06-08T18:48:42.097Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/judgements-case-no/",
         "contentType": "text/html; charset=UTF-8",
-        "contentLength": "29082",
+        "contentLength": "29086",
         "lastModified": "",
         "etag": "",
         "bytesRead": 123900,
         "truncated": false,
-        "sha256": "6a31918f722b56299544149b5e2cbe1264c79674699e75ecddc6aacf97a569d9",
+        "sha256": "58e2e1708a3fdb212f99f59ed6c1b2b5ddcd7ea630214722f43359709ed3693f",
         "title": "Case Number | Supreme Court of India | India",
         "heading": "Case Number",
         "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
@@ -246,6 +752,134 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/judgements-case-no/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "case_no",
+                "id": "case_no",
+                "type": "text",
+                "label": "Case Number *"
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_d98da1663cdcbf44ea474a4b5acf1e96f36f7c91",
+                "id": "tok_d98da1663cdcbf44ea474a4b5acf1e96f36f7c91",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "case_type",
+                "id": "case_type",
+                "label": "Select case type *",
+                "options": [
+                  "--Select--",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11"
+                ]
+              },
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Diary year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
@@ -260,8 +894,8 @@
       "firstSeenAt": "2026-06-08T17:57:35.027Z",
       "lastChangedAt": "2026-06-08T18:00:57.483Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.739Z",
-        "startedAt": "2026-06-08T18:35:30.715Z",
+        "checkedAt": "2026-06-08T18:48:42.191Z",
+        "startedAt": "2026-06-08T18:48:42.145Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/office-report-case-no/",
@@ -271,7 +905,7 @@
         "etag": "",
         "bytesRead": 123290,
         "truncated": false,
-        "sha256": "ae77b65ab74a7ee14f11f4fe66a889ccaf862fc015923d8a1edcfa6b27ab2998",
+        "sha256": "a43f04ba64275a5b9af7a846701d53e6bbdb026a313ca8e3988525bde9b05126",
         "title": "Case Number | Supreme Court of India | India",
         "heading": "Case Number",
         "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
@@ -284,6 +918,134 @@
         "discoveredPdfUrls": [
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
           "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/office-report-case-no/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "case_no",
+                "id": "case_no",
+                "type": "text",
+                "label": "Case Number *"
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_5237e6e092ce1c3df8ab7930931df37799cfc259",
+                "id": "tok_5237e6e092ce1c3df8ab7930931df37799cfc259",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "case_type",
+                "id": "case_type",
+                "label": "Select case type *",
+                "options": [
+                  "--Select--",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11"
+                ]
+              },
+              {
+                "name": "year",
+                "id": "year",
+                "label": "Diary year *",
+                "options": [
+                  "2026",
+                  "2025",
+                  "2024",
+                  "2023",
+                  "2022",
+                  "2021",
+                  "2020",
+                  "2019",
+                  "2018",
+                  "2017",
+                  "2016",
+                  "2015"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
         ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
@@ -298,18 +1060,18 @@
       "firstSeenAt": "2026-06-08T17:57:35.261Z",
       "lastChangedAt": "2026-06-08T18:00:57.635Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:30.760Z",
-        "startedAt": "2026-06-08T18:35:30.739Z",
+        "checkedAt": "2026-06-08T18:48:42.215Z",
+        "startedAt": "2026-06-08T18:48:42.191Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.sci.gov.in/cause-list/",
         "contentType": "text/html; charset=UTF-8",
-        "contentLength": "32978",
+        "contentLength": "32979",
         "lastModified": "",
         "etag": "",
         "bytesRead": 170375,
         "truncated": false,
-        "sha256": "d617fc10a9d1bd242ce6fb11c7e535b58b63ec976170e2ef6eadedca193f4b8c",
+        "sha256": "79780a83e554bf0a08cf01ba734fb6e37b3161b19fd3241557599be8bc4648d6",
         "title": "Cause List | Supreme Court of India | India",
         "heading": "Cause List",
         "textPreview": "Cause List | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges L...",
@@ -337,6 +1099,237 @@
           "https://api.sci.gov.in/jonew/cl/2026-06-11/M_R_1.pdf",
           "https://api.sci.gov.in/jonew/cl/2026-06-12/M_J_1.pdf"
         ],
+        "formHints": [
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "s",
+                "id": "search",
+                "type": "search",
+                "label": "Search"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.sci.gov.in/cause-list/#",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "list_type",
+                "id": "",
+                "type": "radio",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "list_type",
+                "id": "",
+                "type": "radio",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "aor_code",
+                "id": "aor_code",
+                "type": "text",
+                "label": "AOR Code *"
+              },
+              {
+                "tag": "input",
+                "name": "party_name",
+                "id": "party_name",
+                "type": "text",
+                "label": "Party Name *"
+              },
+              {
+                "tag": "input",
+                "name": "listing_date",
+                "id": "listing_date",
+                "type": "text",
+                "label": "Listing Date *"
+              },
+              {
+                "tag": "input",
+                "name": "listing_date_from",
+                "id": "listing_date_from",
+                "type": "text",
+                "label": "From Date *"
+              },
+              {
+                "tag": "input",
+                "name": "listing_date_to",
+                "id": "listing_date_to",
+                "type": "text",
+                "label": "To Date *"
+              },
+              {
+                "tag": "input",
+                "name": "msb",
+                "id": "",
+                "type": "radio",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "msb",
+                "id": "",
+                "type": "radio",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "msb",
+                "id": "",
+                "type": "radio",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "scid",
+                "id": "input_siwp_captcha_id_0",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "tok_2de125963ef9f6d5cba94f02383358f914158324",
+                "id": "tok_2de125963ef9f6d5cba94f02383358f914158324",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "siwp_captcha_value",
+                "id": "siwp_captcha_value_0",
+                "type": "text",
+                "label": "Please enter the answer to the given CAPTCHA question? *"
+              },
+              {
+                "tag": "input",
+                "name": "_ch_field",
+                "id": "_ch_field",
+                "type": "text",
+                "label": "Leave this field empty"
+              },
+              {
+                "tag": "input",
+                "name": "submit",
+                "id": "",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "es_ajax_request",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "search_by",
+                "id": "search_by",
+                "label": "Search By *",
+                "options": [
+                  "--Select--",
+                  "all_courts",
+                  "court",
+                  "judge",
+                  "aor_code",
+                  "party_name"
+                ]
+              },
+              {
+                "name": "court",
+                "id": "court",
+                "label": "Court No. *",
+                "options": [
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ]
+              },
+              {
+                "name": "judge",
+                "id": "judge",
+                "label": "Judge *",
+                "options": [
+                  "271",
+                  "279",
+                  "280",
+                  "282",
+                  "284",
+                  "286",
+                  "288",
+                  "289",
+                  "290",
+                  "291",
+                  "292",
+                  "293"
+                ]
+              },
+              {
+                "name": "causelist_type",
+                "id": "causelist_type",
+                "label": "Causelist Type *",
+                "options": [
+                  "all",
+                  "Misc. Court",
+                  "Regular Court",
+                  "Single Judge Court",
+                  "Chamber Court",
+                  "Review",
+                  "Registrar Court"
+                ]
+              },
+              {
+                "name": "causelist_type",
+                "id": "causelist_type",
+                "label": "Causelist Type *",
+                "options": [
+                  "all",
+                  "Misc. Advance List",
+                  "Advance Elimination List",
+                  "Final Elimination List",
+                  "Weekly",
+                  "Terminal"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
+        ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
       }
@@ -350,8 +1343,8 @@
       "firstSeenAt": "2026-06-08T17:57:38.465Z",
       "lastChangedAt": "2026-06-08T18:35:31.202Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:31.202Z",
-        "startedAt": "2026-06-08T18:35:30.760Z",
+        "checkedAt": "2026-06-08T18:48:42.749Z",
+        "startedAt": "2026-06-08T18:48:42.215Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://scr.sci.gov.in/scrsearch/",
@@ -361,7 +1354,7 @@
         "etag": "",
         "bytesRead": 22072,
         "truncated": false,
-        "sha256": "90de1bc89c0e49fed6ff5966564499c1af7c9378e348e86cc39e5a2351e9fcd4",
+        "sha256": "f85511c8e4b16c53a9cefa4027d2e5d8db4a4891ea27a258e40d35944b206f0a",
         "title": "Home | Judgements and Orders, Supreme Court and High courts of India",
         "heading": "",
         "textPreview": "Home | Judgements and Orders, Supreme Court and High courts of India Skip to main content A- A A+ A A English অসমীয়া - Assamese বাংলা - Bengali আ·চিক - Garo ગુજરાતી - Gujarati हिन्दी - Hindi ಕನ್ನಡ - Kannada कॉशुर - Kashmiri খসি - Khasi कोंकणी - Konkani മലയാളം - Malayalam मराठी - Marathi नेपाली - Nepali ଓଡ଼ିଆ - Odia ਪੰਜਾਬੀ - Punjabi ᱥᱟᱱᱛᱟᱲᱤ - Santali தமிழ் - Tamil తెలుగు - Telugu اُردُو - Urdu Supreme Court of India Supreme Court Reports (SCR) eSCR - Reportable Judgments ISSN: 3048-4839 (Online) --> Supreme Court of India Supreme Court Reports (SCR) Judgements and Orders Indian Judiciary Home e-Committee NJDG Supreme Court District Courts Contact Us Use AND, OR [all capitals] between word...",
@@ -370,6 +1363,128 @@
         "sourceFingerprint": "526eff8eb2ce2078e0fda6648acdcf22c0ae0ff78c522b6cfd5be0d768c9b7ab",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://scr.sci.gov.in/scrsearch/",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "search_text",
+                "id": "search_text",
+                "type": "text",
+                "label": "Keyword"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio1",
+                "type": "radio",
+                "label": "Phrase(s)"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio2",
+                "type": "radio",
+                "label": "Any Words"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio3",
+                "type": "radio",
+                "label": "All Words"
+              },
+              {
+                "tag": "input",
+                "name": "citation_year",
+                "id": "citation_year",
+                "type": "text",
+                "label": "Year"
+              },
+              {
+                "tag": "input",
+                "name": "citation_vol",
+                "id": "citation_vol",
+                "type": "text",
+                "label": "Vol"
+              },
+              {
+                "tag": "input",
+                "name": "citation_supl",
+                "id": "citation_supl",
+                "type": "text",
+                "label": "Supl"
+              },
+              {
+                "tag": "input",
+                "name": "citation_page",
+                "id": "citation_page",
+                "type": "text",
+                "label": "Page"
+              },
+              {
+                "tag": "input",
+                "name": "neu_citation_year",
+                "id": "neu_citation_year",
+                "type": "text",
+                "label": "Enter Year"
+              },
+              {
+                "tag": "input",
+                "name": "ncn2",
+                "id": "ncn2",
+                "type": "text",
+                "label": "INSC"
+              },
+              {
+                "tag": "input",
+                "name": "neu_no",
+                "id": "neu_no",
+                "type": "text",
+                "label": "Enter Number"
+              },
+              {
+                "tag": "input",
+                "name": "ncn",
+                "id": "ncn",
+                "type": "text",
+                "label": "Enter ncn"
+              },
+              {
+                "tag": "input",
+                "name": "captcha",
+                "id": "captcha",
+                "type": "text",
+                "label": "Enter Captcha"
+              },
+              {
+                "tag": "input",
+                "name": "captcha",
+                "id": "captcha",
+                "type": "text",
+                "label": "Enter Captcha"
+              }
+            ],
+            "selects": [
+              {
+                "name": "sel_prox",
+                "id": "sel_prox",
+                "label": "",
+                "options": [
+                  "Proximity",
+                  "20",
+                  "40",
+                  "60",
+                  "80",
+                  "100"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
+        ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
       }
@@ -383,8 +1498,8 @@
       "firstSeenAt": "2026-06-08T17:57:41.556Z",
       "lastChangedAt": "2026-06-08T18:35:31.767Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:31.767Z",
-        "startedAt": "2026-06-08T18:35:31.202Z",
+        "checkedAt": "2026-06-08T18:48:43.199Z",
+        "startedAt": "2026-06-08T18:48:42.749Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://judgments.ecourts.gov.in/pdfsearch/index.php",
@@ -394,7 +1509,7 @@
         "etag": "",
         "bytesRead": 19560,
         "truncated": false,
-        "sha256": "453487956fbddfc963fdf4939b2a399fb44089ac6b38238776aea5cb49e3c03d",
+        "sha256": "ceeca557b8f9fd9cda8944a4e1cf0a2ede0eca0b4d6536b20d51c0851080015e",
         "title": "Home | Judgements and Orders, Supreme Court and High courts of India",
         "heading": "",
         "textPreview": "Home | Judgements and Orders, Supreme Court and High courts of India Skip to navigation Skip to main content A- A A+ A A English অসমীয়া - Assamese বাংলা - Bengali আ·চিক - Garo ગુજરાતી - Gujarati हिन्दी - Hindi ಕನ್ನಡ - Kannada कॉशुर - Kashmiri খসি - Khasi कोंकणी - Konkani മലയാളം - Malayalam मराठी - Marathi नेपाली - Nepali ଓଡ଼ିଆ - Odia ਪੰਜਾਬੀ - Punjabi ᱥᱟᱱᱛᱟᱲᱤ - Santali தமிழ் - Tamil తెలుగు - Telugu اُردُو - Urdu eSCR,Judgements and Orders Indian Judiciary Home e-Committee NJDG --> Supreme Court District Courts Video Tutorials --> NJDG Contact Us Supreme Court --> High Court SCR Keyword Phrase(s) Any Words All Words Proximity 20 40 60 80 100 Captcha Enable Javascript for audio controls &nb...",
@@ -403,6 +1518,75 @@
         "sourceFingerprint": "aa5a8db606b48f9c79e79aaede85962c5b2561153d8a49ee37f6f6293d68962f",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://judgments.ecourts.gov.in/pdfsearch/index.php",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "search_text",
+                "id": "search_text",
+                "type": "text",
+                "label": "Keyword"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio1",
+                "type": "radio",
+                "label": "Phrase(s)"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio2",
+                "type": "radio",
+                "label": "Any Words"
+              },
+              {
+                "tag": "input",
+                "name": "searchOptions",
+                "id": "inlineRadio3",
+                "type": "radio",
+                "label": "All Words"
+              },
+              {
+                "tag": "input",
+                "name": "captcha",
+                "id": "captcha",
+                "type": "text",
+                "label": "Captcha"
+              }
+            ],
+            "selects": [
+              {
+                "name": "fcourt_type",
+                "id": "fcourt_type",
+                "label": "",
+                "options": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              {
+                "name": "sel_prox",
+                "id": "sel_prox",
+                "label": "",
+                "options": [
+                  "Proximity",
+                  "20",
+                  "40",
+                  "60",
+                  "80",
+                  "100"
+                ]
+              }
+            ],
+            "captchaRelated": true
+          }
+        ],
         "captchaDetected": true,
         "captchaMode": "detect-only"
       }
@@ -422,8 +1606,8 @@
       "firstSeenAt": "2026-06-08T17:57:43.761Z",
       "lastChangedAt": "2026-06-08T18:35:31.990Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:31.990Z",
-        "startedAt": "2026-06-08T18:35:31.767Z",
+        "checkedAt": "2026-06-08T18:48:43.495Z",
+        "startedAt": "2026-06-08T18:48:43.199Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2020/21096/21096_2020_15_3_38113_Order_12-Sep-2022.pdf",
@@ -442,6 +1626,7 @@
         "sourceFingerprint": "4fa30b61cbb38805fa7e2c2e95e94ac71576f2ac7c7d8f39c5ecbf4ca1f17f23",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -461,8 +1646,8 @@
       "firstSeenAt": "2026-06-08T17:57:44.974Z",
       "lastChangedAt": "2026-06-08T18:35:32.235Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.235Z",
-        "startedAt": "2026-06-08T18:35:31.990Z",
+        "checkedAt": "2026-06-08T18:48:43.695Z",
+        "startedAt": "2026-06-08T18:48:43.495Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2021/21184/21184_2021_12_301_71066_Order_11-May-2026.pdf",
@@ -481,6 +1666,7 @@
         "sourceFingerprint": "3b2e1056e03adada51c6c0664c6f5cc9f85525fc1f1dc6a4f9e7177bc30a4a27",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -500,8 +1686,8 @@
       "firstSeenAt": "2026-06-08T17:57:45.392Z",
       "lastChangedAt": "2026-06-08T18:35:32.333Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.333Z",
-        "startedAt": "2026-06-08T18:35:32.235Z",
+        "checkedAt": "2026-06-08T18:48:43.778Z",
+        "startedAt": "2026-06-08T18:48:43.695Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2022/14438/14438_2022_6_2_36751_Order_27-Jul-2022.pdf",
@@ -520,6 +1706,7 @@
         "sourceFingerprint": "cea0202586b7959facd854c568679581c4dafe24374670c7b7a2e46a852fc27e",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -539,8 +1726,8 @@
       "firstSeenAt": "2026-06-08T17:57:45.967Z",
       "lastChangedAt": "2026-06-08T18:35:32.441Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.441Z",
-        "startedAt": "2026-06-08T18:35:32.333Z",
+        "checkedAt": "2026-06-08T18:48:43.877Z",
+        "startedAt": "2026-06-08T18:48:43.778Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_20_20509_Order_11-Feb-2020.pdf",
@@ -559,6 +1746,7 @@
         "sourceFingerprint": "23312247e1da676d636d46c796bb3764fd0d373873e6db1b40eceb05bb6b3690",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -578,8 +1766,8 @@
       "firstSeenAt": "2026-06-08T17:57:46.440Z",
       "lastChangedAt": "2026-06-08T18:35:32.622Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.622Z",
-        "startedAt": "2026-06-08T18:35:32.441Z",
+        "checkedAt": "2026-06-08T18:48:44.001Z",
+        "startedAt": "2026-06-08T18:48:43.878Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_38_39441_Order_03-Nov-2022.pdf",
@@ -598,6 +1786,7 @@
         "sourceFingerprint": "a1d2decc68a24b26170bafe231eb0efe73b96088d2dc7652861691da3daa5b50",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -617,8 +1806,8 @@
       "firstSeenAt": "2026-06-08T17:57:46.814Z",
       "lastChangedAt": "2026-06-08T18:35:32.687Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.687Z",
-        "startedAt": "2026-06-08T18:35:32.622Z",
+        "checkedAt": "2026-06-08T18:48:44.103Z",
+        "startedAt": "2026-06-08T18:48:44.001Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_31_802_27629_Order_19-Apr-2021.pdf",
@@ -637,6 +1826,7 @@
         "sourceFingerprint": "3363517de95df4096b082063db4f9ab79168f31c3500a414cfc1c127c6cc81b7",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -656,8 +1846,8 @@
       "firstSeenAt": "2026-06-08T17:57:47.181Z",
       "lastChangedAt": "2026-06-08T18:35:32.827Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:32.827Z",
-        "startedAt": "2026-06-08T18:35:32.687Z",
+        "checkedAt": "2026-06-08T18:48:44.171Z",
+        "startedAt": "2026-06-08T18:48:44.103Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_7_110_31459_Order_23-Nov-2021.pdf",
@@ -676,6 +1866,7 @@
         "sourceFingerprint": "450c5b84f292209ad423f746eaf11c969c2097a03e9b2b40486697b6432fd662",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -695,8 +1886,8 @@
       "firstSeenAt": "2026-06-08T17:57:55.474Z",
       "lastChangedAt": "2026-06-08T18:35:39.948Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:39.948Z",
-        "startedAt": "2026-06-08T18:35:32.827Z",
+        "checkedAt": "2026-06-08T18:48:50.997Z",
+        "startedAt": "2026-06-08T18:48:44.171Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/supremecourt/2010/27798/27798_2010_1_4_56020_Order_24-Sep-2024.pdf",
@@ -715,6 +1906,7 @@
         "sourceFingerprint": "5f226cc56c23762403f0f0ae952c375f46dcb1eb2684ef5bab965da0a3851330",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -744,8 +1936,8 @@
       "firstSeenAt": "2026-06-08T17:58:06.284Z",
       "lastChangedAt": "2026-06-08T18:35:49.909Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:49.909Z",
-        "startedAt": "2026-06-08T18:35:39.948Z",
+        "checkedAt": "2026-06-08T18:49:00.132Z",
+        "startedAt": "2026-06-08T18:48:50.997Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://api.sci.gov.in/jonew/cl/2025-08-21/F_J_2.pdf",
@@ -764,6 +1956,7 @@
         "sourceFingerprint": "578d688907129d576fbdc508489311a28160dd543f7e07bae55b17540ffcb2b4",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -783,28 +1976,11 @@
       "firstSeenAt": "2026-06-08T17:58:17.742Z",
       "lastChangedAt": "2026-06-08T18:35:56.557Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:56.557Z",
-        "startedAt": "2026-06-08T18:35:49.910Z",
-        "ok": true,
-        "status": 200,
-        "finalUrl": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf",
-        "contentType": "application/pdf",
-        "contentLength": "769933",
-        "lastModified": "Wed, 20 May 2026 13:40:52 GMT",
-        "etag": "\"bbf8d-6523ff1b92bd8\"",
-        "bytesRead": 769933,
-        "truncated": false,
-        "sha256": "2f36a20b62c5799db74670ed0c899e59ff9bef93e988d45267c43f3fc840782b",
-        "title": "",
-        "heading": "",
-        "textPreview": "",
-        "pdfTextPreview": "",
-        "pdfTextFingerprint": "",
-        "sourceFingerprint": "2f36a20b62c5799db74670ed0c899e59ff9bef93e988d45267c43f3fc840782b",
-        "dateHints": [],
-        "discoveredPdfUrls": [],
-        "captchaDetected": false,
-        "captchaMode": ""
+        "checkedAt": "2026-06-08T18:49:10.283Z",
+        "startedAt": "2026-06-08T18:49:00.132Z",
+        "ok": false,
+        "status": "error",
+        "error": "fetch failed"
       }
     },
     "a74d32698ac5f24c": {
@@ -822,8 +1998,8 @@
       "firstSeenAt": "2026-06-08T17:58:18.296Z",
       "lastChangedAt": "2026-06-08T18:35:56.727Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:56.727Z",
-        "startedAt": "2026-06-08T18:35:56.557Z",
+        "checkedAt": "2026-06-08T18:49:10.456Z",
+        "startedAt": "2026-06-08T18:49:10.283Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b",
@@ -833,7 +2009,7 @@
         "etag": "",
         "bytesRead": 331031,
         "truncated": false,
-        "sha256": "5973fb455891a1de7d5815cf16810398e1cce2591b36bb46630605c24065a64e",
+        "sha256": "36c45e7614697df3a15ef4cd2a4d2955e57853c6fdc669947d993f37ea9f096e",
         "title": "ZTE CORPORATION,NOIDA v. ACIT, INT. TAX, GURGAON | Income Tax Appellate Tribunal | Judgment | Law | CaseMine",
         "heading": "ZTE CORPORATION,NOIDA v. ACIT, INT. TAX, GURGAON",
         "textPreview": "ZTE CORPORATION,NOIDA v. ACIT, INT. TAX, GURGAON | Income Tax Appellate Tribunal | Judgment | Law | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country US UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Supreme Court High Courts All High Courts Allahabad High Court Andhra Pradesh High Court Bombay High Court Calcutta High Court Chhattisgarh High...",
@@ -846,6 +2022,131 @@
           "Feb 17, 2026"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.casemine.com/search/in",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "sub_query",
+                "id": "sub_query",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "q",
+                "id": "query",
+                "type": "text",
+                "label": "Enter keywords or case title"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/search/applyCIQ",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "ciqJids",
+                "id": "ciqJids",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "queryCIQ",
+                "id": "queryCIQ",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ciqText",
+                "id": "ciqText",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/comment/save/in/6995bd6b69579d20ddc19c2b",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "textarea",
+                "name": "comment",
+                "id": "comment",
+                "type": "textarea",
+                "label": "Write your comment"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/reportaproblem/in/6995bd6b69579d20ddc19c2b",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "contactName",
+                "id": "contactName",
+                "type": "text",
+                "label": "Name *"
+              },
+              {
+                "tag": "input",
+                "name": "contactEmailId",
+                "id": "contactEmailId",
+                "type": "email",
+                "label": "Email Id*"
+              },
+              {
+                "tag": "input",
+                "name": "contactPhone",
+                "id": "contactPhone",
+                "type": "tel",
+                "label": "Phone Number*"
+              },
+              {
+                "tag": "textarea",
+                "name": "content",
+                "id": "contactMessage",
+                "type": "textarea",
+                "label": "Message *"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -863,20 +2164,20 @@
         }
       ],
       "firstSeenAt": "2026-06-08T17:58:19.137Z",
-      "lastChangedAt": "2026-06-08T18:35:57.191Z",
+      "lastChangedAt": "2026-06-08T18:49:10.862Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:57.191Z",
-        "startedAt": "2026-06-08T18:35:56.727Z",
+        "checkedAt": "2026-06-08T18:49:10.862Z",
+        "startedAt": "2026-06-08T18:49:10.456Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-director-international",
         "contentType": "text/html; charset=UTF-8",
         "contentLength": "",
-        "lastModified": "Mon, 08 Jun 2026 18:35:57 GMT",
+        "lastModified": "Mon, 08 Jun 2026 18:49:10 GMT",
         "etag": "",
         "bytesRead": 49981,
         "truncated": false,
-        "sha256": "8a153cbff61868f41f1eaaeca5c6134012ef5ced75d5e4d5b14511862181cc2f",
+        "sha256": "a47ba4a9dfbd033512383c46bf4242f98261a53a912125a58b6c3aa1e98de27d",
         "title": "Ctci Overseas Corporation Ltd Vs Director of Income Tax I International Taxation - Citation 1141234 - Court Judgment | SooperKanoon",
         "heading": "Ctci Overseas Corporation Ltd Vs. Director of Income Tax-i, International Taxation - Court Judgment",
         "textPreview": "Ctci Overseas Corporation Ltd Vs Director of Income Tax I International Taxation - Citation 1141234 - Court Judgment | SooperKanoon Skip to content Toggle navigation Sooper Kanoon Home About + About SooperKanoon Blog Features Pricing Team Customers Contact Explore + Ask AI New! Latest Case Laws Advanced Search Bare Act Search Cases Search Citation Search Dictionary Search Forms Search Infographic Search Lawyer Search Privy Council Login More + API Ask CauseList --> Renew Subscription Search here Home Cases Ctci Overseas Corporation Ltd Vs. Director of Income Tax-i, International Taxation Sooper Kanoon Toggle navigation Save as PDF Add a Tag Add a Note Semantics Visualize Ask ChatGPT Ctci...",
@@ -885,6 +2186,23 @@
         "sourceFingerprint": "2deccfbb7b0cd12079c303a91da498af78105771a5115231065d2c85c00b37e4",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://sooperkanoon.com/cases/router1",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "data[Judgement][name]",
+                "id": "JudgementName",
+                "type": "text",
+                "label": "Search here"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -904,8 +2222,8 @@
       "firstSeenAt": "2026-06-08T17:58:19.379Z",
       "lastChangedAt": "2026-06-08T18:35:57.402Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:57.402Z",
-        "startedAt": "2026-06-08T18:35:57.191Z",
+        "checkedAt": "2026-06-08T18:49:11.077Z",
+        "startedAt": "2026-06-08T18:49:10.862Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE",
@@ -915,7 +2233,7 @@
         "etag": "",
         "bytesRead": 112817,
         "truncated": false,
-        "sha256": "466b497063627d42182ef81d5ce1f4e3e4cb81b1c4cd50e3cec3601f37ed0818",
+        "sha256": "d724dfcff41d10044bdcc1348e75680f27586f38d0a93badb771cf7fce0db789",
         "title": "Deemed dividend provisions cannot be invoked in cases where the shareholders were common",
         "heading": "Deemed dividend provisions cannot be invoked in cases where the shareholders were common",
         "textPreview": "Deemed dividend provisions cannot be invoked in cases where the shareholders were common 7230858882, 7230858883, 7230858889 Shopping Bag ( 0 ) Developed by Prakhar Softech Services Ltd. (In Association with Shanti Prime Publication Pvt. Ltd.) --> Visitors 1 4 0 6 5 6 0 2 Menu Home About Us Contact Us Soft Copy Audit Login Tax Library WELCOME TO TAXLOK.COM. THIS SITE IS TO SOLVE ALL YOUR TAX PROBLEMS. SUBSCRIBE OUR PRODUCTS ONLINE AND OFFLINE FOR QUICK SOLUTION OF YOUR TAX PROBLEMS AND STAY AHEAD IN YOUR PROFESSION. YOU CAN SUBSCRIBE RIGHT NOW. || WELCOME TO TAXLOK.COM. THIS SITE IS TO SOLVE ALL YOUR TAX PROBLEMS. SUBSCRIBE OUR PRODUCTS ONLINE AND OFFLINE FOR QUICK SOLUTION OF YOUR TAX PRO...",
@@ -927,6 +2245,193 @@
           "December 16, 2011"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key=E",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "__EVENTTARGET",
+                "id": "__EVENTTARGET",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__EVENTARGUMENT",
+                "id": "__EVENTARGUMENT",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__LASTFOCUS",
+                "id": "__LASTFOCUS",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__VIEWSTATE",
+                "id": "__VIEWSTATE",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__VIEWSTATEGENERATOR",
+                "id": "__VIEWSTATEGENERATOR",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__EVENTVALIDATION",
+                "id": "__EVENTVALIDATION",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$ename",
+                "id": "ename",
+                "type": "text",
+                "label": "Enter Your Name"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$Mobile",
+                "id": "Mobile",
+                "type": "text",
+                "label": "Enter Your Mobile No."
+              },
+              {
+                "tag": "textarea",
+                "name": "ctl00$Enquiry",
+                "id": "Enquiry",
+                "type": "textarea",
+                "label": "Enter Your Text Message"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$chk_demo",
+                "id": "chk_demo",
+                "type": "checkbox",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$vmsave",
+                "id": "vmsave",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demomobile",
+                "id": "demomobile",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demoname",
+                "id": "demoname",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demoemail",
+                "id": "demoemail",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$RPT",
+                "id": "RPT",
+                "type": "text",
+                "label": "RPT Code Optional"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$Btn_Demo",
+                "id": "Btn_Demo",
+                "type": "submit",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "ctl00$desig",
+                "id": "desig",
+                "label": "",
+                "options": [
+                  "0",
+                  "CA",
+                  "Advocate",
+                  "Tax Practitioner",
+                  "Business",
+                  "Student",
+                  "Other"
+                ]
+              },
+              {
+                "name": "ctl00$State_Names",
+                "id": "State_Names",
+                "label": "",
+                "options": [
+                  "-1",
+                  "35",
+                  "37",
+                  "12",
+                  "18",
+                  "10",
+                  "4",
+                  "22",
+                  "26",
+                  "25",
+                  "7",
+                  "30"
+                ]
+              },
+              {
+                "name": "ctl00$District_Name",
+                "id": "District_Name",
+                "label": "",
+                "options": []
+              },
+              {
+                "name": "ctl00$State_Names_new",
+                "id": "State_Names_new",
+                "label": "",
+                "options": [
+                  "-1",
+                  "35",
+                  "37",
+                  "12",
+                  "18",
+                  "10",
+                  "4",
+                  "22",
+                  "26",
+                  "25",
+                  "7",
+                  "30"
+                ]
+              },
+              {
+                "name": "ctl00$District_Name_new",
+                "id": "District_Name_new",
+                "label": "",
+                "options": []
+              }
+            ],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -946,8 +2451,8 @@
       "firstSeenAt": "2026-06-08T17:58:22.030Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:58.872Z",
-        "startedAt": "2026-06-08T18:35:57.402Z",
+        "checkedAt": "2026-06-08T18:49:12.507Z",
+        "startedAt": "2026-06-08T18:49:11.078Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/",
@@ -966,6 +2471,7 @@
         "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -985,8 +2491,8 @@
       "firstSeenAt": "2026-06-08T17:58:22.970Z",
       "lastChangedAt": "2026-06-08T18:01:42.903Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.139Z",
-        "startedAt": "2026-06-08T18:35:58.872Z",
+        "checkedAt": "2026-06-08T18:49:12.758Z",
+        "startedAt": "2026-06-08T18:49:12.507Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.courtkutchehry.com/judgements/1094784/addl-cit-appellant-hash-ms-giesecke-devrient-pvt-ltd-respondent/",
@@ -996,7 +2502,7 @@
         "etag": "",
         "bytesRead": 35616,
         "truncated": false,
-        "sha256": "06ddef57bc04e04b80ca789a4d9bc62dd7dd0a379bdb2baa3562e7db2280bbd7",
+        "sha256": "9c756b72b87748e94df050ff17825e3a2229675a589df1bf73c7546a843ef78f",
         "title": "Addl. CIT Vs M/s Giesecke & Devrient Pvt. Ltd",
         "heading": "Addl. CIT Vs M/s Giesecke & Devrient Pvt. Ltd",
         "textPreview": "Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Income Tax Appellate Tribunal (Delhi &#x27;I-1&#x27; Bench) 8 Jul 2021 Income Tax Appeal No. 1159, 2051/Del/2017 (2021) 07 ITAT CK 0022 Bench: Division Bench Result Published Judgement Snapshot Case Number Income Tax Appeal No. 1159, 2051/Del/2017 Hon'ble Bench Kul Bharat, J; Dr. B. R. R. Kumar, (AM) Advocates Harpreet Singh Ajmani, Surender Pal, F. R. Meena Final Decision Dismissed AI Powered Case Summary Beta Get an instant AI-generated summary of this j...",
@@ -1009,6 +2515,30 @@
           "Jun 08 2026"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.courtkutchehry.com/pages/newsletter/subscribe/",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "csrfmiddlewaretoken",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "email",
+                "id": "sidebar-subscribe-email",
+                "type": "email",
+                "label": "Email address"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1028,8 +2558,8 @@
       "firstSeenAt": "2026-06-08T17:58:23.373Z",
       "lastChangedAt": "2026-06-08T18:35:59.183Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.183Z",
-        "startedAt": "2026-06-08T18:35:59.139Z",
+        "checkedAt": "2026-06-08T18:49:12.819Z",
+        "startedAt": "2026-06-08T18:49:12.758Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63",
@@ -1039,7 +2569,7 @@
         "etag": "",
         "bytesRead": 420350,
         "truncated": false,
-        "sha256": "effaf193118b1c2a7e1e856f43470edb484b47aa31444759ce298a483cbacdda",
+        "sha256": "35a6a82f5a03806413a133471ac62be834ec7acd5e64a0f1a9cf366522f89946",
         "title": "Honda Motorcycle And Scooter India Pvt. Ltd. , Gurgaon v. ACIT, Circle-1(1), Gurugram | Income Tax Appellate Tribunal | Judgment | Law | CaseMine",
         "heading": "Honda Motorcycle And Scooter India Pvt. Ltd. , Gurgaon v. ACIT, Circle-1(1), Gurugram",
         "textPreview": "Honda Motorcycle And Scooter India Pvt. Ltd. , Gurgaon v. ACIT, Circle-1(1), Gurugram | Income Tax Appellate Tribunal | Judgment | Law | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country US UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Supreme Court High Courts All High Courts Allahabad High Court Andhra Pradesh High Court Bombay High Court C...",
@@ -1050,6 +2580,131 @@
           "Aug 22, 2023"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.casemine.com/search/in",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "sub_query",
+                "id": "sub_query",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "q",
+                "id": "query",
+                "type": "text",
+                "label": "Enter keywords or case title"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/search/applyCIQ",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "ciqJids",
+                "id": "ciqJids",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "queryCIQ",
+                "id": "queryCIQ",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ciqText",
+                "id": "ciqText",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/comment/save/in/64e8ab9209cb195443fd6c63",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "textarea",
+                "name": "comment",
+                "id": "comment",
+                "type": "textarea",
+                "label": "Write your comment"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/reportaproblem/in/64e8ab9209cb195443fd6c63",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "contactName",
+                "id": "contactName",
+                "type": "text",
+                "label": "Name *"
+              },
+              {
+                "tag": "input",
+                "name": "contactEmailId",
+                "id": "contactEmailId",
+                "type": "email",
+                "label": "Email Id*"
+              },
+              {
+                "tag": "input",
+                "name": "contactPhone",
+                "id": "contactPhone",
+                "type": "tel",
+                "label": "Phone Number*"
+              },
+              {
+                "tag": "textarea",
+                "name": "content",
+                "id": "contactMessage",
+                "type": "textarea",
+                "label": "Message *"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1069,8 +2724,8 @@
       "firstSeenAt": "2026-06-08T17:58:23.500Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.246Z",
-        "startedAt": "2026-06-08T18:35:59.183Z",
+        "checkedAt": "2026-06-08T18:49:12.840Z",
+        "startedAt": "2026-06-08T18:49:12.819Z",
         "ok": false,
         "status": "error",
         "error": "fetch failed"
@@ -1091,8 +2746,8 @@
       "firstSeenAt": "2026-06-08T17:58:23.620Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.523Z",
-        "startedAt": "2026-06-08T18:35:59.246Z",
+        "checkedAt": "2026-06-08T18:49:13.108Z",
+        "startedAt": "2026-06-08T18:49:12.840Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del",
@@ -1111,6 +2766,7 @@
         "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1130,8 +2786,8 @@
       "firstSeenAt": "2026-06-08T17:58:23.767Z",
       "lastChangedAt": "2026-06-08T18:35:59.555Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.555Z",
-        "startedAt": "2026-06-08T18:35:59.523Z",
+        "checkedAt": "2026-06-08T18:49:13.145Z",
+        "startedAt": "2026-06-08T18:49:13.108Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96",
@@ -1141,7 +2797,7 @@
         "etag": "",
         "bytesRead": 343395,
         "truncated": false,
-        "sha256": "4a07f411978572560ce8fa6326cb6658cd956a69be2c15881b006b4e1121cf5c",
+        "sha256": "c0bc5dca38264312a25879a4463d0e9edfa54e78d299f96030df91deec5e53f3",
         "title": "LS CABLE & SYSTEM LIMITED, KOREA THROUGH MR. JEONG... | Delhi High Court | Judgment | Law | CaseMine",
         "heading": "LS CABLE & SYSTEM LIMITED, KOREA THROUGH MR. JEONG...",
         "textPreview": "LS CABLE &amp; SYSTEM LIMITED, KOREA THROUGH MR. JEONG... | Delhi High Court | Judgment | Law | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country US UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Supreme Court High Courts All High Courts Allahabad High Court Andhra Pradesh High Court Bombay High Court Calcutta High Court Chhattisgarh High Cour...",
@@ -1152,6 +2808,131 @@
           "May 13, 2016"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.casemine.com/search/in",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "sub_query",
+                "id": "sub_query",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "q",
+                "id": "query",
+                "type": "text",
+                "label": "Enter keywords or case title"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/search/applyCIQ",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "ciqJids",
+                "id": "ciqJids",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "queryCIQ",
+                "id": "queryCIQ",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ciqText",
+                "id": "ciqText",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/comment/save/in/57b47a99bc416857b539ea96",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "textarea",
+                "name": "comment",
+                "id": "comment",
+                "type": "textarea",
+                "label": "Write your comment"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/reportaproblem/in/57b47a99bc416857b539ea96",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "contactName",
+                "id": "contactName",
+                "type": "text",
+                "label": "Name *"
+              },
+              {
+                "tag": "input",
+                "name": "contactEmailId",
+                "id": "contactEmailId",
+                "type": "email",
+                "label": "Email Id*"
+              },
+              {
+                "tag": "input",
+                "name": "contactPhone",
+                "id": "contactPhone",
+                "type": "tel",
+                "label": "Phone Number*"
+              },
+              {
+                "tag": "textarea",
+                "name": "content",
+                "id": "contactMessage",
+                "type": "textarea",
+                "label": "Message *"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1171,8 +2952,8 @@
       "firstSeenAt": "2026-06-08T17:58:23.883Z",
       "lastChangedAt": "2026-06-08T18:35:59.586Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.586Z",
-        "startedAt": "2026-06-08T18:35:59.555Z",
+        "checkedAt": "2026-06-08T18:49:13.183Z",
+        "startedAt": "2026-06-08T18:49:13.145Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5",
@@ -1182,7 +2963,7 @@
         "etag": "",
         "bytesRead": 329455,
         "truncated": false,
-        "sha256": "a468da6336b45758a262f817506a285258621db399b77ab2ff30312fb8d72d58",
+        "sha256": "aea06c8b223ecbed4e24695bad7cf2ac91614543367a925e210658489a864f83",
         "title": "PR. COMMISSIONER OF INCOME TAX 6 v. MCKINSEY KNOWLEDGE CENTRE INDIA PVT. LTD. | Delhi High Court | Judgment | Law | CaseMine",
         "heading": "PR. COMMISSIONER OF INCOME TAX 6 v. MCKINSEY KNOWLEDGE CENTRE INDIA PVT. LTD.",
         "textPreview": "PR. COMMISSIONER OF INCOME TAX 6 v. MCKINSEY KNOWLEDGE CENTRE INDIA PVT. LTD. | Delhi High Court | Judgment | Law | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country US UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Supreme Court High Courts All High Courts Allahabad High Court Andhra Pradesh High Court Bombay High Court Calcutta High Court Ch...",
@@ -1194,6 +2975,131 @@
           "AUGUST 9, 2018"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.casemine.com/search/in",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "sub_query",
+                "id": "sub_query",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "q",
+                "id": "query",
+                "type": "text",
+                "label": "Enter keywords or case title"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/search/applyCIQ",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "ciqJids",
+                "id": "ciqJids",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "queryCIQ",
+                "id": "queryCIQ",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ciqText",
+                "id": "ciqText",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/comment/save/in/63940b3064dc0c26e38e54f5",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "textarea",
+                "name": "comment",
+                "id": "comment",
+                "type": "textarea",
+                "label": "Write your comment"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/reportaproblem/in/63940b3064dc0c26e38e54f5",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "contactName",
+                "id": "contactName",
+                "type": "text",
+                "label": "Name *"
+              },
+              {
+                "tag": "input",
+                "name": "contactEmailId",
+                "id": "contactEmailId",
+                "type": "email",
+                "label": "Email Id*"
+              },
+              {
+                "tag": "input",
+                "name": "contactPhone",
+                "id": "contactPhone",
+                "type": "tel",
+                "label": "Phone Number*"
+              },
+              {
+                "tag": "textarea",
+                "name": "content",
+                "id": "contactMessage",
+                "type": "textarea",
+                "label": "Message *"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1213,8 +3119,8 @@
       "firstSeenAt": "2026-06-08T17:58:24.020Z",
       "lastChangedAt": "2026-06-08T18:35:59.617Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.617Z",
-        "startedAt": "2026-06-08T18:35:59.586Z",
+        "checkedAt": "2026-06-08T18:49:13.214Z",
+        "startedAt": "2026-06-08T18:49:13.183Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646",
@@ -1224,7 +3130,7 @@
         "etag": "",
         "bytesRead": 343151,
         "truncated": false,
-        "sha256": "588fb2cee648d4fa9d26bb8c9535dadc773df9c541b595a1b2cee83fbba7f217",
+        "sha256": "c55b0031572d18f5fdc078f1401f42a7a624285e5576cfe8c49c81700f94dd7d",
         "title": "Pr. Commissioner Of Income Tax-06 v. Mckinsey Knowledge Centre India (P) Ltd. . | Delhi High Court | Judgment | Law | CaseMine",
         "heading": "Pr. Commissioner Of Income Tax-06 v. Mckinsey Knowledge Centre India (P) Ltd. .",
         "textPreview": "Pr. Commissioner Of Income Tax-06 v. Mckinsey Knowledge Centre India (P) Ltd. . | Delhi High Court | Judgment | Law | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country US UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Supreme Court High Courts All High Courts Allahabad High Court Andhra Pradesh High Court Bombay High Court Calcutta High Court...",
@@ -1235,6 +3141,131 @@
           "Oct 12, 2021"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.casemine.com/search/in",
+            "method": "GET",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "sub_query",
+                "id": "sub_query",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "q",
+                "id": "query",
+                "type": "text",
+                "label": "Enter keywords or case title"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/search/applyCIQ",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "ciqJids",
+                "id": "ciqJids",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "queryCIQ",
+                "id": "queryCIQ",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ciqText",
+                "id": "ciqText",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/comment/save/in/616d0f239fca1919afcc0646",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "textarea",
+                "name": "comment",
+                "id": "comment",
+                "type": "textarea",
+                "label": "Write your comment"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          },
+          {
+            "action": "https://www.casemine.com/judgement/reportaproblem/in/616d0f239fca1919afcc0646",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "contactName",
+                "id": "contactName",
+                "type": "text",
+                "label": "Name *"
+              },
+              {
+                "tag": "input",
+                "name": "contactEmailId",
+                "id": "contactEmailId",
+                "type": "email",
+                "label": "Email Id*"
+              },
+              {
+                "tag": "input",
+                "name": "contactPhone",
+                "id": "contactPhone",
+                "type": "tel",
+                "label": "Phone Number*"
+              },
+              {
+                "tag": "textarea",
+                "name": "content",
+                "id": "contactMessage",
+                "type": "textarea",
+                "label": "Message *"
+              },
+              {
+                "tag": "input",
+                "name": "_csrf",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1254,8 +3285,8 @@
       "firstSeenAt": "2026-06-08T17:58:24.840Z",
       "lastChangedAt": "2026-06-08T18:01:44.953Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.686Z",
-        "startedAt": "2026-06-08T18:35:59.617Z",
+        "checkedAt": "2026-06-08T18:49:13.269Z",
+        "startedAt": "2026-06-08T18:49:13.214Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.courtkutchehry.com/judgements/396668/cit-appellant-hash-brahmaputra-capital-and-financial-services-ltd-respondent/",
@@ -1265,7 +3296,7 @@
         "etag": "",
         "bytesRead": 46385,
         "truncated": false,
-        "sha256": "c33de61264d532df0a571f0d3551c3f4509a852c9b55fe456f3d6a863ba8e9e0",
+        "sha256": "adc4988028a641da4cf231ea733a5a838e60219fa491fc7e9a3864884b22a30d",
         "title": "CIT Vs Brahmaputra Capital and Financial Services Ltd.",
         "heading": "CIT Vs Brahmaputra Capital and Financial Services Ltd.",
         "textPreview": "CIT Vs Brahmaputra Capital and Financial Services Ltd. Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements CIT Vs Brahmaputra Capital and Financial Services Ltd. CIT Vs Brahmaputra Capital and Financial Services Ltd. Delhi High Court 3 Sep 2012 ITA No. 107 of 2012 (2013) 357 ITR 241 --> (2012) 09 DEL CK 0093 Bench: Division Bench Acts Referenced Judgement Snapshot Case Number ITA No. 107 of 2012 Hon'ble Bench S. Ravindra Bhat, J; R.V. Easwar, J Advocates Deepak Chopra and Mr. Harpreet Singh Ajmani, for the Appellant; Acts Referred Income Tax Act, 1961 - Section 260A AI Powered Case Summary Beta Get an instant AI-generated summary of this judgement — key...",
@@ -1276,6 +3307,30 @@
           "3 Sep 2012"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.courtkutchehry.com/pages/newsletter/subscribe/",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "csrfmiddlewaretoken",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "email",
+                "id": "sidebar-subscribe-email",
+                "type": "email",
+                "label": "Email address"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1295,8 +3350,8 @@
       "firstSeenAt": "2026-06-08T17:58:25.662Z",
       "lastChangedAt": "2026-06-08T18:01:45.601Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.739Z",
-        "startedAt": "2026-06-08T18:35:59.686Z",
+        "checkedAt": "2026-06-08T18:49:13.324Z",
+        "startedAt": "2026-06-08T18:49:13.269Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-appellant-hash-commissioner-of-income-tax-respondent-1/",
@@ -1306,7 +3361,7 @@
         "etag": "",
         "bytesRead": 49786,
         "truncated": false,
-        "sha256": "909fd6ee60a16e862862893a6583828e4cadeda39cede448955e4273282fd4cf",
+        "sha256": "083de6bbcccd13a180d268e6f69a572293dbe12d9b1300a47062e4ba60afb4ae",
         "title": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax",
         "heading": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax",
         "textPreview": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Delhi High Court 24 Apr 2012 CM No&#x27;&#x27;s. 6952, 6953, 6955, 6956, 6971 and 6972 of 2012 and IT Appeal No&#x27;&#x27;s. 252, 253 and 258 of 2012 (2012) 23 TAXMAN 353 --> (2012) 04 DEL CK 0311 Bench: Division Bench Result Published Acts Referenced Judgement Snapshot Case Number CM No&#x27;&#x27;s. 6952, 6953, 6955, 6956, 6971 and 6972 of 2012 and IT Appeal No&#x27;&#x27;s. 252, 253 and 258 of 2012 Hon'ble Bench Sanjiv Khanna, J; R...",
@@ -1317,6 +3372,30 @@
           "24 Apr 2012"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.courtkutchehry.com/pages/newsletter/subscribe/",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "csrfmiddlewaretoken",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "email",
+                "id": "sidebar-subscribe-email",
+                "type": "email",
+                "label": "Email address"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1336,8 +3415,8 @@
       "firstSeenAt": "2026-06-08T17:58:26.259Z",
       "lastChangedAt": "2026-06-08T18:01:46.165Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.789Z",
-        "startedAt": "2026-06-08T18:35:59.739Z",
+        "checkedAt": "2026-06-08T18:49:13.375Z",
+        "startedAt": "2026-06-08T18:49:13.325Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.courtkutchehry.com/judgements/908482/cit-appellant-hash-sony-india-pvt-ltd-respondent/",
@@ -1347,7 +3426,7 @@
         "etag": "",
         "bytesRead": 45164,
         "truncated": false,
-        "sha256": "c0ccc0f741884d173ad88901867f04b8a570d399b3f050f1de524ac8fe7a1f51",
+        "sha256": "526f91cdb6b800f9aac62ec624fa9b80710508b5119fd40de8136edb96dcaef2",
         "title": "CIT Vs Sony India Pvt. Ltd.",
         "heading": "CIT Vs Sony India Pvt. Ltd.",
         "textPreview": "CIT Vs Sony India Pvt. Ltd. Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements CIT Vs Sony India Pvt. Ltd. CIT Vs Sony India Pvt. Ltd. Delhi High Court 10 Sep 2012 ITA No&#x27;&#x27;s. 1178 of 2011 and 1182 of 2011 (2012) 09 DEL CK 0538 Bench: Division Bench Result Published Acts Referenced Judgement Snapshot Case Number ITA No&#x27;&#x27;s. 1178 of 2011 and 1182 of 2011 Hon'ble Bench Sanjiv Khanna, J; R.V. Easwar, J Advocates Deepak Chopra, Standing Counsel with Mr. Harpreet Singh Ajmani, for the Appellant; R. Satish Kumar, for the Respondent Final Decision Disposed Off Acts Referred Income Tax Act, 1961 - Section 10(10C), 260A, 35DDA, 70 AI Powered Ca...",
@@ -1358,6 +3437,30 @@
           "10 Sep 2012"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.courtkutchehry.com/pages/newsletter/subscribe/",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "csrfmiddlewaretoken",
+                "id": "",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "email",
+                "id": "sidebar-subscribe-email",
+                "type": "email",
+                "label": "Email address"
+              }
+            ],
+            "selects": [],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1377,8 +3480,8 @@
       "firstSeenAt": "2026-06-08T17:58:26.541Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:35:59.813Z",
-        "startedAt": "2026-06-08T18:35:59.789Z",
+        "checkedAt": "2026-06-08T18:49:13.402Z",
+        "startedAt": "2026-06-08T18:49:13.376Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://indiankanoon.org/doc/149899903/",
@@ -1388,7 +3491,7 @@
         "etag": "",
         "bytesRead": 5769,
         "truncated": false,
-        "sha256": "be20d32d43da649048d9fdb862123606bbaf044acc69eeca27bb088c55a27f2b",
+        "sha256": "3f7a96e7713201cf1e2e2c7b7ae311c2ad691f56fd7e823688a5208a751b3342",
         "title": "Just a moment...",
         "heading": "",
         "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
@@ -1397,6 +3500,7 @@
         "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1416,8 +3520,8 @@
       "firstSeenAt": "2026-06-08T17:58:26.640Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:00.089Z",
-        "startedAt": "2026-06-08T18:35:59.813Z",
+        "checkedAt": "2026-06-08T18:49:13.671Z",
+        "startedAt": "2026-06-08T18:49:13.403Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/",
@@ -1436,6 +3540,7 @@
         "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1453,10 +3558,10 @@
         }
       ],
       "firstSeenAt": "2026-06-08T17:58:27.986Z",
-      "lastChangedAt": "2026-06-08T18:36:00.371Z",
+      "lastChangedAt": "2026-06-08T18:49:13.802Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:00.371Z",
-        "startedAt": "2026-06-08T18:36:00.089Z",
+        "checkedAt": "2026-06-08T18:49:13.802Z",
+        "startedAt": "2026-06-08T18:49:13.671Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016",
@@ -1464,17 +3569,18 @@
         "contentLength": "",
         "lastModified": "",
         "etag": "",
-        "bytesRead": 19894,
+        "bytesRead": 19895,
         "truncated": false,
-        "sha256": "273a1b46961f62332798365bb7cff8a0f15580143b242c6997b6fd66cfe188fa",
+        "sha256": "b55ea5da020194c95d9c34b8f847a17076c7c7c83e0e6525482a860b979fd484",
         "title": "",
         "heading": "",
         "textPreview": "",
         "pdfTextPreview": "",
         "pdfTextFingerprint": "",
-        "sourceFingerprint": "273a1b46961f62332798365bb7cff8a0f15580143b242c6997b6fd66cfe188fa",
+        "sourceFingerprint": "b55ea5da020194c95d9c34b8f847a17076c7c7c83e0e6525482a860b979fd484",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1494,8 +3600,8 @@
       "firstSeenAt": "2026-06-08T17:58:31.981Z",
       "lastChangedAt": "2026-06-08T18:36:01.003Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:01.003Z",
-        "startedAt": "2026-06-08T18:36:00.371Z",
+        "checkedAt": "2026-06-08T18:49:14.496Z",
+        "startedAt": "2026-06-08T18:49:13.802Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://itat.gov.in/public/files/upload/1566537907-1604.Beam%20Global%20Spirits%20%26%20Wine..pdf",
@@ -1514,6 +3620,7 @@
         "sourceFingerprint": "5534aad173e9fd9a358482ae2da6331cbeb050f28792e5cf267efadb34485c64",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1533,8 +3640,8 @@
       "firstSeenAt": "2026-06-08T17:58:32.096Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:01.019Z",
-        "startedAt": "2026-06-08T18:36:01.003Z",
+        "checkedAt": "2026-06-08T18:49:14.511Z",
+        "startedAt": "2026-06-08T18:49:14.497Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://indiankanoon.org/doc/161375554/",
@@ -1544,7 +3651,7 @@
         "etag": "",
         "bytesRead": 5769,
         "truncated": false,
-        "sha256": "2179f7799e2809eb46b97fb67176a52e28998f87269616b7b0e2eb88feca8041",
+        "sha256": "4894cab80202bc350ef735a6f942d51e9fe2e885296c5d1aa10e35993621926e",
         "title": "Just a moment...",
         "heading": "",
         "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
@@ -1553,6 +3660,7 @@
         "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1572,8 +3680,8 @@
       "firstSeenAt": "2026-06-08T17:58:32.543Z",
       "lastChangedAt": "2026-06-08T18:36:01.079Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:01.079Z",
-        "startedAt": "2026-06-08T18:36:01.019Z",
+        "checkedAt": "2026-06-08T18:49:14.573Z",
+        "startedAt": "2026-06-08T18:49:14.511Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://itat.gov.in/public/files/upload/1623307896-I.T.As.%20No.3518-DEL-2017%20%26%207896%20to%207899-DEL-2018.pdf",
@@ -1592,6 +3700,7 @@
         "sourceFingerprint": "531c0590ed95055f2e7d476f4ce210353c68e3d994d483c3153c44fab8962174",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1611,8 +3720,8 @@
       "firstSeenAt": "2026-06-08T17:58:32.673Z",
       "lastChangedAt": "2026-06-08T18:36:01.135Z",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:01.135Z",
-        "startedAt": "2026-06-08T18:36:01.079Z",
+        "checkedAt": "2026-06-08T18:49:14.631Z",
+        "startedAt": "2026-06-08T18:49:14.573Z",
         "ok": true,
         "status": 200,
         "finalUrl": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE",
@@ -1622,7 +3731,7 @@
         "etag": "",
         "bytesRead": 108443,
         "truncated": false,
-        "sha256": "903d054de34845300038b41754900a8c7b9d30cb093d6a77a78b06d7e4294205",
+        "sha256": "795bdf2bb9b103cbb06d9436bc474033e39bd8c764bd115ac79ad06bdc582f77",
         "title": "SLP dismissed against High Courts ruling that where delay in disposing appeal is not attributable to assessee, Tribunal has power to grant extension of stay...",
         "heading": "SLP dismissed against High Courts ruling that where delay in disposing appeal is not attributable to assessee, Tribunal has power to grant extension of stay...",
         "textPreview": "SLP dismissed against High Courts ruling that where delay in disposing appeal is not attributable to assessee, Tribunal has power to grant extension of stay beyond 365 days in deserving cases 7230858882, 7230858883, 7230858889 Shopping Bag ( 0 ) Developed by Prakhar Softech Services Ltd. (In Association with Shanti Prime Publication Pvt. Ltd.) --> Visitors 1 4 0 6 5 6 0 2 Menu Home About Us Contact Us Soft Copy Audit Login Tax Library WELCOME TO TAXLOK.COM. THIS SITE IS TO SOLVE ALL YOUR TAX PROBLEMS. SUBSCRIBE OUR PRODUCTS ONLINE AND OFFLINE FOR QUICK SOLUTION OF YOUR TAX PROBLEMS AND STAY AHEAD IN YOUR PROFESSION. YOU CAN SUBSCRIBE RIGHT NOW. || WELCOME TO TAXLOK.COM. THIS SITE IS TO SO...",
@@ -1640,6 +3749,193 @@
           "Jan 22, 2026"
         ],
         "discoveredPdfUrls": [],
+        "formHints": [
+          {
+            "action": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key=E",
+            "method": "POST",
+            "fields": [
+              {
+                "tag": "input",
+                "name": "__EVENTTARGET",
+                "id": "__EVENTTARGET",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__EVENTARGUMENT",
+                "id": "__EVENTARGUMENT",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__LASTFOCUS",
+                "id": "__LASTFOCUS",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__VIEWSTATE",
+                "id": "__VIEWSTATE",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__VIEWSTATEGENERATOR",
+                "id": "__VIEWSTATEGENERATOR",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "__EVENTVALIDATION",
+                "id": "__EVENTVALIDATION",
+                "type": "hidden",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$ename",
+                "id": "ename",
+                "type": "text",
+                "label": "Enter Your Name"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$Mobile",
+                "id": "Mobile",
+                "type": "text",
+                "label": "Enter Your Mobile No."
+              },
+              {
+                "tag": "textarea",
+                "name": "ctl00$Enquiry",
+                "id": "Enquiry",
+                "type": "textarea",
+                "label": "Enter Your Text Message"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$chk_demo",
+                "id": "chk_demo",
+                "type": "checkbox",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$vmsave",
+                "id": "vmsave",
+                "type": "submit",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demomobile",
+                "id": "demomobile",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demoname",
+                "id": "demoname",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$demoemail",
+                "id": "demoemail",
+                "type": "text",
+                "label": ""
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$RPT",
+                "id": "RPT",
+                "type": "text",
+                "label": "RPT Code Optional"
+              },
+              {
+                "tag": "input",
+                "name": "ctl00$Btn_Demo",
+                "id": "Btn_Demo",
+                "type": "submit",
+                "label": ""
+              }
+            ],
+            "selects": [
+              {
+                "name": "ctl00$desig",
+                "id": "desig",
+                "label": "",
+                "options": [
+                  "0",
+                  "CA",
+                  "Advocate",
+                  "Tax Practitioner",
+                  "Business",
+                  "Student",
+                  "Other"
+                ]
+              },
+              {
+                "name": "ctl00$State_Names",
+                "id": "State_Names",
+                "label": "",
+                "options": [
+                  "-1",
+                  "35",
+                  "37",
+                  "12",
+                  "18",
+                  "10",
+                  "4",
+                  "22",
+                  "26",
+                  "25",
+                  "7",
+                  "30"
+                ]
+              },
+              {
+                "name": "ctl00$District_Name",
+                "id": "District_Name",
+                "label": "",
+                "options": []
+              },
+              {
+                "name": "ctl00$State_Names_new",
+                "id": "State_Names_new",
+                "label": "",
+                "options": [
+                  "-1",
+                  "35",
+                  "37",
+                  "12",
+                  "18",
+                  "10",
+                  "4",
+                  "22",
+                  "26",
+                  "25",
+                  "7",
+                  "30"
+                ]
+              },
+              {
+                "name": "ctl00$District_Name_new",
+                "id": "District_Name_new",
+                "label": "",
+                "options": []
+              }
+            ],
+            "captchaRelated": false
+          }
+        ],
         "captchaDetected": false,
         "captchaMode": ""
       }
@@ -1659,8 +3955,8 @@
       "firstSeenAt": "2026-06-08T17:58:32.796Z",
       "lastChangedAt": "",
       "lastCheck": {
-        "checkedAt": "2026-06-08T18:36:01.159Z",
-        "startedAt": "2026-06-08T18:36:01.135Z",
+        "checkedAt": "2026-06-08T18:49:14.658Z",
+        "startedAt": "2026-06-08T18:49:14.631Z",
         "ok": false,
         "status": 403,
         "finalUrl": "https://indiankanoon.org/doc/11989121/",
@@ -1670,7 +3966,7 @@
         "etag": "",
         "bytesRead": 5766,
         "truncated": false,
-        "sha256": "84a0cb6b06e5fce483c7c945d1812f7e90a3b16958c323ace9c12c620e906560",
+        "sha256": "20094a260eb7ca22264efc171c7550e0483b0d8df6f04d8926d76f452ef0205a",
         "title": "Just a moment...",
         "heading": "",
         "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
@@ -1679,12 +3975,123 @@
         "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
         "dateHints": [],
         "discoveredPdfUrls": [],
+        "formHints": [],
         "captchaDetected": false,
         "captchaMode": ""
       }
     }
   },
   "events": [
+    {
+      "id": "1780944550283-ea4ac70f7c67a539-failed",
+      "at": "2026-06-08T18:49:10.283Z",
+      "level": "warning",
+      "sourceId": "ea4ac70f7c67a539",
+      "caseId": "sci-slp-19156-2022",
+      "caseCode": "SLP(C) No. 19156/2022",
+      "title": "SLP(C) No. 19156/2022: source check failed",
+      "summary": "SLP(C) No. 19156/2022 source on api.sci.gov.in could not be checked: fetch failed.",
+      "url": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf"
+    },
+    {
+      "id": "1780944550862-886bac3ea16b39ca-changed",
+      "at": "2026-06-08T18:49:10.862Z",
+      "level": "change",
+      "sourceId": "886bac3ea16b39ca",
+      "caseId": "web-ctci-wpc-4302-2013",
+      "caseCode": "W.P.(C) 4302/2013",
+      "title": "W.P.(C) 4302/2013: source changed",
+      "summary": "W.P.(C) 4302/2013 source changed on sooperkanoon.com. Changed fields: lastModified.",
+      "url": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-international-taxation"
+    },
+    {
+      "id": "1780944552507-5f3ccc8afeb81333-failed",
+      "at": "2026-06-08T18:49:12.507Z",
+      "level": "warning",
+      "sourceId": "5f3ccc8afeb81333",
+      "caseId": "web-creative-travel-ita-389-2012",
+      "caseCode": "ITA 389/2012",
+      "title": "ITA 389/2012: source check failed",
+      "summary": "ITA 389/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/"
+    },
+    {
+      "id": "1780944552840-706aa6dd393e6198-failed",
+      "at": "2026-06-08T18:49:12.840Z",
+      "level": "warning",
+      "sourceId": "706aa6dd393e6198",
+      "caseId": "web-ag-holdings-wpc-8031-2011",
+      "caseCode": "W.P.(C) 8031/2011",
+      "title": "W.P.(C) 8031/2011: source check failed",
+      "summary": "W.P.(C) 8031/2011 source on future.indiankanoon.org could not be checked: fetch failed.",
+      "url": "https://future.indiankanoon.org/doc/38977400/"
+    },
+    {
+      "id": "1780944553108-8c40b471fdf4ad15-failed",
+      "at": "2026-06-08T18:49:13.108Z",
+      "level": "warning",
+      "sourceId": "8c40b471fdf4ad15",
+      "caseId": "web-anand-nishikawa-ita-430-2012",
+      "caseCode": "ITA 430/2012",
+      "title": "ITA 430/2012: source check failed",
+      "summary": "ITA 430/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del"
+    },
+    {
+      "id": "1780944553403-28aa73186f242b6e-failed",
+      "at": "2026-06-08T18:49:13.402Z",
+      "level": "warning",
+      "sourceId": "28aa73186f242b6e",
+      "caseId": "web-regency-valiant-2012",
+      "caseCode": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+      "title": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012: source check failed",
+      "summary": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/149899903/"
+    },
+    {
+      "id": "1780944553671-3113efe15b7c3472-failed",
+      "at": "2026-06-08T18:49:13.671Z",
+      "level": "warning",
+      "sourceId": "3113efe15b7c3472",
+      "caseId": "web-sarla-fabrics-ita-788-2011",
+      "caseCode": "ITA 788/2011",
+      "title": "ITA 788/2011: source check failed",
+      "summary": "ITA 788/2011 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/"
+    },
+    {
+      "id": "1780944553802-a35a23c57b1a1516-changed",
+      "at": "2026-06-08T18:49:13.802Z",
+      "level": "change",
+      "sourceId": "a35a23c57b1a1516",
+      "caseId": "web-seagram-ita-356-2016",
+      "caseCode": "ITA 356/2016 and 357/2016",
+      "title": "ITA 356/2016 and 357/2016: source changed",
+      "summary": "ITA 356/2016 and 357/2016 source changed on delhihighcourt.nic.in. Changed fields: sourceFingerprint.",
+      "url": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016"
+    },
+    {
+      "id": "1780944554511-8a367cba3ea21573-failed",
+      "at": "2026-06-08T18:49:14.511Z",
+      "level": "warning",
+      "sourceId": "8a367cba3ea21573",
+      "caseId": "web-beam-global-dhc-156-2022",
+      "caseCode": "ITA 156/2022",
+      "title": "ITA 156/2022: source check failed",
+      "summary": "ITA 156/2022 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/161375554/"
+    },
+    {
+      "id": "1780944554658-ce706da656d472d8-failed",
+      "at": "2026-06-08T18:49:14.658Z",
+      "level": "warning",
+      "sourceId": "ce706da656d472d8",
+      "caseId": "web-pepsi-registrar-2019",
+      "caseCode": "SLP(C) Nos. 3136/2017 and connected",
+      "title": "SLP(C) Nos. 3136/2017 and connected: source check failed",
+      "summary": "SLP(C) Nos. 3136/2017 and connected source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/11989121/"
+    },
     {
       "id": "1780943731202-2cf03c231031f791-changed",
       "at": "2026-06-08T18:35:31.202Z",
