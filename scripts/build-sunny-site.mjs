@@ -17,6 +17,13 @@ const EVENT_LOG_PATH = path.join(ROOT, "event-log.html");
 const EVENT_DATA_PATH = path.join(ROOT, "automation-events.json");
 
 const nowIso = new Date().toISOString();
+const TRACKER_SCRIPT = `    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
+    <script>
+      window.SiteTracker.init({
+        siteId: "sunnycasetracker",
+        endpoint: "https://personal-tracker-api.psbaggaai.workers.dev/api/track"
+      });
+    </script>`;
 
 function readText(filePath) {
   return fs.readFileSync(filePath, "utf8");
@@ -24,6 +31,14 @@ function readText(filePath) {
 
 function writeText(filePath, content) {
   fs.writeFileSync(filePath, content.endsWith("\n") ? content : `${content}\n`);
+}
+
+function injectTrackerScript(html) {
+  const withoutExistingTracker = html.replace(
+    /\s*<script src="https:\/\/personal-tracker-api\.psbaggaai\.workers\.dev\/tracker-client\.js"><\/script>\s*<script>\s*window\.SiteTracker\.init\(\{\s*siteId: "sunnycasetracker",\s*endpoint: "https:\/\/personal-tracker-api\.psbaggaai\.workers\.dev\/api\/track"\s*\}\);\s*<\/script>/g,
+    ""
+  );
+  return withoutExistingTracker.replace(/\s*<\/body>\s*<\/html>\s*$/, `\n${TRACKER_SCRIPT}\n  </body>\n</html>`);
 }
 
 function escapeHtml(value) {
@@ -349,7 +364,7 @@ function rewriteTrackerPage(source, aiInsights, options = {}) {
     );
   }
 
-  return html;
+  return injectTrackerScript(html);
 }
 
 function sharedStyles() {
@@ -485,13 +500,7 @@ ${body}
         if (event.key === "Escape") setMenuOpen(false);
       });
     </script>
-    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
-    <script>
-      window.SiteTracker.init({
-        siteId: "sunnycasetracker",
-        endpoint: "https://personal-tracker-api.psbaggaai.workers.dev/api/track"
-      });
-    </script>
+${TRACKER_SCRIPT}
   </body>
 </html>`;
 }
