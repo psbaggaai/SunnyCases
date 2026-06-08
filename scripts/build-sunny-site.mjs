@@ -16,6 +16,7 @@ const AI_INSIGHTS_PATH = path.join(ROOT, "ai-insights.html");
 const EVENT_LOG_PATH = path.join(ROOT, "event-log.html");
 const EVENT_DATA_PATH = path.join(ROOT, "automation-events.json");
 
+const ENABLE_AI_INSIGHTS = false;
 const nowIso = new Date().toISOString();
 const TRACKER_SCRIPT = `    <script src="https://personal-tracker-api.psbaggaai.workers.dev/tracker-client.js"></script>
     <script>
@@ -39,6 +40,30 @@ function injectTrackerScript(html) {
     ""
   );
   return withoutExistingTracker.replace(/\s*<\/body>\s*<\/html>\s*$/, `\n${TRACKER_SCRIPT}\n  </body>\n</html>`);
+}
+
+function stripTrackerAiUi(html) {
+  return html
+    .replace(/\n\s*\.ai-summary-panel \{[\s\S]*?\n\s*\.case-empty \{/, "\n      .case-empty {")
+    .replace(/,\n\s*body\[data-page="case-detail"\] \.home-ai-panel/g, "")
+    .replace(/\n\s*body:not\(\[data-page="case-detail"\]\) \.case-ai-panel \{\n\s*display: none;\n\s*\}\n/g, "\n")
+    .replace(/\n\s*\.ai-grid,/g, "")
+    .replace(/\n\s*\.case-ai-panel,/g, "")
+    .replace(/\n\s*\.ai-summary-panel \{\n\s*display: none !important;\n\s*\}/g, "")
+    .replace(
+      /\n\s*<section class="ai-summary-panel home-ai-panel"[\s\S]*?\n\s*<section class="highlight-grid"/,
+      "\n        <section class=\"highlight-grid\""
+    )
+    .replace(
+      /\n\s*<article class="ai-summary-panel case-ai-panel"[\s\S]*?\n\s*<div class="overview-head">/,
+      "\n          <div class=\"overview-head\">"
+    )
+    .replace(/\n\s*const aiInsights = [\s\S]*?;\n\n\s*const translations/, "\n\n      const translations")
+    .replace(/\n\s*const homeAiSummary = document\.getElementById\("homeAiSummary"\);\n\s*const homeAiRecommendations = document\.getElementById\("homeAiRecommendations"\);\n\s*const homeAiMore = document\.getElementById\("homeAiMore"\);\n\s*const caseAiTitle = document\.getElementById\("caseAiTitle"\);\n\s*const caseAiSummary = document\.getElementById\("caseAiSummary"\);\n\s*const caseAiRecommendations = document\.getElementById\("caseAiRecommendations"\);\n\s*const caseAiMore = document\.getElementById\("caseAiMore"\);/g, "")
+    .replace(/\n\s*"\.ai-summary-panel",/g, "")
+    .replace(/\n\s*function renderAiParagraphs\(container, lines = \[\]\) \{[\s\S]*?\n\s*function updateStaticUi\(\) \{/, "\n      function updateStaticUi() {")
+    .replace(/\n\s*renderHomeAiInsights\(\);/g, "")
+    .replace(/\n\s*renderCaseAiInsights\(item\);/g, "");
 }
 
 function escapeHtml(value) {
@@ -75,6 +100,19 @@ function extractCases(source) {
 
 function totalDocuments(cases) {
   return cases.reduce((sum, item) => sum + (item.documents || []).length, 0);
+}
+
+function emptyAiInsights() {
+  const emptySection = { summaryLines: [], recommendations: [] };
+  return {
+    home: emptySection,
+    pages: {
+      documents: emptySection,
+      orders: emptySection,
+      status: emptySection,
+    },
+    cases: {},
+  };
 }
 
 function isPendingCase(item) {
@@ -259,7 +297,7 @@ function buildAiInsights(cases) {
 function navLinks(active) {
   const links = [
     ["cases", "cases.html", "Cases"],
-    ["ai", "ai-insights.html", "AI Insights"],
+    ...(ENABLE_AI_INSIGHTS ? [["ai", "ai-insights.html", "AI Insights"]] : []),
     ["orders", "orders.html", "Orders"],
     ["documents", "documents.html", "Documents"],
   ];
@@ -297,11 +335,16 @@ function rewriteTrackerPage(source, aiInsights, options = {}) {
   html = html.replace(/<div class="menu-links">[\s\S]*?<\/div>\n\s*<div class="menu-footer">/, `${navLinks("cases")}\n      <div class="menu-footer">`);
   html = html.replace(/<div class="menu-footer">[\s\S]*?<\/div>\n\s*<\/nav>/, `${menuFooter()}\n    </nav>`);
   html = html.replace(/baggaCaseTracker/g, "sunnyCaseTracker");
-  const aiInsightScript = `const aiInsights = ${safeInlineJson(aiInsights)};`;
-  if (/const aiInsights = [\s\S]*?;\n\n\s*const translations/.test(html)) {
-    html = html.replace(/const aiInsights = [\s\S]*?;\n\n\s*const translations/, `${aiInsightScript}\n\n      const translations`);
-  } else {
-    html = html.replace(/\];\n\n\s*const translations/, `];\n\n      ${aiInsightScript}\n\n      const translations`);
+  if (!ENABLE_AI_INSIGHTS) {
+    html = stripTrackerAiUi(html);
+  }
+  if (ENABLE_AI_INSIGHTS) {
+    const aiInsightScript = `const aiInsights = ${safeInlineJson(aiInsights)};`;
+    if (/const aiInsights = [\s\S]*?;\n\n\s*const translations/.test(html)) {
+      html = html.replace(/const aiInsights = [\s\S]*?;\n\n\s*const translations/, `${aiInsightScript}\n\n      const translations`);
+    } else {
+      html = html.replace(/\];\n\n\s*const translations/, `];\n\n      ${aiInsightScript}\n\n      const translations`);
+    }
   }
   html = html.replace(
     /const isCaseDetailPage = [^;]+;\n\s*(?:if \(isCaseDetailPage\) document\.body\.dataset\.page = "case-detail";\n\s*)?/,
@@ -368,6 +411,17 @@ function rewriteTrackerPage(source, aiInsights, options = {}) {
 }
 
 function sharedStyles() {
+  const aiStyles = ENABLE_AI_INSIGHTS
+    ? `      .ai-summary-panel { background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(230,237,248,0.9)), linear-gradient(90deg, rgba(113,185,223,0.1), rgba(217,165,58,0.1)); border: 1px solid rgba(89,123,171,0.28); border-radius: 22px; box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.84); margin-bottom: 20px; padding: 20px; }
+      .ai-panel-head { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
+      .ai-title { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
+      .ai-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .ai-block { background: rgba(255,255,255,0.56); border: 1px solid rgba(105,131,173,0.16); border-radius: 16px; padding: 14px; }
+      .ai-block p { color: #31435d; font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-top: 8px; }
+      .ai-list { color: #31435d; display: grid; gap: 8px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; padding-left: 18px; }
+      .ai-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+`
+    : "";
   return `:root { --bg: #eef4fb; --ink: #1f2b3d; --muted: #63748d; --navy: #172d4d; --border: rgba(105, 131, 173, 0.2); --surface: #fff; --shadow: 0 18px 46px rgba(29, 53, 87, 0.12); }
       * { box-sizing: border-box; }
       body { margin: 0; font-family: "SF Pro Display", "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(120deg, rgba(255,255,255,0.72), rgba(216,226,241,0.6) 38%, rgba(248,246,236,0.72)), linear-gradient(180deg, #f8fbff 0%, #dfe8f3 58%, #f4f0e6 100%); }
@@ -398,14 +452,7 @@ function sharedStyles() {
       .menu-link:hover, .menu-link.active { background: #eef4ff; border-color: var(--border); color: #315fae; }
       .menu-footer { border-top: 1px solid var(--border); margin-top: auto; padding-top: 14px; }
       main { padding: 22px clamp(20px, 4vw, 40px) 64px; }
-      .ai-summary-panel { background: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(230,237,248,0.9)), linear-gradient(90deg, rgba(113,185,223,0.1), rgba(217,165,58,0.1)); border: 1px solid rgba(89,123,171,0.28); border-radius: 22px; box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.84); margin-bottom: 20px; padding: 20px; }
-      .ai-panel-head { align-items: center; display: flex; gap: 12px; justify-content: space-between; margin-bottom: 14px; }
-      .ai-title { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
-      .ai-grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-      .ai-block { background: rgba(255,255,255,0.56); border: 1px solid rgba(105,131,173,0.16); border-radius: 16px; padding: 14px; }
-      .ai-block p { color: #31435d; font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-top: 8px; }
-      .ai-list { color: #31435d; display: grid; gap: 8px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; padding-left: 18px; }
-      .ai-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+${aiStyles}
       .page-head, .row, .stat-card { background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(230,237,248,0.88)), linear-gradient(90deg, rgba(113,185,223,0.08), rgba(217,165,58,0.08)); border: 1px solid rgba(89,123,171,0.26); box-shadow: 0 18px 42px rgba(29,53,87,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
       .page-head { border-radius: 24px; padding: 24px; }
       .label { color: var(--muted); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -531,12 +578,15 @@ ${recommendations.map((line) => `              <li>${escapeHtml(line)}</li>`).jo
 
 function buildDocumentsPage(cases, aiInsights, updatedLabel) {
   const rows = buildDocumentRecords(cases);
-  const body = `${buildAiPanel({
-    title: "Document library summary",
-    summaryLines: aiInsights.pages.documents.summaryLines,
-    recommendations: aiInsights.pages.documents.recommendations,
-    href: "ai-insights.html#documents",
-  })}
+  const aiPanel = ENABLE_AI_INSIGHTS
+    ? buildAiPanel({
+        title: "Document library summary",
+        summaryLines: aiInsights.pages.documents.summaryLines,
+        recommendations: aiInsights.pages.documents.recommendations,
+        href: "ai-insights.html#documents",
+      })
+    : "";
+  const body = `${aiPanel}
       <section class="page-head">
         <div class="label">Document Library</div>
         <h2>Documents and Source Filings</h2>
@@ -565,12 +615,15 @@ ${rows
 
 function buildOrdersPage(cases, aiInsights, updatedLabel) {
   const rows = buildOrderRecords(cases);
-  const body = `${buildAiPanel({
-    title: "Orders and source notes summary",
-    summaryLines: aiInsights.pages.orders.summaryLines,
-    recommendations: aiInsights.pages.orders.recommendations,
-    href: "ai-insights.html#orders",
-  })}
+  const aiPanel = ENABLE_AI_INSIGHTS
+    ? buildAiPanel({
+        title: "Orders and source notes summary",
+        summaryLines: aiInsights.pages.orders.summaryLines,
+        recommendations: aiInsights.pages.orders.recommendations,
+        href: "ai-insights.html#orders",
+      })
+    : "";
+  const body = `${aiPanel}
       <section class="page-head">
         <div class="label">Order Library</div>
         <h2>Orders, Judgments, and Source Notes</h2>
@@ -646,12 +699,15 @@ ${rows
 }
 
 function buildEventLogPage(cases, aiInsights, updatedLabel) {
-  const body = `${buildAiPanel({
-    title: "Publishing report summary",
-    summaryLines: aiInsights.pages.status.summaryLines,
-    recommendations: aiInsights.pages.status.recommendations,
-    href: "ai-insights.html#site-report",
-  })}
+  const aiPanel = ENABLE_AI_INSIGHTS
+    ? buildAiPanel({
+        title: "Publishing report summary",
+        summaryLines: aiInsights.pages.status.summaryLines,
+        recommendations: aiInsights.pages.status.recommendations,
+        href: "ai-insights.html#site-report",
+      })
+    : "";
+  const body = `${aiPanel}
       <section class="page-head">
         <div class="label">Publishing</div>
         <h2>Sunny Case Tracker Status</h2>
@@ -716,7 +772,7 @@ ${cases
 const source = readText(SOURCE_PATH);
 const cases = extractCases(source);
 const updatedLabel = formatUpdatedLabel(nowIso);
-const aiInsights = buildAiInsights(cases);
+const aiInsights = ENABLE_AI_INSIGHTS ? buildAiInsights(cases) : emptyAiInsights();
 const homepage = rewriteTrackerPage(source, aiInsights);
 const casesPage = rewriteTrackerPage(source, aiInsights, { isDetailPage: true });
 
@@ -725,7 +781,11 @@ writeText(CASES_PATH, casesPage);
 writeText(SUNNY_PATH, homepage);
 writeText(DOCUMENTS_PATH, buildDocumentsPage(cases, aiInsights, updatedLabel));
 writeText(ORDERS_PATH, buildOrdersPage(cases, aiInsights, updatedLabel));
-writeText(AI_INSIGHTS_PATH, buildAiInsightsPage(cases, aiInsights, updatedLabel));
+if (ENABLE_AI_INSIGHTS) {
+  writeText(AI_INSIGHTS_PATH, buildAiInsightsPage(cases, aiInsights, updatedLabel));
+} else if (fs.existsSync(AI_INSIGHTS_PATH)) {
+  fs.unlinkSync(AI_INSIGHTS_PATH);
+}
 writeText(EVENT_LOG_PATH, buildEventLogPage(cases, aiInsights, updatedLabel));
 writeText(
   EVENT_DATA_PATH,
