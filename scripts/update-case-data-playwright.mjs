@@ -30,6 +30,7 @@ const CASE_CONFIGS = [
     caseTypeName: "WP",
     caseNo: "13441",
     year: "2024",
+    benchName: "Indore",
     displayTitle: "Prabhjit Singh Bagga and others vs The State of Madhya Pradesh and others",
   },
   {
@@ -37,7 +38,22 @@ const CASE_CONFIGS = [
     caseTypeName: "MCRC",
     caseNo: "3868",
     year: "2025",
+    benchName: "Indore",
+    partySearchName: "PRABHJIT SINGH BAGGA",
+    partySearchYear: "2025",
     displayTitle: "Prabhjit Singh Bagga vs Kartar Kaur Chhabra",
+  },
+  {
+    id: "mcc-178-2025",
+    caseTypeName: "MCC",
+    caseNo: "178",
+    year: "2025",
+    benchName: "Indore",
+    partySearchName: "PRABHJIT SINGH BAGGA",
+    partySearchYear: "2025",
+    displayTitle: "Prabhjit Singh Bagga through power of attorney Jagjit Singh Bagga vs Kartar Kaur Chhabra",
+    fallbackPetitioners: ["PRABHJIT SINGH BAGGA S/O SHRI JAGJIT SINGH BAGGA THROUGH HIS POWER OF ATTORNEY HOLDER JAGJIT SINGH"],
+    fallbackRespondents: ["KARTAR KAUR CHHABRA"],
   },
 ];
 
@@ -341,7 +357,7 @@ function parseModalPage(pageHtml) {
 
   return {
     type: matchText(pageHtml, /<div class="fw-bold"[^>]*>\s*([\s\S]*?)<span class="fw-normal/),
-    status: matchText(pageHtml, /bi-hourglass-split[^>]*><\/i>\s*([^<]+)</),
+    status: matchText(pageHtml, /bi-(?:hourglass-split|check2-circle)[^>]*><\/i>\s*([^<]+)</),
     cnr: matchText(pageHtml, /CNR:\s*([^<]+)/),
     bench: matchText(pageHtml, /bi-building[^>]*><\/i>\s*([^<]+)/),
     filedOn: matchText(pageHtml, /Filed On<\/div>\s*<div class="fw-bold mt-1">([\s\S]*?)<\/div>/),
@@ -382,16 +398,56 @@ function formatRowsForTimeline(rows) {
   }));
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function caseCodeMatcher(config) {
+  return new RegExp(`${escapeRegExp(config.caseTypeName)}[\\/-]${escapeRegExp(config.caseNo)}[\\/-]${escapeRegExp(config.year)}`, "i");
+}
+
+async function findCaseLink(page, config, timeout = 60000) {
+  const rowLink = page.locator("a.get_data", { hasText: caseCodeMatcher(config) }).first();
+  await rowLink.waitFor({ timeout });
+  return rowLink;
+}
+
+async function findCaseLinkByPartyName(page, config) {
+  if (!config.partySearchName) {
+    throw new Error(`No party-name fallback is configured for ${config.id}.`);
+  }
+
+  await page.goto(COURT_URL, { waitUntil: "domcontentloaded", timeout: 120000 });
+  await page.waitForSelector("#case_status_form", { timeout: 60000 });
+  if (config.partySearchBenchName && (await page.locator('select[name="bench_code"]').count()) > 0) {
+    await page.selectOption('select[name="bench_code"]', { label: config.partySearchBenchName });
+  }
+  await page.click("#judgments-tab");
+  await page.fill("#Party_Name", config.partySearchName);
+  await page.selectOption("#party_Year", config.partySearchYear || config.year);
+  await page.click("#sendbtn");
+  return findCaseLink(page, config, 60000);
+}
+
 async function scrapeCase(page, config, tmpDir) {
   await page.goto(COURT_URL, { waitUntil: "domcontentloaded", timeout: 120000 });
   await page.waitForSelector("#case_status_form", { timeout: 60000 });
+  if (config.benchName && (await page.locator('select[name="bench_code"]').count()) > 0) {
+    await page.selectOption('select[name="bench_code"]', { label: config.benchName });
+  }
   await page.selectOption("#case_type", { label: config.caseTypeName });
   await page.fill("#case_no", config.caseNo);
   await page.selectOption("#year_registration", config.year);
   await page.getByRole("button", { name: /search/i }).first().click();
 
-  const rowLink = page.locator("a.get_data", { hasText: `${config.caseTypeName}/${config.caseNo}/${config.year}` }).first();
-  await rowLink.waitFor({ timeout: 60000 });
+  let rowLink;
+  try {
+    rowLink = await findCaseLink(page, config);
+  } catch (error) {
+    if (!config.partySearchName) throw error;
+    console.log(`Case-number search did not return ${config.caseTypeName}/${config.caseNo}/${config.year}; trying party-name search.`);
+    rowLink = await findCaseLinkByPartyName(page, config);
+  }
 
   const filNo = await rowLink.getAttribute("data-cino");
   const rowHandle = await rowLink.locator("xpath=ancestor::tr").elementHandle();
@@ -448,8 +504,13 @@ async function scrapeCase(page, config, tmpDir) {
       .map((cells) => `${cells[0]}: ${cells[1] || "—"}`)
       .join(" / ") || "No earlier-court linkage shown.";
 
-  const bench = modal.bench || rowTexts[2] || "Indore";
-  const status = modal.status || rowTexts[3] || "Pending";
+  const bench = modal.bench || config.benchName || rowTexts[2] || "Indore";
+  const rowStatus = rowTexts.find((text) => /^(Pending|Disposed)$/i.test(String(text).trim()));
+  const status = modal.status || rowStatus || rowTexts[3] || "Pending";
+  const petitioners = modal.petitioners.length ? modal.petitioners : config.fallbackPetitioners || [];
+  const respondents = modal.respondents.length ? modal.respondents : config.fallbackRespondents || [];
+  const petitionerAdvocates = modal.petitionerAdvocates.length ? modal.petitionerAdvocates : config.fallbackPetitionerAdvocates || [];
+  const respondentAdvocates = modal.respondentAdvocates.length ? modal.respondentAdvocates : config.fallbackRespondentAdvocates || [];
 
   return {
     id: config.id,
@@ -470,7 +531,7 @@ async function scrapeCase(page, config, tmpDir) {
     da: modal.da || "",
     cnr: modal.cnr || "",
     sourceUrl: COURT_URL,
-    partiesSummary: `${modal.petitioners.length} petitioner(s), ${modal.respondents.length} respondent(s), ${pendingIaRows.length} pending IA(s)`,
+    partiesSummary: `${petitioners.length} petitioner(s), ${respondents.length} respondent(s), ${pendingIaRows.length} pending IA(s)`,
     category: modal.category || "",
     district: modal.district || "",
     statutory: modal.statutory || "",
@@ -529,10 +590,10 @@ async function scrapeCase(page, config, tmpDir) {
     ordersArchive: judgementRows.map((entry) => [entry.date, entry.link]),
     documents: documentRows.map((cells) => [cells[0], cells[1], cells[2], cells[3]]),
     serviceInfo: [...noticesSummary, `Connected cases summary: ${stripTags(tabs.connected) || "Main case only."}`, `Earlier court summary: ${ecourtSummary}`],
-    petitioners: modal.petitioners,
-    petitionerAdvocates: modal.petitionerAdvocates,
-    respondents: modal.respondents,
-    respondentAdvocates: modal.respondentAdvocates,
+    petitioners,
+    petitionerAdvocates,
+    respondents,
+    respondentAdvocates,
     filNo,
   };
 }
@@ -740,9 +801,9 @@ function mergeRefreshedCases(existingCases, refreshedCases) {
 
 function replaceCasesData(html, cases) {
   const replacement = `const cases = ${JSON.stringify(cases, null, 8)};`;
-  const next = html.replace(/const cases = [\s\S]*?;\n\n      const translations =/, `${replacement}\n\n      const translations =`);
-  if (next === html) throw new Error("Unable to replace cases data block.");
-  return next;
+  const pattern = /const cases = [\s\S]*?;\n\n      const translations =/;
+  if (!pattern.test(html)) throw new Error("Unable to replace cases data block.");
+  return html.replace(pattern, `${replacement}\n\n      const translations =`);
 }
 
 function extractCasesDataBlock(html) {
@@ -753,9 +814,9 @@ function extractCasesDataBlock(html) {
 
 function replaceCasesDataBlock(html, sourceHtml) {
   const replacement = extractCasesDataBlock(sourceHtml);
-  const next = html.replace(/const cases = [\s\S]*?;\n\n      const translations =/, `${replacement}\n\n      const translations =`);
-  if (next === html) throw new Error("Unable to replace cases data block.");
-  return next;
+  const pattern = /const cases = [\s\S]*?;\n\n      const translations =/;
+  if (!pattern.test(html)) throw new Error("Unable to replace cases data block.");
+  return html.replace(pattern, `${replacement}\n\n      const translations =`);
 }
 
 function formatRunTimestamp(date) {
@@ -940,23 +1001,27 @@ async function main() {
   const { chromium } = await import("playwright");
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bagga-playwright-sync-"));
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
+  const pageOptions = {
     viewport: { width: 1440, height: 2200 },
     userAgent:
       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
-  });
+  };
 
   try {
     const refreshedCases = [];
     const failures = [];
     for (const config of CASE_CONFIGS) {
+      let casePage;
       try {
-        const caseData = await scrapeCase(page, config, tmpDir);
+        casePage = await browser.newPage(pageOptions);
+        const caseData = await scrapeCase(casePage, config, tmpDir);
         refreshedCases.push(caseData);
       } catch (error) {
         failures.push(`${config.id}: ${error.message}`);
         console.error(`Unable to refresh ${config.id}; preserving existing tracker data.`);
         console.error(error);
+      } finally {
+        await casePage?.close().catch(() => {});
       }
     }
 
