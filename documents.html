@@ -47,6 +47,13 @@
       .sort-row { color: var(--muted); padding: 0 16px; }
       .row { border-radius: 18px; padding: 16px; }
       .document-row { grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(220px, 1fr) minmax(160px, 0.75fr) minmax(110px, 0.45fr); }
+      .event-row { grid-template-columns: minmax(170px, 0.8fr) minmax(180px, 0.8fr) minmax(260px, 1.35fr) minmax(130px, 0.5fr); }
+      .event-level { align-items: center; border-radius: 999px; display: inline-flex; font-size: 0.76rem; font-weight: 900; justify-content: center; min-height: 30px; padding: 7px 10px; text-transform: uppercase; width: fit-content; }
+      .event-level.change { background: #e6f5ec; color: #237245; }
+      .event-level.warning { background: #fff1dc; color: #9a5a12; }
+      .event-level.notice { background: #eef4ff; color: #315fae; }
+      .event-level.info { background: #edf4f0; color: #49715f; }
+      .event-empty { border: 1px dashed rgba(89,123,171,0.32); border-radius: 18px; color: var(--muted); font-weight: 800; padding: 18px; }
       .case-code, .value { font-weight: 850; line-height: 1.35; }
       .case-link { color: inherit; text-decoration: none; }
       .case-link:hover { color: #315fae; text-decoration: underline; }
@@ -55,7 +62,7 @@
       .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
       .sort-button:hover, .sort-button.active { color: var(--navy); }
       .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
-      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row, .event-row { grid-template-columns: 1fr; } }
       @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }
     </style>
   </head>
@@ -71,7 +78,7 @@
           </a>
         </div>
         <div class="top-banner-actions">
-          <div class="last-updated-chip">Last updated: Jun 8, 2026, 10:28 AM PDT</div>
+          <div class="last-updated-chip">Last updated: Jun 8, 2026, 11:05 AM PDT</div>
           <a class="back-link" href="cases.html">Cases</a>
         </div>
       </div>

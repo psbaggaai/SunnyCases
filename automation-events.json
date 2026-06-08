@@ -1,5 +1,2983 @@
 {
-  "version": 1,
-  "updatedAt": "2026-06-08T17:28:02.801Z",
-  "events": []
+  "version": 2,
+  "updatedAt": "2026-06-08T18:02:55.402Z",
+  "siteBuiltAt": "2026-06-08T18:05:54.700Z",
+  "captchaPolicy": {
+    "mode": "detect-only",
+    "note": "The scheduled job detects CAPTCHA-gated official forms and records manual-refresh targets. It does not solve or bypass CAPTCHA challenges."
+  },
+  "lastRun": {
+    "startedAt": "2026-06-08T18:02:03.648Z",
+    "completedAt": "2026-06-08T18:02:55.402Z",
+    "status": "completed_with_warnings",
+    "checkedSources": 41,
+    "changedSources": 0,
+    "failedSources": 9,
+    "captchaSources": 8,
+    "caseCount": 34,
+    "officialProbeCount": 9,
+    "notes": [
+      "Official SCI case-status, daily-order, judgment, and office-report forms are probed and marked when CAPTCHA is present.",
+      "Direct public PDFs and known public source pages are fetched, fingerprinted, and lightly summarized for change detection."
+    ]
+  },
+  "sources": {
+    "bfcbdaf766a47a39": {
+      "id": "bfcbdaf766a47a39",
+      "url": "https://www.sci.gov.in/case-status-diary-no/",
+      "label": "SCI case status by diary number",
+      "kind": "official-sci-captcha-form",
+      "cases": [
+        {
+          "id": "sci-diary-9965-2017",
+          "code": "C.A. No. 001116 / 2021",
+          "title": "Principal Commissioner of Income Tax (Central) 1 vs Pepsi Foods Pvt. Ltd. (now Pepsico India Holding Pvt. Ltd)"
+        },
+        {
+          "id": "sci-diary-15262-2020",
+          "code": "SCI Diary 15262/2020",
+          "title": "The Pr Commissioner of Income Tax 6 vs Mckinsey Knowledge Centre India Pvt Ltd"
+        },
+        {
+          "id": "sci-diary-21096-2020",
+          "code": "SLP(C) No. 020841 / 2022",
+          "title": "Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd."
+        },
+        {
+          "id": "sci-diary-21184-2021",
+          "code": "R.P.(C) No. 001422 - 001497 / 2021",
+          "title": "Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters"
+        },
+        {
+          "id": "sci-diary-14438-2022",
+          "code": "MA 000918 - / 2022",
+          "title": "Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others"
+        },
+        {
+          "id": "sci-diary-38332-2018",
+          "code": "C.A. No. 008463 / 2022",
+          "title": "SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore"
+        },
+        {
+          "id": "sci-diary-4382-2014",
+          "code": "W.P.(C) No. 000104 / 2014",
+          "title": "BSES Rajdhani Power Ltd. and another vs Union of India and others"
+        },
+        {
+          "id": "sci-diary-27798-2010",
+          "code": "C.A. No. 002396 / 2011",
+          "title": "The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:33.053Z",
+      "lastChangedAt": "2026-06-08T18:00:57.162Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.285Z",
+        "startedAt": "2026-06-08T18:02:03.652Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/case-status-diary-no/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "28501",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 120363,
+        "truncated": false,
+        "sha256": "be2df57c2b9b04710c2a47757c5fea3e97d79f7a73eba3f90801410f61067855",
+        "title": "Diary number | Supreme Court of India | India",
+        "heading": "Diary number",
+        "textPreview": "Diary number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "21abd296ebec6a461246b9f3b8e2bff02145dfb3482ed19e4b69beb828cc6447",
+        "dateHints": [
+          "Jun 08, 2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "ebfb12edc6bdb38c": {
+      "id": "ebfb12edc6bdb38c",
+      "url": "https://www.sci.gov.in/case-status-case-no/",
+      "label": "SCI case status by case number",
+      "kind": "official-sci-captcha-form",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:33.295Z",
+      "lastChangedAt": "2026-06-08T18:00:57.214Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.341Z",
+        "startedAt": "2026-06-08T18:02:04.285Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/case-status-case-no/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "29102",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 124050,
+        "truncated": false,
+        "sha256": "3009b93b2465507ebb9af366ab93e83e8d1a44fd0385c14e5f5cb63d6ce2155f",
+        "title": "Case Number | Supreme Court of India | India",
+        "heading": "Case Number",
+        "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "516ebb9a0f92e8ece75564e8f4223b61106c83fdf36abd4cedb17e40b26a0d51",
+        "dateHints": [
+          "Jun 08, 2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "5a48431ba6559a6d": {
+      "id": "5a48431ba6559a6d",
+      "url": "https://www.sci.gov.in/case-status-aor-code/",
+      "label": "SCI case status by AOR code",
+      "kind": "official-sci-captcha-form",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:34.372Z",
+      "lastChangedAt": "2026-06-08T18:00:57.292Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.423Z",
+        "startedAt": "2026-06-08T18:02:04.341Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/case-status-aor-code/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "83131",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 435205,
+        "truncated": false,
+        "sha256": "feca00527fc3c09a61a823291c971d7dc2f4b28ec3a2ea88c909a5bdf172f3ae",
+        "title": "AOR Code | Supreme Court of India | India",
+        "heading": "AOR Code",
+        "textPreview": "AOR Code | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges Lib...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "22b78c8b66811d2280fd7ad5136daf837a809f73538069dbf6447ede3f32efa3",
+        "dateHints": [],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "a1ebb1c4323935b0": {
+      "id": "a1ebb1c4323935b0",
+      "url": "https://www.sci.gov.in/daily-order-case-no/",
+      "label": "SCI daily orders by case number",
+      "kind": "official-sci-captcha-form",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:34.595Z",
+      "lastChangedAt": "2026-06-08T18:00:57.363Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.472Z",
+        "startedAt": "2026-06-08T18:02:04.423Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/daily-order-case-no/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "29087",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 123724,
+        "truncated": false,
+        "sha256": "4a84585e6b7040a8126d676a76fc0aad623f9949d2ee8336fea284c820083b26",
+        "title": "Case Number | Supreme Court of India | India",
+        "heading": "Case Number",
+        "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "d52f217a6180f59b3404a5ca11b324ff4f9a02bbd1e3f7f188f6845b2acb9d7a",
+        "dateHints": [
+          "Jun 08, 2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "e51ab209049d8568": {
+      "id": "e51ab209049d8568",
+      "url": "https://www.sci.gov.in/judgements-case-no/",
+      "label": "SCI judgments by case number",
+      "kind": "official-sci-captcha-form",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:34.811Z",
+      "lastChangedAt": "2026-06-08T18:00:57.422Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.521Z",
+        "startedAt": "2026-06-08T18:02:04.472Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/judgements-case-no/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "29086",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 123900,
+        "truncated": false,
+        "sha256": "512f4280696970c1cef0da22552d46e781af791a5f4d7eafbec190087e4abc06",
+        "title": "Case Number | Supreme Court of India | India",
+        "heading": "Case Number",
+        "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "36aef1c435ada3682184556ed0a1e300180001c5dfdd41ebb8eaa1ec963dbd17",
+        "dateHints": [
+          "Jun 08, 2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "b0430806d10590c7": {
+      "id": "b0430806d10590c7",
+      "url": "https://www.sci.gov.in/office-report-case-no/",
+      "label": "SCI office reports by case number",
+      "kind": "official-sci-captcha-form",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:35.027Z",
+      "lastChangedAt": "2026-06-08T18:00:57.483Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.572Z",
+        "startedAt": "2026-06-08T18:02:04.521Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/office-report-case-no/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "29024",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 123290,
+        "truncated": false,
+        "sha256": "287baf7462e9a86f4149a53febb2a789723a29805c565475d2069621b6123345",
+        "title": "Case Number | Supreme Court of India | India",
+        "heading": "Case Number",
+        "textPreview": "Case Number | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "abb55a5541bf4f2dd8afc10393eb43998fac64028b49109a82a31a7162f8b561",
+        "dateHints": [
+          "Jun 08, 2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/10/2025101955.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "8271280310ab3a2c": {
+      "id": "8271280310ab3a2c",
+      "url": "https://www.sci.gov.in/cause-list/",
+      "label": "SCI cause list",
+      "kind": "official-sci-public-page",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:35.261Z",
+      "lastChangedAt": "2026-06-08T18:00:57.635Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:04.627Z",
+        "startedAt": "2026-06-08T18:02:04.572Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.sci.gov.in/cause-list/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "32976",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 170375,
+        "truncated": false,
+        "sha256": "759ea7a09c611649f54e0a6e2be70534b0f600fb2f484b14d9e5a99fe28d82ef",
+        "title": "Cause List | Supreme Court of India | India",
+        "heading": "Cause List",
+        "textPreview": "Cause List | Supreme Court of India | India Skip to main content Search Search --> Search Search Accessibility Links Accessibility Tools --> Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor English हिन्दी भारत का सर्वोच्च न्यायालय SUPREME COURT OF INDIA भारत का सर्वोच्च न्यायालय Supreme Court of India || यतो धर्मस्ततो जय: || Menu Toggle More Home About Us History Constitution Jurisdiction Calendar Committees Organization Chart Registry Officers Contact Us Judges Chief Justice &amp; Judges Former Chief Justices Former Judges Judges Roster Judges L...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "96fce179e173ed5da1bb9cc6b44b85de7a1c1a770e1bebe06203d9d3a93dc2ac",
+        "dateHints": [
+          "08-06-2026",
+          "09-06-2026",
+          "10-06-2026",
+          "11-06-2026",
+          "12-06-2026"
+        ],
+        "discoveredPdfUrls": [
+          "https://cdn.s3waas.gov.in/s3ec0490f1f4972d133619a60c30f3559e/uploads/2025/12/2025121262.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-08/M_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-08/M_J_2.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-09/M_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-09/M_J_2.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-09/M_R_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-10/M_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-10/F_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-11/M_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-11/F_J_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-11/M_R_1.pdf",
+          "https://api.sci.gov.in/jonew/cl/2026-06-12/M_J_1.pdf"
+        ],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "2cf03c231031f791": {
+      "id": "2cf03c231031f791",
+      "url": "https://scr.sci.gov.in/",
+      "label": "SCI e-SCR",
+      "kind": "official-sci-public-page",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:38.465Z",
+      "lastChangedAt": "2026-06-08T18:01:00.781Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:07.062Z",
+        "startedAt": "2026-06-08T18:02:04.627Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://scr.sci.gov.in/scrsearch/",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "22072",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 22072,
+        "truncated": false,
+        "sha256": "897e0d8b31f6e87ab172872a8418b12ce2811b0851cb8f10a3e30f0e108363f2",
+        "title": "Home | Judgements and Orders, Supreme Court and High courts of India",
+        "heading": "",
+        "textPreview": "Home | Judgements and Orders, Supreme Court and High courts of India Skip to main content A- A A+ A A English অসমীয়া - Assamese বাংলা - Bengali আ·চিক - Garo ગુજરાતી - Gujarati हिन्दी - Hindi ಕನ್ನಡ - Kannada कॉशुर - Kashmiri খসি - Khasi कोंकणी - Konkani മലയാളം - Malayalam मराठी - Marathi नेपाली - Nepali ଓଡ଼ିଆ - Odia ਪੰਜਾਬੀ - Punjabi ᱥᱟᱱᱛᱟᱲᱤ - Santali தமிழ் - Tamil తెలుగు - Telugu اُردُو - Urdu Supreme Court of India Supreme Court Reports (SCR) eSCR - Reportable Judgments ISSN: 3048-4839 (Online) --> Supreme Court of India Supreme Court Reports (SCR) Judgements and Orders Indian Judiciary Home e-Committee NJDG Supreme Court District Courts Contact Us Use AND, OR [all capitals] between word...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "e7cea20b61fb229c9822c67ab90a975063193fa79410ae685ecf6ede17228a42",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "7f22e97f32f62b85": {
+      "id": "7f22e97f32f62b85",
+      "url": "https://judgments.ecourts.gov.in/",
+      "label": "eCourts judgments portal",
+      "kind": "official-ecourts-public-page",
+      "cases": [],
+      "firstSeenAt": "2026-06-08T17:57:41.556Z",
+      "lastChangedAt": "2026-06-08T18:01:03.964Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:09.469Z",
+        "startedAt": "2026-06-08T18:02:07.063Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://judgments.ecourts.gov.in/pdfsearch/index.php",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "19560",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 19560,
+        "truncated": false,
+        "sha256": "aa911a3eff689b0127eeab2aa6b256ea662e77d29979bba1f8f5d1527480498a",
+        "title": "Home | Judgements and Orders, Supreme Court and High courts of India",
+        "heading": "",
+        "textPreview": "Home | Judgements and Orders, Supreme Court and High courts of India Skip to navigation Skip to main content A- A A+ A A English অসমীয়া - Assamese বাংলা - Bengali আ·চিক - Garo ગુજરાતી - Gujarati हिन्दी - Hindi ಕನ್ನಡ - Kannada कॉशुर - Kashmiri খসি - Khasi कोंकणी - Konkani മലയാളം - Malayalam मराठी - Marathi नेपाली - Nepali ଓଡ଼ିଆ - Odia ਪੰਜਾਬੀ - Punjabi ᱥᱟᱱᱛᱟᱲᱤ - Santali தமிழ் - Tamil తెలుగు - Telugu اُردُو - Urdu eSCR,Judgements and Orders Indian Judiciary Home e-Committee NJDG --> Supreme Court District Courts Video Tutorials --> NJDG Contact Us Supreme Court --> High Court SCR Keyword Phrase(s) Any Words All Words Proximity 20 40 60 80 100 Captcha Enable Javascript for audio controls &nb...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "df35a0f08190e0919e7d584c23db267108d5c52ac8722c085c1d0db197d5eafb",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": true,
+        "captchaMode": "detect-only"
+      }
+    },
+    "1ef72c69820ec3a3": {
+      "id": "1ef72c69820ec3a3",
+      "url": "https://api.sci.gov.in/supremecourt/2020/21096/21096_2020_15_3_38113_Order_12-Sep-2022.pdf",
+      "label": "SLP(C) No. 020841 / 2022 order 12 Sep 2022",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-21096-2020",
+          "code": "SLP(C) No. 020841 / 2022",
+          "title": "Pr. Commissioner of Income Tax 4 vs Symphony Marketing Solutions India Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:43.761Z",
+      "lastChangedAt": "2026-06-08T18:01:06.201Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:10.581Z",
+        "startedAt": "2026-06-08T18:02:09.469Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2020/21096/21096_2020_15_3_38113_Order_12-Sep-2022.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "29768",
+        "lastModified": "Tue, 13 Sep 2022 08:19:35 GMT",
+        "etag": "\"7448-5e88aac3242a4\"",
+        "bytesRead": 29768,
+        "truncated": false,
+        "sha256": "4fa30b61cbb38805fa7e2c2e95e94ac71576f2ac7c7d8f39c5ecbf4ca1f17f23",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "ITEM NO.3 COURT NO.15 S U P R E M E C O U R T O F RECORD OF PROCEEDINGS SECTION XIV I N D I A SPECIAL LEAVE PETITION (CIVIL) Diary No. 21096/2020 (Arising out of impugned final judgment and order dated 07-08-2019 in ITA No. 414/2018 passed by the High Court of Delhi at New Delhi) PR. COMMISSIONER OF INCOME TAX 4 Petitioner(s) VERSUS SYMPHONY MARKETING SOLUTIONS INDIA PVT. LTD. Respondent(s) (FOR ADMISSION and I.R. an",
+        "pdfTextFingerprint": "5a27b22d10e59723791e5d59e5e5864058992cf2e151004b5191502dd92c313a",
+        "sourceFingerprint": "5a27b22d10e59723791e5d59e5e5864058992cf2e151004b5191502dd92c313a",
+        "dateHints": [
+          "07-08-2019"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "e8e535c2699a7cf5": {
+      "id": "e8e535c2699a7cf5",
+      "url": "https://api.sci.gov.in/supremecourt/2021/21184/21184_2021_12_301_71066_Order_11-May-2026.pdf",
+      "label": "R.P.(C) No. 001422 - 001497 / 2021 order 11 May 2026",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-21184-2021",
+          "code": "R.P.(C) No. 001422 - 001497 / 2021",
+          "title": "Commissioner of Income Tax International Taxation and another vs Engineering Analysis Centre of Excellence Private Limited and connected matters"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:44.974Z",
+      "lastChangedAt": "2026-06-08T18:01:07.310Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:11.678Z",
+        "startedAt": "2026-06-08T18:02:10.581Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2021/21184/21184_2021_12_301_71066_Order_11-May-2026.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "36581",
+        "lastModified": "Sat, 16 May 2026 06:58:12 GMT",
+        "etag": "\"8ee5-651e9da4dbb9c\"",
+        "bytesRead": 36581,
+        "truncated": false,
+        "sha256": "3b2e1056e03adada51c6c0664c6f5cc9f85525fc1f1dc6a4f9e7177bc30a4a27",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "IN THE SUPREME COURT OF INDIA INHERENT JURISDICTION REVIEW PETITION (C) NOS. 1422-1497/2021 IN CIVIL APPEAL NOS. 10097/2013, 10098/2013, 10099/2013, 10100/2013, 10101/2013, 10102/2013, 10103/2013, 10104/2013, 10114/2013, 1403/2013, 1404/2013, 1405/2013, 1408/2013, 1409/2013, 1410/2013, 1411/2013, 1412/2013, 1413/2013, 1414/2013, 1415/2013, 1416/2013, 1417/2013, 1418/2013, 1419/2013, 1420/2013, 1421/2013, 2006/2019, 2",
+        "pdfTextFingerprint": "24a993e39a76f6b1ff51e59afe4dc0bd9ed2003028d964ccc05012ea244d1511",
+        "sourceFingerprint": "24a993e39a76f6b1ff51e59afe4dc0bd9ed2003028d964ccc05012ea244d1511",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "ce86cab2677dba5d": {
+      "id": "ce86cab2677dba5d",
+      "url": "https://api.sci.gov.in/supremecourt/2022/14438/14438_2022_6_2_36751_Order_27-Jul-2022.pdf",
+      "label": "MA 000918 - / 2022 order 27 Jul 2022",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-14438-2022",
+          "code": "MA 000918 - / 2022",
+          "title": "Delhi Electricity Regulatory Commission vs BSES Rajdhani Power Ltd. and others"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:45.392Z",
+      "lastChangedAt": "2026-06-08T18:01:07.674Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:12.114Z",
+        "startedAt": "2026-06-08T18:02:11.678Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2022/14438/14438_2022_6_2_36751_Order_27-Jul-2022.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "31701",
+        "lastModified": "Thu, 28 Jul 2022 11:48:09 GMT",
+        "etag": "\"7bd5-5e4dc1b8ce1b7\"",
+        "bytesRead": 31701,
+        "truncated": false,
+        "sha256": "cea0202586b7959facd854c568679581c4dafe24374670c7b7a2e46a852fc27e",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "1 ITEM NO.2 COURT NO.6 S U P R E M E C O U R T O F RECORD OF PROCEEDINGS Miscellaneous Application No. SECTION XVII I N D I A 918/2022 in C.A. No. 884/2010 DELHI ELECT. REGULT. COMMISSION Petitioner(s) VERSUS BSES RAJDHANI POWER LTD. & ORS. Respondent(s) (M.A. Nos. 918 AND 919/2022 FOR PLACING COMPLIANCE AFFIDAVIT BEFORE COURT ) WITH MA 633-634/2022 in C.A. No. 9003-9004/2011 (XVII) IA No. 51413/2022 - APPROPRIATE OR",
+        "pdfTextFingerprint": "982a6ff7b9020aa0a395a212da40344c0d3f66f464c1ff841e00734946028f7b",
+        "sourceFingerprint": "982a6ff7b9020aa0a395a212da40344c0d3f66f464c1ff841e00734946028f7b",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "86c51f76ac4bfcc8": {
+      "id": "86c51f76ac4bfcc8",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_20_20509_Order_11-Feb-2020.pdf",
+      "label": "C.A. No. 008463 / 2022 order 11 Feb 2020",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-38332-2018",
+          "code": "C.A. No. 008463 / 2022",
+          "title": "SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:45.967Z",
+      "lastChangedAt": "2026-06-08T18:01:08.216Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:12.646Z",
+        "startedAt": "2026-06-08T18:02:12.114Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_20_20509_Order_11-Feb-2020.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "53924",
+        "lastModified": "Thu, 13 Feb 2020 08:41:32 GMT",
+        "etag": "\"d2a4-59e710e57c6bd\"",
+        "bytesRead": 53924,
+        "truncated": false,
+        "sha256": "23312247e1da676d636d46c796bb3764fd0d373873e6db1b40eceb05bb6b3690",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "1 ITEM NO.20 COURT NO.6 S U P R E M E C O U R T O F RECORD OF PROCEEDINGS SECTION IV-A Petition(s) for Special Leave to Appeal (C) I N D I A No(s). 28652/2018 (Arising out of impugned final judgment and order dated 09-07-2018 in ITA No. 10/2011 passed by the High Court Of Karnataka At Bengaluru) SAP LABS INDIA PRIVATE LIMITED Petitioner(s) VERSUS INCOME TAX OFFICER CIRCLE 6 (1) (1) BANGALORE Respondent(s) WITH SLP(C)",
+        "pdfTextFingerprint": "eb8c7b9fe34254be081d5640576164c6b81925de11423d9d43be1c1fbe33956f",
+        "sourceFingerprint": "eb8c7b9fe34254be081d5640576164c6b81925de11423d9d43be1c1fbe33956f",
+        "dateHints": [
+          "09-07-2018"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "91bf0fa418b5e7b8": {
+      "id": "91bf0fa418b5e7b8",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_38_39441_Order_03-Nov-2022.pdf",
+      "label": "C.A. No. 008463 / 2022 order 03 Nov 2022",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-38332-2018",
+          "code": "C.A. No. 008463 / 2022",
+          "title": "SAP Labs India Private Limited vs Income Tax Officer Circle 6(1)(1), Bangalore"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:46.440Z",
+      "lastChangedAt": "2026-06-08T18:01:08.682Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:13.168Z",
+        "startedAt": "2026-06-08T18:02:12.646Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_38_39441_Order_03-Nov-2022.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "51882",
+        "lastModified": "Thu, 03 Nov 2022 12:03:01 GMT",
+        "etag": "\"caaa-5ec8fbd2e2fa5\"",
+        "bytesRead": 51882,
+        "truncated": false,
+        "sha256": "a1d2decc68a24b26170bafe231eb0efe73b96088d2dc7652861691da3daa5b50",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "ITEM NO.38 COURT NO.6 SECTION IV-A S U P R E M E C O U R T O F RECORD OF PROCEEDINGS Petition for Special Leave to Appeal (C) No. I N D I A 28652/2018 (Arising out of impugned final judgment and order dated 09-07-2018 in ITA No. 10/2011 passed by the High Court of Karnataka at Bengaluru) SAP LABS INDIA PRIVATE LIMITED Petitioner(s) VERSUS INCOME TAX OFFICER CIRCLE 6 (1) (1) BANGALORE Respondent(s) (IA No. 103464/2020",
+        "pdfTextFingerprint": "2501852f83cf70201eeaa3b7198e951b1792913b6ad1a499702246873bb054e4",
+        "sourceFingerprint": "2501852f83cf70201eeaa3b7198e951b1792913b6ad1a499702246873bb054e4",
+        "dateHints": [
+          "09-07-2018"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "f71269339efc2ec7": {
+      "id": "f71269339efc2ec7",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_31_802_27629_Order_19-Apr-2021.pdf",
+      "label": "W.P.(C) No. 000104 / 2014 order 19 Apr 2021",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-4382-2014",
+          "code": "W.P.(C) No. 000104 / 2014",
+          "title": "BSES Rajdhani Power Ltd. and another vs Union of India and others"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:46.814Z",
+      "lastChangedAt": "2026-06-08T18:01:09.194Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:13.715Z",
+        "startedAt": "2026-06-08T18:02:13.168Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_31_802_27629_Order_19-Apr-2021.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "25949",
+        "lastModified": "Mon, 19 Apr 2021 11:01:32 GMT",
+        "etag": "\"655d-5c05140a4492c\"",
+        "bytesRead": 25949,
+        "truncated": false,
+        "sha256": "3363517de95df4096b082063db4f9ab79168f31c3500a414cfc1c127c6cc81b7",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "ITEM NO.802 Court No.1 (Video Conferencing) S U P R E M E C O U R T O F RECORD OF PROCEEDINGS Writ Petition(s)(Civil) SECTION X I N D I A No(s).104/2014 BSES RAJDHANI POWER LTD Petitioner(s) VERSUS UNION OF INDIA & ORS. Respondent(s) (ONLY IA No.37216/2021 IN CIVIL APPEAL NO.884 OF 2010 AND IA NO.37252 OF 2021 IN CIVIL APPEAL NO.980 OF 2010 MENTIONED TODAY) WITH IA No.37216/2021 IN CIVIL APPEAL NO.884 OF 2010 AND IA ",
+        "pdfTextFingerprint": "11fdf0ccdbd188e4b6512028550935b14a0e133a27870529e90b9176bd47c36a",
+        "sourceFingerprint": "11fdf0ccdbd188e4b6512028550935b14a0e133a27870529e90b9176bd47c36a",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "adfec01c53d121f0": {
+      "id": "adfec01c53d121f0",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_7_110_31459_Order_23-Nov-2021.pdf",
+      "label": "W.P.(C) No. 000104 / 2014 order 23 Nov 2021",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-4382-2014",
+          "code": "W.P.(C) No. 000104 / 2014",
+          "title": "BSES Rajdhani Power Ltd. and another vs Union of India and others"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:47.181Z",
+      "lastChangedAt": "2026-06-08T18:01:09.572Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:14.078Z",
+        "startedAt": "2026-06-08T18:02:13.715Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_7_110_31459_Order_23-Nov-2021.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "34242",
+        "lastModified": "Tue, 23 Nov 2021 11:28:32 GMT",
+        "etag": "\"85c2-5d1730a903a68\"",
+        "bytesRead": 34242,
+        "truncated": false,
+        "sha256": "450c5b84f292209ad423f746eaf11c969c2097a03e9b2b40486697b6432fd662",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "ITEM NO.110 COURT NO.7 S U P R E M E C O U R T O F RECORD OF PROCEEDINGS Writ Petition(s)(Civil) No(s). SECTION X I N D I A 104/2014 BSES RAJDHANI POWER LTD Petitioner(s) VERSUS UNION OF INDIA & ORS. Respondent(s) (IA No. 121684/2021 - APPROPRIATE ORDERS/DIRECTIONS IA No. 109382/2021 - CLARIFICATION/DIRECTION IA No. 2/2014 - EXTENSION OF TIME IA No. 1/2014 - GRANT OF INTERIM RELIEF IA No. 148652/2021 - INTERVENTION/I",
+        "pdfTextFingerprint": "aaf357cc953c810ed729fb35caac5711876363531b2a556345144199c22b257e",
+        "sourceFingerprint": "aaf357cc953c810ed729fb35caac5711876363531b2a556345144199c22b257e",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "f90510db51000e60": {
+      "id": "f90510db51000e60",
+      "url": "https://api.sci.gov.in/supremecourt/2010/27798/27798_2010_1_4_56020_Order_24-Sep-2024.pdf",
+      "label": "C.A. No. 002396 / 2011 order 24 Sep 2024",
+      "kind": "case-order-pdf",
+      "cases": [
+        {
+          "id": "sci-diary-27798-2010",
+          "code": "C.A. No. 002396 / 2011",
+          "title": "The Commissioner of Income Tax 5 vs M/s GBL Power Ltd. (now known as GBLL Power Ltd.)"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:57:55.474Z",
+      "lastChangedAt": "2026-06-08T18:01:18.700Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:22.032Z",
+        "startedAt": "2026-06-08T18:02:14.078Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/supremecourt/2010/27798/27798_2010_1_4_56020_Order_24-Sep-2024.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "414704",
+        "lastModified": "Mon, 30 Sep 2024 13:30:14 GMT",
+        "etag": "\"653f0-62356347b4a00\"",
+        "bytesRead": 414704,
+        "truncated": false,
+        "sha256": "5f226cc56c23762403f0f0ae952c375f46dcb1eb2684ef5bab965da0a3851330",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "IN THE SUPREME COURT OF INDIA CIVIL APPELLATE JURISDICTION Civil Appeal No 2396 of 2011 The Commissioner of Income Tax-5 .... Appellant(s) Versus M/s GBL Power Ltd (Now known as GBLL Power Ltd) ....Respondent(s) WITH C.A. No. 6274/2012 SLP(C) No. 19744/2011 C.A. No. 6278/2012 SLP(C) No. 8383/2013 C.A. No. 4982/2015 SLP(C) No. 27704/2014 SLP(C) No. 29196/2019 SLP(C) No. 28657/2019 SLP(C) No. 3347/2015 SLP(C) No. 6057/",
+        "pdfTextFingerprint": "b36c32ad7d1b6dfd2ae86f4c1384995d7ce9c682c4773b30842c0b10dd898a25",
+        "sourceFingerprint": "b36c32ad7d1b6dfd2ae86f4c1384995d7ce9c682c4773b30842c0b10dd898a25",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "b39a5bb53a80f975": {
+      "id": "b39a5bb53a80f975",
+      "url": "https://api.sci.gov.in/jonew/cl/2025-08-21/F_J_2.pdf",
+      "label": "C.A. No. 18067/2017 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "sci-ca-18067-2017",
+          "code": "C.A. No. 18067/2017",
+          "title": "Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another"
+        },
+        {
+          "id": "sci-ca-18068-2017",
+          "code": "C.A. No. 18068/2017",
+          "title": "Principal Officer LG Electronics India Pvt. Ltd. vs Assistant Commissioner of Income Tax, Noida and another"
+        },
+        {
+          "id": "sci-ca-18281-2017",
+          "code": "C.A. No. 18281/2017",
+          "title": "The Principal Officer LG Electronics India Pvt. Ltd. vs Assistant/Deputy Commissioner of Income Tax Noida and another"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:06.284Z",
+      "lastChangedAt": "2026-06-08T18:01:29.222Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:32.422Z",
+        "startedAt": "2026-06-08T18:02:22.032Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/jonew/cl/2025-08-21/F_J_2.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "944028",
+        "lastModified": "Wed, 20 Aug 2025 15:38:56 GMT",
+        "etag": "\"e679c-63ccdc54be945\"",
+        "bytesRead": 944028,
+        "truncated": false,
+        "sha256": "578d688907129d576fbdc508489311a28160dd543f7e07bae55b17540ffcb2b4",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "SUPREME COURT OF INDIA [ IT WILL BE APPRECIATED IF THE LEARNED ADVOCATES ON RECORD DO NOT SEEK ADJOURNMENT IN THE MATTERS LISTED BEFORE ALL THE COURTS IN THE CAUSE LIST ] DAILY CAUSE LIST FOR DATED : 21-08-2025 CHIEF JUSTICE'S COURT HON'BLE THE CHIEF JUSTICE HON'BLE MR. JUSTICE SURYA KANT HON'BLE MR. JUSTICE VIKRAM NATH (TIME : 10:30 AM) NOTE : Chronology is based on the date of initial filing. NOTE :- NO REQUEST FOR",
+        "pdfTextFingerprint": "7f1f7a0242e6ef1ab47b76ec741c2f0bc6c892ea07f74c0b37774467777c2c7a",
+        "sourceFingerprint": "7f1f7a0242e6ef1ab47b76ec741c2f0bc6c892ea07f74c0b37774467777c2c7a",
+        "dateHints": [
+          "21-08-2025"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "ea4ac70f7c67a539": {
+      "id": "ea4ac70f7c67a539",
+      "url": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf",
+      "label": "SLP(C) No. 19156/2022 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "sci-slp-19156-2022",
+          "code": "SLP(C) No. 19156/2022",
+          "title": "The North Face Apparel Corp. vs Pranav Kant Sharma"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:17.742Z",
+      "lastChangedAt": "2026-06-08T18:01:38.199Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:41.794Z",
+        "startedAt": "2026-06-08T18:02:32.422Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "769933",
+        "lastModified": "Wed, 20 May 2026 13:40:52 GMT",
+        "etag": "\"bbf8d-6523ff1b92bd8\"",
+        "bytesRead": 769933,
+        "truncated": false,
+        "sha256": "2f36a20b62c5799db74670ed0c899e59ff9bef93e988d45267c43f3fc840782b",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "SUPREME COURT OF INDIA [ IT WILL BE APPRECIATED IF THE LEARNED ADVOCATES ON RECORD DO NOT SEEK ADJOURNMENT IN THE MATTERS LISTED BEFORE ALL THE COURTS IN THE CAUSE LIST ] DAILY CAUSE LIST FOR DATED : 21-05-2026 CHIEF JUSTICE'S COURT HON'BLE THE CHIEF JUSTICE HON'BLE MR. JUSTICE JOYMALYA BAGCHI HON'BLE MR. JUSTICE VIPUL M. PANCHOLI (TIME : 10:30 AM) NOTE :- AS PER CIRCULAR DATED 29.11.2025:• BAIL, DEATH PENALTY, HABEA",
+        "pdfTextFingerprint": "475428f9d470cef9f717a80bae875186b1a0dde97d41fa959e7f66add20d40b4",
+        "sourceFingerprint": "475428f9d470cef9f717a80bae875186b1a0dde97d41fa959e7f66add20d40b4",
+        "dateHints": [
+          "21-05-2026"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "a74d32698ac5f24c": {
+      "id": "a74d32698ac5f24c",
+      "url": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b",
+      "label": "SA 27/DEL/2026 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-zte-sa-27-2026",
+          "code": "SA 27/DEL/2026",
+          "title": "ZTE Corporation, Noida vs ACIT, International Taxation, Gurgaon"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:18.296Z",
+      "lastChangedAt": "2026-06-08T18:01:38.866Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:42.261Z",
+        "startedAt": "2026-06-08T18:02:41.795Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b",
+        "contentType": "text/html;charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 260062,
+        "truncated": false,
+        "sha256": "667f792fe33f3609fd10fb1f9a45e0fed806fda5d35e61e98a30df4d1adab440",
+        "title": "Capcha - Judgment | CaseMine",
+        "heading": "",
+        "textPreview": "Capcha - Judgment | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country India UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Federal U.S. Supreme Court Federal Circuit 1st Circuit 2d Circuit 3d Circuit 4th Circuit 5th Circuit 6th Circuit 7th Circuit 8th Circuit 9th Circuit 10th Circuit 11th Circuit Court of Appeals for the D.C. Circuit Board of...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "f167d3f679e9abbb016b9c31900717f887e31c540a08bab5494585954b5c9b7f",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "886bac3ea16b39ca": {
+      "id": "886bac3ea16b39ca",
+      "url": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-international-taxation",
+      "label": "W.P.(C) 4302/2013 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-ctci-wpc-4302-2013",
+          "code": "W.P.(C) 4302/2013",
+          "title": "CTCI Overseas Corporation Ltd. vs Director of Income Tax-I, International Taxation"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:19.137Z",
+      "lastChangedAt": "2026-06-08T18:01:39.389Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:42.626Z",
+        "startedAt": "2026-06-08T18:02:42.261Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-director-international",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "Mon, 08 Jun 2026 17:58:19 GMT",
+        "etag": "",
+        "bytesRead": 49981,
+        "truncated": false,
+        "sha256": "2383b2de55389a18561b35ea81cd663ae79bc54227156b0dc919693ecfa87aa0",
+        "title": "Ctci Overseas Corporation Ltd Vs Director of Income Tax I International Taxation - Citation 1141234 - Court Judgment | SooperKanoon",
+        "heading": "Ctci Overseas Corporation Ltd Vs. Director of Income Tax-i, International Taxation - Court Judgment",
+        "textPreview": "Ctci Overseas Corporation Ltd Vs Director of Income Tax I International Taxation - Citation 1141234 - Court Judgment | SooperKanoon Skip to content Toggle navigation Sooper Kanoon Home About + About SooperKanoon Blog Features Pricing Team Customers Contact Explore + Ask AI New! Latest Case Laws Advanced Search Bare Act Search Cases Search Citation Search Dictionary Search Forms Search Infographic Search Lawyer Search Privy Council Login More + API Ask CauseList --> Renew Subscription Search here Home Cases Ctci Overseas Corporation Ltd Vs. Director of Income Tax-i, International Taxation Sooper Kanoon Toggle navigation Save as PDF Add a Tag Add a Note Semantics Visualize Ask ChatGPT Ctci...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "2deccfbb7b0cd12079c303a91da498af78105771a5115231065d2c85c00b37e4",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "25ced7e01b5182ad": {
+      "id": "25ced7e01b5182ad",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE",
+      "label": "IT Appeal No. 241/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-ar-magnetics-ita-241-2012",
+          "code": "IT Appeal No. 241/2012",
+          "title": "Commissioner of Income-tax vs AR Magnetics (P.) Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:19.379Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:42.800Z",
+        "startedAt": "2026-06-08T18:02:42.627Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 5970,
+        "truncated": false,
+        "sha256": "bb6d0cb11d94dfe228c7d564bbd1c4ca27cd65ff7e9ba9c4ca24233b9bf23450",
+        "title": "Attention Required! | Cloudflare",
+        "heading": "Sorry, you have been blocked",
+        "textPreview": "Attention Required! | Cloudflare Please enable cookies. Sorry, you have been blocked You are unable to access taxlok.com Why have I been blocked? This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data. What can I do to resolve this? You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page. Cloudflare Ray ID: a089cf21fac5707f &bull; Your IP: Click t...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "851aaf21f746a841b0feaa08e02d5405f36c0485b586435741099cf763f4a011",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "5f3ccc8afeb81333": {
+      "id": "5f3ccc8afeb81333",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/",
+      "label": "ITA 389/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-creative-travel-ita-389-2012",
+          "code": "ITA 389/2012",
+          "title": "CIT vs M/s Creative Travel Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:22.030Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:44.698Z",
+        "startedAt": "2026-06-08T18:02:42.800Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/",
+        "contentType": "text/html; charset=iso-8859-1",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 199,
+        "truncated": false,
+        "sha256": "5b13fb5957b84ef7bb9d0b6cd509c947ff6a37d67efdac2b896ddd3b908aad10",
+        "title": "403 Forbidden",
+        "heading": "Forbidden",
+        "textPreview": "403 Forbidden Forbidden You don't have permission to access this resource.",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "94dcefe2f9649a69": {
+      "id": "94dcefe2f9649a69",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/12001299-addl-cit-appellant-hash-ms",
+      "label": "ITA 1159 & 2051/Del/2017 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-giesecke-itat-1159-2051-2017",
+          "code": "ITA 1159 & 2051/Del/2017",
+          "title": "Addl. CIT vs M/s Giesecke & Devrient Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:22.970Z",
+      "lastChangedAt": "2026-06-08T18:01:42.903Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.002Z",
+        "startedAt": "2026-06-08T18:02:44.698Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.courtkutchehry.com/judgements/1094784/addl-cit-appellant-hash-ms-giesecke-devrient-pvt-ltd-respondent/",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 35616,
+        "truncated": false,
+        "sha256": "003bdc8cbe8dccd5fc391251cff41a24256d8e7b262c68f8a4384bc1d0199a5f",
+        "title": "Addl. CIT Vs M/s Giesecke & Devrient Pvt. Ltd",
+        "heading": "Addl. CIT Vs M/s Giesecke & Devrient Pvt. Ltd",
+        "textPreview": "Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Addl. CIT Vs M/s Giesecke &amp; Devrient Pvt. Ltd Income Tax Appellate Tribunal (Delhi &#x27;I-1&#x27; Bench) 8 Jul 2021 Income Tax Appeal No. 1159, 2051/Del/2017 (2021) 07 ITAT CK 0022 Bench: Division Bench Result Published Judgement Snapshot Case Number Income Tax Appeal No. 1159, 2051/Del/2017 Hon'ble Bench Kul Bharat, J; Dr. B. R. R. Kumar, (AM) Advocates Harpreet Singh Ajmani, Surender Pal, F. R. Meena Final Decision Dismissed AI Powered Case Summary Beta Get an instant AI-generated summary of this j...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "cc6d31fb8626ffda35cbd8da28bcf27716da67cf8c5a9aa1fb9139683fae6336",
+        "dateHints": [
+          "8 Jul 2021",
+          "5 Jun 2026",
+          "Jun 08 2026"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "740492cbe2a0060e": {
+      "id": "740492cbe2a0060e",
+      "url": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63",
+      "label": "ITA 1523/Del/2022 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-honda-itat-1523-2022",
+          "code": "ITA 1523/Del/2022",
+          "title": "Honda Motorcycle and Scooter India Pvt. Ltd. vs ACIT, Circle-1(1), Gurugram"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:23.373Z",
+      "lastChangedAt": "2026-06-08T18:01:43.537Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.193Z",
+        "startedAt": "2026-06-08T18:02:46.002Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63",
+        "contentType": "text/html;charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 260062,
+        "truncated": false,
+        "sha256": "a00456860ee3fdc440a45bc7104b693aee0cf6fc84860d7af95c68fa23569f46",
+        "title": "Capcha - Judgment | CaseMine",
+        "heading": "",
+        "textPreview": "Capcha - Judgment | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country India UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Federal U.S. Supreme Court Federal Circuit 1st Circuit 2d Circuit 3d Circuit 4th Circuit 5th Circuit 6th Circuit 7th Circuit 8th Circuit 9th Circuit 10th Circuit 11th Circuit Court of Appeals for the D.C. Circuit Board of...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "f167d3f679e9abbb016b9c31900717f887e31c540a08bab5494585954b5c9b7f",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "706aa6dd393e6198": {
+      "id": "706aa6dd393e6198",
+      "url": "https://future.indiankanoon.org/doc/38977400/",
+      "label": "W.P.(C) 8031/2011 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-ag-holdings-wpc-8031-2011",
+          "code": "W.P.(C) 8031/2011",
+          "title": "A.G. Holdings Pvt Ltd vs Income Tax Officer"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:23.500Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.196Z",
+        "startedAt": "2026-06-08T18:02:46.193Z",
+        "ok": false,
+        "status": "error",
+        "error": "fetch failed"
+      }
+    },
+    "8c40b471fdf4ad15": {
+      "id": "8c40b471fdf4ad15",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del",
+      "label": "ITA 430/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-anand-nishikawa-ita-430-2012",
+          "code": "ITA 430/2012",
+          "title": "CIT-I vs Anand Nishikawa Company Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:23.620Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.312Z",
+        "startedAt": "2026-06-08T18:02:46.196Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del",
+        "contentType": "text/html; charset=iso-8859-1",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 199,
+        "truncated": false,
+        "sha256": "5b13fb5957b84ef7bb9d0b6cd509c947ff6a37d67efdac2b896ddd3b908aad10",
+        "title": "403 Forbidden",
+        "heading": "Forbidden",
+        "textPreview": "403 Forbidden Forbidden You don't have permission to access this resource.",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "18d4f2e584d28487": {
+      "id": "18d4f2e584d28487",
+      "url": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96",
+      "label": "W.P.(C) 8799/2015 and connected source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-ls-cable-wpc-8799-2015",
+          "code": "W.P.(C) 8799/2015 and connected",
+          "title": "LS Cable & System Limited, Korea vs Commissioner of Income Tax-II and others"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:23.767Z",
+      "lastChangedAt": "2026-06-08T18:01:43.906Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.431Z",
+        "startedAt": "2026-06-08T18:02:46.312Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96",
+        "contentType": "text/html;charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 260062,
+        "truncated": false,
+        "sha256": "517b05de83c135bf0c9416c2341ec70640d61fe3d1c31d44600ad27ce6b647bf",
+        "title": "Capcha - Judgment | CaseMine",
+        "heading": "",
+        "textPreview": "Capcha - Judgment | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country India UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Federal U.S. Supreme Court Federal Circuit 1st Circuit 2d Circuit 3d Circuit 4th Circuit 5th Circuit 6th Circuit 7th Circuit 8th Circuit 9th Circuit 10th Circuit 11th Circuit Court of Appeals for the D.C. Circuit Board of...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "f167d3f679e9abbb016b9c31900717f887e31c540a08bab5494585954b5c9b7f",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "7ffa1b9435d358f9": {
+      "id": "7ffa1b9435d358f9",
+      "url": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5",
+      "label": "ITA 526/2017, ITA 590/2017, ITA 82/2018 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-mckinsey-ita-526-2017",
+          "code": "ITA 526/2017, ITA 590/2017, ITA 82/2018",
+          "title": "McKinsey Knowledge Centre India Pvt. Ltd. vs Pr. Commissioner of Income Tax-6 and connected appeals"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:23.883Z",
+      "lastChangedAt": "2026-06-08T18:01:44.034Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.550Z",
+        "startedAt": "2026-06-08T18:02:46.431Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5",
+        "contentType": "text/html;charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 260062,
+        "truncated": false,
+        "sha256": "955b4b0b6ba85db66034d81ba114227658fc1e3849f079eac5b5543a141c29c9",
+        "title": "Capcha - Judgment | CaseMine",
+        "heading": "",
+        "textPreview": "Capcha - Judgment | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country India UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Federal U.S. Supreme Court Federal Circuit 1st Circuit 2d Circuit 3d Circuit 4th Circuit 5th Circuit 6th Circuit 7th Circuit 8th Circuit 9th Circuit 10th Circuit 11th Circuit Court of Appeals for the D.C. Circuit Board of...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "f167d3f679e9abbb016b9c31900717f887e31c540a08bab5494585954b5c9b7f",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "39536ba6e8cc323d": {
+      "id": "39536ba6e8cc323d",
+      "url": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646",
+      "label": "ITA 146/2020 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-mckinsey-ita-146-2020",
+          "code": "ITA 146/2020",
+          "title": "Pr. Commissioner of Income Tax-06 vs McKinsey Knowledge Centre India (P) Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:24.020Z",
+      "lastChangedAt": "2026-06-08T18:01:44.147Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:46.690Z",
+        "startedAt": "2026-06-08T18:02:46.550Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646",
+        "contentType": "text/html;charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 260062,
+        "truncated": false,
+        "sha256": "a4075cd2b8c23d7053606769749e935540a8a85f15e4e36850012e5b3bea638a",
+        "title": "Capcha - Judgment | CaseMine",
+        "heading": "",
+        "textPreview": "Capcha - Judgment | CaseMine All All Parallel Title Appellant Respondent Lawyer Parallel Search is an AI-driven legal research functionality that uses natural language understanding to find conceptually relevant case law, even without exact keyword matches. Hi, I'm AMICUS. Your GPT powered virtual legal assistant. Let's chat. Log in Sign Up Select Country India UK & Ireland AMICUS AI CaseIQ Keyword Research Parallel Search Browse Commentaries Columns My Project New chat Federal U.S. Supreme Court Federal Circuit 1st Circuit 2d Circuit 3d Circuit 4th Circuit 5th Circuit 6th Circuit 7th Circuit 8th Circuit 9th Circuit 10th Circuit 11th Circuit Court of Appeals for the D.C. Circuit Board of...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "f167d3f679e9abbb016b9c31900717f887e31c540a08bab5494585954b5c9b7f",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "9a97a0c7ec096692": {
+      "id": "9a97a0c7ec096692",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/845131-cit-appellant-hash-brahmaputra-capital",
+      "label": "ITA 107/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-brahmaputra-ita-107-2012",
+          "code": "ITA 107/2012",
+          "title": "CIT vs Brahmaputra Capital and Financial Services Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:24.840Z",
+      "lastChangedAt": "2026-06-08T18:01:44.953Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:47.314Z",
+        "startedAt": "2026-06-08T18:02:46.690Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.courtkutchehry.com/judgements/396668/cit-appellant-hash-brahmaputra-capital-and-financial-services-ltd-respondent/",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 46385,
+        "truncated": false,
+        "sha256": "457ed92a6e166cf51ff78561299a406dbd0702e75b8f65c9c5f976d323cb7b78",
+        "title": "CIT Vs Brahmaputra Capital and Financial Services Ltd.",
+        "heading": "CIT Vs Brahmaputra Capital and Financial Services Ltd.",
+        "textPreview": "CIT Vs Brahmaputra Capital and Financial Services Ltd. Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements CIT Vs Brahmaputra Capital and Financial Services Ltd. CIT Vs Brahmaputra Capital and Financial Services Ltd. Delhi High Court 3 Sep 2012 ITA No. 107 of 2012 (2013) 357 ITR 241 --> (2012) 09 DEL CK 0093 Bench: Division Bench Acts Referenced Judgement Snapshot Case Number ITA No. 107 of 2012 Hon'ble Bench S. Ravindra Bhat, J; R.V. Easwar, J Advocates Deepak Chopra and Mr. Harpreet Singh Ajmani, for the Appellant; Acts Referred Income Tax Act, 1961 - Section 260A AI Powered Case Summary Beta Get an instant AI-generated summary of this judgement — key...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "c3c64ae6f04e168c42c266032db9e60518125e3cb332c37b523550327a54ff0c",
+        "dateHints": [
+          "3 Sep 2012"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "26dacdf55328b037": {
+      "id": "26dacdf55328b037",
+      "url": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-vs-commissioner-of-income-tax/",
+      "label": "ITA 252, 253 and 258/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-azeem-investment-ita-252-2012",
+          "code": "ITA 252, 253 and 258/2012",
+          "title": "Azeem Investment (P.) Ltd. vs Commissioner of Income Tax"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:25.662Z",
+      "lastChangedAt": "2026-06-08T18:01:45.601Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:47.927Z",
+        "startedAt": "2026-06-08T18:02:47.314Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-appellant-hash-commissioner-of-income-tax-respondent-1/",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 49786,
+        "truncated": false,
+        "sha256": "1336a23ba553db06154058e1c3599069165afc5ca6c5ca2a18dc6c29e5a1fc93",
+        "title": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax",
+        "heading": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax",
+        "textPreview": "Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Azeem Investment (P.) Ltd. Vs Commissioner of Income Tax Delhi High Court 24 Apr 2012 CM No&#x27;&#x27;s. 6952, 6953, 6955, 6956, 6971 and 6972 of 2012 and IT Appeal No&#x27;&#x27;s. 252, 253 and 258 of 2012 (2012) 23 TAXMAN 353 --> (2012) 04 DEL CK 0311 Bench: Division Bench Result Published Acts Referenced Judgement Snapshot Case Number CM No&#x27;&#x27;s. 6952, 6953, 6955, 6956, 6971 and 6972 of 2012 and IT Appeal No&#x27;&#x27;s. 252, 253 and 258 of 2012 Hon'ble Bench Sanjiv Khanna, J; R...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "08e2430ec5bd6f5df0948dc3bc6cf379e9dc458c2eb24c5bde81285848ccc260",
+        "dateHints": [
+          "24 Apr 2012"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "65f8a79c30e0ba8a": {
+      "id": "65f8a79c30e0ba8a",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/791485-cit-vs-sony-india-pvt?refine_search=&s=&s_acts=Income+Tax+Act%2C+1961",
+      "label": "ITA 1178/2011 and 1182/2011 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-sony-india-ita-1178-2011",
+          "code": "ITA 1178/2011 and 1182/2011",
+          "title": "CIT vs Sony India Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:26.259Z",
+      "lastChangedAt": "2026-06-08T18:01:46.165Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:48.603Z",
+        "startedAt": "2026-06-08T18:02:47.927Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://www.courtkutchehry.com/judgements/908482/cit-appellant-hash-sony-india-pvt-ltd-respondent/",
+        "contentType": "text/html; charset=utf-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 45164,
+        "truncated": false,
+        "sha256": "3ca76df19e51ebbe19461efc2c738fe2facf1788f19405d3e2edfa9c73728293",
+        "title": "CIT Vs Sony India Pvt. Ltd.",
+        "heading": "CIT Vs Sony India Pvt. Ltd.",
+        "textPreview": "CIT Vs Sony India Pvt. Ltd. Home Latest Judgements Advanced Search Bare Acts Blogs Create Account Login Judgements CIT Vs Sony India Pvt. Ltd. CIT Vs Sony India Pvt. Ltd. Delhi High Court 10 Sep 2012 ITA No&#x27;&#x27;s. 1178 of 2011 and 1182 of 2011 (2012) 09 DEL CK 0538 Bench: Division Bench Result Published Acts Referenced Judgement Snapshot Case Number ITA No&#x27;&#x27;s. 1178 of 2011 and 1182 of 2011 Hon'ble Bench Sanjiv Khanna, J; R.V. Easwar, J Advocates Deepak Chopra, Standing Counsel with Mr. Harpreet Singh Ajmani, for the Appellant; R. Satish Kumar, for the Respondent Final Decision Disposed Off Acts Referred Income Tax Act, 1961 - Section 10(10C), 260A, 35DDA, 70 AI Powered Ca...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "61884ef3b28bff1d7db7c02c2ab13c1242eab434083a62995dc7a4e2d9bb4ca8",
+        "dateHints": [
+          "10 Sep 2012"
+        ],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "28aa73186f242b6e": {
+      "id": "28aa73186f242b6e",
+      "url": "https://indiankanoon.org/doc/149899903/",
+      "label": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-regency-valiant-2012",
+          "code": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+          "title": "The Commissioner of Income Tax vs Regency Creations Ltd. and CIT vs Valiant Communications Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:26.541Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:48.917Z",
+        "startedAt": "2026-06-08T18:02:48.603Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://indiankanoon.org/doc/149899903/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 5812,
+        "truncated": false,
+        "sha256": "b83d3da6a2de158a954f3ee3f905b35b3add22d9cbaf32afff1e801b5bd5f704",
+        "title": "Just a moment...",
+        "heading": "",
+        "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "3113efe15b7c3472": {
+      "id": "3113efe15b7c3472",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/",
+      "label": "ITA 788/2011 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-sarla-fabrics-ita-788-2011",
+          "code": "ITA 788/2011",
+          "title": "CIT vs Sarla Fabrics Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:26.640Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:49.045Z",
+        "startedAt": "2026-06-08T18:02:48.917Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/",
+        "contentType": "text/html; charset=iso-8859-1",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 199,
+        "truncated": false,
+        "sha256": "5b13fb5957b84ef7bb9d0b6cd509c947ff6a37d67efdac2b896ddd3b908aad10",
+        "title": "403 Forbidden",
+        "heading": "Forbidden",
+        "textPreview": "403 Forbidden Forbidden You don't have permission to access this resource.",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "fc42bb01193a56d7cb51c8e7135bffd990d68edf9c6c6c990bd79d34f4104e7e",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "a35a23c57b1a1516": {
+      "id": "a35a23c57b1a1516",
+      "url": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016",
+      "label": "ITA 356/2016 and 357/2016 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-seagram-ita-356-2016",
+          "code": "ITA 356/2016 and 357/2016",
+          "title": "Seagram Manufacturing Pvt. Ltd. (now Pernod Ricard India Pvt. Ltd.) vs Principal Commissioner of Income Tax-Central 3"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:27.986Z",
+      "lastChangedAt": "2026-06-08T18:01:48.547Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:50.408Z",
+        "startedAt": "2026-06-08T18:02:49.045Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016",
+        "contentType": "application/pdf",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 19895,
+        "truncated": false,
+        "sha256": "538c979d8fe889e1e4be98372d78d5b6e27b813f72a0da349a371b10ec65915e",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "$~ * 14. + IN THE HIGH COURT OF DELHI AT NEW DELHI ITA 356/2016 SEAGRAM MANUFACTURING PVT. LTD) (NOW PERNOD RICARD INDIA PVT.LTD.) ..... Appellant Through Mr Deepak Chopra, Mr Harpreet Singh Ajmani Ms Rashi Khanna and Mr Rohan Khare, Advocates. versus THE PRINCIPAL COMMISSIONER OF INCOME TAX-CENTRAL3 ..... Respondent Through Mr Puneet Rai, Advocate Junior Standing Counsel. 15. + ITA 357/2016 SEAGRAM MANUFACTURING PVT",
+        "pdfTextFingerprint": "4b0e8a59b3165e1c8d1ea19659db420f89aecfb6e7c1263b62c726fe6858f898",
+        "sourceFingerprint": "4b0e8a59b3165e1c8d1ea19659db420f89aecfb6e7c1263b62c726fe6858f898",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "182c62dffe664088": {
+      "id": "182c62dffe664088",
+      "url": "https://itat.gov.in/public/files/upload/1566537907-1604.Beam%20Global%20Spirits%20%26%20Wine..pdf",
+      "label": "ITA 1604/DEL/2014 and 1214/DEL/2017 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-beam-global-itat-1604-2014",
+          "code": "ITA 1604/DEL/2014 and 1214/DEL/2017",
+          "title": "Beam Global Spirits & Wine (India) Pvt. Ltd. vs DCIT, Circle-2(1), New Delhi"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:31.981Z",
+      "lastChangedAt": "2026-06-08T18:01:57.142Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:54.496Z",
+        "startedAt": "2026-06-08T18:02:50.408Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://itat.gov.in/public/files/upload/1566537907-1604.Beam%20Global%20Spirits%20%26%20Wine..pdf",
+        "contentType": "application/pdf",
+        "contentLength": "1019282",
+        "lastModified": "Wed, 22 May 2024 06:20:49 GMT",
+        "etag": "",
+        "bytesRead": 1019282,
+        "truncated": false,
+        "sha256": "5534aad173e9fd9a358482ae2da6331cbeb050f28792e5cf267efadb34485c64",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "1 IN THE INCOME TAX APPELLATE TRIBUNAL, DELHI ‘I-1’ BENCH, NEW DELHI BEFORE SHRI N.K. BILLAIYA, ACCOUNTANT MEMBER, AND MS. SUCHITRA KAMBLE, JUDICIAL MEMBER ITA No. 1604/DEL/2014 [A.Y 2009-10] & ITA No. 1214/DEL/2017 [A.Y 2012-13] Beam Global Spirits & Wine [India] Pvt Ltd, 12th Floor, DLF Building No. 10, Tower ‘C’ DLF Cyber City Phase II, Gurgaon. Vs. The Dy.C.I.T Circle-2(1) New Delhi PAN: AAACA 1614 R (Applicant) ",
+        "pdfTextFingerprint": "02dbce9959674630008c41e3381306a37c6bf6b1a2b399f189e2fd882b250d12",
+        "sourceFingerprint": "02dbce9959674630008c41e3381306a37c6bf6b1a2b399f189e2fd882b250d12",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "8a367cba3ea21573": {
+      "id": "8a367cba3ea21573",
+      "url": "https://indiankanoon.org/doc/161375554/",
+      "label": "ITA 156/2022 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-beam-global-dhc-156-2022",
+          "code": "ITA 156/2022",
+          "title": "PCIT-1, New Delhi vs Beam Global Spirits & Wine (India) Pvt. Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:32.096Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:54.654Z",
+        "startedAt": "2026-06-08T18:02:54.496Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://indiankanoon.org/doc/161375554/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 5812,
+        "truncated": false,
+        "sha256": "9ee7cb277bcefea486e9b02a8a423af1910c88b818cdfee8bf4e217a5717b451",
+        "title": "Just a moment...",
+        "heading": "",
+        "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "066542f93bddf9b1": {
+      "id": "066542f93bddf9b1",
+      "url": "https://itat.gov.in/public/files/upload/1623307896-I.T.As.%20No.3518-DEL-2017%20%26%207896%20to%207899-DEL-2018.pdf",
+      "label": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-danisco-itat-3518-2017",
+          "code": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018",
+          "title": "ACIT, Circle-7(1), New Delhi vs Danisco (India) Pvt. Ltd., Gurgaon"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:32.543Z",
+      "lastChangedAt": "2026-06-08T18:01:58.706Z",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:55.168Z",
+        "startedAt": "2026-06-08T18:02:54.654Z",
+        "ok": true,
+        "status": 200,
+        "finalUrl": "https://itat.gov.in/public/files/upload/1623307896-I.T.As.%20No.3518-DEL-2017%20%26%207896%20to%207899-DEL-2018.pdf",
+        "contentType": "application/pdf",
+        "contentLength": "270971",
+        "lastModified": "Fri, 05 Jul 2024 08:03:43 GMT",
+        "etag": "",
+        "bytesRead": 270971,
+        "truncated": false,
+        "sha256": "531c0590ed95055f2e7d476f4ce210353c68e3d994d483c3153c44fab8962174",
+        "title": "",
+        "heading": "",
+        "textPreview": "",
+        "pdfTextPreview": "IN THE INCOME TAX APPELLATE TRIBUNAL DELHI BENCH “I-1” NEW DELHI BEFORE SHRI AMIT SHUKLA, JUDICIAL MEMBER AND SHRI PRASHANT MAHARISHI, ACCOUNTANT MEMBER I.T.As. No.3518/DEL/2017, 7896 & 7897/DEL/2018, 5203/Del/2019 Assessment Years: 2011-12, 2010-11, 2012-13, 2013-14 Danisco India P. Ltd., vs. TAN/PAN: AAACD8906D (Appellant) DCIT, Circle-7(1), New Delhi. (Respondent) I.T.As. No.7898 & 7899/DEL/2018, 6025/Del/2019 Ass",
+        "pdfTextFingerprint": "9e31133d98eb19bd2dcbfca66ab9af71302355c58eb43cf31e07d98ea107b7b6",
+        "sourceFingerprint": "9e31133d98eb19bd2dcbfca66ab9af71302355c58eb43cf31e07d98ea107b7b6",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "bfc81fea210637bc": {
+      "id": "bfc81fea210637bc",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE",
+      "label": "SLP(C) No. 20367/2015 source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-pepsi-slp-20367-2015",
+          "code": "SLP(C) No. 20367/2015",
+          "title": "Deputy Commissioner of Income-tax vs Pepsi Foods (P.) Ltd."
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:32.673Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:55.293Z",
+        "startedAt": "2026-06-08T18:02:55.169Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 5970,
+        "truncated": false,
+        "sha256": "6319b585fcc61059752df507c6c64c760c909c231a62bd90a83bc50da5245f35",
+        "title": "Attention Required! | Cloudflare",
+        "heading": "Sorry, you have been blocked",
+        "textPreview": "Attention Required! | Cloudflare Please enable cookies. Sorry, you have been blocked You are unable to access taxlok.com Why have I been blocked? This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data. What can I do to resolve this? You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page. Cloudflare Ray ID: a089cf7018fbeb25 &bull; Your IP: Click t...",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "d15c45e8df97350cb44874b32d74e95e4c71edbc7e5feb6ae1822db2bd69b36c",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    },
+    "ce706da656d472d8": {
+      "id": "ce706da656d472d8",
+      "url": "https://indiankanoon.org/doc/11989121/",
+      "label": "SLP(C) Nos. 3136/2017 and connected source",
+      "kind": "case-source",
+      "cases": [
+        {
+          "id": "web-pepsi-registrar-2019",
+          "code": "SLP(C) Nos. 3136/2017 and connected",
+          "title": "Deputy Commissioner of Income Tax vs M/s Pepsi Foods Ltd. (now Pepsico India Holdings Pvt. Ltd.)"
+        }
+      ],
+      "firstSeenAt": "2026-06-08T17:58:32.796Z",
+      "lastChangedAt": "",
+      "lastCheck": {
+        "checkedAt": "2026-06-08T18:02:55.402Z",
+        "startedAt": "2026-06-08T18:02:55.293Z",
+        "ok": false,
+        "status": 403,
+        "finalUrl": "https://indiankanoon.org/doc/11989121/",
+        "contentType": "text/html; charset=UTF-8",
+        "contentLength": "",
+        "lastModified": "",
+        "etag": "",
+        "bytesRead": 5809,
+        "truncated": false,
+        "sha256": "56518a6b4885ab75f184a68c32b8a02c9c55ee4c9b2a9dbc99089894381dff80",
+        "title": "Just a moment...",
+        "heading": "",
+        "textPreview": "Just a moment... Enable JavaScript and cookies to continue",
+        "pdfTextPreview": "",
+        "pdfTextFingerprint": "",
+        "sourceFingerprint": "ae0b26c68939e8214056c2517af3b5091f1c674c8aef5f1e1fbab7804a78829b",
+        "dateHints": [],
+        "discoveredPdfUrls": [],
+        "captchaDetected": false,
+        "captchaMode": ""
+      }
+    }
+  },
+  "events": [
+    {
+      "id": "1780941762800-25ced7e01b5182ad-failed",
+      "at": "2026-06-08T18:02:42.800Z",
+      "level": "warning",
+      "sourceId": "25ced7e01b5182ad",
+      "caseId": "web-ar-magnetics-ita-241-2012",
+      "caseCode": "IT Appeal No. 241/2012",
+      "title": "IT Appeal No. 241/2012: source check failed",
+      "summary": "IT Appeal No. 241/2012 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE"
+    },
+    {
+      "id": "1780941764698-5f3ccc8afeb81333-failed",
+      "at": "2026-06-08T18:02:44.698Z",
+      "level": "warning",
+      "sourceId": "5f3ccc8afeb81333",
+      "caseId": "web-creative-travel-ita-389-2012",
+      "caseCode": "ITA 389/2012",
+      "title": "ITA 389/2012: source check failed",
+      "summary": "ITA 389/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/"
+    },
+    {
+      "id": "1780941766196-706aa6dd393e6198-failed",
+      "at": "2026-06-08T18:02:46.196Z",
+      "level": "warning",
+      "sourceId": "706aa6dd393e6198",
+      "caseId": "web-ag-holdings-wpc-8031-2011",
+      "caseCode": "W.P.(C) 8031/2011",
+      "title": "W.P.(C) 8031/2011: source check failed",
+      "summary": "W.P.(C) 8031/2011 source on future.indiankanoon.org could not be checked: fetch failed.",
+      "url": "https://future.indiankanoon.org/doc/38977400/"
+    },
+    {
+      "id": "1780941766312-8c40b471fdf4ad15-failed",
+      "at": "2026-06-08T18:02:46.312Z",
+      "level": "warning",
+      "sourceId": "8c40b471fdf4ad15",
+      "caseId": "web-anand-nishikawa-ita-430-2012",
+      "caseCode": "ITA 430/2012",
+      "title": "ITA 430/2012: source check failed",
+      "summary": "ITA 430/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del"
+    },
+    {
+      "id": "1780941768917-28aa73186f242b6e-failed",
+      "at": "2026-06-08T18:02:48.917Z",
+      "level": "warning",
+      "sourceId": "28aa73186f242b6e",
+      "caseId": "web-regency-valiant-2012",
+      "caseCode": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+      "title": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012: source check failed",
+      "summary": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/149899903/"
+    },
+    {
+      "id": "1780941769045-3113efe15b7c3472-failed",
+      "at": "2026-06-08T18:02:49.045Z",
+      "level": "warning",
+      "sourceId": "3113efe15b7c3472",
+      "caseId": "web-sarla-fabrics-ita-788-2011",
+      "caseCode": "ITA 788/2011",
+      "title": "ITA 788/2011: source check failed",
+      "summary": "ITA 788/2011 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/"
+    },
+    {
+      "id": "1780941774654-8a367cba3ea21573-failed",
+      "at": "2026-06-08T18:02:54.654Z",
+      "level": "warning",
+      "sourceId": "8a367cba3ea21573",
+      "caseId": "web-beam-global-dhc-156-2022",
+      "caseCode": "ITA 156/2022",
+      "title": "ITA 156/2022: source check failed",
+      "summary": "ITA 156/2022 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/161375554/"
+    },
+    {
+      "id": "1780941775293-bfc81fea210637bc-failed",
+      "at": "2026-06-08T18:02:55.293Z",
+      "level": "warning",
+      "sourceId": "bfc81fea210637bc",
+      "caseId": "web-pepsi-slp-20367-2015",
+      "caseCode": "SLP(C) No. 20367/2015",
+      "title": "SLP(C) No. 20367/2015: source check failed",
+      "summary": "SLP(C) No. 20367/2015 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE"
+    },
+    {
+      "id": "1780941775402-ce706da656d472d8-failed",
+      "at": "2026-06-08T18:02:55.402Z",
+      "level": "warning",
+      "sourceId": "ce706da656d472d8",
+      "caseId": "web-pepsi-registrar-2019",
+      "caseCode": "SLP(C) Nos. 3136/2017 and connected",
+      "title": "SLP(C) Nos. 3136/2017 and connected: source check failed",
+      "summary": "SLP(C) Nos. 3136/2017 and connected source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/11989121/"
+    },
+    {
+      "id": "1780941657162-bfcbdaf766a47a39-changed",
+      "at": "2026-06-08T18:00:57.162Z",
+      "level": "change",
+      "sourceId": "bfcbdaf766a47a39",
+      "caseId": "sci-diary-9965-2017",
+      "caseCode": "C.A. No. 001116 / 2021",
+      "title": "C.A. No. 001116 / 2021: source changed",
+      "summary": "SCI case status by diary number changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/case-status-diary-no/"
+    },
+    {
+      "id": "1780941657214-ebfb12edc6bdb38c-changed",
+      "at": "2026-06-08T18:00:57.214Z",
+      "level": "change",
+      "sourceId": "ebfb12edc6bdb38c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI case status by case number changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/case-status-case-no/"
+    },
+    {
+      "id": "1780941657292-5a48431ba6559a6d-changed",
+      "at": "2026-06-08T18:00:57.292Z",
+      "level": "change",
+      "sourceId": "5a48431ba6559a6d",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI case status by AOR code changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/case-status-aor-code/"
+    },
+    {
+      "id": "1780941657363-a1ebb1c4323935b0-changed",
+      "at": "2026-06-08T18:00:57.363Z",
+      "level": "change",
+      "sourceId": "a1ebb1c4323935b0",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI daily orders by case number changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/daily-order-case-no/"
+    },
+    {
+      "id": "1780941657422-e51ab209049d8568-changed",
+      "at": "2026-06-08T18:00:57.422Z",
+      "level": "change",
+      "sourceId": "e51ab209049d8568",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI judgments by case number changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/judgements-case-no/"
+    },
+    {
+      "id": "1780941657483-b0430806d10590c7-changed",
+      "at": "2026-06-08T18:00:57.483Z",
+      "level": "change",
+      "sourceId": "b0430806d10590c7",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI office reports by case number changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/office-report-case-no/"
+    },
+    {
+      "id": "1780941657635-8271280310ab3a2c-changed",
+      "at": "2026-06-08T18:00:57.635Z",
+      "level": "change",
+      "sourceId": "8271280310ab3a2c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI cause list changed on sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://www.sci.gov.in/cause-list/"
+    },
+    {
+      "id": "1780941660782-2cf03c231031f791-changed",
+      "at": "2026-06-08T18:01:00.781Z",
+      "level": "change",
+      "sourceId": "2cf03c231031f791",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI e-SCR changed on scr.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://scr.sci.gov.in/"
+    },
+    {
+      "id": "1780941663964-7f22e97f32f62b85-changed",
+      "at": "2026-06-08T18:01:03.964Z",
+      "level": "change",
+      "sourceId": "7f22e97f32f62b85",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "eCourts judgments portal changed on judgments.ecourts.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://judgments.ecourts.gov.in/"
+    },
+    {
+      "id": "1780941666201-1ef72c69820ec3a3-changed",
+      "at": "2026-06-08T18:01:06.201Z",
+      "level": "change",
+      "sourceId": "1ef72c69820ec3a3",
+      "caseId": "sci-diary-21096-2020",
+      "caseCode": "SLP(C) No. 020841 / 2022",
+      "title": "SLP(C) No. 020841 / 2022: source changed",
+      "summary": "SLP(C) No. 020841 / 2022 order 12 Sep 2022 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2020/21096/21096_2020_15_3_38113_Order_12-Sep-2022.pdf"
+    },
+    {
+      "id": "1780941667310-e8e535c2699a7cf5-changed",
+      "at": "2026-06-08T18:01:07.310Z",
+      "level": "change",
+      "sourceId": "e8e535c2699a7cf5",
+      "caseId": "sci-diary-21184-2021",
+      "caseCode": "R.P.(C) No. 001422 - 001497 / 2021",
+      "title": "R.P.(C) No. 001422 - 001497 / 2021: source changed",
+      "summary": "R.P.(C) No. 001422 - 001497 / 2021 order 11 May 2026 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2021/21184/21184_2021_12_301_71066_Order_11-May-2026.pdf"
+    },
+    {
+      "id": "1780941667674-ce86cab2677dba5d-changed",
+      "at": "2026-06-08T18:01:07.674Z",
+      "level": "change",
+      "sourceId": "ce86cab2677dba5d",
+      "caseId": "sci-diary-14438-2022",
+      "caseCode": "MA 000918 - / 2022",
+      "title": "MA 000918 - / 2022: source changed",
+      "summary": "MA 000918 - / 2022 order 27 Jul 2022 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2022/14438/14438_2022_6_2_36751_Order_27-Jul-2022.pdf"
+    },
+    {
+      "id": "1780941668216-86c51f76ac4bfcc8-changed",
+      "at": "2026-06-08T18:01:08.216Z",
+      "level": "change",
+      "sourceId": "86c51f76ac4bfcc8",
+      "caseId": "sci-diary-38332-2018",
+      "caseCode": "C.A. No. 008463 / 2022",
+      "title": "C.A. No. 008463 / 2022: source changed",
+      "summary": "C.A. No. 008463 / 2022 order 11 Feb 2020 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_20_20509_Order_11-Feb-2020.pdf"
+    },
+    {
+      "id": "1780941668682-91bf0fa418b5e7b8-changed",
+      "at": "2026-06-08T18:01:08.682Z",
+      "level": "change",
+      "sourceId": "91bf0fa418b5e7b8",
+      "caseId": "sci-diary-38332-2018",
+      "caseCode": "C.A. No. 008463 / 2022",
+      "title": "C.A. No. 008463 / 2022: source changed",
+      "summary": "C.A. No. 008463 / 2022 order 03 Nov 2022 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_38_39441_Order_03-Nov-2022.pdf"
+    },
+    {
+      "id": "1780941669194-f71269339efc2ec7-changed",
+      "at": "2026-06-08T18:01:09.194Z",
+      "level": "change",
+      "sourceId": "f71269339efc2ec7",
+      "caseId": "sci-diary-4382-2014",
+      "caseCode": "W.P.(C) No. 000104 / 2014",
+      "title": "W.P.(C) No. 000104 / 2014: source changed",
+      "summary": "W.P.(C) No. 000104 / 2014 order 19 Apr 2021 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_31_802_27629_Order_19-Apr-2021.pdf"
+    },
+    {
+      "id": "1780941669572-adfec01c53d121f0-changed",
+      "at": "2026-06-08T18:01:09.572Z",
+      "level": "change",
+      "sourceId": "adfec01c53d121f0",
+      "caseId": "sci-diary-4382-2014",
+      "caseCode": "W.P.(C) No. 000104 / 2014",
+      "title": "W.P.(C) No. 000104 / 2014: source changed",
+      "summary": "W.P.(C) No. 000104 / 2014 order 23 Nov 2021 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_7_110_31459_Order_23-Nov-2021.pdf"
+    },
+    {
+      "id": "1780941678700-f90510db51000e60-changed",
+      "at": "2026-06-08T18:01:18.700Z",
+      "level": "change",
+      "sourceId": "f90510db51000e60",
+      "caseId": "sci-diary-27798-2010",
+      "caseCode": "C.A. No. 002396 / 2011",
+      "title": "C.A. No. 002396 / 2011: source changed",
+      "summary": "C.A. No. 002396 / 2011 order 24 Sep 2024 changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/supremecourt/2010/27798/27798_2010_1_4_56020_Order_24-Sep-2024.pdf"
+    },
+    {
+      "id": "1780941689222-b39a5bb53a80f975-changed",
+      "at": "2026-06-08T18:01:29.222Z",
+      "level": "change",
+      "sourceId": "b39a5bb53a80f975",
+      "caseId": "sci-ca-18067-2017",
+      "caseCode": "C.A. No. 18067/2017",
+      "title": "C.A. No. 18067/2017: source changed",
+      "summary": "C.A. No. 18067/2017 source changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/jonew/cl/2025-08-21/F_J_2.pdf"
+    },
+    {
+      "id": "1780941698199-ea4ac70f7c67a539-changed",
+      "at": "2026-06-08T18:01:38.199Z",
+      "level": "change",
+      "sourceId": "ea4ac70f7c67a539",
+      "caseId": "sci-slp-19156-2022",
+      "caseCode": "SLP(C) No. 19156/2022",
+      "title": "SLP(C) No. 19156/2022: source changed",
+      "summary": "SLP(C) No. 19156/2022 source changed on api.sci.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf"
+    },
+    {
+      "id": "1780941698866-a74d32698ac5f24c-changed",
+      "at": "2026-06-08T18:01:38.866Z",
+      "level": "change",
+      "sourceId": "a74d32698ac5f24c",
+      "caseId": "web-zte-sa-27-2026",
+      "caseCode": "SA 27/DEL/2026",
+      "title": "SA 27/DEL/2026: source changed",
+      "summary": "SA 27/DEL/2026 source changed on casemine.com. Changed fields: sourceFingerprint, title, heading.",
+      "url": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b"
+    },
+    {
+      "id": "1780941699389-886bac3ea16b39ca-changed",
+      "at": "2026-06-08T18:01:39.389Z",
+      "level": "change",
+      "sourceId": "886bac3ea16b39ca",
+      "caseId": "web-ctci-wpc-4302-2013",
+      "caseCode": "W.P.(C) 4302/2013",
+      "title": "W.P.(C) 4302/2013: source changed",
+      "summary": "W.P.(C) 4302/2013 source changed on sooperkanoon.com. Changed fields: sourceFingerprint.",
+      "url": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-international-taxation"
+    },
+    {
+      "id": "1780941699764-25ced7e01b5182ad-failed",
+      "at": "2026-06-08T18:01:39.764Z",
+      "level": "warning",
+      "sourceId": "25ced7e01b5182ad",
+      "caseId": "web-ar-magnetics-ita-241-2012",
+      "caseCode": "IT Appeal No. 241/2012",
+      "title": "IT Appeal No. 241/2012: source check failed",
+      "summary": "IT Appeal No. 241/2012 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE"
+    },
+    {
+      "id": "1780941701853-5f3ccc8afeb81333-failed",
+      "at": "2026-06-08T18:01:41.853Z",
+      "level": "warning",
+      "sourceId": "5f3ccc8afeb81333",
+      "caseId": "web-creative-travel-ita-389-2012",
+      "caseCode": "ITA 389/2012",
+      "title": "ITA 389/2012: source check failed",
+      "summary": "ITA 389/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/"
+    },
+    {
+      "id": "1780941702903-94dcefe2f9649a69-changed",
+      "at": "2026-06-08T18:01:42.903Z",
+      "level": "change",
+      "sourceId": "94dcefe2f9649a69",
+      "caseId": "web-giesecke-itat-1159-2051-2017",
+      "caseCode": "ITA 1159 & 2051/Del/2017",
+      "title": "ITA 1159 & 2051/Del/2017: source changed",
+      "summary": "ITA 1159 & 2051/Del/2017 source changed on courtkutchehry.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/12001299-addl-cit-appellant-hash-ms"
+    },
+    {
+      "id": "1780941703537-740492cbe2a0060e-changed",
+      "at": "2026-06-08T18:01:43.537Z",
+      "level": "change",
+      "sourceId": "740492cbe2a0060e",
+      "caseId": "web-honda-itat-1523-2022",
+      "caseCode": "ITA 1523/Del/2022",
+      "title": "ITA 1523/Del/2022: source changed",
+      "summary": "ITA 1523/Del/2022 source changed on casemine.com. Changed fields: sourceFingerprint, title, heading.",
+      "url": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63"
+    },
+    {
+      "id": "1780941703541-706aa6dd393e6198-failed",
+      "at": "2026-06-08T18:01:43.541Z",
+      "level": "warning",
+      "sourceId": "706aa6dd393e6198",
+      "caseId": "web-ag-holdings-wpc-8031-2011",
+      "caseCode": "W.P.(C) 8031/2011",
+      "title": "W.P.(C) 8031/2011: source check failed",
+      "summary": "W.P.(C) 8031/2011 source on future.indiankanoon.org could not be checked: fetch failed.",
+      "url": "https://future.indiankanoon.org/doc/38977400/"
+    },
+    {
+      "id": "1780941703771-8c40b471fdf4ad15-failed",
+      "at": "2026-06-08T18:01:43.771Z",
+      "level": "warning",
+      "sourceId": "8c40b471fdf4ad15",
+      "caseId": "web-anand-nishikawa-ita-430-2012",
+      "caseCode": "ITA 430/2012",
+      "title": "ITA 430/2012: source check failed",
+      "summary": "ITA 430/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del"
+    },
+    {
+      "id": "1780941703906-18d4f2e584d28487-changed",
+      "at": "2026-06-08T18:01:43.906Z",
+      "level": "change",
+      "sourceId": "18d4f2e584d28487",
+      "caseId": "web-ls-cable-wpc-8799-2015",
+      "caseCode": "W.P.(C) 8799/2015 and connected",
+      "title": "W.P.(C) 8799/2015 and connected: source changed",
+      "summary": "W.P.(C) 8799/2015 and connected source changed on casemine.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96"
+    },
+    {
+      "id": "1780941704034-7ffa1b9435d358f9-changed",
+      "at": "2026-06-08T18:01:44.034Z",
+      "level": "change",
+      "sourceId": "7ffa1b9435d358f9",
+      "caseId": "web-mckinsey-ita-526-2017",
+      "caseCode": "ITA 526/2017, ITA 590/2017, ITA 82/2018",
+      "title": "ITA 526/2017, ITA 590/2017, ITA 82/2018: source changed",
+      "summary": "ITA 526/2017, ITA 590/2017, ITA 82/2018 source changed on casemine.com. Changed fields: sourceFingerprint, title, heading.",
+      "url": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5"
+    },
+    {
+      "id": "1780941704147-39536ba6e8cc323d-changed",
+      "at": "2026-06-08T18:01:44.147Z",
+      "level": "change",
+      "sourceId": "39536ba6e8cc323d",
+      "caseId": "web-mckinsey-ita-146-2020",
+      "caseCode": "ITA 146/2020",
+      "title": "ITA 146/2020: source changed",
+      "summary": "ITA 146/2020 source changed on casemine.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646"
+    },
+    {
+      "id": "1780941704953-9a97a0c7ec096692-changed",
+      "at": "2026-06-08T18:01:44.953Z",
+      "level": "change",
+      "sourceId": "9a97a0c7ec096692",
+      "caseId": "web-brahmaputra-ita-107-2012",
+      "caseCode": "ITA 107/2012",
+      "title": "ITA 107/2012: source changed",
+      "summary": "ITA 107/2012 source changed on courtkutchehry.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/845131-cit-appellant-hash-brahmaputra-capital"
+    },
+    {
+      "id": "1780941705601-26dacdf55328b037-changed",
+      "at": "2026-06-08T18:01:45.601Z",
+      "level": "change",
+      "sourceId": "26dacdf55328b037",
+      "caseId": "web-azeem-investment-ita-252-2012",
+      "caseCode": "ITA 252, 253 and 258/2012",
+      "title": "ITA 252, 253 and 258/2012: source changed",
+      "summary": "ITA 252, 253 and 258/2012 source changed on courtkutchehry.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-vs-commissioner-of-income-tax/"
+    },
+    {
+      "id": "1780941706165-65f8a79c30e0ba8a-changed",
+      "at": "2026-06-08T18:01:46.165Z",
+      "level": "change",
+      "sourceId": "65f8a79c30e0ba8a",
+      "caseId": "web-sony-india-ita-1178-2011",
+      "caseCode": "ITA 1178/2011 and 1182/2011",
+      "title": "ITA 1178/2011 and 1182/2011: source changed",
+      "summary": "ITA 1178/2011 and 1182/2011 source changed on courtkutchehry.com. Changed fields: sourceFingerprint.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/791485-cit-vs-sony-india-pvt?refine_search=&s=&s_acts=Income+Tax+Act%2C+1961"
+    },
+    {
+      "id": "1780941706524-28aa73186f242b6e-failed",
+      "at": "2026-06-08T18:01:46.524Z",
+      "level": "warning",
+      "sourceId": "28aa73186f242b6e",
+      "caseId": "web-regency-valiant-2012",
+      "caseCode": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+      "title": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012: source check failed",
+      "summary": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/149899903/"
+    },
+    {
+      "id": "1780941706646-3113efe15b7c3472-failed",
+      "at": "2026-06-08T18:01:46.646Z",
+      "level": "warning",
+      "sourceId": "3113efe15b7c3472",
+      "caseId": "web-sarla-fabrics-ita-788-2011",
+      "caseCode": "ITA 788/2011",
+      "title": "ITA 788/2011: source check failed",
+      "summary": "ITA 788/2011 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/"
+    },
+    {
+      "id": "1780941708547-a35a23c57b1a1516-changed",
+      "at": "2026-06-08T18:01:48.547Z",
+      "level": "change",
+      "sourceId": "a35a23c57b1a1516",
+      "caseId": "web-seagram-ita-356-2016",
+      "caseCode": "ITA 356/2016 and 357/2016",
+      "title": "ITA 356/2016 and 357/2016: source changed",
+      "summary": "ITA 356/2016 and 357/2016 source changed on delhihighcourt.nic.in. Changed fields: sourceFingerprint.",
+      "url": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016"
+    },
+    {
+      "id": "1780941717143-182c62dffe664088-changed",
+      "at": "2026-06-08T18:01:57.142Z",
+      "level": "change",
+      "sourceId": "182c62dffe664088",
+      "caseId": "web-beam-global-itat-1604-2014",
+      "caseCode": "ITA 1604/DEL/2014 and 1214/DEL/2017",
+      "title": "ITA 1604/DEL/2014 and 1214/DEL/2017: source changed",
+      "summary": "ITA 1604/DEL/2014 and 1214/DEL/2017 source changed on itat.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://itat.gov.in/public/files/upload/1566537907-1604.Beam%20Global%20Spirits%20%26%20Wine..pdf"
+    },
+    {
+      "id": "1780941717265-8a367cba3ea21573-failed",
+      "at": "2026-06-08T18:01:57.265Z",
+      "level": "warning",
+      "sourceId": "8a367cba3ea21573",
+      "caseId": "web-beam-global-dhc-156-2022",
+      "caseCode": "ITA 156/2022",
+      "title": "ITA 156/2022: source check failed",
+      "summary": "ITA 156/2022 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/161375554/"
+    },
+    {
+      "id": "1780941718706-066542f93bddf9b1-changed",
+      "at": "2026-06-08T18:01:58.706Z",
+      "level": "change",
+      "sourceId": "066542f93bddf9b1",
+      "caseId": "web-danisco-itat-3518-2017",
+      "caseCode": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018",
+      "title": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018: source changed",
+      "summary": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018 source changed on itat.gov.in. Changed fields: sourceFingerprint.",
+      "url": "https://itat.gov.in/public/files/upload/1623307896-I.T.As.%20No.3518-DEL-2017%20%26%207896%20to%207899-DEL-2018.pdf"
+    },
+    {
+      "id": "1780941718870-bfc81fea210637bc-failed",
+      "at": "2026-06-08T18:01:58.870Z",
+      "level": "warning",
+      "sourceId": "bfc81fea210637bc",
+      "caseId": "web-pepsi-slp-20367-2015",
+      "caseCode": "SLP(C) No. 20367/2015",
+      "title": "SLP(C) No. 20367/2015: source check failed",
+      "summary": "SLP(C) No. 20367/2015 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE"
+    },
+    {
+      "id": "1780941719063-ce706da656d472d8-failed",
+      "at": "2026-06-08T18:01:59.063Z",
+      "level": "warning",
+      "sourceId": "ce706da656d472d8",
+      "caseId": "web-pepsi-registrar-2019",
+      "caseCode": "SLP(C) Nos. 3136/2017 and connected",
+      "title": "SLP(C) Nos. 3136/2017 and connected: source check failed",
+      "summary": "SLP(C) Nos. 3136/2017 and connected source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/11989121/"
+    },
+    {
+      "id": "1780941551276-bfcbdaf766a47a39-changed",
+      "at": "2026-06-08T17:59:11.275Z",
+      "level": "change",
+      "sourceId": "bfcbdaf766a47a39",
+      "caseId": "sci-diary-9965-2017",
+      "caseCode": "C.A. No. 001116 / 2021",
+      "title": "C.A. No. 001116 / 2021: source changed",
+      "summary": "SCI case status by diary number changed on sci.gov.in. Changed fields: captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/case-status-diary-no/"
+    },
+    {
+      "id": "1780941551324-ebfb12edc6bdb38c-changed",
+      "at": "2026-06-08T17:59:11.324Z",
+      "level": "change",
+      "sourceId": "ebfb12edc6bdb38c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI case status by case number changed on sci.gov.in. Changed fields: captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/case-status-case-no/"
+    },
+    {
+      "id": "1780941551631-a1ebb1c4323935b0-changed",
+      "at": "2026-06-08T17:59:11.631Z",
+      "level": "change",
+      "sourceId": "a1ebb1c4323935b0",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI daily orders by case number changed on sci.gov.in. Changed fields: contentLength, sha256, captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/daily-order-case-no/"
+    },
+    {
+      "id": "1780941551731-e51ab209049d8568-changed",
+      "at": "2026-06-08T17:59:11.731Z",
+      "level": "change",
+      "sourceId": "e51ab209049d8568",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI judgments by case number changed on sci.gov.in. Changed fields: captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/judgements-case-no/"
+    },
+    {
+      "id": "1780941551785-b0430806d10590c7-changed",
+      "at": "2026-06-08T17:59:11.785Z",
+      "level": "change",
+      "sourceId": "b0430806d10590c7",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI office reports by case number changed on sci.gov.in. Changed fields: captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/office-report-case-no/"
+    },
+    {
+      "id": "1780941551844-8271280310ab3a2c-changed",
+      "at": "2026-06-08T17:59:11.844Z",
+      "level": "change",
+      "sourceId": "8271280310ab3a2c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI cause list changed on sci.gov.in. Changed fields: captchaDetected, dateHints.",
+      "url": "https://www.sci.gov.in/cause-list/"
+    },
+    {
+      "id": "1780941554359-2cf03c231031f791-changed",
+      "at": "2026-06-08T17:59:14.358Z",
+      "level": "change",
+      "sourceId": "2cf03c231031f791",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "SCI e-SCR changed on scr.sci.gov.in. Changed fields: sha256, captchaDetected.",
+      "url": "https://scr.sci.gov.in/"
+    },
+    {
+      "id": "1780941557727-7f22e97f32f62b85-changed",
+      "at": "2026-06-08T17:59:17.727Z",
+      "level": "change",
+      "sourceId": "7f22e97f32f62b85",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source changed",
+      "summary": "eCourts judgments portal changed on judgments.ecourts.gov.in. Changed fields: sha256.",
+      "url": "https://judgments.ecourts.gov.in/"
+    },
+    {
+      "id": "1780941589275-a74d32698ac5f24c-changed",
+      "at": "2026-06-08T17:59:49.275Z",
+      "level": "change",
+      "sourceId": "a74d32698ac5f24c",
+      "caseId": "web-zte-sa-27-2026",
+      "caseCode": "SA 27/DEL/2026",
+      "title": "SA 27/DEL/2026: source changed",
+      "summary": "SA 27/DEL/2026 source changed on casemine.com. Changed fields: sha256, title, heading, dateHints.",
+      "url": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b"
+    },
+    {
+      "id": "1780941589669-886bac3ea16b39ca-changed",
+      "at": "2026-06-08T17:59:49.669Z",
+      "level": "change",
+      "sourceId": "886bac3ea16b39ca",
+      "caseId": "web-ctci-wpc-4302-2013",
+      "caseCode": "W.P.(C) 4302/2013",
+      "title": "W.P.(C) 4302/2013: source changed",
+      "summary": "W.P.(C) 4302/2013 source changed on sooperkanoon.com. Changed fields: sha256.",
+      "url": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-international-taxation"
+    },
+    {
+      "id": "1780941589827-25ced7e01b5182ad-failed",
+      "at": "2026-06-08T17:59:49.827Z",
+      "level": "warning",
+      "sourceId": "25ced7e01b5182ad",
+      "caseId": "web-ar-magnetics-ita-241-2012",
+      "caseCode": "IT Appeal No. 241/2012",
+      "title": "IT Appeal No. 241/2012: source check failed",
+      "summary": "IT Appeal No. 241/2012 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE"
+    },
+    {
+      "id": "1780941591573-5f3ccc8afeb81333-failed",
+      "at": "2026-06-08T17:59:51.573Z",
+      "level": "warning",
+      "sourceId": "5f3ccc8afeb81333",
+      "caseId": "web-creative-travel-ita-389-2012",
+      "caseCode": "ITA 389/2012",
+      "title": "ITA 389/2012: source check failed",
+      "summary": "ITA 389/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/"
+    },
+    {
+      "id": "1780941593472-94dcefe2f9649a69-changed",
+      "at": "2026-06-08T17:59:53.472Z",
+      "level": "change",
+      "sourceId": "94dcefe2f9649a69",
+      "caseId": "web-giesecke-itat-1159-2051-2017",
+      "caseCode": "ITA 1159 & 2051/Del/2017",
+      "title": "ITA 1159 & 2051/Del/2017: source changed",
+      "summary": "ITA 1159 & 2051/Del/2017 source changed on courtkutchehry.com. Changed fields: sha256, dateHints.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/12001299-addl-cit-appellant-hash-ms"
+    },
+    {
+      "id": "1780941593950-740492cbe2a0060e-changed",
+      "at": "2026-06-08T17:59:53.950Z",
+      "level": "change",
+      "sourceId": "740492cbe2a0060e",
+      "caseId": "web-honda-itat-1523-2022",
+      "caseCode": "ITA 1523/Del/2022",
+      "title": "ITA 1523/Del/2022: source changed",
+      "summary": "ITA 1523/Del/2022 source changed on casemine.com. Changed fields: sha256, title, heading, dateHints.",
+      "url": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63"
+    },
+    {
+      "id": "1780941593954-706aa6dd393e6198-failed",
+      "at": "2026-06-08T17:59:53.954Z",
+      "level": "warning",
+      "sourceId": "706aa6dd393e6198",
+      "caseId": "web-ag-holdings-wpc-8031-2011",
+      "caseCode": "W.P.(C) 8031/2011",
+      "title": "W.P.(C) 8031/2011: source check failed",
+      "summary": "W.P.(C) 8031/2011 source on future.indiankanoon.org could not be checked: fetch failed.",
+      "url": "https://future.indiankanoon.org/doc/38977400/"
+    },
+    {
+      "id": "1780941594055-8c40b471fdf4ad15-failed",
+      "at": "2026-06-08T17:59:54.055Z",
+      "level": "warning",
+      "sourceId": "8c40b471fdf4ad15",
+      "caseId": "web-anand-nishikawa-ita-430-2012",
+      "caseCode": "ITA 430/2012",
+      "title": "ITA 430/2012: source check failed",
+      "summary": "ITA 430/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del"
+    },
+    {
+      "id": "1780941594198-18d4f2e584d28487-changed",
+      "at": "2026-06-08T17:59:54.198Z",
+      "level": "change",
+      "sourceId": "18d4f2e584d28487",
+      "caseId": "web-ls-cable-wpc-8799-2015",
+      "caseCode": "W.P.(C) 8799/2015 and connected",
+      "title": "W.P.(C) 8799/2015 and connected: source changed",
+      "summary": "W.P.(C) 8799/2015 and connected source changed on casemine.com. Changed fields: sha256, title, heading.",
+      "url": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96"
+    },
+    {
+      "id": "1780941594329-7ffa1b9435d358f9-changed",
+      "at": "2026-06-08T17:59:54.329Z",
+      "level": "change",
+      "sourceId": "7ffa1b9435d358f9",
+      "caseId": "web-mckinsey-ita-526-2017",
+      "caseCode": "ITA 526/2017, ITA 590/2017, ITA 82/2018",
+      "title": "ITA 526/2017, ITA 590/2017, ITA 82/2018: source changed",
+      "summary": "ITA 526/2017, ITA 590/2017, ITA 82/2018 source changed on casemine.com. Changed fields: sha256, dateHints.",
+      "url": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5"
+    },
+    {
+      "id": "1780941594449-39536ba6e8cc323d-changed",
+      "at": "2026-06-08T17:59:54.449Z",
+      "level": "change",
+      "sourceId": "39536ba6e8cc323d",
+      "caseId": "web-mckinsey-ita-146-2020",
+      "caseCode": "ITA 146/2020",
+      "title": "ITA 146/2020: source changed",
+      "summary": "ITA 146/2020 source changed on casemine.com. Changed fields: sha256.",
+      "url": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646"
+    },
+    {
+      "id": "1780941595111-9a97a0c7ec096692-changed",
+      "at": "2026-06-08T17:59:55.111Z",
+      "level": "change",
+      "sourceId": "9a97a0c7ec096692",
+      "caseId": "web-brahmaputra-ita-107-2012",
+      "caseCode": "ITA 107/2012",
+      "title": "ITA 107/2012: source changed",
+      "summary": "ITA 107/2012 source changed on courtkutchehry.com. Changed fields: sha256.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/845131-cit-appellant-hash-brahmaputra-capital"
+    },
+    {
+      "id": "1780941595771-26dacdf55328b037-changed",
+      "at": "2026-06-08T17:59:55.771Z",
+      "level": "change",
+      "sourceId": "26dacdf55328b037",
+      "caseId": "web-azeem-investment-ita-252-2012",
+      "caseCode": "ITA 252, 253 and 258/2012",
+      "title": "ITA 252, 253 and 258/2012: source changed",
+      "summary": "ITA 252, 253 and 258/2012 source changed on courtkutchehry.com. Changed fields: sha256.",
+      "url": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-vs-commissioner-of-income-tax/"
+    },
+    {
+      "id": "1780941596353-65f8a79c30e0ba8a-changed",
+      "at": "2026-06-08T17:59:56.353Z",
+      "level": "change",
+      "sourceId": "65f8a79c30e0ba8a",
+      "caseId": "web-sony-india-ita-1178-2011",
+      "caseCode": "ITA 1178/2011 and 1182/2011",
+      "title": "ITA 1178/2011 and 1182/2011: source changed",
+      "summary": "ITA 1178/2011 and 1182/2011 source changed on courtkutchehry.com. Changed fields: sha256.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/791485-cit-vs-sony-india-pvt?refine_search=&s=&s_acts=Income+Tax+Act%2C+1961"
+    },
+    {
+      "id": "1780941596631-28aa73186f242b6e-failed",
+      "at": "2026-06-08T17:59:56.631Z",
+      "level": "warning",
+      "sourceId": "28aa73186f242b6e",
+      "caseId": "web-regency-valiant-2012",
+      "caseCode": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+      "title": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012: source check failed",
+      "summary": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/149899903/"
+    },
+    {
+      "id": "1780941596817-3113efe15b7c3472-failed",
+      "at": "2026-06-08T17:59:56.817Z",
+      "level": "warning",
+      "sourceId": "3113efe15b7c3472",
+      "caseId": "web-sarla-fabrics-ita-788-2011",
+      "caseCode": "ITA 788/2011",
+      "title": "ITA 788/2011: source check failed",
+      "summary": "ITA 788/2011 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/"
+    },
+    {
+      "id": "1780941598108-a35a23c57b1a1516-changed",
+      "at": "2026-06-08T17:59:58.108Z",
+      "level": "change",
+      "sourceId": "a35a23c57b1a1516",
+      "caseId": "web-seagram-ita-356-2016",
+      "caseCode": "ITA 356/2016 and 357/2016",
+      "title": "ITA 356/2016 and 357/2016: source changed",
+      "summary": "ITA 356/2016 and 357/2016 source changed on delhihighcourt.nic.in. Changed fields: sha256.",
+      "url": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016"
+    },
+    {
+      "id": "1780941605942-8a367cba3ea21573-failed",
+      "at": "2026-06-08T18:00:05.942Z",
+      "level": "warning",
+      "sourceId": "8a367cba3ea21573",
+      "caseId": "web-beam-global-dhc-156-2022",
+      "caseCode": "ITA 156/2022",
+      "title": "ITA 156/2022: source check failed",
+      "summary": "ITA 156/2022 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/161375554/"
+    },
+    {
+      "id": "1780941607638-bfc81fea210637bc-failed",
+      "at": "2026-06-08T18:00:07.637Z",
+      "level": "warning",
+      "sourceId": "bfc81fea210637bc",
+      "caseId": "web-pepsi-slp-20367-2015",
+      "caseCode": "SLP(C) No. 20367/2015",
+      "title": "SLP(C) No. 20367/2015: source check failed",
+      "summary": "SLP(C) No. 20367/2015 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE"
+    },
+    {
+      "id": "1780941607828-ce706da656d472d8-failed",
+      "at": "2026-06-08T18:00:07.828Z",
+      "level": "warning",
+      "sourceId": "ce706da656d472d8",
+      "caseId": "web-pepsi-registrar-2019",
+      "caseCode": "SLP(C) Nos. 3136/2017 and connected",
+      "title": "SLP(C) Nos. 3136/2017 and connected: source check failed",
+      "summary": "SLP(C) Nos. 3136/2017 and connected source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/11989121/"
+    },
+    {
+      "id": "1780941453053-bfcbdaf766a47a39-added",
+      "at": "2026-06-08T17:57:33.053Z",
+      "level": "info",
+      "sourceId": "bfcbdaf766a47a39",
+      "caseId": "sci-diary-9965-2017",
+      "caseCode": "C.A. No. 001116 / 2021",
+      "title": "C.A. No. 001116 / 2021: source added to monitor",
+      "summary": "SCI case status by diary number was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/case-status-diary-no/"
+    },
+    {
+      "id": "1780941453295-ebfb12edc6bdb38c-added",
+      "at": "2026-06-08T17:57:33.295Z",
+      "level": "info",
+      "sourceId": "ebfb12edc6bdb38c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI case status by case number was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/case-status-case-no/"
+    },
+    {
+      "id": "1780941454372-5a48431ba6559a6d-added",
+      "at": "2026-06-08T17:57:34.372Z",
+      "level": "info",
+      "sourceId": "5a48431ba6559a6d",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI case status by AOR code was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/case-status-aor-code/"
+    },
+    {
+      "id": "1780941454595-a1ebb1c4323935b0-added",
+      "at": "2026-06-08T17:57:34.595Z",
+      "level": "info",
+      "sourceId": "a1ebb1c4323935b0",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI daily orders by case number was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/daily-order-case-no/"
+    },
+    {
+      "id": "1780941454811-e51ab209049d8568-added",
+      "at": "2026-06-08T17:57:34.811Z",
+      "level": "info",
+      "sourceId": "e51ab209049d8568",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI judgments by case number was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/judgements-case-no/"
+    },
+    {
+      "id": "1780941455027-b0430806d10590c7-added",
+      "at": "2026-06-08T17:57:35.027Z",
+      "level": "info",
+      "sourceId": "b0430806d10590c7",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI office reports by case number was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/office-report-case-no/"
+    },
+    {
+      "id": "1780941455261-8271280310ab3a2c-added",
+      "at": "2026-06-08T17:57:35.261Z",
+      "level": "info",
+      "sourceId": "8271280310ab3a2c",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI cause list was checked on sci.gov.in and added to the automation baseline.",
+      "url": "https://www.sci.gov.in/cause-list/"
+    },
+    {
+      "id": "1780941458465-2cf03c231031f791-added",
+      "at": "2026-06-08T17:57:38.465Z",
+      "level": "info",
+      "sourceId": "2cf03c231031f791",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "SCI e-SCR was checked on scr.sci.gov.in and added to the automation baseline.",
+      "url": "https://scr.sci.gov.in/"
+    },
+    {
+      "id": "1780941461556-7f22e97f32f62b85-added",
+      "at": "2026-06-08T17:57:41.556Z",
+      "level": "notice",
+      "sourceId": "7f22e97f32f62b85",
+      "caseId": "",
+      "caseCode": "",
+      "title": "source added to monitor",
+      "summary": "eCourts judgments portal was checked on judgments.ecourts.gov.in; CAPTCHA was detected and recorded for manual official refresh.",
+      "url": "https://judgments.ecourts.gov.in/"
+    },
+    {
+      "id": "1780941463761-1ef72c69820ec3a3-added",
+      "at": "2026-06-08T17:57:43.761Z",
+      "level": "info",
+      "sourceId": "1ef72c69820ec3a3",
+      "caseId": "sci-diary-21096-2020",
+      "caseCode": "SLP(C) No. 020841 / 2022",
+      "title": "SLP(C) No. 020841 / 2022: source added to monitor",
+      "summary": "SLP(C) No. 020841 / 2022 order 12 Sep 2022 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2020/21096/21096_2020_15_3_38113_Order_12-Sep-2022.pdf"
+    },
+    {
+      "id": "1780941464974-e8e535c2699a7cf5-added",
+      "at": "2026-06-08T17:57:44.974Z",
+      "level": "info",
+      "sourceId": "e8e535c2699a7cf5",
+      "caseId": "sci-diary-21184-2021",
+      "caseCode": "R.P.(C) No. 001422 - 001497 / 2021",
+      "title": "R.P.(C) No. 001422 - 001497 / 2021: source added to monitor",
+      "summary": "R.P.(C) No. 001422 - 001497 / 2021 order 11 May 2026 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2021/21184/21184_2021_12_301_71066_Order_11-May-2026.pdf"
+    },
+    {
+      "id": "1780941465392-ce86cab2677dba5d-added",
+      "at": "2026-06-08T17:57:45.392Z",
+      "level": "info",
+      "sourceId": "ce86cab2677dba5d",
+      "caseId": "sci-diary-14438-2022",
+      "caseCode": "MA 000918 - / 2022",
+      "title": "MA 000918 - / 2022: source added to monitor",
+      "summary": "MA 000918 - / 2022 order 27 Jul 2022 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2022/14438/14438_2022_6_2_36751_Order_27-Jul-2022.pdf"
+    },
+    {
+      "id": "1780941465967-86c51f76ac4bfcc8-added",
+      "at": "2026-06-08T17:57:45.967Z",
+      "level": "info",
+      "sourceId": "86c51f76ac4bfcc8",
+      "caseId": "sci-diary-38332-2018",
+      "caseCode": "C.A. No. 008463 / 2022",
+      "title": "C.A. No. 008463 / 2022: source added to monitor",
+      "summary": "C.A. No. 008463 / 2022 order 11 Feb 2020 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_20_20509_Order_11-Feb-2020.pdf"
+    },
+    {
+      "id": "1780941466440-91bf0fa418b5e7b8-added",
+      "at": "2026-06-08T17:57:46.440Z",
+      "level": "info",
+      "sourceId": "91bf0fa418b5e7b8",
+      "caseId": "sci-diary-38332-2018",
+      "caseCode": "C.A. No. 008463 / 2022",
+      "title": "C.A. No. 008463 / 2022: source added to monitor",
+      "summary": "C.A. No. 008463 / 2022 order 03 Nov 2022 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2018/38332/38332_2018_6_38_39441_Order_03-Nov-2022.pdf"
+    },
+    {
+      "id": "1780941466814-f71269339efc2ec7-added",
+      "at": "2026-06-08T17:57:46.814Z",
+      "level": "info",
+      "sourceId": "f71269339efc2ec7",
+      "caseId": "sci-diary-4382-2014",
+      "caseCode": "W.P.(C) No. 000104 / 2014",
+      "title": "W.P.(C) No. 000104 / 2014: source added to monitor",
+      "summary": "W.P.(C) No. 000104 / 2014 order 19 Apr 2021 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_31_802_27629_Order_19-Apr-2021.pdf"
+    },
+    {
+      "id": "1780941467181-adfec01c53d121f0-added",
+      "at": "2026-06-08T17:57:47.181Z",
+      "level": "info",
+      "sourceId": "adfec01c53d121f0",
+      "caseId": "sci-diary-4382-2014",
+      "caseCode": "W.P.(C) No. 000104 / 2014",
+      "title": "W.P.(C) No. 000104 / 2014: source added to monitor",
+      "summary": "W.P.(C) No. 000104 / 2014 order 23 Nov 2021 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2014/4382/4382_2014_7_110_31459_Order_23-Nov-2021.pdf"
+    },
+    {
+      "id": "1780941475474-f90510db51000e60-added",
+      "at": "2026-06-08T17:57:55.474Z",
+      "level": "info",
+      "sourceId": "f90510db51000e60",
+      "caseId": "sci-diary-27798-2010",
+      "caseCode": "C.A. No. 002396 / 2011",
+      "title": "C.A. No. 002396 / 2011: source added to monitor",
+      "summary": "C.A. No. 002396 / 2011 order 24 Sep 2024 was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/supremecourt/2010/27798/27798_2010_1_4_56020_Order_24-Sep-2024.pdf"
+    },
+    {
+      "id": "1780941486284-b39a5bb53a80f975-added",
+      "at": "2026-06-08T17:58:06.284Z",
+      "level": "info",
+      "sourceId": "b39a5bb53a80f975",
+      "caseId": "sci-ca-18067-2017",
+      "caseCode": "C.A. No. 18067/2017",
+      "title": "C.A. No. 18067/2017: source added to monitor",
+      "summary": "C.A. No. 18067/2017 source was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/jonew/cl/2025-08-21/F_J_2.pdf"
+    },
+    {
+      "id": "1780941497742-ea4ac70f7c67a539-added",
+      "at": "2026-06-08T17:58:17.742Z",
+      "level": "info",
+      "sourceId": "ea4ac70f7c67a539",
+      "caseId": "sci-slp-19156-2022",
+      "caseCode": "SLP(C) No. 19156/2022",
+      "title": "SLP(C) No. 19156/2022: source added to monitor",
+      "summary": "SLP(C) No. 19156/2022 source was checked on api.sci.gov.in and added to the automation baseline.",
+      "url": "https://api.sci.gov.in/jonew/cl/2026-05-21/M_J_1.pdf"
+    },
+    {
+      "id": "1780941498296-a74d32698ac5f24c-added",
+      "at": "2026-06-08T17:58:18.296Z",
+      "level": "info",
+      "sourceId": "a74d32698ac5f24c",
+      "caseId": "web-zte-sa-27-2026",
+      "caseCode": "SA 27/DEL/2026",
+      "title": "SA 27/DEL/2026: source added to monitor",
+      "summary": "SA 27/DEL/2026 source was checked on casemine.com and added to the automation baseline.",
+      "url": "https://www.casemine.com/judgement/in/6995bd6b69579d20ddc19c2b"
+    },
+    {
+      "id": "1780941499137-886bac3ea16b39ca-added",
+      "at": "2026-06-08T17:58:19.137Z",
+      "level": "info",
+      "sourceId": "886bac3ea16b39ca",
+      "caseId": "web-ctci-wpc-4302-2013",
+      "caseCode": "W.P.(C) 4302/2013",
+      "title": "W.P.(C) 4302/2013: source added to monitor",
+      "summary": "W.P.(C) 4302/2013 source was checked on sooperkanoon.com and added to the automation baseline.",
+      "url": "https://sooperkanoon.com/case/1141234/ctci-overseas-corporation-ltd-vs-international-taxation"
+    },
+    {
+      "id": "1780941499379-25ced7e01b5182ad-failed",
+      "at": "2026-06-08T17:58:19.379Z",
+      "level": "warning",
+      "sourceId": "25ced7e01b5182ad",
+      "caseId": "web-ar-magnetics-ita-241-2012",
+      "caseCode": "IT Appeal No. 241/2012",
+      "title": "IT Appeal No. 241/2012: source check failed",
+      "summary": "IT Appeal No. 241/2012 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DSuGewrdvz8MNKvk%3D/key%3DE"
+    },
+    {
+      "id": "1780941502030-5f3ccc8afeb81333-failed",
+      "at": "2026-06-08T17:58:22.030Z",
+      "level": "warning",
+      "sourceId": "5f3ccc8afeb81333",
+      "caseId": "web-creative-travel-ita-389-2012",
+      "caseCode": "ITA 389/2012",
+      "title": "ITA 389/2012: source check failed",
+      "summary": "ITA 389/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-3962-del/"
+    },
+    {
+      "id": "1780941502970-94dcefe2f9649a69-added",
+      "at": "2026-06-08T17:58:22.970Z",
+      "level": "info",
+      "sourceId": "94dcefe2f9649a69",
+      "caseId": "web-giesecke-itat-1159-2051-2017",
+      "caseCode": "ITA 1159 & 2051/Del/2017",
+      "title": "ITA 1159 & 2051/Del/2017: source added to monitor",
+      "summary": "ITA 1159 & 2051/Del/2017 source was checked on courtkutchehry.com and added to the automation baseline.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/12001299-addl-cit-appellant-hash-ms"
+    },
+    {
+      "id": "1780941503373-740492cbe2a0060e-added",
+      "at": "2026-06-08T17:58:23.373Z",
+      "level": "info",
+      "sourceId": "740492cbe2a0060e",
+      "caseId": "web-honda-itat-1523-2022",
+      "caseCode": "ITA 1523/Del/2022",
+      "title": "ITA 1523/Del/2022: source added to monitor",
+      "summary": "ITA 1523/Del/2022 source was checked on casemine.com and added to the automation baseline.",
+      "url": "https://www.casemine.com/judgement/in/64e8ab9209cb195443fd6c63"
+    },
+    {
+      "id": "1780941503500-706aa6dd393e6198-failed",
+      "at": "2026-06-08T17:58:23.500Z",
+      "level": "warning",
+      "sourceId": "706aa6dd393e6198",
+      "caseId": "web-ag-holdings-wpc-8031-2011",
+      "caseCode": "W.P.(C) 8031/2011",
+      "title": "W.P.(C) 8031/2011: source check failed",
+      "summary": "W.P.(C) 8031/2011 source on future.indiankanoon.org could not be checked: fetch failed.",
+      "url": "https://future.indiankanoon.org/doc/38977400/"
+    },
+    {
+      "id": "1780941503620-8c40b471fdf4ad15-failed",
+      "at": "2026-06-08T17:58:23.620Z",
+      "level": "warning",
+      "sourceId": "8c40b471fdf4ad15",
+      "caseId": "web-anand-nishikawa-ita-430-2012",
+      "caseCode": "ITA 430/2012",
+      "title": "ITA 430/2012: source check failed",
+      "summary": "ITA 430/2012 source on latestlaws.com could not be checked: HTTP 403.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/september/2012-latest-caselaw-5663-del"
+    },
+    {
+      "id": "1780941503767-18d4f2e584d28487-added",
+      "at": "2026-06-08T17:58:23.767Z",
+      "level": "info",
+      "sourceId": "18d4f2e584d28487",
+      "caseId": "web-ls-cable-wpc-8799-2015",
+      "caseCode": "W.P.(C) 8799/2015 and connected",
+      "title": "W.P.(C) 8799/2015 and connected: source added to monitor",
+      "summary": "W.P.(C) 8799/2015 and connected source was checked on casemine.com and added to the automation baseline.",
+      "url": "https://www.casemine.com/judgement/in/57b47a99bc416857b539ea96"
+    },
+    {
+      "id": "1780941503883-7ffa1b9435d358f9-added",
+      "at": "2026-06-08T17:58:23.883Z",
+      "level": "info",
+      "sourceId": "7ffa1b9435d358f9",
+      "caseId": "web-mckinsey-ita-526-2017",
+      "caseCode": "ITA 526/2017, ITA 590/2017, ITA 82/2018",
+      "title": "ITA 526/2017, ITA 590/2017, ITA 82/2018: source added to monitor",
+      "summary": "ITA 526/2017, ITA 590/2017, ITA 82/2018 source was checked on casemine.com and added to the automation baseline.",
+      "url": "https://www.casemine.com/judgement/in/63940b3064dc0c26e38e54f5"
+    },
+    {
+      "id": "1780941504020-39536ba6e8cc323d-added",
+      "at": "2026-06-08T17:58:24.020Z",
+      "level": "info",
+      "sourceId": "39536ba6e8cc323d",
+      "caseId": "web-mckinsey-ita-146-2020",
+      "caseCode": "ITA 146/2020",
+      "title": "ITA 146/2020: source added to monitor",
+      "summary": "ITA 146/2020 source was checked on casemine.com and added to the automation baseline.",
+      "url": "https://www.casemine.com/judgement/in/616d0f239fca1919afcc0646"
+    },
+    {
+      "id": "1780941504840-9a97a0c7ec096692-added",
+      "at": "2026-06-08T17:58:24.840Z",
+      "level": "info",
+      "sourceId": "9a97a0c7ec096692",
+      "caseId": "web-brahmaputra-ita-107-2012",
+      "caseCode": "ITA 107/2012",
+      "title": "ITA 107/2012: source added to monitor",
+      "summary": "ITA 107/2012 source was checked on courtkutchehry.com and added to the automation baseline.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/845131-cit-appellant-hash-brahmaputra-capital"
+    },
+    {
+      "id": "1780941505662-26dacdf55328b037-added",
+      "at": "2026-06-08T17:58:25.662Z",
+      "level": "info",
+      "sourceId": "26dacdf55328b037",
+      "caseId": "web-azeem-investment-ita-252-2012",
+      "caseCode": "ITA 252, 253 and 258/2012",
+      "title": "ITA 252, 253 and 258/2012: source added to monitor",
+      "summary": "ITA 252, 253 and 258/2012 source was checked on courtkutchehry.com and added to the automation baseline.",
+      "url": "https://www.courtkutchehry.com/judgements/907180/azeem-investment-p-ltd-vs-commissioner-of-income-tax/"
+    },
+    {
+      "id": "1780941506259-65f8a79c30e0ba8a-added",
+      "at": "2026-06-08T17:58:26.259Z",
+      "level": "info",
+      "sourceId": "65f8a79c30e0ba8a",
+      "caseId": "web-sony-india-ita-1178-2011",
+      "caseCode": "ITA 1178/2011 and 1182/2011",
+      "title": "ITA 1178/2011 and 1182/2011: source added to monitor",
+      "summary": "ITA 1178/2011 and 1182/2011 source was checked on courtkutchehry.com and added to the automation baseline.",
+      "url": "https://www.courtkutchehry.com/Judgement/Search/t/791485-cit-vs-sony-india-pvt?refine_search=&s=&s_acts=Income+Tax+Act%2C+1961"
+    },
+    {
+      "id": "1780941506541-28aa73186f242b6e-failed",
+      "at": "2026-06-08T17:58:26.541Z",
+      "level": "warning",
+      "sourceId": "28aa73186f242b6e",
+      "caseId": "web-regency-valiant-2012",
+      "caseCode": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012",
+      "title": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012: source check failed",
+      "summary": "ITA 69/2008, 783/2009, 1239/2011, 2002/2010, 438-441/2012 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/149899903/"
+    },
+    {
+      "id": "1780941506640-3113efe15b7c3472-failed",
+      "at": "2026-06-08T17:58:26.640Z",
+      "level": "warning",
+      "sourceId": "3113efe15b7c3472",
+      "caseId": "web-sarla-fabrics-ita-788-2011",
+      "caseCode": "ITA 788/2011",
+      "title": "ITA 788/2011: source check failed",
+      "summary": "ITA 788/2011 source on latestlaws.com could not be checked: fetch failed.",
+      "url": "https://www.latestlaws.com/judgements/delhi-hc/2012/july/2012-latest-caselaw-4295-del/"
+    },
+    {
+      "id": "1780941507986-a35a23c57b1a1516-added",
+      "at": "2026-06-08T17:58:27.986Z",
+      "level": "info",
+      "sourceId": "a35a23c57b1a1516",
+      "caseId": "web-seagram-ita-356-2016",
+      "caseCode": "ITA 356/2016 and 357/2016",
+      "title": "ITA 356/2016 and 357/2016: source added to monitor",
+      "summary": "ITA 356/2016 and 357/2016 source was checked on delhihighcourt.nic.in and added to the automation baseline.",
+      "url": "https://delhihighcourt.nic.in/app/showlogo/118355_2016.pdf/2016"
+    },
+    {
+      "id": "1780941511981-182c62dffe664088-added",
+      "at": "2026-06-08T17:58:31.981Z",
+      "level": "info",
+      "sourceId": "182c62dffe664088",
+      "caseId": "web-beam-global-itat-1604-2014",
+      "caseCode": "ITA 1604/DEL/2014 and 1214/DEL/2017",
+      "title": "ITA 1604/DEL/2014 and 1214/DEL/2017: source added to monitor",
+      "summary": "ITA 1604/DEL/2014 and 1214/DEL/2017 source was checked on itat.gov.in and added to the automation baseline.",
+      "url": "https://itat.gov.in/public/files/upload/1566537907-1604.Beam%20Global%20Spirits%20%26%20Wine..pdf"
+    },
+    {
+      "id": "1780941512096-8a367cba3ea21573-failed",
+      "at": "2026-06-08T17:58:32.096Z",
+      "level": "warning",
+      "sourceId": "8a367cba3ea21573",
+      "caseId": "web-beam-global-dhc-156-2022",
+      "caseCode": "ITA 156/2022",
+      "title": "ITA 156/2022: source check failed",
+      "summary": "ITA 156/2022 source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/161375554/"
+    },
+    {
+      "id": "1780941512543-066542f93bddf9b1-added",
+      "at": "2026-06-08T17:58:32.543Z",
+      "level": "info",
+      "sourceId": "066542f93bddf9b1",
+      "caseId": "web-danisco-itat-3518-2017",
+      "caseCode": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018",
+      "title": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018: source added to monitor",
+      "summary": "ITA 3518/DEL/2017 and 7896-7899/DEL/2018 source was checked on itat.gov.in and added to the automation baseline.",
+      "url": "https://itat.gov.in/public/files/upload/1623307896-I.T.As.%20No.3518-DEL-2017%20%26%207896%20to%207899-DEL-2018.pdf"
+    },
+    {
+      "id": "1780941512673-bfc81fea210637bc-failed",
+      "at": "2026-06-08T17:58:32.673Z",
+      "level": "warning",
+      "sourceId": "bfc81fea210637bc",
+      "caseId": "web-pepsi-slp-20367-2015",
+      "caseCode": "SLP(C) No. 20367/2015",
+      "title": "SLP(C) No. 20367/2015: source check failed",
+      "summary": "SLP(C) No. 20367/2015 source on taxlok.com could not be checked: HTTP 403.",
+      "url": "https://www.taxlok.com/view/latest/library/latest/details.html/id%3DpoV4uc9R1W8%3D/key%3DE"
+    },
+    {
+      "id": "1780941512796-ce706da656d472d8-failed",
+      "at": "2026-06-08T17:58:32.796Z",
+      "level": "warning",
+      "sourceId": "ce706da656d472d8",
+      "caseId": "web-pepsi-registrar-2019",
+      "caseCode": "SLP(C) Nos. 3136/2017 and connected",
+      "title": "SLP(C) Nos. 3136/2017 and connected: source check failed",
+      "summary": "SLP(C) Nos. 3136/2017 and connected source on indiankanoon.org could not be checked: HTTP 403.",
+      "url": "https://indiankanoon.org/doc/11989121/"
+    }
+  ]
 }

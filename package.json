@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "build-sunny-site": "node scripts/build-sunny-site.mjs",
-    "deploy-sunny-site": "node scripts/deploy-sunny-site.mjs"
+    "deploy-sunny-site": "node scripts/deploy-sunny-site.mjs",
+    "sync-and-publish": "node scripts/sync-and-publish.mjs",
+    "update-sunny-case-data": "node scripts/update-sunny-case-data.mjs"
   }
 }

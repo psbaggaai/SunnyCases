@@ -30,6 +30,14 @@ function readText(filePath) {
   return fs.readFileSync(filePath, "utf8");
 }
 
+function readJson(filePath, fallback) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch {
+    return fallback;
+  }
+}
+
 function writeText(filePath, content) {
   fs.writeFileSync(filePath, content.endsWith("\n") ? content : `${content}\n`);
 }
@@ -81,6 +89,21 @@ function escapeAttr(value) {
 
 function formatUpdatedLabel(isoDate) {
   const date = new Date(isoDate);
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    month: "short",
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+function formatEventTime(isoDate) {
+  if (!isoDate) return "Not checked yet";
+  const date = new Date(isoDate);
+  if (Number.isNaN(date.getTime())) return String(isoDate);
   return new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     hour: "numeric",
@@ -464,6 +487,13 @@ ${aiStyles}
       .sort-row { color: var(--muted); padding: 0 16px; }
       .row { border-radius: 18px; padding: 16px; }
       .document-row { grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.55fr) minmax(220px, 1fr) minmax(160px, 0.75fr) minmax(110px, 0.45fr); }
+      .event-row { grid-template-columns: minmax(170px, 0.8fr) minmax(180px, 0.8fr) minmax(260px, 1.35fr) minmax(130px, 0.5fr); }
+      .event-level { align-items: center; border-radius: 999px; display: inline-flex; font-size: 0.76rem; font-weight: 900; justify-content: center; min-height: 30px; padding: 7px 10px; text-transform: uppercase; width: fit-content; }
+      .event-level.change { background: #e6f5ec; color: #237245; }
+      .event-level.warning { background: #fff1dc; color: #9a5a12; }
+      .event-level.notice { background: #eef4ff; color: #315fae; }
+      .event-level.info { background: #edf4f0; color: #49715f; }
+      .event-empty { border: 1px dashed rgba(89,123,171,0.32); border-radius: 18px; color: var(--muted); font-weight: 800; padding: 18px; }
       .case-code, .value { font-weight: 850; line-height: 1.35; }
       .case-link { color: inherit; text-decoration: none; }
       .case-link:hover { color: #315fae; text-decoration: underline; }
@@ -472,7 +502,7 @@ ${aiStyles}
       .sort-button { align-items: center; background: transparent; border: 0; color: var(--muted); cursor: pointer; display: inline-flex; font: inherit; font-size: 0.78rem; font-weight: 850; gap: 8px; letter-spacing: 0.08em; padding: 0; text-align: left; text-transform: uppercase; }
       .sort-button:hover, .sort-button.active { color: var(--navy); }
       .sort-state { background: #eef4ff; border: 1px solid var(--border); border-radius: 999px; color: #3b67b9; font-size: 0.68rem; font-weight: 850; letter-spacing: 0; padding: 3px 7px; text-transform: none; }
-      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row { grid-template-columns: 1fr; } }
+      @media (max-width: 960px) { .stats-grid, .ai-grid { grid-template-columns: 1fr; } .sort-row, .row, .document-row, .event-row { grid-template-columns: 1fr; } }
       @media (max-width: 640px) { .top-banner-inner { align-items: flex-start; flex-direction: column; } .top-banner-actions { align-items: flex-start; justify-content: flex-start; width: 100%; } .stats-grid { grid-template-columns: 1fr; } }`;
 }
 
@@ -716,7 +746,23 @@ ${rows
   return pageChrome({ title: "Sunny Case Orders", active: "orders", updatedLabel, body });
 }
 
-function buildEventLogPage(cases, aiInsights, updatedLabel) {
+function normalizeEventDataForBuild(eventData, builtAt) {
+  return {
+    version: Math.max(Number(eventData.version || 0), 2),
+    updatedAt: eventData.updatedAt || builtAt,
+    siteBuiltAt: builtAt,
+    captchaPolicy: eventData.captchaPolicy || {
+      mode: "detect-only",
+      note:
+        "The scheduled job detects CAPTCHA-gated official forms and records manual-refresh targets. It does not solve or bypass CAPTCHA challenges.",
+    },
+    lastRun: eventData.lastRun || null,
+    sources: eventData.sources || {},
+    events: Array.isArray(eventData.events) ? eventData.events : [],
+  };
+}
+
+function buildEventLogPage(cases, aiInsights, updatedLabel, eventData) {
   const aiPanel = ENABLE_AI_INSIGHTS
     ? buildAiPanel({
         title: "Publishing report summary",
@@ -725,16 +771,50 @@ function buildEventLogPage(cases, aiInsights, updatedLabel) {
         href: "ai-insights.html#site-report",
       })
     : "";
+  const normalizedEvents = normalizeEventDataForBuild(eventData || {}, nowIso);
+  const lastRun = normalizedEvents.lastRun || {};
+  const lastRunStartedAt = Date.parse(lastRun.startedAt || "");
+  const events = (normalizedEvents.events || [])
+    .filter((event) => {
+      if (Number.isNaN(lastRunStartedAt)) return true;
+      const eventTime = Date.parse(event.at || "");
+      return !Number.isNaN(eventTime) && eventTime >= lastRunStartedAt;
+    })
+    .slice(0, 40);
+  const eventRows = events.length
+    ? events
+        .map(
+          (event) => `        <article class="row event-row">
+          <div><div class="label">Time</div><div class="value">${escapeHtml(formatEventTime(event.at))}</div></div>
+          <div><div class="label">Source</div><div class="value">${escapeHtml(event.caseCode || event.title || "Source check")}</div><div class="muted">${escapeHtml(event.title || "")}</div></div>
+          <div><div class="label">Details</div><div class="value">${escapeHtml(event.summary || "")}</div></div>
+          <div><span class="event-level ${escapeAttr(event.level || "info")}">${escapeHtml(event.level || "info")}</span>${event.url ? `<p><a class="case-link" href="${escapeAttr(event.url)}" target="_blank" rel="noreferrer">Open source</a></p>` : ""}</div>
+        </article>`
+        )
+        .join("\n")
+    : `        <div class="event-empty">No source-change events have been recorded yet. The next scheduled run will create the first baseline.</div>`;
   const body = `${aiPanel}
       <section class="page-head">
         <div class="label">Publishing</div>
         <h2>Sunny Case Tracker Status</h2>
-        <p>This static site is built from the Sunny case dataset and deployed to Cloudflare Pages as <strong>sunnycasetracker.pages.dev</strong>.</p>
+        <p>This static site is built from the Sunny case dataset and deployed to Cloudflare Pages as <strong>sunnycasetracker.pages.dev</strong>. The Mumbai runner checks known public source pages and marks CAPTCHA-gated official forms for manual refresh.</p>
         <section class="stats-grid" aria-label="Publishing summary">
           <article class="stat-card"><div class="label">Cases</div><div class="stat-value">${cases.length}</div><p>Current tracked matters</p></article>
+          <article class="stat-card"><div class="label">Sources Checked</div><div class="stat-value">${escapeHtml(lastRun.checkedSources ?? 0)}</div><p>Last run: ${escapeHtml(formatEventTime(lastRun.completedAt))}</p></article>
+          <article class="stat-card"><div class="label">Changed</div><div class="stat-value">${escapeHtml(lastRun.changedSources ?? 0)}</div><p>Changed source fingerprints</p></article>
+          <article class="stat-card"><div class="label">Warnings</div><div class="stat-value">${escapeHtml(lastRun.failedSources ?? 0)}</div><p>Failed checks in the last run</p></article>
+          <article class="stat-card"><div class="label">CAPTCHA</div><div class="stat-value">${escapeHtml(lastRun.captchaSources ?? 0)}</div><p>Official forms requiring manual entry</p></article>
           <article class="stat-card"><div class="label">Documents</div><div class="stat-value">${totalDocuments(cases)}</div><p>Document/source rows</p></article>
           <article class="stat-card"><div class="label">Orders</div><div class="stat-value">${buildOrderRecords(cases).length}</div><p>Order/source rows</p></article>
         </section>
+      </section>
+      <section class="library" aria-label="Automation source events">
+        <div class="page-head">
+          <div class="label">Automation Checks</div>
+          <h2>Last Run Source Events</h2>
+          <p>${escapeHtml(normalizedEvents.captchaPolicy?.note || "")}</p>
+        </div>
+${eventRows}
       </section>`;
   return pageChrome({ title: "Sunny Case Tracker Status", active: "cases", updatedLabel, body });
 }
@@ -789,6 +869,7 @@ ${cases
 
 const source = readText(SOURCE_PATH);
 const cases = extractCases(source);
+const eventData = readJson(EVENT_DATA_PATH, {});
 const updatedLabel = formatUpdatedLabel(nowIso);
 const aiInsights = ENABLE_AI_INSIGHTS ? buildAiInsights(cases) : emptyAiInsights();
 const homepage = rewriteTrackerPage(source, aiInsights);
@@ -804,19 +885,8 @@ if (ENABLE_AI_INSIGHTS) {
 } else {
   writeText(AI_INSIGHTS_PATH, buildHiddenInsightsRedirect());
 }
-writeText(EVENT_LOG_PATH, buildEventLogPage(cases, aiInsights, updatedLabel));
-writeText(
-  EVENT_DATA_PATH,
-  JSON.stringify(
-    {
-      version: 1,
-      updatedAt: nowIso,
-      events: [],
-    },
-    null,
-    2
-  )
-);
+writeText(EVENT_LOG_PATH, buildEventLogPage(cases, aiInsights, updatedLabel, eventData));
+writeText(EVENT_DATA_PATH, JSON.stringify(normalizeEventDataForBuild(eventData, nowIso), null, 2));
 
 console.log(
   `Built Sunny site with ${cases.length} cases, ${totalDocuments(cases)} document rows, and ${buildOrderRecords(cases).length} order rows.`
