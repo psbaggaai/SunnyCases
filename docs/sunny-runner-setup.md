@@ -15,12 +15,13 @@ The AWS EventBridge schedules that already start the Mumbai EC2 runner for Bagga
 
 1. Runs on the `self-hosted`, `linux`, `x64`, `india` runner.
 2. Probes official Supreme Court of India pages for case status, AOR code, daily orders, judgments, office reports, and cause lists.
-3. Detects CAPTCHA-gated official forms and records them as manual-refresh targets.
-4. Fetches the known public source pages and direct PDF URLs already present in the Sunny case dataset.
-5. Fingerprints source content, extracts lightweight date/text hints where possible, and writes `automation-events.json`.
-6. Rebuilds the Sunny static site.
-7. Commits and pushes refresh output.
-8. Deploys the site to Cloudflare Pages project `sunnycasetracker`.
+3. Probes official Delhi High Court, Karnataka High Court/Bengaluru, Rajasthan High Court/Jodhpur, Madras High Court, ITAT case-status/order pages, eCourts High Court services, and Indian Kanoon exact-name search/source pages for Harpreet Singh Ajmani.
+4. Detects CAPTCHA-gated official forms and records them as manual-refresh targets.
+5. Fetches the known public source pages and direct PDF URLs already present in the Sunny case dataset.
+6. Fingerprints source content, extracts lightweight date/text hints where possible, and writes `automation-events.json`.
+7. Rebuilds the Sunny static site.
+8. Commits and pushes refresh output.
+9. Deploys the site to Cloudflare Pages project `sunnycasetracker`.
 
 ## CAPTCHA Policy
 

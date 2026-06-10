@@ -10,6 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_DIR = path.resolve(__dirname, "..");
 const ENV_PATH = path.join(REPO_DIR, ".env.local");
 const REQUIRED_ENV = ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"];
+const KEYCHAIN_SECRETS = {
+  CLOUDFLARE_API_TOKEN: "bagga-cloudflare-token",
+  CLOUDFLARE_ACCOUNT_ID: "bagga-cloudflare-account-id",
+};
 const PROJECT_NAME = "sunnycasetracker";
 const LIVE_URL = "https://sunnycasetracker.pages.dev";
 const SITE_FILES = [
@@ -34,6 +38,24 @@ function loadEnvFile(filePath) {
     const key = line.slice(0, idx).trim();
     const value = line.slice(idx + 1).trim();
     if (!process.env[key]) process.env[key] = value;
+  }
+}
+
+function readKeychainSecret(serviceName) {
+  if (process.platform !== "darwin") return "";
+  const result = spawnSync("security", ["find-generic-password", "-w", "-s", serviceName], {
+    encoding: "utf8",
+  });
+  if (result.status !== 0) return "";
+  return result.stdout.trim();
+}
+
+function loadKeychainSecrets() {
+  for (const [envName, serviceName] of Object.entries(KEYCHAIN_SECRETS)) {
+    if (!process.env[envName]) {
+      const value = readKeychainSecret(serviceName);
+      if (value) process.env[envName] = value;
+    }
   }
 }
 
@@ -92,6 +114,7 @@ function verifyLiveSite() {
 
 function main() {
   loadEnvFile(ENV_PATH);
+  loadKeychainSecrets();
   requireEnv();
   execFileSync("node", ["scripts/build-sunny-site.mjs"], { cwd: REPO_DIR, stdio: "inherit" });
   const artifactDir = createDeployArtifact();

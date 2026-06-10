@@ -383,7 +383,7 @@ function rewriteTrackerPage(source, aiInsights, options = {}) {
   html = html.replace(
     /footerNote:\s*'[^']*',/,
     `footerNote: ${JSON.stringify(
-      'This Sunny Case Tracker is a structured snapshot of public records found for AOR/Lawyer Harpreet Singh Ajmani from <a href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">sci.gov.in case status</a>, official SCI PDFs, <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a>, <a href="https://services.ecourts.gov.in/" target="_blank" rel="noreferrer">services.ecourts.gov.in</a>, and broader Google-indexed web records. CAPTCHA-gated broad searches were not bypassed, so source-only rows are labeled and should be manually refreshed before reliance.'
+      'This Sunny Case Tracker is a structured snapshot of public records found for AOR/Lawyer Harpreet Singh Ajmani from <a href="https://www.sci.gov.in/case-status-diary-no/" target="_blank" rel="noreferrer">sci.gov.in case status</a>, official SCI PDFs, official Delhi High Court and ITAT Delhi PDFs, <a href="https://mphc.gov.in/case-status" target="_blank" rel="noreferrer">mphc.gov.in/case-status</a>, <a href="https://services.ecourts.gov.in/" target="_blank" rel="noreferrer">services.ecourts.gov.in</a>, and broader Google-indexed High Court records including Karnataka/Bengaluru, Rajasthan/Jodhpur, and Madras results. CAPTCHA-gated broad searches were not bypassed, so source-only rows are labeled and should be manually refreshed before reliance.'
     )},`
   );
 
@@ -643,7 +643,7 @@ function buildDocumentsPage(cases, aiInsights, updatedLabel) {
         <section class="stats-grid" aria-label="Document summary">
           <article class="stat-card"><div class="label">Cases</div><div class="stat-value">${cases.length}</div><p>Tracked matters</p></article>
           <article class="stat-card"><div class="label">Rows</div><div class="stat-value">${rows.length}</div><p>Document/source records</p></article>
-          <article class="stat-card"><div class="label">Scope</div><div class="stat-value">SCI</div><p>Plus MPHC and eCourts sources where available</p></article>
+          <article class="stat-card"><div class="label">Scope</div><div class="stat-value">Multi-court</div><p>SCI, High Court, ITAT, MPHC, and eCourts sources where available</p></article>
         </section>
       </section>
       <section class="library">

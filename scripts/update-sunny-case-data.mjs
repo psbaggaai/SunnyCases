@@ -63,6 +63,66 @@ const OFFICIAL_SOURCE_PROBES = [
     url: "https://judgments.ecourts.gov.in/",
     kind: "official-ecourts-public-page",
   },
+  {
+    label: "Delhi High Court case status",
+    url: "https://delhihighcourt.nic.in/app/get-case-type-status",
+    kind: "official-delhi-high-court-status",
+  },
+  {
+    label: "Delhi High Court official portal",
+    url: "https://delhihighcourt.nic.in/web/",
+    kind: "official-delhi-high-court-public-page",
+  },
+  {
+    label: "Karnataka High Court case status",
+    url: "https://judiciary.karnataka.gov.in/casemenu.php",
+    kind: "official-karnataka-high-court-status",
+  },
+  {
+    label: "Karnataka High Court eCourts case number search",
+    url: "https://hcservices.ecourts.gov.in/ecourtindiaHC/cases/case_no.php?court_code=1&dist_cd=1&stateNm=Karnataka&state_cd=3",
+    kind: "official-karnataka-high-court-captcha-form",
+  },
+  {
+    label: "Rajasthan High Court Jodhpur case status",
+    url: "https://hcservices.ecourts.gov.in/ecourtindiaHC/index_highcourt.php?court_code=2&dist_cd=1&stateNm=Rajasthan&state_cd=9",
+    kind: "official-rajasthan-high-court-jodhpur-status",
+  },
+  {
+    label: "Rajasthan High Court Jodhpur case number search",
+    url: "https://hcservices.ecourts.gov.in/ecourtindiaHC/cases/case_no.php?court_code=2&dist_cd=1&stateNm=Rajasthan&state_cd=9",
+    kind: "official-rajasthan-high-court-jodhpur-captcha-form",
+  },
+  {
+    label: "Madras High Court case status",
+    url: "https://hcmadras.tn.gov.in/case_status_mas.php",
+    kind: "official-madras-high-court-status",
+  },
+  {
+    label: "Madras High Court eCourts case number search",
+    url: "https://hcservices.ecourts.gov.in/ecourtindiaHC/cases/case_no.php?court_code=1&dist_cd=1&stateNm=Madras&state_cd=10",
+    kind: "official-madras-high-court-captcha-form",
+  },
+  {
+    label: "Madras High Court judgments and daily orders",
+    url: "https://www.mhc.tn.gov.in/judis/",
+    kind: "official-madras-high-court-orders",
+  },
+  {
+    label: "ITAT case status",
+    url: "https://itat.gov.in/judicial/casestatus",
+    kind: "official-itat-case-status",
+  },
+  {
+    label: "ITAT tribunal orders",
+    url: "https://itat.gov.in/judicial/tribunalorders",
+    kind: "official-itat-tribunal-orders",
+  },
+  {
+    label: "Indian Kanoon exact-name search",
+    url: "https://indiankanoon.org/search/?formInput=%22Harpreet%20Singh%20Ajmani%22",
+    kind: "indian-kanoon-exact-name-search",
+  },
 ];
 
 const SIGNATURE_FIELDS = [
@@ -591,6 +651,7 @@ async function main() {
       officialProbeCount: OFFICIAL_SOURCE_PROBES.length,
       notes: [
         "Official SCI case-status, daily-order, judgment, and office-report forms are probed and marked when CAPTCHA is present.",
+        "Official Delhi High Court, Karnataka High Court/Bengaluru, Rajasthan High Court/Jodhpur, Madras High Court, ITAT, eCourts, and Indian Kanoon search/source pages are probed during each scheduled run.",
         "Direct public PDFs and known public source pages are fetched, fingerprinted, and lightly summarized for change detection.",
       ],
     },
