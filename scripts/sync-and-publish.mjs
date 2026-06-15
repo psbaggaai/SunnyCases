@@ -28,6 +28,7 @@ const SITE_FILES = [
   "orders.html",
   "event-log.html",
   "automation-events.json",
+  "_worker.js",
 ];
 const TRACKED_FILES = [
   ...SITE_FILES,
@@ -117,8 +118,8 @@ function createDeployArtifact() {
 
 function verifyLiveSite() {
   const headers = run("curl", ["-I", "--max-time", "30", "-sS", LIVE_URL]);
-  if (!/^HTTP\/[0-9.]+\s+200/m.test(headers)) {
-    throw new Error(`${LIVE_URL} did not return HTTP 200 after deployment.`);
+  if (!/^HTTP\/[0-9.]+\s+403/m.test(headers)) {
+    throw new Error(`${LIVE_URL} did not return HTTP 403 after privacy deployment.`);
   }
 }
 
@@ -162,4 +163,4 @@ try {
 }
 
 verifyLiveSite();
-console.log(`Sunny automation sync, push, deploy, and verification completed at ${LIVE_URL}`);
+console.log(`Sunny automation sync, push, privacy deployment, and verification completed at ${LIVE_URL}`);

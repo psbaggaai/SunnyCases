@@ -25,6 +25,7 @@ const SITE_FILES = [
   "orders.html",
   "event-log.html",
   "automation-events.json",
+  "_worker.js",
 ];
 
 function loadEnvFile(filePath) {
@@ -107,8 +108,8 @@ function createDeployArtifact() {
 
 function verifyLiveSite() {
   const headers = run("curl", ["-I", "--max-time", "30", "-sS", LIVE_URL]);
-  if (!/^HTTP\/[0-9.]+\s+200/m.test(headers)) {
-    throw new Error(`${LIVE_URL} did not return HTTP 200 after deployment.`);
+  if (!/^HTTP\/[0-9.]+\s+403/m.test(headers)) {
+    throw new Error(`${LIVE_URL} did not return HTTP 403 after privacy deployment.`);
   }
 }
 
@@ -130,7 +131,7 @@ function main() {
     fs.rmSync(artifactDir, { recursive: true, force: true });
   }
   verifyLiveSite();
-  console.log(`Sunny Case Tracker deployed and verified at ${LIVE_URL}`);
+  console.log(`Sunny Case Tracker privacy gate deployed and verified at ${LIVE_URL}`);
 }
 
 main();
